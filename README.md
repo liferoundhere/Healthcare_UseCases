@@ -6,13 +6,23 @@ The pack describes how a health system runs network, security, facilities, and A
 
 ## The explainer (`experience/`)
 
-**Open [`experience/healthcare-cloud-control.html`](experience/healthcare-cloud-control.html) in a browser.** It is one self-contained file: no server, no network.
+A web app for account teams. Run it:
 
-An isometric model of a health system (patient floor, emergency department, imaging, data center, central plant, network core, offices, pharmacy and lab, a clinic, a patient's home and the outside world) with Cisco Cloud Control and Cisco Data Fabric as layers above it. It plays an opening film, four operating lenses (network, security, clinical, workplace), three flagship stories and ten use cases, each as amber Today beats followed by blue Cloud Control beats with a human approval. A platform explorer and a combination builder sit beside the stories.
+```bash
+cd experience && npm install && npm run dev
+```
+
+It shows a health system (patient floor, emergency department, imaging, pharmacy and lab, network core, data center, offices, central plant, a clinic, a patient's home and the outside world) as a flat 2D plan or an isometric model, with Cisco Cloud Control and Cisco Data Fabric at its centre. It plays an opening film, four operating lenses, three flagship stories, ten infrastructure use cases and seven healthcare AI use cases, each as amber Today beats followed by blue Cloud Control beats with a human approval.
+
+It is also a working tool: account workspaces (Generic, NYU Langone Health, Memorial Sloan Kettering) with their own researched use cases kept separate, a rating and notes on every story, and an account plan you can export.
 
 ![The explainer](experience/docs/02-today-five-consoles.jpg)
 
-See [`experience/README.md`](experience/README.md) for controls and build steps, and [`experience/PRESENTER-GUIDE.md`](experience/PRESENTER-GUIDE.md) for a 20-minute run.
+See [`experience/README.md`](experience/README.md) for controls and build steps, and [`experience/PRESENTER-GUIDE.md`](experience/PRESENTER-GUIDE.md) for a 20-minute run. A single-file build for offline hand-off is at `experience/healthcare-cloud-control.html`.
+
+## The skill (`skills/`)
+
+[`skills/interactive-explainer.skill`](skills/interactive-explainer.skill) is an exportable skill that teaches Claude how to build this kind of explainer for another product or industry: the method, the research briefs, the story data model, the renderer, and a starter kit with the working code. The source is in `skills/interactive-explainer/`; `python3 skills/pack.py` refreshes the starter from `experience/` and re-packages it.
 
 Earlier iterations are kept for reference: `showcase/` (the first single-file 2D floor plans), `app/` (the 2D Canvas storyboard whose `scenes.ts` is still the narrative source of truth) and `stage/` (a paused 3D deck).
 
@@ -77,6 +87,9 @@ Underlying cited research lives in `research/`. Do not discard these; they hold 
 - `research/07-data-fabric-third-party-reach.md` (13 Nov 2026: architecture, federated targets, Splunkbase integrations, hospital data-source map, governance)
 - `research/08-cisco-healthcare-portfolio.md` (13 Nov 2026: Cisco healthcare positioning, product map for the ten use cases, 21 named customer stories)
 - `research/09-agentic-clinical-and-workplace-ops.md` (13 Nov 2026: evidence for the four operating lenses, infrastructure demands of agentic care, risks)
+- `research/10-account-nyu-langone.md` (13 Nov 2026: NYU Langone Health from public sources, four account use cases)
+- `research/11-account-memorial-sloan-kettering.md` (13 Nov 2026: Memorial Sloan Kettering from public sources, four account use cases)
+- `research/12-healthcare-ai-use-cases.md` (13 Nov 2026: evidence for seven healthcare AI use cases and what each demands from infrastructure)
 - `research/data/*.json` (machine-readable extracts the explainer is generated from)
 
 Briefs 06 and 07 correct brief 05 in places. Each has a section headed "Where this brief differs from Brief 05". The main ones: Machine Data Lake is now documented for AWS regions except GovCloud; "Agentic Actions for networking" is in Controlled Availability while the Actions view is shipped; Identity for AI Canvas is beta; Topology shows data center and compute relationships at Layer 1 and 2 only; AI model training on AI Canvas data is enabled by default per tenant; the phrase "commodity object storage cost" is now verified.
@@ -94,6 +107,7 @@ Sectional drafts used to assemble the master live in `docs/`.
 - "Reversible" in Cloud Control sources means rollback of **agent versions**, not automatic undo of network changes.
 - Human approval is required on any action that can touch clinical systems.
 - Do not show attacker procedures in any scene.
+- Account briefs (10 and 11) use public sources only. Every account use case is a hypothesis to validate. Do not state or imply what an account has bought; no public source names NYU Langone's or MSK's current network or security vendors.
 
 ## Rebuild
 

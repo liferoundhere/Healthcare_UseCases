@@ -86,7 +86,9 @@ export interface StepFx {
 
 export interface SceneDef {
   id: string;
-  group: "Flagship" | "Use case" | "Opening" | "Operating lens";
+  group: "Flagship" | "Use case" | "Opening" | "Operating lens" | "AI use case" | "Account";
+  /** For group "Account": the account workspace this story belongs to (see data/accounts.ts). */
+  account?: string;
   title: string;
   pillars: string;
   subtitle: string;

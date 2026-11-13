@@ -8,6 +8,20 @@ How to run the explainer in front of a healthcare customer. Twenty minutes is th
 - Pick the audience with **1** (Executive), **2** (IT director) or **3** (Engineering). The caption and every label change with it.
 - Press **N** once to see the presenter notes panel, then close it. It has the line for the other two audiences, the question to ask, and the caveat to say out loud.
 
+## Before an account meeting
+
+1. Choose the workspace in the top bar: Generic, NYU Langone or MSK. An account workspace adds a brief built from public sources and four use cases written for that account. They are hypotheses: say so, and let the customer correct them.
+2. Pick the view. The 2D plan keeps the whole hospital on screen and is the default. Press **V** for the isometric model if you want more atmosphere.
+3. Press **/** to find any story or platform block by name.
+
+## During the meeting: capture what they say
+
+On the closing beat of every story there is a question for the room. Under it, rate how much the problem hurts (1 to 5) and type what the customer said. It saves as you type, per account, in your browser.
+
+## After the meeting: the account plan
+
+Press **A**. The plan lists the rated stories in order, the building blocks they need (tick the ones the customer already has), how many are generally available, and suggested next steps. Copy it as Markdown into your notes, download it, or print it.
+
 ## A 20-minute run
 
 | Minutes | What to show | What to land |
@@ -38,6 +52,13 @@ How to run the explainer in front of a healthcare customer. Twenty minutes is th
 | "We are starting hospital at home" | `home` |
 | "The surveyors are coming" | `compliance`, `identity` |
 | "What about our offices and contact center?" | the `workops` lens |
+| "We are putting cameras and virtual nurses in every room" | `ai-vision` |
+| "Patients talk to an AI agent before they talk to us" | `ai-access` |
+| "We want to run models on our own GPUs" | `ai-factory` |
+| "Our sepsis alerts fire too often" | `ai-bedside` |
+| "Agents are getting access to the EHR" | `ai-agents` |
+| "Pathology is going digital" | `ai-pathology` |
+| "Nobody can tell me what AI costs us" | `ai-cost` |
 | "How is this different from another dashboard?" | The opening film beat 4, then the platform explorer |
 
 ## Say these out loud

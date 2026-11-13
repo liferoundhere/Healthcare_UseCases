@@ -1,14 +1,16 @@
-import { C, IX, IY, K, Pen, clamp, damp, rgba, type V3 } from "./iso";
+import { C, EX, EY, IX, IY, K, PLAN, Pen, clamp, damp, rgba, type V3 } from "./iso";
 import { CATALOG, type Item } from "../data/catalog";
 import { ZONES, RS } from "./rooms";
 import { drawTile } from "./pin";
 import type { IconKind } from "../story/icons";
 
 /** The operating layer: Cloud Control deck at the top, Data Fabric beneath it, both above and behind the hospital. */
-export const DECK: V3 = [-3, 6.6, -3];
-export const DECK_R = 6.4, ORBIT_R = 7.6;
-export const FAB: V3 = [-2.3, 4.3, -2.3];
-export const FAB_R = 8.6;
+/** In the plan view the deck sits on the Data Fabric disc over the central court, with every room around it. */
+export const DECK: V3 = PLAN ? [30, 0, 10] : [-3, 6.6, -3];
+export const DECK_R = PLAN ? 4.0 : 6.4, ORBIT_R = PLAN ? 5.3 : 7.6;
+export const FAB: V3 = PLAN ? [30, 0, 10] : [-2.3, 4.3, -2.3];
+export const FAB_R = PLAN ? 7.8 : 8.6;
+const PARTNER_R = PLAN ? 9.2 : FAB_R + 1.5;
 
 export interface PlatformView {
   mode: "hidden" | "scattered" | "ring";
@@ -44,20 +46,28 @@ export class Platform {
       const rnd = (s: number) => { const v = Math.sin((n + 1) * 127.1 + s * 311.7) * 43758.5453; return v - Math.floor(v); };
       // Today's consoles hang in a loose grid above the hospital, each tethered to the room it manages.
       const col = i % 5, row = Math.floor(i / 5), ssx = (col - 2) * 13.5 + (row % 2 ? 3.5 : -3), ssy = -15 + row * 5.6 + (col % 2) * 1.5, sum = 2 * (ssy + 8), dif = ssx / IX;
-      const scatter: V3 = [(sum + dif) / 2, 8, (sum - dif) / 2];
+      const scatter: V3 = PLAN ? [30 + (col - 2) * 7.6 + (row % 2 ? 1.8 : -1.6), 0, 10 + (row - 1) * 6.3 + (col % 2) * 1.0] : [(sum + dif) / 2, 8, (sum - dif) / 2];
       const el = mk(`chip l-${it.layer}`, `<b>${it.short}</b>`); el.dataset.id = it.id;
       const tz = ZONES.find((z) => z.id === it.zones?.[0]);
       this.items.set(it.id, { tether: tz ? [tz.x + RS / 2, (tz.y ?? 0) + 0.6, tz.z + RS / 2] : undefined, item: it, home, scatter, pos: [...home] as V3, el, vis: 0, tVis: 0, lit: 0, tLit: 0, phase: rnd(4) * 6.28, team: TEAM[n % TEAM.length], ang: a, sx: 0, sy: 0 });
       n++;
     });
     ring(by("domain"), DECK, ORBIT_R, -Math.PI * 0.75, Math.PI * 2, -0.4);
-    ring(by("experience"), DECK, 4.1, -Math.PI * 0.75, Math.PI * 2, 0.02);
-    const fb = by("fabric");
-    ring(fb, FAB, 6.9, -Math.PI * 0.32, Math.PI * 1.14, 0.05);
-    ring(by("ecosystem"), FAB, FAB_R + 1.5, Math.PI * 0.3, Math.PI * 0.78, 0);
-    ring(by("roadmap"), [DECK[0], DECK[1] + 7.6, DECK[2]], 4.6, 0, Math.PI * 2, 0);
-    // Announced items float in a row above the deck.
-    const rm = by("roadmap"); rm.forEach((it, i) => { const d = (i - (rm.length - 1) / 2) * 5.6, rt = this.items.get(it.id)!; rt.home = [DECK[0] + d / 2, DECK[1] + 7.6, DECK[2] - d / 2]; rt.ang = -Math.PI * 0.75; });
+    ring(by("experience"), DECK, PLAN ? 2.75 : 4.1, -Math.PI * 0.75, Math.PI * 2, 0.02);
+    const rm = by("roadmap");
+    if (PLAN) {
+      // Data Fabric items on the right arc, third-party systems on the left arc, announced items on the upper diagonals.
+      ring(by("fabric"), FAB, 6.6, -Math.PI * 0.42, Math.PI * 0.84, 0.05);
+      ring(by("ecosystem"), FAB, PARTNER_R, Math.PI * 0.6, Math.PI * 0.8, 0);
+      ring(rm, DECK, 9, 0, Math.PI * 2, 0);
+      rm.forEach((it, i) => { const rt = this.items.get(it.id)!; rt.ang = -Math.PI / 2; rt.home = [DECK[0] + (i - (rm.length - 1) / 2) * 3.4, 0, 0.9]; });
+    } else {
+      ring(by("fabric"), FAB, 6.9, -Math.PI * 0.32, Math.PI * 1.14, 0.05);
+      ring(by("ecosystem"), FAB, PARTNER_R, Math.PI * 0.3, Math.PI * 0.78, 0);
+      ring(rm, [DECK[0], DECK[1] + 7.6, DECK[2]], 4.6, 0, Math.PI * 2, 0);
+      // Announced items float in a row above the deck.
+      rm.forEach((it, i) => { const d = (i - (rm.length - 1) / 2) * 5.6, rt = this.items.get(it.id)!; rt.home = [DECK[0] + d / 2, DECK[1] + 7.6, DECK[2] - d / 2]; rt.ang = -Math.PI * 0.75; });
+    }
     for (let i = 0; i < 90; i++) this.seeds.push(Math.random());
   }
 
@@ -75,15 +85,20 @@ export class Platform {
   }
 
   deckPositions(n: number): V3[] {
-    const span = n <= 1 ? 0 : Math.min(12.4, (n - 1) * 4.2), out: V3[] = [];
+    const out: V3[] = [];
+    if (PLAN) { const span = n <= 1 ? 0 : Math.min(6.6, (n - 1) * 2.4); for (let i = 0; i < n; i++) out.push([DECK[0] + (n <= 1 ? 0 : -span / 2 + (span / (n - 1)) * i), 0.02, DECK[2] + (n > 2 ? (i % 2 ? -1.1 : 1.1) : 0.4)]); return out; }
+    const span = n <= 1 ? 0 : Math.min(12.4, (n - 1) * 4.2);
     for (let i = 0; i < n; i++) { const d = n <= 1 ? 0 : -span / 2 + (span / (n - 1)) * i, sum = DECK[0] + DECK[2] - 0.6 + (i % 2 ? -1.3 : 1.3) * (n > 2 ? 1 : 0); out.push([(sum + d) / 2, DECK[1] + 0.02, (sum - d) / 2]); }
     return out;
   }
   scatterPoints(): V3[] { return [...this.items.values()].filter((r) => r.item.layer === "domain").map((r) => r.scatter); }
+  ghostPoints(): V3[] { return [...this.items.values()].filter((r) => r.item.layer === "roadmap").map((r) => r.home); }
+  /** Points on the rim of the platform, for framing in either projection. */
   points(fabric = true): V3[] {
-    const e = (c: V3, R: number, up = 0): V3[] => [[c[0] + R, c[1], c[2] - R], [c[0] - R, c[1], c[2] + R], [c[0] - R, c[1] + up, c[2] - R], [c[0] + R, c[1], c[2] + R]];
-    const p = e(DECK, ORBIT_R * 0.74, 2.5);
-    if (fabric) p.push(...e(FAB, FAB_R * 0.78));
+    const p: V3[] = [];
+    const rim = (c: V3, R: number, up = 0) => { for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2; p.push([c[0] + Math.cos(a) * R, c[1] + (i === 0 ? up : 0), c[2] + Math.sin(a) * R]); } };
+    rim(DECK, ORBIT_R + 0.9, PLAN ? 0 : 2.5);
+    if (fabric) rim(FAB, PLAN ? PARTNER_R + 0.6 : FAB_R + 0.4);
     return p;
   }
 
@@ -92,22 +107,22 @@ export class Platform {
     for (const rt of this.items.values()) {
       rt.vis = damp(rt.vis, rt.tVis, 3.4 * K, dt); rt.lit = damp(rt.lit, rt.tLit, 5 * K, dt);
       const s = this.scat, bob = Math.sin(t * 0.8 + rt.phase) * (0.1 + s * 0.35);
-      rt.pos = [rt.home[0] + (rt.scatter[0] - rt.home[0]) * s, rt.home[1] + (rt.scatter[1] - rt.home[1]) * s + bob + rt.lit * 0.35 + (1 - Math.max(this.deck, s)) * 4, rt.home[2] + (rt.scatter[2] - rt.home[2]) * s];
+      rt.pos = [rt.home[0] + (rt.scatter[0] - rt.home[0]) * s, rt.home[1] + (rt.scatter[1] - rt.home[1]) * s + bob + rt.lit * 0.35 + (1 - Math.max(this.deck, s)) * 4, rt.home[2] + (rt.scatter[2] - rt.home[2]) * s + (PLAN ? bob * 0.5 : 0)];
     }
   }
 
   /** Text lying flat on a horizontal surface, reading left to right. */
   private flat(c: CanvasRenderingContext2D, txt: string, x: number, y: number, size: number, col: string) {
-    c.save(); c.translate(x, y); c.scale(1, 0.577); c.font = `700 ${size}px Inter, system-ui, sans-serif`; c.textAlign = "center"; c.textBaseline = "middle";
+    c.save(); c.translate(x, y); c.scale(1, PLAN ? 1 : 0.577); c.font = `700 ${size}px Inter, system-ui, sans-serif`; c.textAlign = "center"; c.textBaseline = "middle";
     try { (c as unknown as { letterSpacing: string }).letterSpacing = `${size * 0.2}px`; } catch { /* */ }
     c.fillStyle = col; c.fillText(txt, 0, 0); c.restore();
   }
-  private ellipse(pen: Pen, c: V3, R: number, dy = 0): [number, number, number, number] { const [x, y] = pen.P(c[0], c[1] + dy, c[2]); return [x, y, R * 1.2247 * pen.s, R * 0.7071 * pen.s]; }
+  private ellipse(pen: Pen, c: V3, R: number, dy = 0): [number, number, number, number] { const [x, y] = pen.P(c[0], c[1] + dy, c[2]); return [x, y, R * EX * pen.s, R * EY * pen.s]; }
 
   /** Everything that sits behind the hospital: light cone, fabric, deck. */
   drawBack(pen: Pen, t: number) {
     const c = pen.c, d = this.deck, f = this.fab;
-    if (d > 0.01) {
+    if (d > 0.01 && !PLAN) {
       // a quiet cone of light from the deck toward the hospital
       const [x, y, rx] = this.ellipse(pen, DECK, DECK_R), [bx, by] = pen.P(8, 0, 8);
       const g = c.createLinearGradient(0, y, 0, by); g.addColorStop(0, `rgba(0,188,235,${0.16 * d})`); g.addColorStop(1, "rgba(0,188,235,0)");
@@ -116,6 +131,7 @@ export class Platform {
     if (f > 0.01) {
       const [x, y, rx, ry] = this.ellipse(pen, FAB, FAB_R);
       c.save(); c.globalAlpha = f;
+      if (PLAN) { c.beginPath(); c.arc(x, y, rx + 0.5 * pen.s, 0, 7); c.fillStyle = "rgba(4,7,16,0.9)"; c.fill(); }
       c.beginPath(); c.ellipse(x, y + 0.5 * pen.s, rx, ry, 0, 0, 7); c.fillStyle = "rgba(4,7,16,0.55)"; c.fill();
       const g = c.createRadialGradient(x, y, rx * 0.1, x, y, rx); g.addColorStop(0, "rgba(64,52,150,0.55)"); g.addColorStop(1, "rgba(22,20,62,0.78)");
       c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, 7); c.fillStyle = g; c.fill();
@@ -140,7 +156,7 @@ export class Platform {
       c.restore();
     }
     if (d > 0.01) {
-      const lift = (1 - d) * 4; const [x, y0, rx, ry] = this.ellipse(pen, DECK, DECK_R, lift), y = y0, th = 0.55 * pen.s;
+      const lift = (1 - d) * 4; const [x, y0, rx, ry] = this.ellipse(pen, DECK, DECK_R, lift), y = y0, th = PLAN ? 0 : 0.55 * pen.s;
       c.save(); c.globalAlpha = d;
       // underside glow and body
       c.shadowColor = "rgba(0,188,235,0.55)"; c.shadowBlur = pen.s * 1.6;
@@ -156,7 +172,8 @@ export class Platform {
       for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2; c.beginPath(); c.moveTo(Math.cos(a) * rx * 0.64, Math.sin(a) * rx * 0.64); c.lineTo(Math.cos(a) * rx, Math.sin(a) * rx); c.strokeStyle = "rgba(90,216,255,0.12)"; c.stroke(); }
       c.setLineDash([rx * 0.016, rx * 0.034]); c.lineDashOffset = -t * 6; c.beginPath(); c.arc(0, 0, rx * 0.9, 0, 7); c.strokeStyle = "rgba(160,235,255,0.7)"; c.lineWidth = Math.max(1.5, rx * 0.014); c.stroke(); c.setLineDash([]);
       c.restore();
-      this.flat(c, "CISCO CLOUD CONTROL", x, y + ry * 0.74, rx * 0.078, "rgba(190,240,255,0.92)");
+      if (PLAN) { this.flat(c, "CISCO", x, y - rx * 0.1, rx * 0.085, "rgba(190,240,255,0.9)"); this.flat(c, "CLOUD CONTROL", x, y + rx * 0.08, rx * 0.085, "rgba(190,240,255,0.9)"); }
+      else this.flat(c, "CISCO CLOUD CONTROL", x, y + ry * 0.74, rx * 0.078, "rgba(190,240,255,0.92)");
       c.shadowColor = C.cyan; c.shadowBlur = pen.s * 0.9; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, 7); c.strokeStyle = "#7fe3ff"; c.lineWidth = Math.max(1.6, pen.s * 0.085); c.stroke();
       // orbit track
       c.shadowBlur = 0; const [ox, oy, orx, ory] = this.ellipse(pen, DECK, ORBIT_R, lift - 0.4);
@@ -199,7 +216,7 @@ export class Platform {
       const [ssx, ssy] = toScreen(rt.pos[0], rt.pos[1], rt.pos[2]); rt.sx = ssx; rt.sy = ssy;
       if (L === "domain") {
         const col = this.scat > 0.5 ? rt.team : C.cyan, R = 0.86 * pen.s * (1 + hot * 0.2), th = 0.3 * pen.s;
-        const hexp = (dy: number) => { c.beginPath(); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2 + Math.PI / 6; const px = x + (Math.cos(a) - Math.sin(a)) * IX * R, py = y + dy + (Math.cos(a) + Math.sin(a)) * IY * R; i ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath(); };
+        const hexp = (dy: number) => { c.beginPath(); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2 + Math.PI / 6; const px = x + (PLAN ? Math.cos(a) : (Math.cos(a) - Math.sin(a)) * IX) * R, py = y + dy + (PLAN ? Math.sin(a) : (Math.cos(a) + Math.sin(a)) * IY) * R; i ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath(); };
         c.shadowColor = rgba(col, 0.25 + hot * 0.7); c.shadowBlur = pen.s * (0.5 + hot * 1.2);
         hexp(th); c.fillStyle = "#06101f"; c.fill(); c.shadowBlur = 0;
         c.beginPath(); c.rect(x - R * 1.3, y, R * 2.6, th); c.save(); c.clip(); hexp(th * 0.5); c.fillStyle = "#0a1d36"; c.fill(); c.restore();
@@ -221,7 +238,7 @@ export class Platform {
         pen.box(X - 0.55, Z - 0.55, 1.1, 1.1, 0.26, hot > 0.5 ? "#ffffff" : "#d5dcea", Y);
         c.shadowBlur = 0; pen.poly([[X - 0.28, Y + 0.262, Z - 0.28], [X + 0.28, Y + 0.262, Z - 0.28], [X + 0.28, Y + 0.262, Z + 0.28], [X - 0.28, Y + 0.262, Z + 0.28]], "#2b3a5c");
       } else {
-        const R = 0.8 * pen.s; c.setLineDash([4, 4]); c.beginPath(); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2 + Math.PI / 6; const px = x + (Math.cos(a) - Math.sin(a)) * IX * R, py = y + (Math.cos(a) + Math.sin(a)) * IY * R; i ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath();
+        const R = 0.8 * pen.s; c.setLineDash([4, 4]); c.beginPath(); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2 + Math.PI / 6; const px = x + (PLAN ? Math.cos(a) : (Math.cos(a) - Math.sin(a)) * IX) * R, py = y + (PLAN ? Math.sin(a) : (Math.cos(a) + Math.sin(a)) * IY) * R; i ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath();
         c.fillStyle = `rgba(159,228,255,${0.06 + hot * 0.2})`; c.fill(); c.strokeStyle = "rgba(159,228,255,0.9)"; c.lineWidth = 1.2; c.stroke(); c.setLineDash([]);
       }
       c.restore();
@@ -243,7 +260,7 @@ export class Platform {
     if (col.length) { this.fabLbl.innerHTML = "<b>Inside the Data Fabric</b><i>machine data, powered by Splunk</i>"; place(this.fabLbl, this.fab > 0.5, colX, colY - 44, "0", "-50%"); }
     // Third-party systems are called out on the left.
     const colL = [...this.items.values()].filter((r) => r.item.layer === "ecosystem" && r.vis > 0.5 && v.labels === "all" && pen.s >= 13 && (!v.only || v.only.includes("ecosystem"))).sort((a, b) => a.sy - b.sy);
-    const colLX = fx - frx - 40, colLY = fy - ((colL.length - 1) / 2) * 24 + 26;
+    const colLX = PLAN ? fx - (PARTNER_R + 1.1) * pen.s - 14 : fx - frx - 40, colLY = fy - ((colL.length - 1) / 2) * 24 + 26;
     if (colL.length) { this.deckLbl.className = "plbl tp"; this.deckLbl.innerHTML = "<b>Third-party systems and data</b><i>connected, searched in place</i>"; place(this.deckLbl, this.fab > 0.5, colLX, colLY - 42, "-100%", "-50%"); }
     for (const rt of this.items.values()) {
       const L = rt.item.layer, hot = rt.tLit > 0 || this.hoverId === rt.item.id;
@@ -257,7 +274,7 @@ export class Platform {
       const on = rt.vis > 0.5 && (all || hot || (v.labels === "lit" && rt.tLit > 0));
       if (!on) { rt.el.classList.remove("show"); continue; }
       let x = rt.sx, y = rt.sy, ax = "-50%", ay = "-100%";
-      const cx = Math.cos(rt.ang) - Math.sin(rt.ang), cy = Math.cos(rt.ang) + Math.sin(rt.ang);
+      const cx = PLAN ? Math.cos(rt.ang) * 1.3 : Math.cos(rt.ang) - Math.sin(rt.ang), cy = PLAN ? Math.sin(rt.ang) * 1.3 : Math.cos(rt.ang) + Math.sin(rt.ang);
       const side = () => { ax = cx > 0.45 ? "0" : cx < -0.45 ? "-100%" : "-50%"; ay = cx > 0.45 || cx < -0.45 ? "-50%" : cy > 0 ? "10%" : "-110%"; if (ax === "0") x += 6; else if (ax === "-100%") x -= 6; };
       if (this.scat > 0.5) { y -= 1.1 * pen.s; }
       else if (L === "roadmap") { y -= 1.1 * pen.s; }

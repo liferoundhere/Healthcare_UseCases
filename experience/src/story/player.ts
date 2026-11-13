@@ -47,5 +47,6 @@ export function computeView(sc: SceneDef, st: Staging, idx: number): View {
     zones: fx.zones ?? [],
     seed: idx + sc.id.length,
     withPlatform: cisco && last && !fx.cam,
+    padRight: !fx.cam && (step.modal || step.chips || idx === sc.steps.length - 1) ? 0.25 : 0,
   };
 }

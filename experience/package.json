@@ -1,12 +1,13 @@
 {
   "name": "healthcare-cloud-control-3d",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "Interactive 3D explainer: hospital operations today versus with Cisco Cloud Control and Cisco Data Fabric.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && node tools/publish.mjs",
+    "build": "tsc --noEmit && vite build",
+    "build:single": "tsc --noEmit && vite build --mode single --outDir dist-single && node tools/publish.mjs",
     "preview": "vite preview",
     "check": "node tools/check.cjs",
     "shoot": "node tools/shoot.cjs"

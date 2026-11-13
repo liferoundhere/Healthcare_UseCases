@@ -1800,6 +1800,684 @@ export const SOURCES: Source[] = [
   "group": "Agentic clinical and workplace operations (brief 09)",
   "title": "Uptime Institute. \"Annual Outage Analysis 2025.\" May 6, 2025",
   "url": "https://www.businesswire.com/news/home/20250506733553/en/Uptime-Announces-Annual-Outage-Analysis-Report-2025"
+ },
+ {
+  "id": "NYU1",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Annual Report, Fiscal Year 2025: Management's Discussion and Analysis\" (FY2025-Q4 Annual Report, NYU Langone Hospitals Obligated Group, unaudited), issued November 2025",
+  "url": "https://nyulangone.org/files/2025-annual-report.pdf"
+ },
+ {
+  "id": "NYU2",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Quarterly Report, Fiscal Year 2026: Management's Discussion and Analysis\" (FY2026-Q3 Quarterly Report, nine months ended May 31, 2026, unaudited), issued July 2026",
+  "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+ },
+ {
+  "id": "NYU3",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Quarterly Report, Fiscal Year 2026\" (FY2026-Q1 Quarterly Report, three months ended November 30, 2025), issued January 2026",
+  "url": "https://nyulangone.org/files/2026-annual-report.pdf"
+ },
+ {
+  "id": "NYU4",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"NYU Langone Health Is Named No. 1 Health System for 5th Consecutive Year by Vizient\", press release, September 24, 2026",
+  "url": "https://nyulangone.org/news/nyu-langone-health-named-no-1-health-system-5th-consecutive-year-vizient"
+ },
+ {
+  "id": "NYU5",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health News, \"A Community Hospital Reimagined: NYU Langone Hospital—Suffolk Joins Our Top-Ranked Health System\", Spring 2025",
+  "url": "https://nyulangone.org/news/community-hospital-reimagined-nyu-langone-hospital-suffolk-joins-our-top-ranked-health-system"
+ },
+ {
+  "id": "NYU6",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Denise Civiletti, \"NYU Langone deepens Suffolk footprint with $650 million hospital expansion in E. Patchogue\", RiverheadLOCAL, August 31, 2026",
+  "url": "https://riverheadlocal.com/2026/08/31/nyu-langone-suffolk-patchogue-hospital-expansion/"
+ },
+ {
+  "id": "NYU7",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Jiang LY, ... Oermann EK, \"Health system-scale language models are all-purpose prediction engines\", Nature 619, 357–362, published June 7, 2023",
+  "url": "https://www.nature.com/articles/s41586-023-06160-y"
+ },
+ {
+  "id": "NYU8",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Small WR, ... Austrian JS, \"The First Generative AI Prompt-A-Thon in Healthcare: A Novel Approach to Workforce Engagement with a Private Instance of ChatGPT\", PLOS Digital Health 3(7):e0000394, July 23, 2024",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11265701"
+ },
+ {
+  "id": "NYU9",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Small WR, Wiesenfeld B, Brandfield-Harvey B, et al., \"Large Language Model–Based Responses to Patients' In-Basket Messages\", JAMA Network Open 2024;7(7):e2422399, July 16, 2024",
+  "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2821167"
+ },
+ {
+  "id": "NYU10",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Five Big Takeaways from NYU Langone's AI Symposium\", news article on the October 6, 2025 symposium (page date not captured)",
+  "url": "https://nyulangone.org/news/five-big-takeaways-nyu-langones-ai-symposium"
+ },
+ {
+  "id": "NYU11",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Nader Mherabi\" executive leadership page, read November 13, 2026",
+  "url": "https://nyulangone.org/our-story/our-leadership/executive-leadership/nader-mherabi"
+ },
+ {
+  "id": "NYU12",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Abridge, \"NYU Langone Selects Abridge to Advance Modern Healthcare Delivery\", vendor blog, September 3, 2025. VENDOR-REPORTED",
+  "url": "https://www.abridge.com/blog/nyu-selects-abridge"
+ },
+ {
+  "id": "NYU13",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"OpenEvidence and NYU Langone Health Partner to Bring Patient-Aware Intelligence to 12 Million Visits in New York City\", press release, October 29, 2026",
+  "url": "https://nyulangone.org/news/openevidence-and-nyu-langone-health-partner-bring-patient-aware-intelligence-12-million-visits-new-york-city"
+ },
+ {
+  "id": "NYU14",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "CBS News with The Associated Press, \"NYC hospital successfully evacuates 300 patients after Superstorm Sandy\", November 1, 2012",
+  "url": "https://www.cbsnews.com/news/nyc-hospital-successfully-evacuates-300-patients-after-superstorm-sandy/"
+ },
+ {
+  "id": "NYU15",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NBC New York (Associated Press), \"NYU Langone Medical Center Reopens 2 Months After Sandy\", December 27, 2012",
+  "url": "https://www.nbcnewyork.com/news/local/nyu-langone-medical-center-sandy-evacuated-patients-federal-aid-power/2095324/"
+ },
+ {
+  "id": "NYU16",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "TOP500, \"UltraViolet - NVIDIA DGX H100, Xeon Platinum 8480C 56C 3.8GHz, NVIDIA H100 80GB, Mellanox HDR Infiniband, Ubuntu 22.04\", system page, read November 13, 2026",
+  "url": "https://top500.org/system/180229"
+ },
+ {
+  "id": "NYU17",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Home Hospital Program of NYU Langone Hospital—Long Island Celebrates Its 1,000th Patient\", March 19, 2025",
+  "url": "https://nyulangone.org/news/home-hospital-program-nyu-langone-hospital-long-island-celebrates-its-1000th-patient"
+ },
+ {
+  "id": "NYU18",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "NYU Langone Health, \"Artificial Intelligence Reconstructs Missing Data from Rapid MRI Scans\", January 17, 2023",
+  "url": "https://nyulangone.org/news/artificial-intelligence-reconstructs-missing-data-rapid-mri-scans"
+ },
+ {
+  "id": "NYU19",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Jenny Gold, \"Post-Sandy, NYU Langone Has Reopened, But Can It Regain Market Share?\", KFF Health News, February 1, 2013",
+  "url": "https://kffhealthnews.org/health-industry/nyu-market-share-after-sandy/"
+ },
+ {
+  "id": "NYU20",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Erika Fry, \"How two friends turned NYU Langone into a $14 billion hospital powerhouse\", Fortune, August 15, 2025",
+  "url": "https://fortune.com/article/nyu-langone-hospital-robert-grossman-ken-langone-health-data"
+ },
+ {
+  "id": "NYU21",
+  "group": "NYU Langone Health, public sources (brief 10)",
+  "title": "Wylie Wong, \"Hospitals Look to Innovation to Inspire Design\", HealthTech Magazine, October 22, 2018",
+  "url": "https://healthtechmagazine.net/article/2018/10/hospitals-look-innovation-inspire-design"
+ },
+ {
+  "id": "MSK1",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Issues Statement on Fiscal Year 2025 Financial Results\", MSK, March 31, 2026",
+  "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-fiscal-year-2025-financial-results"
+ },
+ {
+  "id": "MSK2",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Building The Kenneth C. Griffin Pavilion at MSK\", MSK, updated March 2025",
+  "url": "https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk"
+ },
+ {
+  "id": "MSK3",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Appoints Shakeeb Akhter as Chief Digital Officer\", MSK, May 20, 2026",
+  "url": "https://www.mskcc.org/news-releases/mskcc-appoints-shakeeb-akhter-as-chief-digital-officer"
+ },
+ {
+  "id": "MSK4",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center and AWS to Accelerate AI-Driven Cancer Innovation\", MSK, February 17, 2025",
+  "url": "https://www.mskcc.org/news-releases/mskcc-and-aws-to-accelerate-ai-driven-cancer-innovation"
+ },
+ {
+  "id": "MSK5",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Statistical Profile\", 2024 MSK Annual Report, MSK, 2025 (PDF read directly)",
+  "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+ },
+ {
+  "id": "MSK6",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Selects Epic to Transform Electronic Health Record System\", MSK, November 21, 2022",
+  "url": "https://www.mskcc.org/news-releases/mskcc-selects-epic-transform-electronic-health-record-system"
+ },
+ {
+  "id": "MSK7",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Leading Global Cancer Center Expands Use of Abridge AI Platform for Oncology Clinical Documentation\", Abridge, March 5, 2025. VENDOR-REPORTED",
+  "url": "https://abridge.com/press-release/msk-abridge"
+ },
+ {
+  "id": "MSK8",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"AI creates new paths for faster cancer treatment discovery\" (customer case study), Dell Technologies, undated (PDF metadata December 2025; PDF read directly). VENDOR-REPORTED",
+  "url": "https://www.delltechnologies.com/asset/en-us/products/servers/customer-stories-case-studies/memorial-sloan-kettering-cancer-center-case-study.pdf"
+ },
+ {
+  "id": "MSK9",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"AI in cancer research: transforming breakthroughs\" (SC24 interview, sponsored by WEKA), SiliconANGLE, November 20, 2024",
+  "url": "https://siliconangle.com/2024/11/20/ai-in-cancer-research-transforming-breakthroughs-msk-sc24/"
+ },
+ {
+  "id": "MSK10",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Award: Cancer center\", Construction Dive, June 2, 2026",
+  "url": "https://www.constructiondive.com/news/memorial-sloan-kettering-cancer-center-construction-turner-consigli/821693/"
+ },
+ {
+  "id": "MSK11",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan-Kettering Cancer Center, New York: Fitch New Issue Report\" (summary of Fitch Ratings report dated April 11, 2025), Bond Case Briefs, April 15, 2025",
+  "url": "https://bondcasebriefs.com/2025/04/15/news/memorial-sloan-kettering-cancer-center-new-york-fitch-new-issue-report/"
+ },
+ {
+  "id": "MSK12",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Notice of Nuance MOVEit Incident\", MSK, September 19, 2023",
+  "url": "https://www.mskcc.org/news-releases/notice-of-nuance-moveit-incident"
+ },
+ {
+  "id": "MSK13",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"MSK Notice of Accellion Data Incident\", MSK, March 31, 2021",
+  "url": "https://www.mskcc.org/news-releases/msk-notice-accellion-data-incident"
+ },
+ {
+  "id": "MSK14",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "STAT News article on hospital cancellations during the Microsoft and CrowdStrike outage (headline not captured), STAT, July 19, 2024",
+  "url": "https://www.statnews.com/2024/07/19/microsoft-crowdstrike-outage-hospitals-cancellations/"
+ },
+ {
+  "id": "MSK15",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center (MSK) and OpenEvidence Partner to Advance Precision Oncology at the Point of Care\", MSK, September 16, 2026",
+  "url": "https://www.mskcc.org/news-releases/mskcc-msk-and-openevidence-partner-to-advance-precision-oncology-at-point-of-care"
+ },
+ {
+  "id": "MSK16",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "MSK news release announcing that the new cancer care pavilion will be named The Kenneth C. Griffin Pavilion at MSK (title paraphrased from the page address), MSK, March 14, 2025",
+  "url": "https://www.mskcc.org/news-releases/mskcc-announces-new-state-of-art-cancer-care-pavilion-will-be-named-kenneth-griffin-pavilion-at-msk-cancer-center"
+ },
+ {
+  "id": "MSK17",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Issues Statement on First Half 2026 Financial Results\", MSK, August 14, 2026",
+  "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-first-half-2026-financial-results"
+ },
+ {
+  "id": "MSK18",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Ranked Top Cancer Center in the Northeast and in New York Metropolitan Area, Second in Nation and First in Urology Care by U.S. News & World Report\", MSK, August 4, 2026",
+  "url": "https://www.mskcc.org/news-releases/mskcc-ranked-top-cancer-center-in-northeast-and-in-new-york-metropolitan-area-second-in-nation-and-first-in-urology-care-by-u-s-news-and-world-report"
+ },
+ {
+  "id": "MSK19",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"The Next Frontier of Precision Diagnostics in Cancer Care\", MSK, June 6, 2025",
+  "url": "https://www.mskcc.org/news/next-frontier-of-precision-diagnostics-in-cancer-care"
+ },
+ {
+  "id": "MSK20",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Locations\" (site menu listing 24 locations), MSK, accessed November 13, 2026",
+  "url": "https://www.mskcc.org/locations"
+ },
+ {
+  "id": "MSK21",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "Stetson PD, et al., \"Responsible Artificial Intelligence governance in oncology\", NPJ Digital Medicine 8:407, July 4, 2025",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12227680/"
+ },
+ {
+  "id": "MSK22",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Leading Cancer Center Transforms Care Through Better Coordination, Faster Results, and a More Connected Patient Experience\", Epic, undated. VENDOR-REPORTED",
+  "url": "https://www.epic.com/epic/post/leading-cancer-center-transforms-care-through-better-coordination-faster-results-and-a-more-connected-patient-experience/"
+ },
+ {
+  "id": "MSK23",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Employees Tricked by Phishing Email\", The HIPAA Journal, July 19, 2024",
+  "url": "https://www.hipaajournal.com/memorial-sloan-kettering-cancer-center-phishing-attack/"
+ },
+ {
+  "id": "MSK24",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Announces Updated Design for Kenneth C. Griffin Pavilion at MSK\", MSK, May 30, 2025",
+  "url": "https://www.mskcc.org/news-releases/msk-announces-updated-design-for-kenneth-griffin-pavilion-at-msk"
+ },
+ {
+  "id": "MSK25",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Tempus Announces the Acquisition of Paige\" (repost of Tempus press release of August 22, 2025), HLTH, August 25, 2025. VENDOR-REPORTED",
+  "url": "https://hlth.com/insights/news/tempus-announces-the-acquisition-of-paige-2025-08-25"
+ },
+ {
+  "id": "MSK26",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"History & Milestones\", MSK, accessed November 13, 2026",
+  "url": "https://www.mskcc.org/history-milestones"
+ },
+ {
+  "id": "MSK27",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"10 Gigabit Ethernet-Enabled Cisco Catalyst Switches Deployed by Memorial Sloan-Kettering Cancer Center throughout Campus Network\", Cisco, June 22, 2005. VENDOR-REPORTED",
+  "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2005/m06/10-gigabit-ethernet-enabled-cisco-catalyst-switches-deployed-by-memorial-sloan-kettering-cancer-center-throughout-campus-network.html"
+ },
+ {
+  "id": "MSK28",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Electronic Health Information Exchange\" (public notice), MSK, accessed November 13, 2026",
+  "url": "https://www.mskcc.org/public-notices/electronic-health-information-exchange"
+ },
+ {
+  "id": "MSK29",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"MSK Notice of Blackbaud Data Incident\", MSK, September 14, 2020",
+  "url": "https://www.mskcc.org/news-releases/msk-notice-blackbaud-data-incident"
+ },
+ {
+  "id": "MSK30",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"MSK Innovation Hub Partners with ALIGNMT AI for Responsible Oncology AI Governance\", HIT Consultant, October 1, 2025",
+  "url": "https://hitconsultant.net/2025/10/01/msk-innovation-hub-partners-with-alignmt-ai-for-responsible-oncology-ai-governance/"
+ },
+ {
+  "id": "MSK31",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Financial Summary\", 2025 MSK Annual Report, MSK, 2026 (PDF read directly)",
+  "url": "https://www.mskcc.org/document/2025-annual-report-financial-summary"
+ },
+ {
+  "id": "MSK32",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Tsvi Gal named head of infrastructure at MSK\", The Cancer Letter, May 8, 2020",
+  "url": "https://cancerletter.com/?p=12800"
+ },
+ {
+  "id": "MSK33",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "Ardon O, et al., \"Digital pathology operations at a tertiary cancer center: Infrastructure requirements and operational cost\", Journal of Pathology Informatics, 2023",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10550754"
+ },
+ {
+  "id": "MSK34",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "Daly B, et al., \"Association Between Remote Monitoring and Acute Care Visits in High-Risk Patients Initiating Intravenous Antineoplastic Therapy\", JCO Oncology Practice 18(12):e1935-e1942, October 20, 2022",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9750548"
+ },
+ {
+  "id": "MSK35",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Implementation Update for Data Management and Access Practices Under the Genomic Data Sharing Policy\", NOT-OD-24-157, National Institutes of Health, July 25, 2024 (effective January 25, 2025)",
+  "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-24-157.html"
+ },
+ {
+  "id": "MSK36",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering Cancer Center Issues Statement on Third Quarter 2025 Financial Results\", MSK, November 14, 2025",
+  "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-third-quarter-2025-financial-results"
+ },
+ {
+  "id": "MSK37",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "Schultz N (corresponding author), et al., \"Automated real-world data integration improves cancer outcome prediction\", Nature 636:728-736, published online November 6, 2024",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39506116/"
+ },
+ {
+  "id": "MSK38",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"NYC hospital pauses procedures using anesthesia due to global IT outage\", Becker's ASC Review, July 2024",
+  "url": "https://www.beckersasc.com/anesthesia/nyc-hospital-pauses-procedures-using-anesthesia-due-to-global-it-outage.html"
+ },
+ {
+  "id": "MSK39",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Epic launch contributes to Memorial Sloan Kettering's $113M shortfall\", Becker's Hospital Review, 2025",
+  "url": "https://www.beckershospitalreview.com/healthcare-information-technology/ehrs/epic-launch-contributes-to-memorial-sloan-ketterings-113m-shortfall"
+ },
+ {
+  "id": "MSK40",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "Virchow pathology foundation model paper (later published in Nature Medicine as \"A foundation model for clinical-grade computational pathology and rare cancers detection\"), arXiv 2309.07778, 2023",
+  "url": "https://arxiv.org/abs/2309.07778"
+ },
+ {
+  "id": "MSK41",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"HPC Computing\" and cluster documentation, MSK High Performance Computing Group, undated",
+  "url": "https://www.mskcc.org/research/ski/core-facilities/high-performance-computing-group/hpc-computing"
+ },
+ {
+  "id": "MSK42",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Paige.AI Lands $25 Million Series A Financing and 25 Million Slides from Memorial Sloan Kettering\", Tissuepathology.com, February 8, 2018",
+  "url": "https://tissuepathology.com/2018/02/08/paige-ai-lands-25-million-series-a-financing-and-25-million-slides-from-memorial-sloan-kettering/"
+ },
+ {
+  "id": "MSK43",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"32 health systems with strong finances\" (lists MSK at Fitch AA, stable), Becker's Hospital Review, April 2026",
+  "url": "https://www.beckershospitalreview.com/finance/32-health-systems-with-strong-finances/"
+ },
+ {
+  "id": "MSK44",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Tsvi Gal, CTO (Infrastructure), Memorial Sloan Kettering Cancer Center recognized at AI Networking Summit - New York\", Kalkine Media, 2024",
+  "url": "https://kalkinemedia.com/news/world-news/tsvi-gal-cto-infrastructure-memorial-sloan-kettering-cancer-center-recognized-at-ai-networking-summit-new-york"
+ },
+ {
+  "id": "MSK45",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"Memorial Sloan Kettering expands Abridge rollout\", Becker's Hospital Review, March 2025",
+  "url": "https://www.beckershospitalreview.com/ai/memorial-sloan-kettering-expands-abridge-rollout.html"
+ },
+ {
+  "id": "MSK46",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"VP, Epic Systems\" (job posting), MSK Careers, 2025",
+  "url": "https://careers.mskcc.org/vacancies/2025-85310-vp-epic-systems"
+ },
+ {
+  "id": "MSK47",
+  "group": "Memorial Sloan Kettering, public sources (brief 11)",
+  "title": "\"SOPHiA GENETICS Signs Strategic Collaboration MOU with Leading Global Cancer Center\", SOPHiA GENETICS, June 4, 2026",
+  "url": "https://ir.sophiagenetics.com/2026-06-04-SOPHiA-GENETICS-Signs-Strategic-Collaboration-MOU-with-Leading-Global-Cancer-Center"
+ },
+ {
+  "id": "AI1",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "HIT Consultant. \"MUSC Health expands SoundHound AI agent Emily to pharmacy.\" July 29, 2026",
+  "url": "https://hitconsultant.net/2026/07/29/musc-health-expands-soundhound-ai-agent-emily-pharmacy-epic/"
+ },
+ {
+  "id": "AI2",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "TechTarget (Anuja Vaidya). \"Epic clinical decision support tools show modest performance.\" Apr 8, 2026",
+  "url": "https://www.techtarget.com/searchhealthit/news/366641284/Epic-clinical-decision-support-tools-show-modest-performance"
+ },
+ {
+  "id": "AI3",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Qventus. \"Qventus Releases Second Annual CIO Report Revealing How Health Systems Are Closing the Gap Between AI Pilots and Payoff.\" Apr 9, 2026. VENDOR-REPORTED",
+  "url": "https://www.qventus.com/company/newsroom/qventus-releases-second-annual-cio-report-revealing-how-health-systems-are-closing-the-gap-between-ai-pilots-and-payoff/"
+ },
+ {
+  "id": "AI4",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Innolitics. \"AI/ML in Digital Pathology and the Software-as-an-IVD Paradigm: Snapshot.\" Apr 28, 2026",
+  "url": "https://innolitics.com/articles/ai-ml-in-digital-pathology-and-the-software-as-an-ivd-paradigm-snapshot/"
+ },
+ {
+  "id": "AI5",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Deloitte Center for Health Solutions. US Healthcare CFO Survey 2026 article on proving AI value. Aug 12, 2026",
+  "url": "https://www.deloitte.com/us/en/insights/industry/health-care/healthcare-cfos-proving-ai-value.html"
+ },
+ {
+  "id": "AI6",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "American Hospital Association, Center for Health Innovation Market Scan. \"UChicago Medicine to Implement Smart Hospital Platform.\" URL dated May 12, 2026",
+  "url": "https://www.aha.org/aha-center-health-innovation-market-scan/2026-05-12-uchicago-medicine-implement-smart-hospital-platform"
+ },
+ {
+  "id": "AI7",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Gervasi C, et al. \"Prevention of falls in hospitalized patients: evaluation of the effectiveness of a monitoring system (Verso Vision) developed with artificial intelligence.\" Frontiers in Digital Health, Apr 16, 2025",
+  "url": "https://www.frontiersin.org/articles/10.3389/fdgth.2025.1548209/full"
+ },
+ {
+  "id": "AI8",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Lee DS, et al. \"Evaluation of Artificial Intelligence-Assisted Video Monitoring for Inpatient Fall Prevention: A Retrospective Matched Cohort Study.\" Healthcare (Basel), Sept 14, 2026;14(18):2999",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42793538/"
+ },
+ {
+  "id": "AI9",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Kalafus L, et al. \"Implementation of a Continuous Video Monitoring Program to Decrease Inpatient Falls in a Long-Term Acute Care Hospital Setting.\" American Journal of Nursing, Dec 1, 2025;125(12):20-27",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41261482/"
+ },
+ {
+  "id": "AI10",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Khairat S, et al. \"Virtual nursing implementation and 30-day patient readmissions: a multi-site study.\" NPJ Digital Medicine, June 12, 2026;9(1):734",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42286161/"
+ },
+ {
+  "id": "AI11",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Khairat S, et al. \"Hospital and emergency department length of stay before and after virtual nursing implementation.\" International Journal of Medical Informatics, Nov 2, 2026;224:106791",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42976388/"
+ },
+ {
+  "id": "AI12",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "American Telemedicine Association, Center of Digital Excellence. \"What's Next: Scaling the Digital Hospital, Addressing Hardware and Connectivity Challenges.\" June 25, 2025",
+  "url": "https://www.americantelemed.org/resources/code-whats-next-scaling-the-digital-hospital-addressing-hardware-and-connectivity-challenges/"
+ },
+ {
+  "id": "AI13",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Caregility. \"Network security best practices for virtual care.\" Undated; page footer 2026. VENDOR-REPORTED",
+  "url": "https://caregility.com/blog/network-security-best-practices-for-virtual-care/"
+ },
+ {
+  "id": "AI14",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Artisight. \"The Smart Patient Room\" product page. Read Nov 13, 2026. VENDOR-REPORTED",
+  "url": "https://artisight.com/patient-room/"
+ },
+ {
+  "id": "AI15",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Business Wire. \"Artisight Now Runs Epic MyChart Bedside TV.\" Feb 17, 2026 (HTTP 403)",
+  "url": "https://www.businesswire.com/news/home/20260217518244/en/Artisight-Now-Runs-Epic-MyChart-Bedside-TV-Powering-a-Fully-Connected-Smart-Hospital-Experience"
+ },
+ {
+  "id": "AI16",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "WellSpan Health. \"WellSpan expands Hippocratic AI partnership to support clinical operations and improve patient experience.\" URL dated July 30, 2026. Self-reported",
+  "url": "https://www.wellspan.org/articles/2026/07/30/13/05/web---hippocractic-ai-partnership-expansion"
+ },
+ {
+  "id": "AI17",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Pindrop. Article on the AMA deepfake warning and healthcare identity security. May 12, 2026. VENDOR-REPORTED",
+  "url": "https://www.pindrop.com/article/ama-deepfake-warning-healthcare-identity-security/"
+ },
+ {
+  "id": "AI18",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Federal Communications Commission. \"FCC Makes AI-Generated Voices in Robocalls Illegal.\" Feb 8, 2024 (HTTP 403)",
+  "url": "https://www.fcc.gov/document/fcc-makes-ai-generated-voices-robocalls-illegal"
+ },
+ {
+  "id": "AI19",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Assort Health. \"Epic EHR integration for voice AI\" (vendor blog). VENDOR-REPORTED",
+  "url": "https://www.assorthealth.com/blog/epic-ehr-integration-voice-ai"
+ },
+ {
+  "id": "AI20",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "CustomerThink. \"PolyAI launches direct integration with Epic, with PDS Health among the first to deploy at scale.\" Aug 2026",
+  "url": "https://customerthink.com/?p=1083533"
+ },
+ {
+  "id": "AI21",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "American Hospital Association, Center for Health Innovation Market Scan. \"Mayo Clinic: New AI Computing Platform Will Advance Precision Medicine.\" URL dated Aug 12, 2025",
+  "url": "https://www.aha.org/aha-center-health-innovation-market-scan/2025-08-12-mayo-clinic-new-ai-computing-platform-will-advance-precision-medicine"
+ },
+ {
+  "id": "AI22",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Grünig A, et al. \"Implementation and User Evaluation of an On-Premise Large Language Model in a German University Hospital Setting: Cross-Sectional Survey.\" JMIR AI, Apr 15, 2026;5:e84362",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41984850/"
+ },
+ {
+  "id": "AI23",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Kim H, et al. \"A Bilingual On-Premises AI Agent for Clinical Drafting: Implementation Report of Seamless Electronic Health Records Integration in the Y-KNOT Project.\" JMIR Medical Informatics, Nov 24, 2025;13:e76848",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41284981/"
+ },
+ {
+  "id": "AI24",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "DistilINFO. \"Health System CIOs Tame AI Token Costs.\" Aug 12, 2026 (secondary summary of a Becker's Hospital Review report, which returned HTTP 403)",
+  "url": "https://distilinfo.com/2026/08/12/health-system-ai-token-costs/"
+ },
+ {
+  "id": "AI25",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Wong A, et al. \"Multicenter Prospective Validation of an Updated Proprietary Sepsis Prediction Model.\" JAMA Network Open, Feb 2, 2026;9(2):e260181",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41758510/"
+ },
+ {
+  "id": "AI26",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Currey D, Tarabichi Y. \"External validation of a widely available, localizable sepsis early detection model in the emergency department setting.\" American Journal of Emergency Medicine, Nov 2025;97:147-151",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40729785/"
+ },
+ {
+  "id": "AI27",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Patel H, et al. \"A Systematic Review and Meta-analysis of Externally Validated Epic Clinical Decision Support Tools.\" Journal of General Internal Medicine, Mar 31, 2026 (online ahead of print)",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41917292/"
+ },
+ {
+  "id": "AI28",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Tuttle M, et al. \"Patient Versus Prediction-Level Evaluation of a Dynamic Clinical Prediction Model of Sepsis.\" medRxiv preprint, May 27, 2026",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42245045/"
+ },
+ {
+  "id": "AI29",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Adams R, et al. \"Prospective, multi-site study of patient outcomes after implementation of the TREWS machine learning-based early warning system for sepsis.\" Nature Medicine, July 2022;28(7):1455-1460",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35864252/"
+ },
+ {
+  "id": "AI30",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "MedCity News. Article on Bayesian Health's FDA clearance for sepsis AI. May 27, 2026",
+  "url": "https://medcitynews.com/2026/05/bayesian-sepsis-ai/"
+ },
+ {
+  "id": "AI31",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Boussina A, et al. \"Impact of a deep learning sepsis prediction model on quality of care and survival.\" NPJ Digital Medicine, Jan 23, 2024;7(1):14",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38263386/"
+ },
+ {
+  "id": "AI32",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Jiang Y, et al. \"MedAgentBench: A Virtual EHR Environment to Benchmark Medical LLM Agents.\" NEJM AI, Sept 2025;2(9)",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42932685/"
+ },
+ {
+  "id": "AI33",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Chen E, et al. \"MedAgentBench v2: Improving Medical LLM Agent Design.\" Pacific Symposium on Biocomputing 2026;31:354-371",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41758153/"
+ },
+ {
+  "id": "AI34",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "DistilINFO. Article on AI agent oversight and healthcare CIOs. Sept 1, 2026 (secondary summary of a Becker's Hospital Review report, which returned HTTP 403)",
+  "url": "https://distilinfo.com/2026/09/01/ai-agent-oversight-healthcare-cios/"
+ },
+ {
+  "id": "AI35",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Health Sector Coordinating Council Cybersecurity Working Group. \"Health Sector Publishes Framework A.I. Cybersecurity Governance\" (Health Industry AI Cyber Governance Framework Implementation Guide). June 1, 2026",
+  "url": "https://healthsectorcouncil.org/health-sector-publishes-framework-a-i-cybersecurity-governance/"
+ },
+ {
+  "id": "AI36",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Goh CJ, et al. \"Cybersecurity of Large Language Models Across the Deployment Life Cycle in Health Systems.\" JMIR Medical Informatics, Oct 8, 2026;14:e101715",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/42849028/"
+ },
+ {
+  "id": "AI37",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Fierce Healthcare. \"Epic launches Connectors to link its AI tools with third-party apps.\" 2026 (HTTP 403)",
+  "url": "https://www.fiercehealthcare.com/ai-and-machine-learning/epic-launches-connectors-link-its-ai-tools-third-party-apps"
+ },
+ {
+  "id": "AI38",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Iwuajoku V, et al. \"An equivalency and efficiency study for one year digital pathology for clinical routine diagnostics in an accredited tertiary academic center.\" Virchows Archiv, July 2025;487(1):3-12",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12289765/"
+ },
+ {
+  "id": "AI39",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "CAP Today. \"Put It on the Board\" column on what 10 large US labs say about their digital pathology journeys. July 2025",
+  "url": "https://www.captodayonline.com/?p=85288"
+ },
+ {
+  "id": "AI40",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "CLP Magazine. Article on the Fujifilm and PRECIDX partnership to reduce digital pathology storage costs. Oct 1, 2025. VENDOR-REPORTED",
+  "url": "https://clpmag.com/diagnostic-technologies/digital-pathology/partnership-reduce-digital-pathology-storage-costs-85/"
+ },
+ {
+  "id": "AI41",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Bayçelebi D, et al. \"Implementation of Digital Pathology Workflow for Routine Primary Diagnosis in a Large Private Hospital Network.\" APMIS, Mar 2026;134(3):e70183",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41804214/"
+ },
+ {
+  "id": "AI42",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Clarke B, et al. \"Large scale implementation of DP for clinical diagnoses: experience, challenges, and lessons learned.\" Critical Reviews in Clinical Laboratory Sciences, Mar 2026;63(2):109-123",
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40905836/"
+ },
+ {
+  "id": "AI43",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "News-Medical. \"Leica Biosystems enables faster cancer diagnoses through multiple digital pathology FDA clearances.\" Aug 11, 2026. VENDOR-REPORTED",
+  "url": "https://www.news-medical.net/news/20260811/Leica-Biosystems-enables-faster-cancer-diagnoses-through-multiple-digital-pathology-FDA-clearances-including-industry-first-AI-assisted-quality-control-software.aspx"
+ },
+ {
+  "id": "AI44",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "DistilINFO. \"Mount Sinai's $50M AI Success.\" May 28, 2026 (secondary; no primary source linked)",
+  "url": "https://distilinfo.com/2026/05/28/mount-sinais-50m-ai-success/"
+ },
+ {
+  "id": "AI45",
+  "group": "Healthcare AI use cases (brief 12)",
+  "title": "Becker's Hospital Review. \"'Tokenomics': CIOs scramble to budget for Epic's AI cost model.\" 2026 (HTTP 403)",
+  "url": "https://www.beckershospitalreview.com/healthcare-information-technology/innovation/tokenomics-cios-scramble-to-budget-for-epics-ai-cost-model/"
  }
 ];
 export const SRC = new Map(SOURCES.map((s) => [s.id, s]));

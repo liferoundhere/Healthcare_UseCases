@@ -1,10 +1,11 @@
 // Automated checks for the built explainer.  node tools/check.cjs [--shots]
 // Walks every story and step, the platform explorer, the composer and the home page.
 const { chromium } = require("playwright");
+const { serve } = require("./serve.cjs");
 const path = require("path"), fs = require("fs");
 (async () => {
   const shots = process.argv.includes("--shots");
-  const file = "file://" + path.resolve(__dirname, "../dist/index.html");
+  const site = await serve(); const file = site.url;
   const out = path.resolve(__dirname, "../shots/all"); if (shots) fs.mkdirSync(out, { recursive: true });
   const b = await chromium.launch();
   const sizes = shots ? [[1600, 900]] : [[1600, 900], [1280, 720], [1920, 1080]];
@@ -13,7 +14,7 @@ const path = require("path"), fs = require("fs");
     const p = await b.newPage({ viewport: { width: w, height: h } });
     p.on("console", (m) => { if (m.type() === "error") problems.push(`[console ${w}x${h}] ${m.text()}`); });
     p.on("pageerror", (e) => problems.push(`[pageerror ${w}x${h}] ${e.message}`));
-    await p.goto(file + "?shot=1#/"); await p.waitForTimeout(500);
+    await p.goto(file + "?" + (process.env.Q ? process.env.Q + "&" : "") + "shot=1#/"); await p.waitForTimeout(500);
     const meta = await p.evaluate(() => {
       const a = window.__app, ids = new Set(a.CATALOG.map((i) => i.id)), out = [];
       for (const sc of a.ALL) {
@@ -71,7 +72,7 @@ const path = require("path"), fs = require("fs");
       if (await p.evaluate(() => document.querySelector("#detail").classList.contains("hidden"))) problems.push("interaction: platform detail card did not open");
       await p.evaluate(() => window.__app.openStory("opening", 0)); await p.waitForTimeout(250);
       const s0 = await p.evaluate(() => window.__app.stage.tcam.s);
-      const room = await p.evaluate(() => window.__app.stage.toScreen(5, 0, 28)); await p.mouse.click(room[0], room[1]); await p.waitForTimeout(250);
+      const room = await p.evaluate(() => { const z = window.__app.world.campus.zones.get("ward"); return window.__app.stage.toScreen(z.x + 2, 0, z.z + 7.5); }); await p.mouse.click(room[0], room[1]); await p.waitForTimeout(250);
       const s1 = await p.evaluate(() => window.__app.stage.tcam.s); if (!(s1 > s0 * 1.3)) problems.push(`interaction: clicking a room did not zoom in (${s0.toFixed(1)} -> ${s1.toFixed(1)})`);
       await p.mouse.move(800, 300); await p.mouse.wheel(0, -400); await p.waitForTimeout(100);
       if (!((await p.evaluate(() => window.__app.stage.user.zoom)) > 1.2)) problems.push("interaction: wheel did not zoom");
@@ -80,7 +81,7 @@ const path = require("path"), fs = require("fs");
     for (const k of ["s", "Escape", "?", "Escape", "c", "p", "Escape"]) { await p.keyboard.press(k); await p.waitForTimeout(120); }
     await p.close();
   }
-  await b.close();
+  await b.close(); site.close();
   console.log(`${steps} story steps checked across ${sizes.length} viewport(s).`);
   if (problems.length) { console.log(`${problems.length} problem(s):`); for (const x of problems) console.log(" -", x); process.exitCode = 1; } else console.log("No problems found.");
 })();

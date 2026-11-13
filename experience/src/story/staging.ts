@@ -1,5 +1,7 @@
 import { SCENES } from "./scenes";
 import { EXTRA } from "./extra";
+import { AI_SCENES, AI_STAGING } from "./ai";
+import { ACCOUNT_SCENES, ACCOUNT_STAGING } from "./accounts";
 import type { SceneDef } from "./types";
 
 /** Where each story node stands in the 3D hospital, which building blocks it uses, and the presenter's closing question. */
@@ -142,12 +144,15 @@ export const STAGING: Record<string, Staging> = {
   },
 };
 
-export const ALL: SceneDef[] = [...EXTRA, ...SCENES];
+Object.assign(STAGING, AI_STAGING, ACCOUNT_STAGING);
+
+/** Order: opening, lenses, flagships, use cases, AI use cases, then account stories (shown only in their workspace). */
+export const ALL: SceneDef[] = [...EXTRA, ...SCENES, ...AI_SCENES, ...ACCOUNT_SCENES];
 export const sceneById = (id: string) => ALL.find((s) => s.id === id);
 
 /** Display number inside its group, e.g. "UC 4". */
 export function code(sc: SceneDef): string {
   const same = ALL.filter((s) => s.group === sc.group);
   const i = same.indexOf(sc) + 1;
-  return sc.group === "Use case" ? `Use case ${i}` : sc.group === "Flagship" ? `Flagship ${i}` : sc.group === "Operating lens" ? `Lens ${i}` : "Opening";
+  return sc.group === "Use case" ? `Use case ${i}` : sc.group === "Flagship" ? `Flagship ${i}` : sc.group === "Operating lens" ? `Lens ${i}` : sc.group === "AI use case" ? `AI ${i}` : sc.group === "Account" ? `Account ${ALL.filter((s) => s.group === "Account" && s.account === sc.account).indexOf(sc) + 1}` : "Opening";
 }

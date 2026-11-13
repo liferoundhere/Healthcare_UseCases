@@ -1,4 +1,4 @@
-import { C, Pen, rgba, tone, mul, type V3 } from "./iso";
+import { C, EX, EY, PLAN, Pen, rgba, tone, mul, type V3 } from "./iso";
 
 /**
  * The hospital as a porcelain model: eight rooms on the main campus around the network core,
@@ -8,8 +8,23 @@ export interface ZoneSpec { id: string; label: string; x: number; z: number; y?:
 export const RS = 9, WALL = 2.15;
 /** Distance between room origins: a 9-unit room plus a lane wide enough that a front room never hides the one behind. */
 export const G = 11.6;
-const E = 2 * G + RS; // far edge of the campus
-export const ZONES: ZoneSpec[] = [
+/** Far edge of the campus. The plan view is a wide band: clinical rooms on the left, infrastructure on the right, a court in the middle. */
+const E = PLAN ? 60 : 2 * G + RS, EZ = PLAN ? 20 : E;
+export const HUB: V3 = PLAN ? [30, 0, 10] : [G + RS / 2, 0, G + RS / 2];
+export const EXT: V3 = [E, 0, EZ];
+export const ZONES: ZoneSpec[] = PLAN ? [
+  { id: "ward", label: "Patient floor · 4 West", x: 0, z: 0, kind: "campus" },
+  { id: "imaging", label: "Imaging", x: 11, z: 0, kind: "campus" },
+  { id: "ed", label: "Emergency department", x: 0, z: 11, kind: "campus" },
+  { id: "pharmlab", label: "Pharmacy & lab", x: 11, z: 11, kind: "campus" },
+  { id: "net", label: "Network core", x: 40, z: 0, kind: "campus" },
+  { id: "dc", label: "Data center", x: 51, z: 0, kind: "campus" },
+  { id: "office", label: "IT, security & admin", x: 40, z: 11, kind: "campus" },
+  { id: "plant", label: "Central plant", x: 51, z: 11, kind: "campus" },
+  { id: "clinic", label: "Clinic · 40 miles out", x: 65, z: 0, kind: "remote" },
+  { id: "home", label: "Patient's home", x: 65, z: 11, kind: "remote" },
+  { id: "outside", label: "Internet & vendors", x: -15, z: 5.5, kind: "sky" },
+] : [
   { id: "plant", label: "Central plant", x: 0, z: 0, kind: "campus" },
   { id: "dc", label: "Data center", x: G, z: 0, kind: "campus" },
   { id: "imaging", label: "Imaging", x: 0, z: G, kind: "campus" },
@@ -32,6 +47,13 @@ const lw = (r: Pen, k = 0.02) => Math.max(0.6, r.s * k);
 function person({ r, q }: Ctx, x: number, z: number, shirt: string, skin = C.skin1, hair = "#2a2233") {
   q(x + z, () => {
     const c = r.c, [fx, fy] = r.P(x, 0, z), u = r.s;
+    if (PLAN) { // seen from above: shoulders and a head
+      c.fillStyle = "rgba(24,38,74,0.22)"; c.beginPath(); c.ellipse(fx + 0.07 * u, fy + 0.08 * u, 0.33 * u, 0.2 * u, 0, 0, 7); c.fill();
+      const sg = c.createLinearGradient(fx - 0.3 * u, 0, fx + 0.3 * u, 0); sg.addColorStop(0, mul(shirt, 1.1)); sg.addColorStop(1, mul(shirt, 0.84));
+      c.beginPath(); c.ellipse(fx, fy, 0.31 * u, 0.18 * u, 0, 0, 7); c.fillStyle = sg; c.fill(); c.strokeStyle = "rgba(20,30,60,0.35)"; c.lineWidth = Math.max(0.5, u * 0.015); c.stroke();
+      c.beginPath(); c.arc(fx, fy, 0.15 * u, 0, 7); c.fillStyle = skin; c.fill(); c.beginPath(); c.arc(fx, fy, 0.15 * u, Math.PI * 1.05, Math.PI * 1.95); c.lineTo(fx, fy - 0.02 * u); c.fillStyle = hair; c.fill();
+      return;
+    }
     c.fillStyle = "rgba(24,38,74,0.2)"; c.beginPath(); c.ellipse(fx + 0.06 * u, fy, 0.3 * u, 0.15 * u, 0, 0, 7); c.fill();
     const rrect = (X: number, Y: number, W: number, H: number, R: number, f: string | CanvasGradient) => { c.beginPath(); c.roundRect(X, Y, W, H, R); c.fillStyle = f; c.fill(); };
     rrect(fx - 0.14 * u, fy - 0.52 * u, 0.28 * u, 0.52 * u, 0.08 * u, "#243150");
@@ -143,7 +165,7 @@ function screenWall({ r }: Ctx, plane: "z" | "x", a0: number, a1: number, y0: nu
 
 // ---------------------------------------------------------------- shell
 function shell(r: Pen, o: { floor?: string; wall?: string; grid?: string; tile?: number; slab?: string } = {}) {
-  const floor = o.floor ?? C.porc, wall = tone(o.wall ?? C.wall);
+  const floor = o.floor ?? C.porc, wall = tone(PLAN ? "#7c8bab" : o.wall ?? C.wall);
   r.box(0, 0, RS, RS, 0.4, tone(o.slab ?? "#c3ccdc"), -0.4, { top: floor });
   const step = o.tile ?? 1, gc = o.grid ?? "rgba(110,132,176,0.16)";
   for (let i = step; i < RS; i += step) { r.line([[i, 0.003, 0.3], [i, 0.003, RS]], gc, lw(r, 0.012)); r.line([[0.3, 0.003, i], [RS, 0.003, i]], gc, lw(r, 0.012)); }
@@ -326,7 +348,7 @@ const ROOMS: Record<string, (k: Ctx) => void> = {
 
 // ---------------------------------------------------------------- outside world (a floating island of clouds and vendor buildings)
 function outside(r: Pen, t: number) {
-  const c = r.c, [cx, cy] = r.P(4.5, 0, 4.5), rx = 6.4 * 1.2247 * r.s, ry = 6.4 * 0.7071 * r.s;
+  const c = r.c, [cx, cy] = r.P(4.5, 0, 4.5), rx = 6.4 * EX * r.s, ry = 6.4 * EY * r.s;
   c.save(); c.shadowColor = "rgba(0,188,235,0.35)"; c.shadowBlur = r.s * 1.4;
   const g = c.createRadialGradient(cx, cy - ry * 0.3, rx * 0.1, cx, cy, rx); g.addColorStop(0, "#1a2c50"); g.addColorStop(1, "#0d1830");
   c.beginPath(); c.ellipse(cx, cy + 0.5 * r.s, rx, ry, 0, 0, 7); c.fillStyle = "#070d1c"; c.fill(); c.restore();
@@ -340,7 +362,15 @@ function outside(r: Pen, t: number) {
 }
 
 // ---------------------------------------------------------------- campus
-const LAYOUT: Record<number, [number, number][]> = {
+/** Where story pins stand inside a room. Isometric rows run along the anti-diagonal (difference, sum); plan rows are plain (x, z). */
+const LAYOUT: Record<number, [number, number][]> = PLAN ? {
+  1: [[4.5, 5.6]],
+  2: [[2.5, 5.6], [6.5, 5.6]],
+  3: [[1.7, 6.0], [4.5, 5.0], [7.3, 6.0]],
+  4: [[2.5, 3.6], [6.5, 3.6], [2.5, 7.6], [6.5, 7.6]],
+  5: [[2.5, 3.5], [6.5, 3.5], [1.5, 7.6], [4.5, 8.0], [7.5, 7.6]],
+  6: [[1.5, 3.6], [4.5, 3.2], [7.5, 3.6], [1.5, 7.6], [4.5, 8.0], [7.5, 7.6]],
+} : {
   1: [[0, 10.4]],
   2: [[-3.4, 10.4], [3.4, 10.4]],
   3: [[-5.4, 10.8], [0, 9.2], [5.4, 10.8]],
@@ -361,7 +391,7 @@ export class Campus {
   list() { return [...this.zones.values()].sort((a, b) => a.order - b.order); }
   positions(id: string, n: number): V3[] {
     const z = this.zones.get(id) ?? this.zones.get("office")!;
-    return LAYOUT[clampN(n)].slice(0, n).concat(n > 6 ? LAYOUT[6] : []).slice(0, n).map(([d, sum]) => [z.x + (sum + d) / 2, z.y + 0.02, z.z + (sum - d) / 2] as V3);
+    return LAYOUT[clampN(n)].slice(0, n).concat(n > 6 ? LAYOUT[6] : []).slice(0, n).map(([d, sum]) => (PLAN ? [z.x + d, z.y + 0.02, z.z + sum] : [z.x + (sum + d) / 2, z.y + 0.02, z.z + (sum - d) / 2]) as V3);
   }
   corners(id: string): V3[] {
     const z = this.zones.get(id)!; return [[z.x, z.y + WALL + 0.4, z.z], [z.x + RS, z.y, z.z], [z.x, z.y, z.z + RS], [z.x + RS, z.y - 0.4, z.z + RS]];
@@ -371,7 +401,7 @@ export class Campus {
   hit(px: number, py: number, pen: Pen): string {
     for (const z of this.list().reverse()) {
       const [ox, oy] = pen.P(z.x, z.y, z.z); const sx = (px - ox) / pen.s, sy = (py - oy) / pen.s;
-      const a = sx / (2 * 0.8660254) + sy, b = sy - sx / (2 * 0.8660254);
+      const a = PLAN ? sx : sx / (2 * 0.8660254) + sy, b = PLAN ? sy : sy - sx / (2 * 0.8660254);
       if (a >= 0 && a <= RS && b >= 0 && b <= RS) return z.id;
     }
     return "";
@@ -387,12 +417,16 @@ export class Campus {
       pen.poly([[x, -0.42, z], [x + w, -0.42, z], [x + w, -0.42, z + d], [x, -0.42, z + d]], null, "rgba(120,160,235,0.3)", Math.max(1, pen.s * 0.03));
     };
     const glow = `rgba(${Math.round(20 + this.mood * -10)},${Math.round(70 + this.mood * 60)},${Math.round(150 + this.mood * 60)},${0.3 + this.mood * 0.12})`;
-    slab(-1.3, -1.3, E + 2.6, E + 2.6, glow);
-    slab(E + 3.3, -19.3, 11.6, 23.4, glow);
-    // lanes: fibre from the network core to every room, lit when Cloud Control is on
-    const m = G + RS / 2, n0 = RS / 2, n2 = 2 * G + RS / 2, e0 = G - 0.4, e1 = G + RS + 0.4;
-    const lanes: V3[][] = [[[m, -0.4, e0], [m, -0.4, n0 + 4.5]], [[e0, -0.4, m], [n0 + 4.5, -0.4, m]], [[e1, -0.4, m], [n2 - 4.5, -0.4, m]], [[m, -0.4, e1], [m, -0.4, n2 - 4.5]],
-      [[e0, -0.4, e0], [RS + 0.2, -0.4, RS + 0.2]], [[e1, -0.4, e0], [2 * G - 0.2, -0.4, RS + 0.2]], [[e0, -0.4, e1], [RS + 0.2, -0.4, 2 * G - 0.2]], [[e1, -0.4, e1], [2 * G - 0.2, -0.4, 2 * G - 0.2]]];
+    slab(-1.3, -1.3, E + 2.6, EZ + 2.6, glow);
+    if (PLAN) slab(63.7, -1.3, 11.6, 22.6, glow); else slab(E + 3.3, -19.3, 11.6, 23.4, glow);
+    // lanes: fibre between every room and the hub, lit when Cloud Control is on
+    const lanes: V3[][] = [];
+    for (const z of this.zones.values()) {
+      if (z.kind !== "campus") continue;
+      const cx = z.x + RS / 2, cz = z.z + RS / 2, dx = HUB[0] - cx, dz = HUB[2] - cz, d = Math.hypot(dx, dz); if (d < 1) continue;
+      const m = Math.max(Math.abs(dx), Math.abs(dz)), t0 = (RS / 2 + 0.5) / m, t1 = 1 - (PLAN ? 8.4 : RS / 2 + 0.5) / (PLAN ? d : m);
+      if (t1 > t0) lanes.push([[cx + dx * t0, -0.4, cz + dz * t0], [cx + dx * t1, -0.4, cz + dz * t1]]);
+    }
     for (const [i, l] of lanes.entries()) {
       pen.line(l, `rgba(${this.mood > 0.5 ? "0,188,235" : "120,150,210"},${0.16 + this.mood * 0.3})`, Math.max(1, pen.s * 0.05));
       const f = (t * 0.35 + i * 0.13) % 1, a = l[0], b = l[1];
@@ -400,8 +434,8 @@ export class Campus {
       c.beginPath(); c.arc(x, y, Math.max(1.2, pen.s * 0.07), 0, 7); c.fillStyle = `rgba(${this.mood > 0.5 ? "140,230,255" : "190,205,240"},${0.5 + this.mood * 0.4})`; c.fill();
     }
     // the road to remote care
-    pen.line([[E + 1.3, -1.2, 8], [E + 3.3, -1.2, 3]], "rgba(120,150,210,0.4)", Math.max(1, pen.s * 0.05), [pen.s * 0.3, pen.s * 0.3]);
-    this.plaza(pen.at(2 * G, 2 * G, -0.42), t);
+    pen.line(PLAN ? [[E + 1.3, -1.2, 10], [63.7, -1.2, 10]] : [[E + 1.3, -1.2, 8], [E + 3.3, -1.2, 3]], "rgba(120,150,210,0.4)", Math.max(1, pen.s * 0.05), [pen.s * 0.3, pen.s * 0.3]);
+    this.plaza(PLAN ? pen.at(25.5, 5.5, -0.42) : pen.at(2 * G, 2 * G, -0.42), t);
   }
 
   private plaza(r: Pen, t: number) {
@@ -440,23 +474,28 @@ export class Campus {
         const k = pen.s / (z.bakeS / dpr) / dpr, bw = z.bake!.width * k, bh = z.bake!.height * k;
         const dimA = (1 - Math.max(z.act, z.hover)) * this.quiet;
         // a soft shadow grounds the room on the plinth
-        pen.poly([[z.x + 0.5, z.y - 0.41, z.z + RS + 0.45], [z.x + RS + 0.5, z.y - 0.41, z.z + RS + 0.45], [z.x + RS + 0.5, z.y - 0.41, z.z + 0.2], [z.x + RS, z.y - 0.41, z.z], [z.x, z.y - 0.41, z.z + RS]], "rgba(2,5,12,0.5)");
+        if (PLAN) pen.poly([[z.x + 0.3, 0, z.z + 0.4], [z.x + RS + 0.4, 0, z.z + 0.4], [z.x + RS + 0.4, 0, z.z + RS + 0.5], [z.x + 0.3, 0, z.z + RS + 0.5]], "rgba(2,5,12,0.55)");
+        else pen.poly([[z.x + 0.5, z.y - 0.41, z.z + RS + 0.45], [z.x + RS + 0.5, z.y - 0.41, z.z + RS + 0.45], [z.x + RS + 0.5, z.y - 0.41, z.z + 0.2], [z.x + RS, z.y - 0.41, z.z], [z.x, z.y - 0.41, z.z + RS]], "rgba(2,5,12,0.5)");
         c.imageSmoothingQuality = "high";
-        c.globalAlpha = 1 - dimA * 0.62;
-        c.drawImage(z.bake!, ox - (RS * 0.8660254 + 0.8) * pen.s, oy - 3.4 * pen.s, bw, bh);
+        c.globalAlpha = 1 - dimA * (PLAN ? 0.42 : 0.62);
+        if (PLAN) c.drawImage(z.bake!, ox - 0.8 * pen.s, oy - 0.8 * pen.s, bw, bh); else c.drawImage(z.bake!, ox - (RS * 0.8660254 + 0.8) * pen.s, oy - 3.4 * pen.s, bw, bh);
         c.globalAlpha = 1;
         if (dimA < 0.6) this.live(pen.at(z.x, z.z, z.y), z.id, t);
       }
       if (z.act > 0.02 || z.hover > 0.02) {
         const col = this.mood > 0.5 ? "0,188,235" : "255,180,84", a = Math.max(z.act, z.hover * 0.7);
         c.save(); c.shadowColor = `rgba(${col},${0.9 * a})`; c.shadowBlur = pen.s * 0.5;
-        pen.line([[z.x, z.y, z.z + RS], [z.x + RS, z.y, z.z + RS], [z.x + RS, z.y, z.z]], `rgba(${col},${0.95 * a})`, Math.max(1.5, pen.s * 0.07));
-        pen.line([[z.x, z.y + WALL, z.z + RS], [z.x, z.y + WALL, z.z], [z.x + RS, z.y + WALL, z.z]], `rgba(${col},${0.8 * a})`, Math.max(1, pen.s * 0.045));
+        if (PLAN && z.kind !== "sky") pen.line([[z.x, 0, z.z], [z.x + RS, 0, z.z], [z.x + RS, 0, z.z + RS], [z.x, 0, z.z + RS], [z.x, 0, z.z]], `rgba(${col},${0.95 * a})`, Math.max(1.6, pen.s * 0.085));
+        else if (PLAN) pen.disc(z.x + RS / 2, z.z + RS / 2, 6.4, null, `rgba(${col},${0.9 * a})`, 0, Math.max(1.6, pen.s * 0.085));
+        else {
+          pen.line([[z.x, z.y, z.z + RS], [z.x + RS, z.y, z.z + RS], [z.x + RS, z.y, z.z]], `rgba(${col},${0.95 * a})`, Math.max(1.5, pen.s * 0.07));
+          pen.line([[z.x, z.y + WALL, z.z + RS], [z.x, z.y + WALL, z.z], [z.x + RS, z.y + WALL, z.z]], `rgba(${col},${0.8 * a})`, Math.max(1, pen.s * 0.045));
+        }
         c.restore();
       }
       // floor label, painted along the front edge
       const la = z.kind === "sky" ? 0.5 + z.act * 0.5 : 0.42 + Math.max(z.act, z.hover) * 0.58;
-      if (z.kind === "sky") { if (this.sky > 0.5) pen.gtext(z.label.toUpperCase(), z.x + 1.0, z.z + 10.4, 0.52, `rgba(190,225,255,${la})`, { y: z.y, weight: 700 }); }
+      if (z.kind === "sky") { if (this.sky > 0.5) pen.gtext(z.label.toUpperCase(), z.x + (PLAN ? 0.4 : 1.0), z.z + (PLAN ? 11.6 : 10.4), 0.52, `rgba(190,225,255,${la})`, { y: z.y, weight: 700 }); }
       else pen.gtext(z.label.toUpperCase(), z.x + 0.15, z.z + RS + 0.95, 0.5, `rgba(${z.act > 0.5 ? (this.mood > 0.5 ? "150,230,255" : "255,214,160") : "150,170,210"},${la})`, { y: z.y - 0.42, weight: 700 });
     }
   }
@@ -468,9 +507,9 @@ export class Campus {
 
   private bake(z: Zone, S: number) {
     const cv = z.bake ?? document.createElement("canvas");
-    cv.width = Math.ceil((RS * 2 * 0.8660254 + 1.6) * S); cv.height = Math.ceil((3.4 + RS + 0.9) * S);
+    cv.width = Math.ceil((PLAN ? RS + 1.6 : RS * 2 * 0.8660254 + 1.6) * S); cv.height = Math.ceil((PLAN ? RS + 1.6 : 3.4 + RS + 0.9) * S);
     const c = cv.getContext("2d")!; c.clearRect(0, 0, cv.width, cv.height);
-    const r = new Pen(c, S, (RS * 0.8660254 + 0.8) * S, 3.4 * S);
+    const r = PLAN ? new Pen(c, S, 0.8 * S, 0.8 * S) : new Pen(c, S, (RS * 0.8660254 + 0.8) * S, 3.4 * S);
     const items: [number, () => void][] = [];
     const k: Ctx = { r, q: (key, fn) => items.push([key, fn]), t: 0 };
     ROOMS[z.id]?.(k);

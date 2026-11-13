@@ -1,0 +1,530 @@
+{
+  "id": "msk",
+  "name": "Memorial Sloan Kettering Cancer Center",
+  "tagline": "A cancer center running care, research computing and a new pavilion together",
+  "about": "Memorial Sloan Kettering (MSK) is a New York cancer center with Memorial Hospital, Manhattan outpatient centers and regional sites in New Jersey, Westchester and Long Island. In 2024 it treated 74,098 patients and recorded 1,046,023 outpatient visits. It moved to Epic on February 1, 2025 and is building the Kenneth C. Griffin Pavilion for 2030.",
+  "facts": [
+    {
+      "v": "74,098",
+      "l": "patients treated in 2024",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "1,046,023",
+      "l": "outpatient visits in 2024, including telemedicine",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "316,078",
+      "l": "outpatient telemedicine visits in 2024",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "212,457",
+      "l": "chemotherapy treatments in the regional network in 2024; Manhattan gave 129,857",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "790,378",
+      "l": "diagnostic and interventional radiology procedures in 2024",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "21,175",
+      "l": "total staff in 2024, including 4,714 registered nurses",
+      "s": "MSK Statistical Profile 2024",
+      "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+    },
+    {
+      "v": "Feb 1, 2025",
+      "l": "Epic became the electronic health record for MSK and its physician practice",
+      "s": "MSK public notice 2025",
+      "url": "https://www.mskcc.org/public-notices/electronic-health-information-exchange"
+    },
+    {
+      "v": "2030",
+      "l": "expected completion of the Kenneth C. Griffin Pavilion",
+      "s": "MSK 2025",
+      "url": "https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk"
+    },
+    {
+      "v": "#2",
+      "l": "hospital for cancer care in the U.S. News 2026-27 rankings",
+      "s": "MSK 2026",
+      "url": "https://www.mskcc.org/news-releases/mskcc-ranked-top-cancer-center-in-northeast-and-in-new-york-metropolitan-area-second-in-nation-and-first-in-urology-care-by-u-s-news-and-world-report"
+    },
+    {
+      "v": "$216.6M",
+      "l": "excess of operating revenues over expenses, first six months of 2026",
+      "s": "MSK 2026",
+      "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-first-half-2026-financial-results"
+    },
+    {
+      "v": "26 models",
+      "l": "AI models registered and monitored in the AI Governance Committee's first year",
+      "s": "NPJ Digital Medicine 2025",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12227680/"
+    },
+    {
+      "v": "15+ PB",
+      "l": "imaging data processed on research computing (vendor-reported)",
+      "s": "Dell Technologies 2025 (vendor)",
+      "url": "https://www.delltechnologies.com/asset/en-us/products/servers/customer-stories-case-studies/memorial-sloan-kettering-cancer-center-case-study.pdf"
+    }
+  ],
+  "priorities": [
+    {
+      "title": "Build the Griffin Pavilion by 2030",
+      "detail": "MSK expects construction to be completed by 2030, with advanced technology, robotics, improved digital infrastructure and enhanced operating suites, connected to Memorial Hospital by a two-story bridge.",
+      "s": "MSK 2025",
+      "url": "https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk"
+    },
+    {
+      "title": "Get the efficiencies out of Epic",
+      "detail": "MSK attributes higher first-half 2026 patient activity to ongoing improvements in patient access and efficiencies realized through the Epic electronic health record system.",
+      "s": "MSK 2026",
+      "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-first-half-2026-financial-results"
+    },
+    {
+      "title": "Expand patient access with operational discipline",
+      "detail": "MSK says its long-term financial strategy centers on expanding patient access, strengthening operational discipline and supporting mission-driven growth amid continued cost pressures.",
+      "s": "MSK 2026",
+      "url": "https://www.mskcc.org/news-releases/mskcc-issues-statement-on-first-half-2026-financial-results"
+    },
+    {
+      "title": "One digital strategy across care and research",
+      "detail": "The Chief Digital Officer appointed in May 2026 is charged with an enterprise-wide strategy that connects clinical, research and administrative domains.",
+      "s": "MSK 2026",
+      "url": "https://www.mskcc.org/news-releases/mskcc-appoints-shakeeb-akhter-as-chief-digital-officer"
+    },
+    {
+      "title": "Scale AI under formal governance",
+      "detail": "An AI Governance Committee registered and monitored 26 AI models, including large language models, and reviewed two ambient AI pilots in its first year.",
+      "s": "NPJ Digital Medicine 2025",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12227680/"
+    },
+    {
+      "title": "Build a longitudinal research data resource",
+      "detail": "MSK and AWS announced work on a longitudinal data resource from de-identified genomic, imaging and clinical data, with cloud high-performance computing for drug discovery.",
+      "s": "MSK 2025",
+      "url": "https://www.mskcc.org/news-releases/mskcc-and-aws-to-accelerate-ai-driven-cancer-innovation"
+    }
+  ],
+  "useCases": [
+    {
+      "id": "msk-pavilion-live-campus",
+      "title": "Bringing a 2030 pavilion onto a live campus",
+      "subtitle": "A new inpatient and surgical building must join Memorial Hospital's network, security and building systems while cancer care continues in the hospital next door.",
+      "anchorFact": "MSK states: \"We currently expect construction of The Kenneth C. Griffin Pavilion at MSK to be completed by 2030.\" The pavilion will be \"connected to Memorial Hospital via an enclosed two-story patient bridge over 67th street\" and will house \"improved digital infrastructure, and enhanced operating suites\" (MSK, updated March 2025).",
+      "anchorUrl": "https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk",
+      "today": [
+        {
+          "title": "Thousands of new devices, one opening date",
+          "exec": "Every operating suite, bed and building system in a new tower arrives as a device that someone must identify, place and secure before opening day.",
+          "dir": "Onboarding usually runs through separate network, security, biomedical and facilities teams, each with its own inventory and its own acceptance checklist.",
+          "eng": "Switch ports, VLANs, wireless coverage, access policy and building-management controllers are staged trade by trade from spreadsheets and contractor handover documents."
+        },
+        {
+          "title": "Commissioning beside live care",
+          "exec": "Building next to an operating hospital means a change made for the new tower can reach the old one.",
+          "dir": "Core, bridge and plant links carry commissioning traffic and live clinical traffic together, so change windows are scarce and heavily negotiated.",
+          "eng": "A trunk, routing or policy change made for commissioning can leak into production segments unless every dependency is traced by hand first."
+        },
+        {
+          "title": "Readiness assembled from separate reports",
+          "exec": "Leaders judge whether a floor is technically ready from several status reports that do not share one definition of ready.",
+          "dir": "Each team reports against its own checklist, so gaps between network, security and clinical engineering surface late, often during activation rehearsals.",
+          "eng": "Engineers reconcile device lists, port maps and policy exports manually to prove that what was designed is what was installed."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One readiness view per floor",
+          "exec": "Hypothesis: one shared view could show, floor by floor, which pavilion devices are connected, identified and placed in the right security group.",
+          "dir": "Hypothesis: network, security and facilities teams would work one investigation per floor instead of reconciling separate inventories before each activation rehearsal.",
+          "eng": "Hypothesis: Topology and Inventory would join controller, identity and location data so a missing or misclassified device shows against the design, not in a spreadsheet."
+        },
+        {
+          "title": "A person approves each production move",
+          "exec": "Hypothesis: no pavilion floor would join the clinical network until a named MSK owner approves that specific change.",
+          "dir": "Hypothesis: an agentic workflow would prepare the change, list what it touches on the Memorial Hospital side, and stop for approval.",
+          "eng": "Hypothesis: the approved change would execute in the domain controller that owns it, with the request, approver and result written to the audit log."
+        },
+        {
+          "title": "Fewer surprises at activation (modeled)",
+          "exec": "Hypothesis: activation risk would fall because dependencies on the existing hospital are visible before the change, not discovered after it. Modeled, not measured.",
+          "dir": "Hypothesis: readiness would become a shared, current record that perioperative, biomedical and IT leaders can all read the same way.",
+          "eng": "Hypothesis: rollback steps and evidence would be attached to each change record, shortening post-change validation; any time saving is a model to test with MSK."
+        }
+      ],
+      "rooms": [
+        "ward",
+        "imaging",
+        "plant",
+        "net",
+        "dc"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "Topology",
+        "Inventory",
+        "Agentic Workflows",
+        "Actions",
+        "Audit log",
+        "Catalyst Center",
+        "ISE",
+        "Spaces",
+        "ThousandEyes"
+      ],
+      "facts": [
+        {
+          "v": "2030",
+          "l": "expected completion of the Kenneth C. Griffin Pavilion",
+          "s": "MSK 2025",
+          "url": "https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk"
+        },
+        {
+          "v": "883,000",
+          "l": "square feet, per the architect's listing as reported in trade press",
+          "s": "Construction Dive 2026",
+          "url": "https://www.constructiondive.com/news/memorial-sloan-kettering-cancer-center-construction-turner-consigli/821693/"
+        },
+        {
+          "v": "208",
+          "l": "single-occupancy inpatient beds in 2026 trade press; MSK's March 2025 page said 206",
+          "s": "Construction Dive 2026",
+          "url": "https://www.constructiondive.com/news/memorial-sloan-kettering-cancer-center-construction-turner-consigli/821693/"
+        },
+        {
+          "v": "95.1%",
+          "l": "bed occupancy rate in 2024, based on adjusted bed count",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        }
+      ],
+      "approval": {
+        "title": "Move one pavilion floor to production",
+        "what": "Activate network access and segmentation policy for one commissioned floor, including its operating suites and the bridge link.",
+        "approver": "MSK's named change authority for the pavilion, with perioperative and biomedical engineering sign-off (roles to confirm with MSK)",
+        "executesIn": "Catalyst Center and ISE (hypothesis; MSK's actual campus controllers are not public)"
+      },
+      "ask": "For the Griffin Pavilion, who owns technical readiness across network, security, biomedical and building systems, and how will you prove a floor is ready before it connects to Memorial Hospital?",
+      "stays": "Building design, construction and commissioning stay with MSK, its architect and its builders; medical devices stay with biomedical engineering and their manufacturers; building-management systems stay with facilities and their vendors.",
+      "caveat": "All 'with Cisco' beats are hypotheses to validate. MSK has not said which network, security or building vendors the pavilion will use. Public sources conflict on operating suite count (28 in MSK's March 2025 page, 12 in June 2026 trade press); do not quote a count. Outcomes are modeled, not measured."
+    },
+    {
+      "id": "msk-regional-infusion-epic",
+      "title": "Epic slow at a regional infusion site",
+      "subtitle": "Most MSK chemotherapy is given outside Manhattan, so a slow record, pharmacy or network path at one regional site delays infusion chairs that same day.",
+      "anchorFact": "In 2024 MSK recorded 212,457 chemotherapy treatments in its regional network and 129,857 in Manhattan, and 317,766 regional outpatient visits (MSK Statistical Profile, 2024 Annual Report). Epic has been MSK's electronic health record since February 1, 2025 (MSK public notice).",
+      "anchorUrl": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf",
+      "today": [
+        {
+          "title": "The chair is ready, the screen is not",
+          "exec": "When the record or pharmacy system is slow at a regional site, patients wait in infusion chairs and the day's schedule slips.",
+          "dir": "The site reports that Epic is slow; the cause could be the device, the Wi-Fi, the WAN, the hosting environment or an interface, each owned by a different team.",
+          "eng": "Engineers compare client response times, wireless statistics, WAN path metrics and application logs in separate consoles with different time bases."
+        },
+        {
+          "title": "A bridge call per site",
+          "exec": "Specialists join a call and each proves their own layer is healthy while the site keeps waiting.",
+          "dir": "Without a shared timeline, mean time to innocence replaces mean time to repair, and the site lead gets no reliable estimate.",
+          "eng": "Correlating one user's slow session across access point, circuit, data center and application hop is manual and rarely finished before the symptom clears."
+        },
+        {
+          "title": "The pattern is found late",
+          "exec": "The same fault can recur at another site because nobody had the whole picture the first time.",
+          "dir": "Root cause is written up days later from partial evidence, so preventive changes are slow to reach other regional sites.",
+          "eng": "Path and performance data are kept for different periods in different tools, so comparing one site with another after the fact is hard."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One investigation from chair to record",
+          "exec": "Hypothesis: one shared investigation could show where the delay sits between the infusion site, the network and the record, in language each team accepts.",
+          "dir": "Hypothesis: the site lead, network team and Epic team would look at the same timeline instead of arguing from separate dashboards.",
+          "eng": "Hypothesis: AI Canvas would join wireless, SD-WAN, path and log data for the affected site and compare it with unaffected sites."
+        },
+        {
+          "title": "A person approves the path change",
+          "exec": "Hypothesis: any change to how an infusion site reaches the record would wait for a named MSK approver.",
+          "dir": "Hypothesis: the workflow would propose a specific change, state which sites and applications it touches, and stop for the duty manager.",
+          "eng": "Hypothesis: the approved change would execute in the WAN controller that owns the policy, and the request, approval and result would be logged."
+        },
+        {
+          "title": "Shorter delays, fewer repeats (modeled)",
+          "exec": "Hypothesis: delays would be located sooner and the fix applied to similar sites before they are affected. Modeled, not measured.",
+          "dir": "Hypothesis: one evidence record per incident would make vendor escalations to carriers or application owners faster and less contested.",
+          "eng": "Hypothesis: the same query would be rerun across all regional sites to find others with the same signature; savings need a baseline from MSK."
+        }
+      ],
+      "rooms": [
+        "clinic",
+        "pharmlab",
+        "net",
+        "dc",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "AI Assistant",
+        "Topology",
+        "Actions",
+        "Audit log",
+        "Catalyst SD-WAN",
+        "Meraki",
+        "ThousandEyes",
+        "Splunk",
+        "Deep Reasoning"
+      ],
+      "facts": [
+        {
+          "v": "212,457",
+          "l": "chemotherapy treatments in the regional network in 2024",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        },
+        {
+          "v": "317,766",
+          "l": "regional network outpatient visits in 2024",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        },
+        {
+          "v": "18,000+",
+          "l": "staff across hospitals and outpatient sites on one Epic record (vendor-reported)",
+          "s": "Epic customer story, undated (vendor)",
+          "url": "https://www.epic.com/epic/post/leading-cancer-center-transforms-care-through-better-coordination-faster-results-and-a-more-connected-patient-experience/"
+        },
+        {
+          "v": "316,078",
+          "l": "outpatient telemedicine visits in 2024",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        }
+      ],
+      "approval": {
+        "title": "Shift one regional site's traffic path",
+        "what": "Move one regional site's record and pharmacy traffic to the alternate WAN path during infusion hours.",
+        "approver": "MSK network operations duty manager, with the site's infusion nursing lead informed (roles to confirm with MSK)",
+        "executesIn": "Catalyst SD-WAN Manager (hypothesis; MSK's WAN vendor is not public)"
+      },
+      "ask": "When a regional site says Epic is slow during infusion hours, how long does it take to know whether it is the device, the Wi-Fi, the WAN or the application, and who decides?",
+      "stays": "Epic and its hosting stay with MSK's Epic team and Epic; pharmacy and infusion systems stay with their owners and vendors; carrier circuits stay with the carriers; clinical scheduling decisions stay with the site.",
+      "caveat": "All 'with Cisco' beats are hypotheses to validate. No public source names MSK's WAN, wireless or monitoring vendors, or says where its Epic environment is hosted. The slow-record scenario is illustrative, not a reported MSK incident. Outcomes are modeled, not measured."
+    },
+    {
+      "id": "msk-research-ai-beside-clinical",
+      "title": "Research AI computing beside clinical systems",
+      "subtitle": "Pathology slides, scans and genomic data feed both patient care and research AI, on premises and in public cloud, across infrastructure the two worlds share.",
+      "anchorFact": "MSK's own governance paper says its AI platform runs on premises and on public cloud, with two generative AI sandboxes \"approved by Information Security, Privacy, and Compliance\", one for de-identified data and one for PHI under IRB approval (Stetson et al., NPJ Digital Medicine, July 2025).",
+      "anchorUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12227680/",
+      "today": [
+        {
+          "title": "Two worlds on shared ground",
+          "exec": "Research computing and clinical systems draw on the same images and data, so a surge in one can slow the other.",
+          "dir": "Clinical imaging, digital pathology and research transfers often share data center paths, storage networks and cloud links run by different teams.",
+          "eng": "Large slide and sequencing transfers, GPU training jobs and clinical image viewing compete on shared fabrics unless traffic classes are engineered and watched."
+        },
+        {
+          "title": "Proving where sensitive data went",
+          "exec": "Showing that patient data stayed inside approved environments takes effort across several teams.",
+          "dir": "Evidence for a research data-use or security review is assembled from firewall, cloud, identity and storage logs held in separate systems.",
+          "eng": "Flow records, cloud audit trails and job scheduler logs use different identifiers, so tracing one dataset from source to GPU node is manual."
+        },
+        {
+          "title": "Slow jobs, unclear cause",
+          "exec": "When research jobs or image viewing slow down, it is hard to tell whether to add capacity or fix a fault.",
+          "dir": "Compute, storage, network and cloud teams each see part of the path, so capacity decisions are made on partial evidence.",
+          "eng": "Engineers check fabric telemetry, storage latency, scheduler queues and cloud interconnect metrics one tool at a time."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One view across clinical and research paths",
+          "exec": "Hypothesis: one shared view could show clinical imaging and research AI traffic on the same map, with what is competing and where.",
+          "dir": "Hypothesis: infrastructure, research computing and security teams would work one investigation that spans data center, cloud path and identity.",
+          "eng": "Hypothesis: Data Fabric search would query fabric, compute, path and security data where it lives instead of copying it into one more store."
+        },
+        {
+          "title": "A person approves anything near care",
+          "exec": "Hypothesis: any change on a path that also carries clinical imaging would wait for a named MSK approver.",
+          "dir": "Hypothesis: the workflow would state which clinical and research services share the path before proposing a priority or routing change.",
+          "eng": "Hypothesis: the approved change would execute in the data center fabric controller that owns it, with a full audit record."
+        },
+        {
+          "title": "Evidence on demand (modeled)",
+          "exec": "Hypothesis: MSK could answer where a dataset travelled, and whether care was affected, without a multi-team evidence hunt. Modeled, not measured.",
+          "dir": "Hypothesis: security and data governance reviews would draw on one consistent record of access and movement across environments.",
+          "eng": "Hypothesis: AI workloads and agents would be observed for data exposure and misuse alongside infrastructure telemetry; coverage must be tested against MSK's actual stack."
+        }
+      ],
+      "rooms": [
+        "imaging",
+        "pharmlab",
+        "dc",
+        "net",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "Deep Reasoning",
+        "Topology",
+        "Audit log",
+        "Nexus",
+        "Intersight",
+        "ThousandEyes",
+        "Splunk",
+        "Machine Data Lake",
+        "Federated Search",
+        "Security Cloud Control",
+        "AI Defense",
+        "Agent Observability"
+      ],
+      "facts": [
+        {
+          "v": "15+ PB",
+          "l": "imaging data processed on research computing (vendor-reported)",
+          "s": "Dell Technologies 2025 (vendor)",
+          "url": "https://www.delltechnologies.com/asset/en-us/products/servers/customer-stories-case-studies/memorial-sloan-kettering-cancer-center-case-study.pdf"
+        },
+        {
+          "v": "6 million",
+          "l": "monthly computational jobs supported (vendor-reported)",
+          "s": "Dell Technologies 2025 (vendor)",
+          "url": "https://www.delltechnologies.com/asset/en-us/products/servers/customer-stories-case-studies/memorial-sloan-kettering-cancer-center-case-study.pdf"
+        },
+        {
+          "v": "9 PB",
+          "l": "allocated for digital pathology slide storage; more than 6.1 million slides scanned",
+          "s": "J Pathol Inform 2023",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10550754"
+        },
+        {
+          "v": "790,378",
+          "l": "diagnostic and interventional radiology procedures in 2024",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        }
+      ],
+      "approval": {
+        "title": "Change a path shared with clinical imaging",
+        "what": "Apply a traffic priority change on a data center path that carries both clinical image viewing and research transfers.",
+        "approver": "MSK infrastructure change authority, with imaging or pathology informatics sign-off (roles to confirm with MSK)",
+        "executesIn": "Nexus fabric controller (hypothesis; MSK's data center network vendor is not public)"
+      },
+      "ask": "Where do clinical imaging, digital pathology and research AI share network, storage or cloud paths today, and how do you show reviewers where patient data did and did not travel?",
+      "stays": "Research clusters, schedulers and storage stay with MSK research computing and their vendors; PACS and pathology systems stay with their owners; cloud services stay with the cloud provider; data-use decisions stay with MSK's IRB and governance committees.",
+      "caveat": "All 'with Cisco' beats are hypotheses to validate. Public sources name Dell and WEKA for research computing and AWS for cloud; none names MSK's data center network or security vendors. Dell's figures are vendor-reported. Whether clinical and research traffic share paths at MSK is not public. Outcomes are modeled, not measured."
+    },
+    {
+      "id": "msk-supplier-fault-day",
+      "title": "When a supplier fault reaches the operating room",
+      "subtitle": "MSK's public incident record is mostly about suppliers: a faulty vendor update suspended procedures needing anesthesia in July 2024, and three data incidents began at vendors.",
+      "anchorFact": "STAT reported on July 19, 2024, during the global outage caused by a faulty CrowdStrike update: \"at Memorial Sloan Kettering Cancer Center, procedures requiring anesthesia were suspended.\"",
+      "anchorUrl": "https://www.statnews.com/2024/07/19/microsoft-crowdstrike-outage-hospitals-cancellations/",
+      "today": [
+        {
+          "title": "The first hour is spent finding scope",
+          "exec": "When a supplier's fault or breach lands, the first question is which clinical areas are affected, and the answer arrives slowly.",
+          "dir": "Scope is pieced together from service desk calls, endpoint tools, network tools and the vendor's own status page.",
+          "eng": "Engineers pull device lists, connection logs and vendor access records from separate consoles to see which hosts and sites are touched."
+        },
+        {
+          "title": "Vendor connections are known in pieces",
+          "exec": "A hospital depends on many suppliers, and no single list shows what each one can reach.",
+          "dir": "Remote access, file transfer and cloud integrations are owned by different teams, so containing one supplier takes several separate changes.",
+          "eng": "Firewall rules, VPN profiles, identity groups and API keys for one vendor live in different systems with different owners."
+        },
+        {
+          "title": "Care decisions wait on IT facts",
+          "exec": "Clinical leaders decide whether to pause or resume procedures while the technical picture is still forming.",
+          "dir": "Downtime procedures start on judgement; confirmation that systems are safe to use again comes area by area.",
+          "eng": "Recovery is verified host by host, and evidence for the after-action review is rebuilt later from many logs."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One view of what the supplier touches",
+          "exec": "Hypothesis: one shared view could show which sites, systems and clinical areas a supplier incident touches within minutes.",
+          "dir": "Hypothesis: security, network and clinical engineering teams would work one investigation instead of merging separate scopes on a call.",
+          "eng": "Hypothesis: Inventory, identity and log data would be joined so one vendor's connections, accounts and affected hosts appear together."
+        },
+        {
+          "title": "A person approves each containment step",
+          "exec": "Hypothesis: nothing that could interrupt care, such as cutting a supplier's access, would run without a named MSK approver.",
+          "dir": "Hypothesis: the workflow would list the clinical services that depend on the supplier before proposing to restrict its access.",
+          "eng": "Hypothesis: the approved restriction would execute in the access and identity controls that own it, and would be logged and reversible."
+        },
+        {
+          "title": "Faster scope, clearer restart (modeled)",
+          "exec": "Hypothesis: clinical leaders would get a current list of affected and recovered areas sooner, supporting pause and restart decisions. Modeled, not measured.",
+          "dir": "Hypothesis: one record of scope, actions and approvals would serve the after-action review and any regulatory notification.",
+          "eng": "Hypothesis: recovery checks would be queried across hosts and sites at once; this would not have prevented a faulty third-party software update."
+        }
+      ],
+      "rooms": [
+        "ward",
+        "imaging",
+        "office",
+        "net",
+        "dc",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "Inventory",
+        "Agentic Workflows",
+        "Actions",
+        "Cisco Identity",
+        "Audit log",
+        "Security Cloud Control",
+        "Secure Access",
+        "ISE",
+        "Duo",
+        "Splunk",
+        "ThousandEyes"
+      ],
+      "facts": [
+        {
+          "v": "Jul 19, 2024",
+          "l": "procedures requiring anesthesia were suspended at MSK during the global outage",
+          "s": "STAT 2024",
+          "url": "https://www.statnews.com/2024/07/19/microsoft-crowdstrike-outage-hospitals-cancellations/"
+        },
+        {
+          "v": "29,494",
+          "l": "surgical cases in 2024",
+          "s": "MSK Statistical Profile 2024",
+          "url": "https://www.mskcc.org/sites/default/files/node/326511/documents/ar-2024_statistical-profile.pdf"
+        },
+        {
+          "v": "Sept 2023",
+          "l": "notice of a Nuance MOVEit incident that did not affect MSK's own systems",
+          "s": "MSK 2023",
+          "url": "https://www.mskcc.org/news-releases/notice-of-nuance-moveit-incident"
+        },
+        {
+          "v": "Jan 2021",
+          "l": "Accellion file-sharing vulnerability; MSK's own IT systems were not involved",
+          "s": "MSK 2021",
+          "url": "https://www.mskcc.org/news-releases/msk-notice-accellion-data-incident"
+        }
+      ],
+      "approval": {
+        "title": "Restrict one supplier's access",
+        "what": "Suspend one named supplier's remote access and data transfer paths until the supplier confirms the incident is contained.",
+        "approver": "MSK security operations lead, with the clinical operations administrator on call (roles to confirm with MSK)",
+        "executesIn": "Secure Access and ISE (hypothesis; MSK's access and identity vendors are not public)"
+      },
+      "ask": "On July 19, 2024, how long did it take to know which clinical areas were affected and when it was safe to restart, and what would you want to see sooner next time?",
+      "stays": "Clinical downtime procedures and the decision to pause or resume care stay with MSK clinical leadership; the supplier's software and its fix stay with the supplier; breach notification stays with MSK privacy and legal.",
+      "caveat": "All 'with Cisco' beats are hypotheses to validate. The July 2024 event was a faulty software update, not an attack, and nothing here would have prevented it. MSK has not published how long the pause lasted or how many procedures were affected. MSK's security vendors are not public. Outcomes are modeled, not measured."
+    }
+  ]
+}

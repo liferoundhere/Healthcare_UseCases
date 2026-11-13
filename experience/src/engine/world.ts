@@ -1,5 +1,5 @@
-import { C, K, SHOT, Stage, Pen, clamp, damp, rgba, type V3 } from "./iso";
-import { Campus, G, RS } from "./rooms";
+import { C, K, PLAN, SHOT, Stage, Pen, clamp, damp, rgba, type V3 } from "./iso";
+import { Campus, EXT, HUB, RS } from "./rooms";
 import { Platform, DECK, DECK_R, type PlatformView } from "./platform";
 import { badge, drawTile, type TileStyle } from "./pin";
 import type { Aud, LinkDef, NodeDef, SceneDef, St } from "../story/types";
@@ -12,6 +12,8 @@ export interface View {
   ambient?: boolean;
   /** Hide the outside-world island (home page, where the headline sits there). */
   hideSky?: boolean;
+  /** Fraction of the width to keep clear on the right (a tall side column on closing and approval beats). */
+  padRight?: number;
 }
 
 interface NodeRT { def: NodeDef; zone: string; pos: V3; el: HTMLElement; state: St; vis: number; tVis: number; foc: number; tFoc: number; bump: number; override: string; callout: string; sx: number; sy: number; tx: number; ty: number; size: number; hover: number }
@@ -90,11 +92,11 @@ export class World {
     const all = () => { for (const id of C2.zones.keys()) pts.push(...C2.corners(id)); };
     const main = ["plant", "dc", "imaging", "pharmlab", "net", "ward", "office", "ed"];
     let pad: [number, number, number, number] = [40, 50, 30, 50], maxS = 30;
-    if (v.cam === "hero") { for (const id of [...main, "clinic", "home"]) pts.push(...C2.corners(id)); pts.push([2 * G + RS, 0, 2 * G + RS], ...P.points(true)); pad = [70, 40, 10, 40]; }
-    else if (v.cam === "wide") { all(); pts.push([2 * G + RS, 0, 2 * G + RS]); if (P.view.mode === "ring") pts.push(...P.points(P.view.fabric)); else if (P.view.mode === "scattered") pts.push(...P.scatterPoints()); pad = [70, 70, 20, 70]; }
-    else if (v.cam === "campus") { for (const id of main) pts.push(...C2.corners(id)); pts.push([2 * G + RS, 0, 2 * G + RS]); }
-    else if (v.cam === "platform") { pts.push(...P.points(P.view.fabric)); if (P.view.ghosts) pts.push([DECK[0], DECK[1] + 6.5, DECK[2]]); pad = [90, 250, 36, 240]; maxS = 36; }
-    else if (v.cam === "stack") { pts.push(...P.points(true)); for (const id of ["plant", "dc", "imaging", "net", "pharmlab"]) pts.push(...C2.corners(id)); pad = [60, 130, 20, 130]; }
+    if (v.cam === "hero") { const homePage = PLAN && v.ambient; for (const id of homePage ? main : [...main, "clinic", "home"]) pts.push(...C2.corners(id)); if (PLAN && !homePage) pts.push(...C2.corners("outside")); pts.push(EXT, ...P.points(true)); pad = homePage ? [150, 30, 20, this.stage.w * 0.1] : [70, 40, 10, 40]; }
+    else if (v.cam === "wide") { all(); pts.push(EXT); if (P.view.mode === "ring") pts.push(...P.points(P.view.fabric)); else if (P.view.mode === "scattered") pts.push(...P.scatterPoints()); pad = [70, 70, 20, 70]; }
+    else if (v.cam === "campus") { for (const id of main) pts.push(...C2.corners(id)); pts.push(EXT); }
+    else if (v.cam === "platform") { pts.push(...P.points(P.view.fabric)); if (P.view.ghosts) pts.push(...P.ghostPoints()); pad = [90, 250, 36, 240]; maxS = 36; }
+    else if (v.cam === "stack") { pts.push(...P.points(true)); for (const id of PLAN ? main : ["plant", "dc", "imaging", "net", "pharmlab"]) pts.push(...C2.corners(id)); pad = [60, 130, 20, 130]; }
     else {
       const zs = new Set<string>(); let deck = false;
       const inc = (n: NodeRT) => { pts.push(n.pos); if (n.zone === "deck") deck = true; else zs.add(n.zone); };
@@ -107,6 +109,7 @@ export class World {
     }
     for (const id of v.zones) if (C2.zones.has(id)) pts.push(...C2.corners(id));
     if (!pts.length) all();
+    if (v.padRight) pad = [pad[0], pad[1] + v.padRight * this.stage.w, pad[2], pad[3]];
     this.stage.frame(pts, { pad, maxS, minS: 7.5 });
   }
 
@@ -125,7 +128,8 @@ export class World {
 
   update(dt: number, t: number) {
     void t;
-    this.campus.quiet = damp(this.campus.quiet, this.view && !this.view.ambient && this.nodes.size ? 1 : 0, 4 * K, dt);
+    const explore = PLAN && this.view?.ambient && this.view.cam === "platform";
+    this.campus.quiet = damp(this.campus.quiet, this.view && !this.view.ambient && this.nodes.size ? 1 : explore ? 0.8 : 0, 4 * K, dt);
     this.campus.update(dt, K); this.platform.update(dt, this.stage.time);
     for (const n of this.nodes.values()) { n.vis = damp(n.vis, n.tVis, 6 * K, dt); n.foc = damp(n.foc, n.tFoc, 6 * K, dt); n.bump = damp(n.bump, 0, 4, dt); n.hover = damp(n.hover, this.hover === n.def.id || this.picked === n.def.id ? 1 : 0, 12, dt); }
     for (const l of this.links.values()) { l.a = damp(l.a, l.tA, 6 * K, dt); l.foc = damp(l.foc, l.tFoc, 6 * K, dt); }
@@ -146,7 +150,7 @@ export class World {
   private bg(pen: Pen) {
     const c = pen.c, st = this.stage, w = st.w, h = st.h, m = this.campus.mood;
     c.fillStyle = "#050810"; c.fillRect(0, 0, w, h);
-    const [cx, cy] = pen.P(G + 4.5, 4, G + 4.5);
+    const [cx, cy] = pen.P(HUB[0], 4, HUB[2]);
     const g = c.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.78);
     g.addColorStop(0, `rgb(${Math.round(20 - m * 6)},${Math.round(36 + m * 12)},${Math.round(74 + m * 22)})`); g.addColorStop(0.45, "#0a1226"); g.addColorStop(1, "#04070e");
     c.fillStyle = g; c.fillRect(0, 0, w, h);
@@ -154,7 +158,7 @@ export class World {
     const step = 5; c.fillStyle = "#8fb0ea";
     for (let i = -14; i <= 22; i++) for (let j = -14; j <= 22; j++) {
       const [x, y] = pen.P(i * step, -1.45, j * step); if (x < -4 || y < -4 || x > w + 4 || y > h + 4) continue;
-      const d = Math.hypot(i * step - 16, j * step - 16); const a = clamp(0.5 - d / 150, 0, 0.5); if (a <= 0.01) continue;
+      const d = Math.hypot(i * step - HUB[0], j * step - HUB[2]); const a = clamp(0.5 - d / 150, 0, 0.5); if (a <= 0.01) continue;
       c.globalAlpha = a; c.beginPath(); c.arc(x, y, Math.max(0.8, pen.s * 0.045), 0, 7); c.fill();
     }
     c.globalAlpha = 1;
@@ -163,9 +167,11 @@ export class World {
   private draw(pen: Pen, t: number) {
     const st = this.stage, c = pen.c;
     this.bg(pen);
-    this.platform.drawBack(pen, t);
+    // In the plan view the platform floats over the central court, so it is drawn after the rooms.
+    if (!PLAN) this.platform.drawBack(pen, t);
     this.campus.drawGround(pen, t);
     this.campus.drawZones(pen, t, st.dpr, this.settle > 0.12 || SHOT);
+    if (PLAN) this.platform.drawBack(pen, t);
     this.platform.drawFront(pen, t, (x, y, z) => st.toScreen(x, y, z));
     // ripples on the floor where something just changed
     for (const r of this.ripples) { const f = r.t / 1.1; pen.disc(r.x, r.z, 0.5 + f * 2.2, null, rgba(r.col, (1 - f) * 0.8), r.y + 0.03, Math.max(1.5, pen.s * 0.08) * (1 - f) + 0.5); }

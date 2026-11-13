@@ -1,10 +1,15 @@
 # Healthcare, connected
 
-An interactive explainer for healthcare customers: how hospital infrastructure and operations are run today, and what changes when Cisco Cloud Control and Cisco Data Fabric connect them.
+An interactive explainer and working tool for healthcare account teams: how hospital infrastructure and operations are run today, what changes when Cisco Cloud Control and Cisco Data Fabric connect them, and what a specific customer said about it.
 
-It is one self-contained HTML file. Open `healthcare-cloud-control.html` in a browser: no server, no network, no install. It works full screen on a projector or a shared screen.
+It is a web app. Run it with `npm run dev`, or build a static site with `npm run build` and host `dist/` anywhere. A single-file build for offline hand-off is still available (`npm run build:single`).
 
 ![Home](docs/01-home.jpg)
+
+## Two views of the same hospital
+
+- **2D plan (default).** Rooms seen from above in a wide band: clinical rooms on the left, infrastructure on the right, Cisco Cloud Control over a court in the middle, the internet on the far left and remote care on the far right. The whole world stays on screen.
+- **Isometric.** The same rooms as a lit model, with Cloud Control and Data Fabric floating above. Press **V** or use the view switch.
 
 ## What is in it
 
@@ -14,6 +19,10 @@ It is one self-contained HTML file. Open `healthcare-cloud-control.html` in a br
 | **Four operating lenses** | Network operations, security operations, clinical operations, and workplace and office operations. Each shows today, then the agentic operating model with a human approval. |
 | **Three flagship stories** | Security, Facilities, AI in care. |
 | **Ten use cases** | EHR slow, medical devices, downtime, clinical Wi-Fi, imaging, hospital at home, acquired clinic, identity, compliance, AI at work. |
+| **Seven AI use cases** | Virtual nursing and computer vision, AI agents in patient access, private clinical AI in the hospital data center, bedside prediction, agents with access to clinical systems, digital pathology and imaging AI, and AI cost governance. |
+| **Account workspaces** | Generic, NYU Langone Health and Memorial Sloan Kettering. Each account has a brief built from public sources and four use cases of its own, shown only in that workspace and labelled as hypotheses to validate. |
+| **Discovery capture** | On every closing beat, rate how much the problem hurts and note what the customer said. Saved per account in the browser. |
+| **Account plan** | The rated stories in order, the building blocks they need split into "already in place" and "to add", suggested next steps, and export to Markdown, JSON or print. |
 | **Explore the platform** | An annotated model of what sits above the hospital: Cloud Control capabilities, 15 connected Cisco domains, Data Fabric, third-party systems, and what is only announced. Every block has its availability and its sources. |
 | **Build a combination** | Tick the problems a customer has; the platform lights the building blocks those stories use, with customer evidence. |
 
@@ -37,7 +46,9 @@ Every story runs the same way: amber **Today** beats, then blue **With Cisco Clo
 | Space | Autoplay (pauses at approvals). On the home page: start the story |
 | N | Presenter notes: the line for all three audiences, the question to ask, what stays with the hospital, the caveat to say out loud, Cisco's wider portfolio for the use case |
 | S | Sources |
-| P / C | Platform explorer / Combination builder |
+| P / C / A | Platform explorer / Combination builder / Account plan |
+| V | Switch between the 2D plan and the isometric view |
+| / or Ctrl+K | Search stories and platform blocks |
 | H | Hide the interface (clean stage for a screenshot or a pause) |
 | ? | Controls and how to read the picture |
 | F | Full screen |
@@ -47,7 +58,7 @@ Mouse: drag to pan, wheel to zoom, double-click to reset. Hover a room to light 
 
 Deep links: `#/s/<story>/<beat>` (for example `#/s/security/6`), `#/platform/ring`, `#/platform/fabric`, `#/platform/future`, `#/platform/today`, `#/compose`. Add `?aud=dir` or `?aud=eng` to start on another audience.
 
-Story ids: `opening`, `netops`, `secops`, `clinops`, `workops`, `security`, `facilities`, `ai`, `ehr`, `iomt`, `ransom`, `wifi`, `imaging`, `home`, `wan`, `identity`, `compliance`, `aiwork`.
+Story ids: `opening`, `netops`, `secops`, `clinops`, `workops`, `security`, `facilities`, `ai`, `ehr`, `iomt`, `ransom`, `wifi`, `imaging`, `home`, `wan`, `identity`, `compliance`, `aiwork`, the AI use cases (`ai-vision`, `ai-access`, `ai-factory`, `ai-bedside`, `ai-agents`, `ai-pathology`, `ai-cost`) and the account stories (ids starting `nyu-` and `msk-`). Add `?acct=nyu` or `?acct=msk` to open a workspace and `?view=iso` for the isometric view.
 
 ## Build it
 
@@ -63,13 +74,19 @@ npm run dev
 npm run build
 ```
 
-`npm run build` type-checks, builds one inlined `dist/index.html` (about 550 kB, fonts included) and copies it to `healthcare-cloud-control.html`.
+`npm run build` type-checks and builds a static site in `dist/`. Preview it with `npm run preview`.
+
+```bash
+npm run build:single
+```
+
+`npm run build:single` inlines everything into `healthcare-cloud-control.html` for offline hand-off.
 
 ```bash
 npm run check
 ```
 
-`npm run check` opens the build in headless Chromium and walks all 110 story beats at three screen sizes. It fails on a console error, a node without a place, a catalog id that does not exist, a caption that overlaps the rail or the side column, a label off screen, overlapping labels, or an approval that does not advance. It also hovers a dimmed pin, clicks a pin, a platform block and a room, and zooms with the wheel.
+`npm run check` serves the build, opens it in headless Chromium and walks every story beat at three screen sizes. Add `Q=view=iso` to check the isometric view, or `BASE=http://localhost:5173/` to check a running dev server. It fails on a console error, a node without a place, a catalog id that does not exist, a caption that overlaps the rail or the side column, a label off screen, overlapping labels, or an approval that does not advance. It also hovers a dimmed pin, clicks a pin, a platform block and a room, and zooms with the wheel.
 
 ```bash
 node tools/shoot.cjs "#/s/security/6" "#/platform/fabric"
@@ -79,16 +96,18 @@ node tools/shoot.cjs "#/s/security/6" "#/platform/fabric"
 
 ## How it is made
 
-No 3D engine. The scene is a hand-built isometric vector renderer on Canvas 2D, about 1,500 lines of TypeScript and no runtime dependencies.
+No 3D engine. The scene is a hand-built vector renderer on Canvas 2D with two projections (flat plan and isometric) that share one set of drawing primitives. No runtime dependencies.
 
 | File | Role |
 |---|---|
-| `src/engine/iso.ts` | Isometric projection, three-tone shading, drawing primitives, camera with pan, zoom and fit-to-frame. |
+| `src/engine/iso.ts` | The two projections, three-tone shading, drawing primitives, camera with pan, zoom and fit-to-frame. |
 | `src/engine/rooms.ts` | The hospital: ten rooms drawn object by object (beds, CT, racks, chillers, people), the plaza, the outside world. Rooms are baked to bitmaps at the current zoom and re-baked when the camera settles, so the picture stays sharp and fast. |
 | `src/engine/platform.ts` | Cloud Control deck, domain tiles, Data Fabric weave, third-party tiles, announced items, label call-outs. |
 | `src/engine/world.ts` | Story pins, animated links, focus dimming, automatic camera framing, hover and click, label de-cluttering. |
 | `src/story/scenes.ts` | The 13 original stories. Copied unchanged from `app/src/scenes.ts`, which stays the source of truth for the narrative. |
 | `src/story/extra.ts` | The opening film and the four operating lenses. |
+| `src/story/ai.ts`, `src/story/accounts.ts` | The AI use cases and the account-specific stories. |
+| `src/data/accounts.ts`, `account-content.ts`, `store.ts` | Account workspaces, their researched briefs (generated), and the browser store for ratings, notes and owned blocks. |
 | `src/story/staging.ts` | Where each story node stands in the hospital, which building blocks the story uses, the closing question. |
 | `src/data/catalog.ts` | Every platform block with its availability wording and source ids. |
 | `src/data/sources.ts`, `research.ts` | Generated from `research/` by `tools/gen-data.py`. Do not edit by hand. |
@@ -106,4 +125,6 @@ These come from the research briefs. Keep them when you edit.
 - Any action that can touch clinical systems waits for a named person.
 - Every block carries its status: generally available, beta, alpha, controlled availability, or announced.
 - Customer evidence is vendor-reported and labeled so.
+- Account workspaces are built from public sources only. Every account use case is a hypothesis to validate; nothing states what an account has bought.
+- Ratings and notes stay in the presenter's browser (localStorage). Nothing is sent anywhere.
 - No attacker procedures are shown.

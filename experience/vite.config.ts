@@ -1,10 +1,10 @@
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
-// One self-contained index.html (JS, CSS and fonts inlined) so the explainer
-// opens straight from disk on a presenter laptop, with no server and no network.
-export default defineConfig({
+// Default build: a normal static site in dist/ (serve it with `npm run preview` or any static host).
+// `npm run build:single` inlines everything into one HTML file for offline hand-off.
+export default defineConfig(({ mode }) => ({
   base: "./",
-  plugins: [viteSingleFile()],
-  build: { target: "es2022", assetsInlineLimit: 100_000_000, chunkSizeWarningLimit: 4000, cssCodeSplit: false },
-});
+  plugins: mode === "single" ? [viteSingleFile()] : [],
+  build: mode === "single" ? { target: "es2022", assetsInlineLimit: 100_000_000, chunkSizeWarningLimit: 4000, cssCodeSplit: false } : { target: "es2022", chunkSizeWarningLimit: 1200 },
+}));
