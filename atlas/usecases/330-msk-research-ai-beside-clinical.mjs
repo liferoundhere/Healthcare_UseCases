@@ -107,7 +107,7 @@ export default {
     decor: 'ai', // hosp (x 20 to 520): exam room, CT suite, reading room, GPU rack row, office; vend (532 to 720)
     zoneLabels: { hosp: 'Clinical and research computing', vend: 'Public cloud' },
     pos: {
-      view: [90, 290], path: [265, 128], rev: [437, 214], fab: [437, 320], gpu: [265, 292], cloud: [626, 150],
+      view: [90, 290], path: [265, 128], rev: [437, 208], fab: [437, 302], gpu: [265, 292], cloud: [626, 150],
       topo: [92, 418], fed: [212, 418], canvas: [335, 418], appr: [470, 418],
     },
   },

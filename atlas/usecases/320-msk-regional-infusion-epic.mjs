@@ -106,7 +106,7 @@ export default {
     decor: 'ehr', // floor (x 20 to 256), path (266 to 408), dc (418 to 720)
     zoneLabels: { floor: 'Regional infusion site', path: 'WAN and carriers', dc: 'Electronic health record' },
     pos: {
-      chairs: [84, 130], pharm: [198, 130], call: [84, 296], wan: [312, 138], carrier: [364, 276], ehr: [570, 196],
+      chairs: [90, 134], pharm: [200, 146, { lab: 't' }], call: [96, 296], wan: [312, 138], carrier: [364, 276], ehr: [570, 196],
       te: [92, 418], dr: [212, 418], canvas: [335, 418], appr: [470, 418],
     },
   },

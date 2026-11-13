@@ -103,9 +103,9 @@ export default {
       ie: [ 480, 290 ],
       lab: [ 640, 290 ],
       model: [ 550, 130 ],
-      canvas: [ 240, 418 ],
-      splunk: [ 430, 418 ],
-      appr: [ 620, 418 ]
+      canvas: [ 210, 418 ],
+      splunk: [ 350, 418 ],
+      appr: [ 490, 418 ]
     }
   },
   narr: {

@@ -102,10 +102,10 @@ export default {
       fab: [ 337, 250 ],
       store: [ 480, 300 ],
       cool: [ 640, 312 ],
-      nexus: [ 110, 418 ],
-      canvas: [ 280, 418 ],
-      isight: [ 450, 418 ],
-      appr: [ 620, 418 ]
+      nexus: [ 70, 418 ],
+      canvas: [ 210, 418 ],
+      isight: [ 350, 418 ],
+      appr: [ 490, 418 ]
     }
   },
   narr: {
