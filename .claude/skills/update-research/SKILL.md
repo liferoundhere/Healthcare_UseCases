@@ -69,7 +69,7 @@ Cisco capability status: **GA** (a Cisco or Splunk source says generally availab
 | 04 | `## G)` | `## H) Sources` |
 | 05 | `## H)` | `## G) Sources` |
 
-Everything after a brief's sources heading is copied into `sources.md`, so keep the source list as the last section. Brief 05 is the exception today: its Gaps section follows its Sources, which is why `sources.md` ends with a stray `## H) Gaps` block. Do not add more sections after a source list.
+A source list is copied into `sources.md` from its heading up to the next `## ` heading, or to the end of the file. Do not put a `## ` heading inside a source list; it would cut the list short. Brief 05 keeps its Gaps section after its Sources; leave that order alone, because its sections are cited by letter.
 
 ## Do not
 

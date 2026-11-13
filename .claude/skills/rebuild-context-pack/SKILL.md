@@ -37,7 +37,7 @@ Check three things:
 
 1. **The diff matches your edit.** Only the passages you changed in `docs/` or `research/` should move in the master and in `sources.md`. The `.docx` is binary and always shows as changed.
 2. **Nothing vanished.** If a Gaps block in the master now reads `_See research/0N-..._`, or a prefix section in `sources.md` is empty, a heading in that brief no longer matches what the script looks for. The table of required headings is in `update-research`.
-3. **No unrelated churn.** On 13 November 2026, running the script on unchanged inputs added about 26 lines to the committed master: the title block of each `docs/part-*.md` file reappeared at each join. The script's `strip_leading_title` does not strip anything, so the committed master and the script had drifted. If you see those title blocks come back and that drift has not been resolved, stop and tell the user instead of committing it as part of an unrelated change.
+3. **No unrelated churn.** Run on unchanged inputs, the script reproduces the committed master and `sources.md` byte for byte. If lines you did not touch move, stop and tell the user instead of committing them as part of an unrelated change.
 
 ## Dashes
 
