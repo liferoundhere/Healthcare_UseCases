@@ -330,7 +330,7 @@ function paintSheet() {
       <h5>The setup</h5><p>${esc(sc.subtitle)}</p>
       <h5>Ask the room</h5><p>${esc(sg.ask)}</p>
       <h5>What stays with the hospital</h5><p>${esc(sg.stays)}</p>
-      <h5>Say this out loud</h5><p>${esc(sc.caveat)}</p>
+      <h5>Caveat to keep in mind</h5><p>${esc(sc.caveat)}</p>
       ${lens.length ? `<h5>More evidence for this lens</h5><ul>${lens.map((f) => `<li><b>${esc(f.value)}</b> ${esc(f.label)} <i>(${esc(f.source)}${f.vendor ? ", vendor-reported" : ""})</i> <a href="${f.url}" target="_blank" rel="noopener">link</a></li>`).join("")}</ul>` : ""}
       ${PORTFOLIO[sc.id] ? `<h5>Cisco's wider portfolio for this use case</h5><ul>${PORTFOLIO[sc.id].products.map((p) => `<li><b>${esc(p.name)}</b>: ${esc(p.role)}${p.url ? ` <a href="${p.url}" target="_blank" rel="noopener">link</a>` : ""}</li>`).join("")}</ul>${PORTFOLIO[sc.id].partners.length ? `<p><i>Partner systems commonly in the picture:</i> ${PORTFOLIO[sc.id].partners.map(esc).join(", ")}.</p>` : ""}` : ""}
       <h5>Building blocks in this story</h5><div class="pills">${sg.recipe.map((r) => ITEM.get(r)).filter(Boolean).map((i) => `<span class="pill ${i!.layer}">${esc(i!.short)} &middot; ${esc(i!.tag)}</span>`).join("")}</div>`;
