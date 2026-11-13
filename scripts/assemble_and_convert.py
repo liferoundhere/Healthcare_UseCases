@@ -65,10 +65,33 @@ TOC = """## Contents
 """
 
 
+_BOLD_LINE = re.compile(r"\*\*.+\*\*")
+_FILE_INTRO = re.compile(r"This is file \d+ of \d+\b|This file follows\b")
+
+
 def strip_leading_title(text: str) -> str:
-    """Drop the first H1 and its immediate subtitle/intro if they duplicate the cover."""
-    lines = text.splitlines()
-    # Keep content; just leave the file's own H1 in place for navigation.
+    """Drop a sectional draft's own title block, which the cover replaces.
+
+    Removes, in this order and only while each is the next non-blank line:
+    the leading H1, a bold subtitle line, a one-line "This is file N of M" or
+    "This file follows ..." intro, and the "---" rule that closes the block.
+    Stops at the first line that is none of these, so a draft that opens with
+    a second H1 (Part C's "# Part 4: ...") keeps it and everything after it.
+    """
+    lines = text.strip().splitlines()
+
+    def drop_if(matches) -> bool:
+        if not lines or not matches(lines[0]):
+            return False
+        del lines[0]
+        while lines and not lines[0].strip():
+            del lines[0]
+        return True
+
+    if drop_if(lambda line: line.startswith("# ")):
+        drop_if(lambda line: _BOLD_LINE.fullmatch(line.strip()) is not None)
+        drop_if(lambda line: _FILE_INTRO.match(line) is not None)
+        drop_if(lambda line: line.strip() == "---")
     return "\n".join(lines).strip() + "\n\n"
 
 
@@ -120,7 +143,12 @@ def extract_sources_block(text: str, heading_re: str) -> str:
     m = re.search(heading_re, text, re.M)
     if not m:
         return ""
-    return text[m.end():].strip() + "\n"
+    rest = text[m.end():]
+    nxt = re.search(r"^## ", rest, re.M)
+    if nxt:
+        # Stop at the next section, and drop the "---" rule that introduces it.
+        rest = re.sub(r"\n-{3,}\s*\Z", "", rest[: nxt.start()].rstrip())
+    return rest.strip() + "\n"
 
 
 def assemble_sources() -> str:

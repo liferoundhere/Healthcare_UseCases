@@ -492,23 +492,3 @@ From `research/05-cisco-cloud-control-data-fabric.md`.
 30. Cisco, "Modernizing Cybersecurity in Healthcare" solution brief, updated October 16, 2026 (contains no Cloud Control healthcare SKU). https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html
 31. Channel Dive, "Cisco bundles agentic management platform into existing partner tiers," June 3, 2026. https://www.channeldive.com/news/cisco-bundles-agentic-management-platform-into-existing-partner-tiers/821926/
 32. Cisco Intersight Licensing page, accessed November 12, 2026. https://www.cisco.com/site/us/en/products/computing/hybrid-cloud-operations/intersight-platform/licensing.html
-
----
-
-## H) Gaps
-
-1. **Non-US availability:** no date for EU or other regions. Cisco says additional regions follow "as data sovereignty requirements are completed" [15].
-2. **Cloud Control Studio:** no confirmed GA for Agent Builder, App Builder, or Marketplace.
-3. **Digital Twin:** no status found after "alpha in July 2026."
-4. **Deep Network Model:** no explicit GA statement as a named, standalone capability.
-5. **Agentic Actions:** Cloud Control release notes describe Actions as a shipped feature, while the October 13 deck labels "Actions" as Controlled Availability. These may be two different things (correlated alert Actions vs agentic remediation Actions). Confirm with Cisco.
-6. **"No separate Splunk license":** exact scope is unresolved between the Splunk blog [20], TechTarget [19], and Cisco documentation [4]. Confirm with the account team before the storyboard states it.
-7. **Iceberg and Delta Lake:** no GA date or connector documentation as Federated Search targets.
-8. **Machine Data Lake region list** excludes US-West, while Cloud Control's Splunk connection runs in the US West region [4][18]. Implications for data residency not documented.
-9. **No Cisco BAA or HIPAA statement** specific to Cloud Control or AI Canvas was found. Lantern defers to Cisco terms [29].
-10. **No native Citrix, EHR vendor, nurse call, or RTLS-vendor connectors** were found in Cloud Control.
-11. **The storyboard's actual 10 use cases** were not in the workspace, so section F is provisional.
-12. **The 60+ integration commitments:** no public full list with per-item status.
-13. **MCP-enabled Catalog Discovery, knowledge graph, and lineage:** no GA dates found.
-14. **Quantum Ready Assessments in Cisco IQ:** "Global availability planned for July 2026" [2]; current status not confirmed.
-15. **Publication dates** for sources [24], [25], and [26] could not be confirmed.
