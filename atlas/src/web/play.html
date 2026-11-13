@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:,">
+<title>Presenter | {{EDITION_LABEL}}</title>
+<link rel="stylesheet" href="css/atlas.css">
+</head>
+<body class="play">
+<div id="app">
+  <header class="top">
+    <a class="btn" href="index.html" id="bLibrary" title="Back to the use case library">Library</a>
+    <div class="mark"></div>
+    <div class="ttl"><span class="code" id="ucCode"></span><b id="ucName"></b></div>
+    <span class="qpos" id="qpos" hidden></span>
+    <span class="edition" id="edition">{{EDITION_LABEL}}</span>
+    <button class="btn" id="bDetails" title="Gaps, console, data path, outcomes, sources and legend (I)">Details</button>
+    <button class="btn" id="bAuto" title="Optional: advance every 12 seconds. Off unless you turn it on (A)">Auto: off</button>
+    <button class="btn" id="bTheme" title="Light or dark (T)">Dark</button>
+  </header>
+  <main>
+    <section id="stage" aria-label="Floor plan">
+      <div id="stageHead"><span class="ph" id="stagePh"></span><span class="set" id="stageSet"></span></div>
+      <div id="cvWrap"><canvas id="cv"></canvas><span class="sim">Layout, IDs and timings are simulated</span><div id="tip"></div></div>
+    </section>
+    <aside id="now" aria-live="polite"></aside>
+    <section id="summary" aria-label="Summary"></section>
+    <aside id="drawer" aria-hidden="true"><div class="dh"><b>Details</b><button class="btn" id="bCloseDrawer">Close</button></div><div class="db" id="drawerBody"></div></aside>
+  </main>
+  <footer class="bar">
+    <button class="btn nav" id="bBack" title="Left arrow or Page Up">Back</button>
+    <div id="strip" role="group" aria-label="Steps"></div>
+    <button class="btn nav primary" id="bNext" title="Right arrow, Space or Page Down">Next</button>
+  </footer>
+</div>
+<script src="data/catalog.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/common.js"></script>
+<script src="js/player.js"></script>
+</body></html>

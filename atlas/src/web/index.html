@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:,">
+<title>Healthcare infrastructure use case library | {{EDITION_LABEL}}</title>
+<link rel="stylesheet" href="css/atlas.css">
+</head>
+<body class="lib">
+<header><div class="mark"></div><div><h1>Healthcare infrastructure use case library</h1><p id="lead"></p></div><span class="sp"></span><span class="edition" id="edition">{{EDITION_LABEL}}</span><button class="btn" id="bTheme">Dark</button></header>
+<div class="wrap">
+  <div>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Search use cases" aria-label="Search use cases">
+      <div class="fgroup"><span class="lbl">Category</span><span id="fCat" class="fgroup"></span></div>
+      <div class="fgroup"><span class="lbl">Pillar</span><span id="fPillar" class="fgroup"></span></div>
+    </div>
+    <p class="count" id="count"></p>
+    <div id="lists"></div>
+  </div>
+  <aside class="queue" aria-label="Presentation queue">
+    <h2>Presentation queue</h2>
+    <p>Add use cases, put them in order, then play them one after another. The queue is saved in this browser.</p>
+    <ol id="qList"></ol>
+    <p id="qEmpty">The queue is empty. Use "Add to queue" on a card.</p>
+    <div class="acts"><button class="btn primary" id="qPlay">Play queue</button><button class="btn" id="qClear">Clear</button></div>
+  </aside>
+</div>
+<footer><span class="lg"><span class="tag S">S</span> Sourced: public source</span><span class="lg"><span class="tag H">H</span> Hypothesis: to validate with the customer</span><span class="lg"><span class="tag I">i</span> Illustrative: simulated layout, IDs and timings</span><span>Outcomes with Cisco Cloud Control are modeled, not forecast.</span></footer>
+<script src="data/catalog.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/common.js"></script>
+{{UC_SCRIPTS}}
+<script src="js/library.js"></script>
+</body></html>
