@@ -103,9 +103,9 @@ export default {
       store: [ 480, 300 ],
       cool: [ 640, 312 ],
       nexus: [ 70, 418 ],
-      canvas: [ 210, 418 ],
-      isight: [ 350, 418 ],
-      appr: [ 490, 418 ]
+      canvas: [ 200, 418 ],
+      isight: [ 330, 418 ],
+      appr: [ 460, 418 ]
     }
   },
   narr: {
