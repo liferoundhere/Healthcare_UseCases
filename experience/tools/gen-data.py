@@ -71,6 +71,7 @@ ts += "export const LENS_FACTS: Record<string, LensFact[]> = " + json.dumps(lf, 
 ts += "export interface Portfolio { products: { name: string; role: string; url: string }[]; partners: string[] }\n"
 ts += "/** Cisco's wider portfolio per use case (brief 08), beyond what Cloud Control connects today. */\n"
 ts += "export const PORTFOLIO: Record<string, Portfolio> = " + json.dumps(port, indent=1, ensure_ascii=False) + ";\n"
+ts += '\nexport { UPDATES, QUOTES } from "./research-notes";\n'
 (OUT / "research.ts").write_text(ts)
 # ---- account workspaces (briefs 10 and 11) and extra source lists
 acct = {}

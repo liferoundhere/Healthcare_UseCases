@@ -956,3 +956,5 @@ export const PORTFOLIO: Record<string, Portfolio> = {
   ]
  }
 };
+
+export { UPDATES, QUOTES } from "./research-notes";

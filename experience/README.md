@@ -36,6 +36,14 @@ Every story runs the same way: amber **Today** beats, then blue **With Cisco Clo
 |---|---|
 | ![Explorer](docs/06-platform-explorer.jpg) | ![Composer](docs/07-composer.jpg) |
 
+| Account workspace | Healthcare AI use case |
+|---|---|
+| ![Workspace](docs/09-account-workspace.jpg) | ![AI](docs/10-ai-use-case.jpg) |
+
+The isometric view of the same beat:
+
+![Isometric](docs/11-isometric-view.jpg)
+
 ## Controls
 
 | Key | Action |

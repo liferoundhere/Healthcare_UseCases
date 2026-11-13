@@ -91,11 +91,12 @@ export class World {
     const pts: V3[] = []; const C2 = this.campus, P = this.platform;
     const all = () => { for (const id of C2.zones.keys()) pts.push(...C2.corners(id)); };
     const main = ["plant", "dc", "imaging", "pharmlab", "net", "ward", "office", "ed"];
-    let pad: [number, number, number, number] = [40, 50, 30, 50], maxS = 30;
+    let pad: [number, number, number, number] = [40, 50, 30, 50], maxS = 30, skipZones = false;
     if (v.cam === "hero") { const homePage = PLAN && v.ambient; for (const id of homePage ? main : [...main, "clinic", "home"]) pts.push(...C2.corners(id)); if (PLAN && !homePage) pts.push(...C2.corners("outside")); pts.push(EXT, ...P.points(true)); pad = homePage ? [150, 30, 20, this.stage.w * 0.1] : [70, 40, 10, 40]; }
     else if (v.cam === "wide") { all(); pts.push(EXT); if (P.view.mode === "ring") pts.push(...P.points(P.view.fabric)); else if (P.view.mode === "scattered") pts.push(...P.scatterPoints()); pad = [70, 70, 20, 70]; }
     else if (v.cam === "campus") { for (const id of main) pts.push(...C2.corners(id)); pts.push(EXT); }
     else if (v.cam === "platform") { pts.push(...P.points(P.view.fabric)); if (P.view.ghosts) pts.push(...P.ghostPoints()); pad = [90, 250, 36, 240]; maxS = 36; }
+    else if (v.cam === "stack" && PLAN && v.ambient) { pts.push(...P.points(true)); pad = [70, 96, 30, 96]; maxS = 30; skipZones = true; } // builder and plan pages: side panels leave only the middle
     else if (v.cam === "stack") { pts.push(...P.points(true)); for (const id of PLAN ? main : ["plant", "dc", "imaging", "net", "pharmlab"]) pts.push(...C2.corners(id)); pad = [60, 130, 20, 130]; }
     else {
       const zs = new Set<string>(); let deck = false;
@@ -107,7 +108,7 @@ export class World {
       if (deck) pts.push([DECK[0] + DECK_R, DECK[1], DECK[2] - DECK_R], [DECK[0] - DECK_R, DECK[1], DECK[2] + DECK_R], [DECK[0] - DECK_R, DECK[1] + 1, DECK[2] - DECK_R]);
       pad = [deck ? 96 : 110, 90, 26, 90]; maxS = zs.size === 0 ? 24 : zs.size <= 1 && !deck ? 40 : 34;
     }
-    for (const id of v.zones) if (C2.zones.has(id)) pts.push(...C2.corners(id));
+    if (!skipZones) for (const id of v.zones) if (C2.zones.has(id)) pts.push(...C2.corners(id));
     if (!pts.length) all();
     if (v.padRight) pad = [pad[0], pad[1] + v.padRight * this.stage.w, pad[2], pad[3]];
     this.stage.frame(pts, { pad, maxS, minS: 7.5 });
