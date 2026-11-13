@@ -102,6 +102,8 @@ export default {
   scene: {
     decor: 'facilities', // tower (x 20 to 302), imgz (312 to 452), plant (462 to 720), remote (y 246 to 362)
     zoneLabels: { tower: 'Memorial Hospital, live care', imgz: 'Pavilion suites', plant: 'Pavilion building systems', remote: 'Over 67th Street' },
+    labels: { 'Room 412': 'Care unit', 'IDF closet': 'Live systems', imgz: 'Pavilion suites', 'Imaging suite': 'Operating suite' },
+    hide: ['gantry', 'clinic', 'house'],
     pos: {
       care: [88, 118], clin: [216, 150], suites: [382, 138], bms: [524, 126], trades: [654, 142, { lab: 't' }], bridge: [340, 296],
       topo: [92, 418], canvas: [212, 418], wf: [335, 418], appr: [470, 418],

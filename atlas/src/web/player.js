@@ -91,12 +91,14 @@
     /* The card never scrolls and never clips: if a long step does not fit, the type steps down, never under the floor. */
     function fitCard() {
       const now = $('now'), h2 = $('stepTitle'), say = $('say'); if (!h2) return;
-      h2.style.fontSize = ''; say.style.fontSize = '';
+      h2.style.fontSize = ''; say.style.fontSize = ''; now.classList.remove('tight');
       let a = parseFloat(getComputedStyle(h2).fontSize), b = parseFloat(getComputedStyle(say).fontSize), guard = 0;
       while (now.scrollHeight > now.clientHeight + 1 && guard++ < 12 && (a > 30 || b > 20)) {
         if (a > 30) a -= 1; if (b > 20) b -= 0.5;
         h2.style.fontSize = a + 'px'; say.style.fontSize = b + 'px';
       }
+      // still too tall (a long approval on a small screen): the card closes up its spacing; no text goes under 14px
+      if (now.scrollHeight > now.clientHeight + 1) now.classList.add('tight');
       window.__cardOverflow = now.scrollHeight > now.clientHeight + 1 ? `${c.id} step ${st.pos + 1}: the card content is taller than the card` : '';
     }
 

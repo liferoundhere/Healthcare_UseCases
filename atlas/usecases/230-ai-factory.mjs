@@ -95,6 +95,8 @@ export default {
   scene: {
     decor: 'ehr',
     zoneLabels: { floor: 'Clinical floor', path: 'Cluster fabric', dc: 'Data center built for lighter racks' },
+    labels: { 'Room 408': 'Patient room', 'War room': 'Staff workroom' },
+    hide: ['wifi-waves', 'cloud'],
     pos: {
       app: [ 86, 134 ],
       serve: [ 480, 124 ],

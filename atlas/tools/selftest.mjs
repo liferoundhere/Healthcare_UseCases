@@ -3,7 +3,8 @@
 // 1. The template (inline narrative, reused floor plan) builds as a shared use case and as an account use case.
 // 2. An account use case lands only in its own edition.
 // 3. The build fails when a node has no position, when an account use case names the other account,
-//    when the text holds an em dash, and when the floor plan does not exist.
+//    when the text holds an em dash, when the floor plan does not exist, and when a scene.labels or scene.hide
+//    override matches nothing in the floor plan.
 import { execFileSync } from 'node:child_process';
 import { cpSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -53,6 +54,20 @@ ok(!r.ok && /is not a floor plan/.test(r.log), 'an unknown floor plan stops the 
 
 r = build((s) => s.replace("callout: { node: 'canvas'", "callout: { node: 'nobody'"));
 ok(!r.ok && /callout points at "nobody"/.test(r.log), 'a callout on an unknown node stops the build'); done(r);
+
+// overrides of a reused floor plan: a label or dressing id that the plan does not draw is a typo, and stops the build
+const LBLS = "zoneLabels: { floor: 'Medical floor', sys: 'Clinical systems' },";
+r = build((s) => s.replace(LBLS, LBLS + " labels: { 'Room 411': 'Room 7', stairwell: null, sys: 'Nurse call systems' }, hide: ['cloud', 'wifi-waves'],"));
+ok(r.ok && /"labels":\{"Room 411":"Room 7","stairwell":null/.test(readFileSync(join(r.out, 'general/data/uc-template-nurse-call.js'), 'utf8')), 'scene.labels and scene.hide that match the floor plan build'); done(r);
+
+r = build((s) => s.replace(LBLS, LBLS + " labels: { 'Room 441': 'Room 7' },"));
+ok(!r.ok && /scene\.labels "Room 441" matches no label of the floor plan "wifi"/.test(r.log), 'a scene.labels key that matches nothing stops the build'); done(r);
+
+r = build((s) => s.replace(LBLS, LBLS + " hide: ['ambulance'],"));
+ok(!r.ok && /scene\.hide "ambulance" matches no dressing of the floor plan "wifi"/.test(r.log), 'a scene.hide id that matches nothing stops the build'); done(r);
+
+r = build((s) => s.replace(LBLS, LBLS + " labels: { 'Room 411': 7 },"));
+ok(!r.ok && /must be a text, or null/.test(r.log), 'a scene.labels value that is not a text or null stops the build'); done(r);
 
 // the narrative can also live in a narrative file instead of inline
 {

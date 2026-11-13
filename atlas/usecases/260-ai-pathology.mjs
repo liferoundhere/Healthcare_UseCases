@@ -95,6 +95,8 @@ export default {
   scene: {
     decor: 'wan',
     zoneLabels: { clin: 'Pathology lab site', parent: 'Main campus' },
+    labels: { 'Clinic floor': 'Slide scanning lab', 'Back office': 'Pathology reading room', 'Parent data center': 'Main data center', 'Parent network and SOC': 'Network operations' },
+    hide: ['exam-bed'],
     pos: {
       scan: [ 130, 150 ],
       path: [ 112, 296 ],

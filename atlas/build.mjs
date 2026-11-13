@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, rmSync, existsSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import vm from 'node:vm';
 
 const here = dirname(fileURLToPath(import.meta.url));
 // --usecases=<dir> and --out=<dir> point the build at other folders (used by tools/selftest.mjs)
@@ -34,6 +35,26 @@ const engineSrc = engineFiles.map((f) => ({ f, src: read('src/engine', f) }));
 const editionsOfFile = (src) => { const m = src.match(/^\/\/\s*@editions\s+([a-z ,]+)$/m); return m ? m[1].split(/[ ,]+/).filter(Boolean) : ALL; };
 const decorIdsIn = (src) => Array.from(src.matchAll(/^DECOR\.([A-Za-z0-9_]+)\s*=/gm)).map((m) => m[1]);
 const ICONS = new Set(Array.from(engineSrc.map((e) => e.src).join('\n').matchAll(/case '([a-z]+)':/g)).map((m) => m[1]));
+
+/* What each floor plan offers to scene.labels and scene.hide. The engine is run once without a browser: every
+   drawing call lands on a stub, and the plan's label and dressing hooks (LBL, HID in 00-core.js) record what they
+   were asked for. So the list always matches the drawing code, and an override that matches nothing can be rejected. */
+function decorRegistry() {
+  const stub = new Proxy(function () {}, { get: (t, k) => (k === Symbol.toPrimitive ? () => 0 : stub), apply: () => stub, set: () => true });
+  const box = vm.createContext({ document: { documentElement: { dataset: {} } }, console, Math, stub });
+  vm.runInContext(engineSrc.map((e) => e.src).join('\n'), box, { filename: 'engine.js' });
+  return vm.runInContext(`(() => {
+    ctx = stub; TEXTSTAT.mute = true; const out = {};
+    Object.keys(DECOR).forEach((id) => {
+      const c = { id: 'registry-' + id, code: '', chips: [], legacy: { silos: [] }, scene: { decor: id, pos: {} }, N: { nodes: [], zones: [], links: [], steps: [{ phase: 'today' }, { phase: 'cisco' }] } };
+      setDecorOverrides(c.scene); DECOR_OV.seen = { labels: new Set(), hide: new Set() };
+      DECOR[id](makeScene(c, 'legacy', 0, 1, 0, { dt: 0, aud: 'exec' }));
+      out[id] = { labels: Array.from(DECOR_OV.seen.labels), hide: Array.from(DECOR_OV.seen.hide) };
+    });
+    return out;
+  })()`, box);
+}
+const ovKey = (s) => String(s).trim().replace(/\s+/g, ' ').toLowerCase();
 
 async function loadNarratives() {
   const map = new Map();
@@ -66,7 +87,7 @@ async function loadCases(narr) {
 }
 
 /* ------------------------------------------------------------------ validation */
-function validateCase(c, decorIds, errs) {
+function validateCase(c, decorIds, errs, registry = {}) {
   const E = (m) => errs.push(`${c._file}: ${m}`);
   const str = (o, k, where = '') => { if (typeof o[k] !== 'string' || !o[k].trim()) E(`missing text field ${where}${k}`); };
   ['id', 'code', 'short', 'name', 'setting', 'vision', 'ask'].forEach((k) => str(c, k));
@@ -102,6 +123,20 @@ function validateCase(c, decorIds, errs) {
   // scene and narrative
   if (!c.scene || !c.scene.pos) { E('missing scene.pos'); return; }
   if (!decorIds.includes(c.scene.decor)) E(`scene.decor "${c.scene.decor}" is not a floor plan. Available: ${decorIds.join(', ')}`);
+  // overrides of a reused floor plan: every key must match something the plan draws
+  const reg = registry[c.scene.decor];
+  if (c.scene.labels != null) {
+    if (typeof c.scene.labels !== 'object' || Array.isArray(c.scene.labels)) E('scene.labels must be an object: { "<label text or zone id>": "New label" or null }');
+    else if (reg) Object.entries(c.scene.labels).forEach(([k, v]) => {
+      if (v !== null && typeof v !== 'string') E(`scene.labels "${k}" must be a text, or null to hide the label`);
+      if (!reg.labels.includes(ovKey(k))) E(`scene.labels "${k}" matches no label of the floor plan "${c.scene.decor}". It draws: ${reg.labels.join(', ')}`);
+    });
+  }
+  if (c.scene.hide != null) {
+    if (!Array.isArray(c.scene.hide)) E('scene.hide must be a list of dressing ids');
+    else if (reg) c.scene.hide.forEach((k) => { if (!reg.hide.includes(k)) E(`scene.hide "${k}" matches no dressing of the floor plan "${c.scene.decor}". It offers: ${reg.hide.join(', ') || 'nothing'}`); });
+  }
+  if (c.scene.zoneLabels && reg) Object.keys(c.scene.zoneLabels).forEach((k) => { if (!reg.labels.includes(ovKey(k))) E(`scene.zoneLabels "${k}" is not a zone of the floor plan "${c.scene.decor}"`); });
   const N = c.N;
   if (!N) { E(`no narrative: add a "narr" field, or a file in atlas/narratives with id "${c.narrId || c.id}"`); return; }
   ['subtitle', 'caveat'].forEach((k) => { if (typeof N[k] !== 'string' || !N[k].trim()) E(`narrative is missing ${k}`); });
@@ -151,7 +186,9 @@ const cases = await loadCases(narr);
 const allDecor = engineSrc.flatMap((e) => decorIdsIn(e.src));
 const errs = [];
 const seen = new Set();
-cases.forEach((c) => { if (seen.has(c.id)) errs.push(`${c._file}: duplicate id "${c.id}"`); seen.add(c.id); validateCase(c, allDecor, errs); });
+const registry = decorRegistry();
+if (process.argv.includes('--plans')) { Object.entries(registry).forEach(([id, r]) => console.log(`${id}\n  labels: ${r.labels.join(' | ')}\n  hide:   ${r.hide.join(' | ') || '(nothing)'}`)); process.exit(0); }
+cases.forEach((c) => { if (seen.has(c.id)) errs.push(`${c._file}: duplicate id "${c.id}"`); seen.add(c.id); validateCase(c, allDecor, errs, registry); });
 if (errs.length) { console.error(`Build stopped: ${errs.length} problem(s) in the use case data.\n  ` + errs.join('\n  ')); process.exit(1); }
 
 const dist = flagValue('out') || join(here, 'dist');

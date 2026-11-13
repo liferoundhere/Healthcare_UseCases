@@ -152,6 +152,19 @@ body.today .fact .v{color:var(--pain)}
 .approval.done .ok{background:var(--run);animation:none;cursor:default}
 .approval.done .hint{color:var(--run)}
 @keyframes ring{0%{box-shadow:0 0 0 0 rgba(4,159,217,.45)}100%{box-shadow:0 0 0 14px rgba(4,159,217,0)}}
+#now.tight{padding-top:14px;padding-bottom:10px}
+#now.tight h2{margin:10px 0 8px;line-height:1.1}
+#now.tight .say{line-height:1.32}
+#now.tight .seg{margin-bottom:6px}
+#now.tight #support{padding-top:8px}
+#now.tight .approval .hd{padding:5px 12px}
+#now.tight .approval .hd b{font-size:16px;line-height:1.2}
+#now.tight .approval ul{padding:6px 12px 0}
+#now.tight .approval li{font-size:14px;line-height:1.25;margin-bottom:2px}
+#now.tight .approval li:first-child{font-size:15px}
+#now.tight .approval .act{flex-wrap:nowrap;gap:10px;padding:4px 12px 8px}
+#now.tight .approval .ok{min-height:40px;padding:0 20px}
+#now.tight .approval .hint{font-size:14px;line-height:1.2}
 #now .more{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;color:var(--faint)}
 #now .more button{border:0;background:none;color:var(--cisco);font-size:15px;font-weight:700;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
 

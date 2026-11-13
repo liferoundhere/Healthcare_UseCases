@@ -95,6 +95,8 @@ export default {
   scene: {
     decor: 'ai',
     zoneLabels: { hosp: 'Hospital', vend: 'Vendors and the internet' },
+    labels: { 'Reading room': 'EHR workstations', 'CT suite': 'Department', 'Office': 'IT office', 'GPU rack row': 'Data center racks' },
+    hide: ['gantry'],
     pos: {
       ehra: [ 88, 134 ],
       ehr: [ 266, 134 ],

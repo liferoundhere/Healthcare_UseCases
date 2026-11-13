@@ -95,6 +95,8 @@ export default {
   scene: {
     decor: 'ehr',
     zoneLabels: { floor: 'Nursing unit and ED', path: 'Device network', dc: 'Data center' },
+    labels: { 'Room 408': 'Patient room', 'Hallway': 'Corridor', 'War room': 'Emergency department' },
+    hide: ['war-room'],
     pos: {
       mon: [ 84, 134 ],
       rn: [ 205, 134 ],

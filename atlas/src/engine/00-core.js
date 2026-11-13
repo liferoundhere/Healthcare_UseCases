@@ -44,6 +44,42 @@ const DECORLAB = { list: [], hide: new Set() };
 const TEXTSTAT = { min: 99, dropped: [], mute: false }; // mute: draw no text at all (library thumbnails)
 const fsz = (size) => Math.max(size, MIN_PX / VIEWK);
 
+/* Per-use-case overrides for a reused floor plan: scene.labels renames or hides the text the plan draws,
+   scene.hide removes dressing that belongs to the plan's original story.
+     scene.labels: { 'Room 412': 'Operating room 1', 'War room': null, floor: 'Perioperative floor' }
+     scene.hide:   ['cloud', 'ambulance']
+   A label key is the text the plan draws (any letter case) or a zone id; null or '' hides the label.
+   Every label a plan draws goes through LBL() and every optional piece of dressing through HID(), so the build
+   can list what a plan offers (DECOR_OV.seen) and reject an override that matches nothing. */
+const DECOR_OV = { labels: new Map(), hide: new Set(), texts: new Set(), used: new Set(), seen: null };
+const ovKey = (s) => String(s == null ? '' : s).trim().replace(/\s+/g, ' ').toLowerCase();
+function setDecorOverrides(scene) {
+  DECOR_OV.labels = new Map(Object.entries((scene && scene.labels) || {}).map(([k, v]) => [ovKey(k), v == null ? '' : String(v)]));
+  DECOR_OV.hide = new Set((scene && scene.hide) || []);
+  DECOR_OV.texts = new Set(); DECOR_OV.labels.forEach((v) => { if (v) { DECOR_OV.texts.add(v); DECOR_OV.texts.add(v.toUpperCase()); } });
+  DECOR_OV.used = new Set();
+}
+/* The text to draw for a floor plan label: the use case's override if it has one, else the plan's own text. '' means draw nothing. */
+function LBL(text, id) {
+  const keys = [id, text].filter((k) => k != null && k !== '').map(ovKey);
+  if (DECOR_OV.seen) keys.forEach((k) => DECOR_OV.seen.labels.add(k));
+  for (const k of keys) if (DECOR_OV.labels.has(k)) { DECOR_OV.used.add('label ' + k); return DECOR_OV.labels.get(k); }
+  return text || '';
+}
+/* True when the use case hides this piece of dressing. */
+function HID(id) {
+  if (DECOR_OV.seen) DECOR_OV.seen.hide.add(id);
+  if (DECOR_OV.hide.has(id)) { DECOR_OV.used.add('hide ' + id); return true; }
+  return false;
+}
+/* Overrides that matched nothing in the plan that was just drawn (the build reports the same thing earlier). */
+function unusedOverrides() {
+  const out = [];
+  DECOR_OV.labels.forEach((v, k) => { if (!DECOR_OV.used.has('label ' + k)) out.push(`scene.labels "${k}"`); });
+  DECOR_OV.hide.forEach((k) => { if (!DECOR_OV.used.has('hide ' + k)) out.push(`scene.hide "${k}"`); });
+  return out;
+}
+
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const lerp = (a, b, u) => a + (b - a) * u;
 const smooth = (u) => { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); };
@@ -139,7 +175,8 @@ const D = {
     ctx.font = `${o.italic ? 'italic ' : ''}${o.weight || 500} ${size}px ${FONT}`;
     ctx.fillStyle = o.color || T.ink; ctx.textAlign = o.align || 'left'; ctx.textBaseline = o.base || 'middle';
     if (o.maxW && ctx.measureText(s).width > o.maxW + 0.5) {
-      if (o.drop) { TEXTSTAT.dropped.push(s); ctx.restore(); return; }
+      // a plan's own label that does not fit is left out; a label a use case asked for must fit, so it is reported
+      if (o.drop) { TEXTSTAT.dropped.push(s); if (DECOR_OV.texts.has(s)) OVERFLOW.push(s); ctx.restore(); return; }
       OVERFLOW.push(s);
     }
     if (o.drop) { // a set-dressing label: it gives way when a device label or the callout needs its place

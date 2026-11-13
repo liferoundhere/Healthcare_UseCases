@@ -92,6 +92,8 @@ export default {
   scene: {
     decor: 'wan',
     zoneLabels: { clin: 'New hub and merged hospital', parent: 'NYU Langone Health system' },
+    labels: { 'Clinic floor': 'New ambulatory hub', 'Back office': 'Merged hospital', 'The circuit': 'WAN circuits', 'Parent data center': 'System data center', 'Parent network and SOC': 'Network and readiness teams' },
+    hide: ['exam-bed'],
     pos: {
       hub: [84, 140], clin: [190, 140], merged: [110, 292],
       ehr: [535, 130], std: [465, 296], teams: [650, 296],

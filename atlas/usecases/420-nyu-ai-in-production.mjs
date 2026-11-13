@@ -92,6 +92,7 @@ export default {
   scene: {
     decor: 'ai',
     zoneLabels: { hosp: 'Emergency department and data center', vend: 'Cloud' },
+    labels: { 'Exam room': 'ED exam room', 'Reading room': 'ED workroom', 'GPU rack row': 'Data center', 'Office': 'AI program office' },
     pos: {
       note: [88, 132], wifi: [264, 206, { lab: 'r' }], gpu: [218, 266], ehr: [318, 318], inv: [456, 218],
       cloud: [626, 150],

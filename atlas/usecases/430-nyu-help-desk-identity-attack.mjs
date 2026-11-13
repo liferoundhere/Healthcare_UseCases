@@ -93,6 +93,7 @@ export default {
   scene: {
     decor: 'security',
     zoneLabels: { floor: 'Clinical floor and help desk', dc: 'Data center and SOC', ext: 'Outside the hospital' },
+    labels: { 'Room 412': 'Patient room' },
     pos: {
       rn: [82, 132], desk: [160, 236], caller: [626, 190],
       idp: [336, 126], nac: [468, 172], soc: [342, 292], sys: [470, 292],

@@ -8,7 +8,7 @@ function HOT(id, x, y, w, h, info) {
   const m = ctx.getTransform(), b = HOTS.base || 1;
   HOTS.add(id + SUF, (m.a * x + m.e) / b, (m.d * y + m.f) / b, (m.a * w) / b, (m.d * h) / b, info);
 }
-const SCENE_R = [14, 44, 726, 468]; // scene region in scene units: x0, y0, x1, y1
+const SCENE_R = [14, 44, 726, 494]; // scene region in scene units: x0, y0, x1, y1
 const SCENE_PAD = [24, 30]; // extra room around SCENE_R inside the panel, so the camera push-in never crops content
 const CAM_Z = 1.05;
 const DIM_OUT = 0.24; // opacity of devices that are not part of the current step (the original used 0.46)
@@ -142,11 +142,12 @@ function makeScene(c, mode, i, su, t, app) {
   /* zone: a named area. Floor tint follows the worst state among watched devices. */
   S.zone = (id, x, y, w, h, o = {}) => {
     const z = c.N.zones.find((q) => q.id === id), a = ANIM.zones.get(id) ? ANIM.zones.get(id).a : 1;
+    // label: the use case's own zone, then scene.zoneLabels, then the label the floor plan was first drawn with
+    // scene.labels (keyed by the zone id) overrides all of them, and can hide the label with null
+    const zl = LBL(o.label != null ? o.label : (c.scene.zoneLabels && c.scene.zoneLabels[id]) || (z && z.label) || ((DECOR_ZONES[c.scene.decor] || {})[id]) || '', id);
     if (a < 0.02) return;
     ctx.save(); ctx.globalAlpha *= a;
-    // label: the use case's own zone, then scene.zoneLabels, then the label the floor plan was first drawn with
-    const zl = o.label != null ? o.label : (c.scene.zoneLabels && c.scene.zoneLabels[id]) || (z && z.label) || ((DECOR_ZONES[c.scene.decor] || {})[id]) || '';
-    S.area(x, y, w, h, zl, Object.assign({}, o, { id }));
+    S.area(x, y, w, h, zl, Object.assign({}, o, { id, resolved: true }));
     ctx.restore();
   };
   /* state shading: red hatch when something inside is down, amber when warning, blue dashes while waiting for approval */
@@ -169,13 +170,19 @@ function makeScene(c, mode, i, su, t, app) {
   S.area = (x, y, w, h, label, o = {}) => {
     D.box(x, y, w, h, { fill: o.fill || T.floor, stroke: o.stroke || T.wall, lw: o.lw || 1.8, r: o.r ?? 10, shadow: o.shadow ?? 0, dash: o.dash });
     if (!o.late) S.shade(x, y, w, h, o.watch, o.r ?? 10);
-    if (label) {
+    if (!o.resolved) label = LBL(label, o.id);
+    // the name of an area: drawn now, or after the area's dressing (o.deferText) so that no drawing covers it
+    const drawName = (halo) => {
       const col = o.cisco ? COL.cisco : o.lc || T.sub;
-      D.text(label.toUpperCase(), x + 10, y + 13, { size: 10, weight: 800, color: col, maxW: w - 16 });
+      D.text(label.toUpperCase(), x + 10, y + 13, { size: 10, weight: 800, color: col, maxW: w - 16, halo });
       LABELS.push({ id: 'zone ' + (o.id || label), kind: 'zone', x: x + 10, y: y + 13 - fsz(10) / 2, w: D.measure(label.toUpperCase(), 10, 800), h: fsz(10) });
-    }
+    };
+    if (label && o.deferText) S.areaNames.set(o.id || label, { draw: () => drawName(3), a: ctx.globalAlpha });
+    else if (label) drawName(0);
     if (o.id || o.info) HOT(o.id || label, x, y, w, h, o.info || { owner: o.cisco ? 'cisco' : 'hosp', tag: 'I', title: label || o.id, body: o.body || 'Illustrative layout. Shaded by the worst state among the devices inside it.', src: SRCNAME + ', ' + c.code });
   };
+  S.areaNames = new Map();
+  S.areaName = (id) => { const n = S.areaNames.get(id); if (!n) return; S.areaNames.delete(id); ctx.save(); ctx.globalAlpha = n.a; n.draw(); ctx.restore(); };
   S.room = (x, y, w, h, label, o = {}) => S.area(x, y, w, h, label, Object.assign({ fill: T.panel, r: 6, lw: 1.4 }, o));
   return S;
 }
@@ -332,7 +339,7 @@ function layoutFor(S) {
     const cx = p[0] - w / 2, cy = p[1] - h / 2, G = 16;
     const spots = [[cx, U.y - G - h], [cx, U.y + U.h + G], [U.x + U.w + G, cy], [U.x - G - w, cy], [U.x + U.w + G, U.y - G - h], [U.x - G - w, U.y - G - h], [U.x + U.w + G, U.y + U.h + G], [U.x - G - w, U.y + U.h + G], [cx, U.y - G - h - 60], [cx, U.y + U.h + G + 60], [U.x + U.w + G + 70, cy], [U.x - G - w - 70, cy]];
     spots.forEach((sp, k) => {
-      const r = { x: clamp(sp[0], 18, 724 - w), y: clamp(sp[1], 48, 464 - h), w, h };
+      const r = { x: clamp(sp[0], 18, 724 - w), y: clamp(sp[1], 48, SCENE_R[3] - 4 - h), w, h };
       let cost = k * 3 + (Math.abs(r.x - sp[0]) + Math.abs(r.y - sp[1])) * 0.5;
       circ.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 4); });
       placed.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 6); });
@@ -350,7 +357,7 @@ function layoutFor(S) {
 
 /* ---------- links ---------- */
 function drawLinks(S) {
-  const t = S.t;
+  const t = S.t; LINKS.length = 0;
   S.N.links.forEach((l) => {
     const pa = S.pos[l.a], pb = S.pos[l.b]; if (!pa || !pb) return;
     const A = ANIM.nodes.get(l.a), B = ANIM.nodes.get(l.b); if (!A || !B) return;
@@ -360,7 +367,20 @@ function drawLinks(S) {
     const a = [pa[0], pa[1]], b = [pb[0], pb[1]];
     const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1;
     const off = 24, sa = [a[0] + (dx / len) * off, a[1] + (dy / len) * off], sb = [b[0] - (dx / len) * off, b[1] - (dy / len) * off];
-    const path = curve(sa, sb, l.bend || 0), col = sc(state);
+    // two devices on the band with a third between them: the link arcs over it, so it never runs behind a device
+    let bend = l.bend || 0;
+    if (pa[1] >= CC_BAND[1] && pb[1] >= CC_BAND[1]) {
+      let need = 0;
+      S.N.nodes.forEach((n) => {
+        const p = S.pos[n.id]; if (!p || n.id === l.a || n.id === l.b || p[1] < CC_BAND[1]) return;
+        const u = ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (len * len); if (u <= 0.04 || u >= 0.96) return;
+        if (Math.abs((p[0] - a[0]) * dy - (p[1] - a[1]) * dx) / len < 30) need = Math.max(need, 34 / (1.2 * u * (1 - u) * Math.max(40, len - 2 * 24)));
+      });
+      const up = dx >= 0 ? -1 : 1; // the sign that bows the line toward the top of the band
+      if (need && bend * up < need) bend = up * Math.min(0.7, need);
+    }
+    const path = curve(sa, sb, bend), col = sc(state);
+    if (va > 0.5) LINKS.push({ id: l.id, a: l.a, b: l.b, pts: path.pts });
     ctx.save(); ctx.globalAlpha *= va * Math.max(A.dim, B.dim);
     if (state === 'idle' || state === 'unknown') {
       D.line(path.pts, { lw: 1.6, color: tint(state === 'unknown' ? COL.unknown : COL.idle, 0.6), dash: [3, 4] });
@@ -419,7 +439,9 @@ function drawClock(S) {
 }
 
 /* Cloud Control band: the floating Cisco plane, drawn along the bottom of the scene when 'cc' is shown. */
-const CC_BAND = [20, 372, 700, 90];
+/* The band is tall enough for a device on the row y = 418 with its title and caption, also when it is the device in
+   focus (drawn 45% larger), so nothing a band device says crosses the band's border. */
+const CC_BAND = [20, 372, 700, 116];
 function drawCCBand(S) {
   if (!S.N.zones.some((z) => z.id === 'cc')) return;
   const a = ANIM.zones.get('cc'); if (!a || a.a < 0.02) return;
@@ -432,6 +454,7 @@ function drawCCBand(S) {
   g.addColorStop(0, tint(COL.cisco, 0)); g.addColorStop(0.5, tint(COL.cisco, 0.1)); g.addColorStop(1, tint(COL.cisco, 0));
   ctx.fillStyle = g; ctx.fillRect(x, y, w, h); ctx.restore();
   D.text('CISCO CLOUD CONTROL (MODELED)', x + 12, y + 13, { size: 10, weight: 800, color: COL.cisco });
+  if (a.a > 0.5) LABELS.push({ id: 'zone cc', kind: 'zone', x: x + 12, y: y + 13 - fsz(10) / 2, w: D.measure('CISCO CLOUD CONTROL (MODELED)', 10, 800), h: fsz(10) });
   D.icon('cloud', x + w - 18, y + 13, 14, COL.cisco);
   ctx.restore();
   HOT('cc', x, y, w, h, { owner: 'cisco', tag: 'S', title: 'Cisco Cloud Control (modeled)', body: S.c.chips.map((q) => `${q[0]}: ${q[1]}`).join('<br>') || 'One place to see, correlate and act, with a person approving changes that touch care.', src: `${SRCNAME}, ${S.c.code}; availability per the research brief` });
@@ -442,9 +465,9 @@ function drawLegacyBand(S) {
   const [x, y, w, h] = CC_BAND, L = S.c.legacy.silos;
   D.box(x, y, w, h, { fill: tint(COL.pain, 0.03), stroke: tint(COL.pain, 0.5), lw: 1.6, r: 12, dash: [3, 5] });
   D.text('TODAY: ONE TOOL PER TEAM, NO SHARED VIEW [H]', x + 12, y + 13, { size: 10, weight: 800, color: COL.pain });
-  const pw = (w - 24 - 16) / 3, ph2 = 28;
+  const pw = (w - 24 - 16) / 3, ph2 = 36;
   L.forEach((s, i) => {
-    const px = x + 12 + (i % 3) * (pw + 8), py = y + 27 + Math.floor(i / 3) * (ph2 + 6);
+    const px = x + 12 + (i % 3) * (pw + 8), py = y + 28 + Math.floor(i / 3) * (ph2 + 8);
     D.box(px, py, pw, ph2, { fill: T.panel, stroke: T.line2, lw: 1.3, r: 8 });
     D.icon(s[3] || 'server', px + 15, py + ph2 / 2, 13, s[2] === 'p' ? COL.partner : COL.idle);
     D.text(s[0], px + 31, py + ph2 / 2 + 0.5, { size: 11, weight: 600, color: T.ink, maxW: pw - 36 });
@@ -462,7 +485,9 @@ function drawUCScene(c, mode, i, su, t, app) {
   const known = LAYOUTS.get(layoutKey(S)); DECORLAB.hide = known ? known.hide : new Set();
   ctx.save();
   ctx.translate(SCENE_C[0] + cam.px, SCENE_C[1] + cam.py); ctx.scale(cam.z, cam.z); ctx.translate(-SCENE_C[0], -SCENE_C[1]);
+  setDecorOverrides(c.scene);
   DECOR[c.scene.decor](S);
+  unusedOverrides().forEach((m) => MISSING.add(`${c.id}: ${m} matches nothing in the floor plan "${c.scene.decor}"`));
   if (mode === 'legacy' && !c.scene.noLegacyBand) drawLegacyBand(S);
   drawCCBand(S);
   drawVeil(S);
@@ -476,7 +501,7 @@ function drawUCScene(c, mode, i, su, t, app) {
 }
 
 /* Layout audit, read by tools/check.cjs: label boxes that collide, and labels or callouts that leave the scene. */
-const LABELS = [], CALLOUT = { rect: null }, MISSING = new Set();
+const LABELS = [], LINKS = [], CALLOUT = { rect: null }, MISSING = new Set();
 function auditLabels(S) {
   const out = [], hit = (a, b, m) => a.x < b.x + b.w - m && b.x < a.x + a.w - m && a.y < b.y + b.h - m && b.y < a.y + a.h - m;
   const fixed = LABELS.filter((l) => l.kind === 'zone').concat(DECORLAB.list);
@@ -490,5 +515,12 @@ function auditLabels(S) {
     if (l.x < SCENE_R[0] - SCENE_PAD[0] + 2 || l.x + l.w > SCENE_R[2] + SCENE_PAD[0] - 2 || l.y < SCENE_R[1] - SCENE_PAD[1] + 2 || l.y + l.h > SCENE_R[3] + SCENE_PAD[1] - 2) out.push(`${S.c.id}: ${l.kind} of "${l.id}" leaves the scene`);
   });
   if (CALLOUT.rect) L.forEach((l) => { if (l.kind !== 'node' && l.id !== CALLOUT.rect.node && hit(l, CALLOUT.rect, 2.5)) out.push(`${S.c.id}: callout covers ${l.kind} of "${l.id}"`); });
+  // a link must not run behind a device on the band: the devices there sit in one row, so a straight link between two of them hides behind a third
+  const segD = (p, a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], u = clamp(((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy || 1), 0, 1); return Math.hypot(p[0] - a[0] - dx * u, p[1] - a[1] - dy * u); };
+  S.N.nodes.forEach((n) => {
+    const p = S.pos[n.id]; if (!p || p[1] < CC_BAND[1] || !S.cur.vis.get(n.id)) return;
+    const R = 18 * ((n.r || 30) / 30) * (n.id === S.prim ? 1.45 : 1) + 1;
+    LINKS.forEach((l) => { if (l.a === n.id || l.b === n.id) return; for (let k = 1; k < l.pts.length; k++) if (segD(p, l.pts[k - 1], l.pts[k]) < R) { out.push(`${S.c.id}: link "${l.id}" passes behind "${n.id}" on the band`); break; } });
+  });
   return out;
 }

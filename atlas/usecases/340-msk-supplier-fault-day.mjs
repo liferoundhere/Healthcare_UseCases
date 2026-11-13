@@ -105,6 +105,7 @@ export default {
   scene: {
     decor: 'security', // floor (x 20 to 270), dc (282 to 520), ext (532 to 720)
     zoneLabels: { floor: 'Perioperative floor', dc: 'Clinical systems', ext: 'Outside: the supplier' },
+    labels: { 'Room 412': 'OR 1', 'Room 413': 'OR 2' },
     pos: {
       or: [82, 134], lead: [192, 134], sec: [150, 250], hosts: [400, 160], acc: [612, 268], sup: [612, 136],
       inv: [92, 418], cid: [212, 418], canvas: [335, 418], appr: [470, 418],

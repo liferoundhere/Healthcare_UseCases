@@ -95,6 +95,7 @@ export default {
   scene: {
     decor: 'ai',
     zoneLabels: { hosp: 'Hospital', vend: 'AI vendors' },
+    labels: { 'Reading room': 'Finance office', 'Office': 'IT operations' },
     pos: {
       scribe: [ 88, 134 ],
       img: [ 88, 290 ],

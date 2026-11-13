@@ -4,8 +4,10 @@ const KP = () => (THEME === 'dark'
   : { vinyl: '#eef3f6', wood: '#f2e9d9', carpet: '#e7ebf1', raised: '#e3e9ee', glass: '#cdeaf8', steel: '#c4ced6', screen: '#16212b', metal: '#d3dae0', sheet: '#ffffff', blanket: '#8fd0c8', roof: '#e6eaee', grass: '#e8f2df', asphalt: '#e6eaed', gown: '#b9d6ef', cloud: '#ffffff' });
 
 function walker(S, pts, o = {}) {
+  if (HID('walkers')) return;
+  const wl = o.label ? LBL(o.label) : '';
   const p = Path(pts.concat(o.loop === false ? [] : [pts[0]])), dist = mod(S.t * (o.speed || 24) + (o.off || 0) * p.L, p.L), q = p.at(dist);
-  D.person(q.x, q.y, q.a, o.color || COL.hosp, { kind: o.kind || 'nurse', swing: Math.sin(dist * 0.42), label: o.label, ly: o.ly, dev: o.dev, s: o.s });
+  D.person(q.x, q.y, q.a, o.color || COL.hosp, { kind: o.kind || 'nurse', swing: Math.sin(dist * 0.42), label: wl, ly: o.ly, dev: o.dev, s: o.s });
 }
 
 const K = {
@@ -272,6 +274,7 @@ const K = {
   },
   /* Patient room: vinyl floor, window, bed with patient, headwall monitor, IV pole, bedside table, chair and a door. */
   ward(x, y, w, h, label, o = {}) {
+    label = LBL(label);
     K.floor(x, y, w, h, o.floor || 'vinyl', 6); D.box(x, y, w, h, { stroke: T.wall, lw: 1.8, r: 6 });
     K.window(x + w * 0.2, y, w * 0.6);
     if (label) D.text(label.toUpperCase(), x + 8, y + 14, { size: 9.5, weight: 800, color: T.sub, maxW: w - 14, drop: true });
@@ -284,6 +287,7 @@ const K = {
     K.doorArc(x + w - 38, y + h, 13, 1);
   },
   corridor(x, y, w, h, label) {
+    label = LBL(label);
     const p = KP(); K.floor(x, y, w, h, 'vinyl', 6); D.box(x, y, w, h, { stroke: T.wall, lw: 1.8, r: 6 });
     D.line([[x + 6, y + 5], [x + w - 6, y + 5]], { lw: 2, color: p.steel }); D.line([[x + 6, y + h - 5], [x + w - 6, y + h - 5]], { lw: 2, color: p.steel });
     for (let xx = x + 40; xx < x + w - 24; xx += 58) D.box(xx, y + h / 2 - 3, 20, 6, { fill: THEME === 'dark' ? 'rgba(255,240,170,.16)' : 'rgba(255,224,120,.55)', r: 3 });
@@ -296,7 +300,7 @@ const K = {
     for (let k = 0; k < Math.max(2, Math.floor(w / 36)); k++) { const px = x + 14 + k * 30; D.box(px, y + 9, 12, 8, { fill: p.screen, stroke: T.wall, lw: 0.7, r: 1.5 }); D.box(px + 1, y + 10, 10, 6, { fill: tint(COL.cisco, 0.5 + 0.2 * Math.sin(TT * 2 + k)), r: 1 }); }
     D.person(x + w * 0.3, y + h * 0.62, -Math.PI / 2, null, { kind: 'nurse', seat: true, s: 0.85 });
     D.person(x + w * 0.62, y + h * 0.62, -Math.PI / 2, null, { kind: 'doc', seat: true, s: 0.85 });
-    if (o.label) D.text(o.label, x + w / 2, y + h + 9, { size: 9.5, weight: 700, color: T.sub, align: 'center', halo: 3 });
+    const nl = LBL(o.label); if (nl) D.text(nl, x + w / 2, y + h + 9, { size: 9.5, weight: 700, color: T.sub, align: 'center', halo: 3 });
   },
   /* The carrier path between sites: a switch stack, two fibre trunks in duct with manholes, and a radio tower. */
   networkPath(x, y, w, h) {
