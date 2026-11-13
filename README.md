@@ -1,30 +1,151 @@
-# Healthcare Infrastructure Storyboard
+# Healthcare Use Case Atlas
 
-Context pack and interactive explainer for healthcare customers. Research first prepared 12 November 2026; extended and rebuilt 13 November 2026.
+An interactive presentation system for healthcare account teams. It shows, on hospital floor plans, how an infrastructure problem plays out **today** and how the same event plays out **with Cisco Cloud Control**, one step at a time, at the presenter's pace.
 
-The pack describes how a health system runs network, security, facilities, and AI infrastructure today, then maps the same stories onto Cisco Cloud Control and Cisco Data Fabric. Phase 1 is vendor-neutral. Phase 2 is Cisco-specific and tags every capability GA, CA, or Roadmap.
+The system is in [`atlas/`](atlas/). It grew out of the original 2D showcase in `showcase/` and keeps its look, with three things fixed: it was busy, the type was small, and it ran on a timer.
 
-## The explainer (`experience/`)
+![Use case library](atlas/docs/01-library.jpg)
 
-A web app for account teams. Run it:
+## What you get
+
+| | |
+|---|---|
+| **A use case library** | 28 use cases you can search, filter by category and pillar, and line up in a presentation queue. |
+| **Presenter-paced stories** | Nothing moves until you press Next. One large card says what is happening; the floor plan shows where. |
+| **Three separate editions** | General, Memorial Sloan Kettering, and NYU Langone Health. Each is built on its own and never contains the other account's name. |
+| **A human approval in every story** | Any change that could touch care stops until you click Approve. |
+| **A closing summary** | Outcomes, the question to ask the room, and what stays with the hospital. |
+| **Sources on every number** | Tagged S (public source), H (hypothesis to validate) or I (illustrative). Cloud Control outcomes are modeled. |
+
+## How a story looks
+
+Each story runs red **Today** steps, then blue **With Cisco Cloud Control** steps, then a **Summary**.
+
+| Today: the problem | The approval |
+|---|---|
+| ![Today](atlas/docs/03-story-today.jpg) | ![Approval](atlas/docs/04-approval.jpg) |
+
+| The summary | Details on demand |
+|---|---|
+| ![Summary](atlas/docs/05-summary.jpg) | ![Details](atlas/docs/11-details.jpg) |
+
+The 28 use cases:
+
+- **3 flagship stories:** Security, Facilities, AI in care.
+- **10 infrastructure use cases:** EHR slow, medical devices, downtime, clinical Wi-Fi, imaging, hospital at home, acquired clinic, identity, compliance, AI at work.
+- **7 healthcare AI use cases:** virtual nursing and room cameras, AI agents in patient access, private clinical AI on hospital GPUs, bedside prediction, agents with access to the EHR, digital pathology, AI cost.
+- **4 for Memorial Sloan Kettering** and **4 for NYU Langone Health**, each built from public sources and labelled as hypotheses to validate. They appear only in that organization's edition.
+
+![An AI use case](atlas/docs/06-ai-use-case.jpg)
+
+## The three editions
+
+| General | Memorial Sloan Kettering | NYU Langone Health |
+|---|---|---|
+| 20 shared use cases | 20 shared + 4 of its own | 20 shared + 4 of its own |
+| ![General](atlas/docs/01-library.jpg) | ![MSK](atlas/docs/07-edition-msk.jpg) | ![NYULH](atlas/docs/09-edition-nyulh.jpg) |
+
+An account edition says who it was prepared for and lists that organization's use cases first. There is no switch between editions in the interface, and the build fails if one account's name appears anywhere in another edition's files.
+
+## How to run it
+
+You need [Node.js](https://nodejs.org) 18 or later. Nothing else to install.
+
+1. Build the three editions:
 
 ```bash
-cd experience && npm install && npm run dev
+node atlas/build.mjs
 ```
 
-It shows a health system (patient floor, emergency department, imaging, pharmacy and lab, network core, data center, offices, central plant, a clinic, a patient's home and the outside world) as a flat 2D plan or an isometric model, with Cisco Cloud Control and Cisco Data Fabric at its centre. It plays an opening film, four operating lenses, three flagship stories, ten infrastructure use cases and seven healthcare AI use cases, each as amber Today beats followed by blue Cloud Control beats with a human approval.
+2. Start the server:
 
-It is also a working tool: account workspaces (Generic, NYU Langone Health, Memorial Sloan Kettering) with their own researched use cases kept separate, a rating and notes on every story, and an account plan you can export.
+```bash
+node atlas/server.mjs
+```
 
-![The explainer](experience/docs/02-today-five-consoles.jpg)
+3. Open one of these in a browser:
 
-See [`experience/README.md`](experience/README.md) for controls and build steps, and [`experience/PRESENTER-GUIDE.md`](experience/PRESENTER-GUIDE.md) for a 20-minute run. A single-file build for offline hand-off is at `experience/healthcare-cloud-control.html`.
+- `http://localhost:8080/general/`
+- `http://localhost:8080/msk/`
+- `http://localhost:8080/nyulh/`
 
-## The skill (`skills/`)
+## How to present
 
-[`skills/interactive-explainer.skill`](skills/interactive-explainer.skill) is an exportable skill that teaches Claude how to build this kind of explainer for another product or industry: the method, the research briefs, the story data model, the renderer, and a starter kit with the working code. The source is in `skills/interactive-explainer/`; `python3 skills/pack.py` refreshes the starter from `experience/` and re-packages it.
+1. **Pick the edition** for the audience and open its address.
+2. **Build a queue.** On the library page, press "Add to queue" on the use cases you plan to show, then "Play queue". Or click any card to open it directly.
+3. **Choose the audience** on the story card: Executive, IT director or Engineering. The narration changes with it.
+4. **Step through.** Right arrow, Space or the Next button moves forward; Left arrow goes back. You can also click any numbered step. Nothing advances by itself.
+5. **Approve.** At the approval step, click Approve or press Enter. Say who approves and where the change runs.
+6. **Open Details** when someone asks for more: the gaps today, the console view, the data path and outcomes.
+7. **Finish on the Summary.** It holds the question to ask the room.
 
-Earlier iterations are kept for reference: `showcase/` (the first single-file 2D floor plans), `app/` (the 2D Canvas storyboard whose `scenes.ts` is still the narrative source of truth) and `stage/` (a paused 3D deck).
+| Key | Action |
+|---|---|
+| Right, Space, PageDown | Next step |
+| Left, PageUp | Previous step |
+| Enter | Approve, when an approval is waiting |
+| Esc | Back to the library |
+
+## How to add a use case
+
+1. Copy `atlas/usecases/_template.mjs` to a new numbered file, for example `atlas/usecases/280-my-story.mjs`.
+2. Set `editions` to who should see it: `['general','msk','nyulh']` for everyone, or `['msk']` or `['nyulh']` for one account.
+3. Write the steps, pick an existing floor plan with `scene.decor`, and place each device with `scene.pos`. Rename rooms to fit your story with `scene.labels`.
+4. Build and check it:
+
+```bash
+node atlas/build.mjs
+```
+
+```bash
+node atlas/tools/check.cjs --fast --ed=general --uc=my-story
+```
+
+[`atlas/AUTHORING.md`](atlas/AUTHORING.md) has every field, the floor plans available and their room names, and the coordinate system. The build stops with a clear message if a device has no position, a label override matches nothing, or an account name appears where it should not.
+
+## How to host it
+
+**On your own server.** Run `node atlas/server.mjs` on any machine with Node.js. Set an access code per edition so only the right audience gets in:
+
+```bash
+ATLAS_CODE_MSK=choose-a-code ATLAS_CODE_NYULH=choose-another node atlas/server.mjs
+```
+
+The root address lists nothing, so one audience cannot discover another's edition. `ATLAS_SLUG_MSK` and `ATLAS_SLUG_NYULH` rename the paths if you want addresses that cannot be guessed.
+
+**On here.now** (static hosting). Each edition becomes its own site:
+
+```bash
+node atlas/tools/publish-herenow.mjs msk
+```
+
+Without an account the site expires after 24 hours and anyone with the link can open it. Set `HERENOW_API_KEY` for a permanent site, then add a password in the here.now dashboard before sharing an account edition.
+
+## How it is checked
+
+```bash
+node atlas/tools/check.cjs
+```
+
+This opens every use case in every edition in a headless browser and steps through it with the keyboard. It fails on a console error, any text under 14 pixels, text that overflows its box, overlapping labels, a device without a position, another account's name on screen, or a story that advances by itself. Last run: general 4,887 checks, MSK 5,769, NYULH 5,769, none failed. Tested in Chromium at 1600x900 and 1280x720 only.
+
+## Rules the content follows
+
+- Cisco Cloud Control is generally available in the United States only (25 August 2026). Its outcomes here are modeled; no healthcare customer metric exists, so no percentage is claimed.
+- Cisco Data Fabric holds machine data. It is not a clinical record and does not replace the EHR.
+- Account use cases come from public sources and are hypotheses. Nothing states what an organization has bought.
+- Any action that can touch clinical systems waits for a named person.
+
+## What else is in this repository
+
+| Folder | What it is |
+|---|---|
+| `atlas/` | The system described above. |
+| `research/` | Twelve cited research briefs and their data extracts. `sources.md` is the bibliography. |
+| `showcase/` | The original 2D showcase that `atlas/` is built from. |
+| `experience/` | An earlier dark, isometric redesign. Kept for reference; superseded by `atlas/`. |
+| `skills/` | An exportable skill describing how to build this kind of explainer (written for the `experience/` version). |
+| `app/`, `stage/` | The first storyboard app and a paused 3D deck. `app/src/scenes.ts` is the source of the original 13 narratives. |
 
 ## Start here
 
