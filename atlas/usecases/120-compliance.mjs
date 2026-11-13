@@ -34,7 +34,7 @@ export default {
     recap: 'The surveyor asks for the ePHI map, and four inventories and a corkboard are the answer.'
   },
   tobe: {
-    banner: 'A live topology and an audit log in the Machine Data Lake give a dated record. A person annotates which parts hold ePHI. Cloud Control helps with evidence; it is not HIPAA certified.',
+    banner: 'A live topology, the audit log and that day\'s telemetry in the Machine Data Lake give a dated record. A person annotates which parts hold ePHI. Cloud Control helps with evidence; it is not HIPAA certified.',
     strip: 'Live topology, audit log, Machine Data Lake, human ePHI annotation',
     who: 'Surveyor visit on a Tuesday (sim)',
     console: {
@@ -92,7 +92,11 @@ export default {
     { l: 'Isolation evidence', a: 'Screenshot', b: 'Dated record', tag: 'H' },
     { l: 'Compliance claim', a: 'Customer', b: 'Customer', tag: 'S' }
   ],
+  narrPatch: {
+    steps: { 2: { callout: null } },
+  },
   scene: {
+    labels: { Corkboard: null, 'Surveyor, Tuesday': null },
     decor: 'compliance',
     pos: {
       cork: [ 80, 206 ],

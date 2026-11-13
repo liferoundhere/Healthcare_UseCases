@@ -49,7 +49,7 @@ export default {
         [ 'Audit record', 'none', 'who approved what', 2, 'doc' ]
       ]
     },
-    stays: 'ISE and Catalyst Center stay the systems of record, along with the SIEM and clinical teams. Plan an out-of-band path in case containment cuts cloud reach.',
+    stays: 'ISE and Catalyst Center stay the systems of record. The SIEM stays with the SOC, and care decisions stay with the clinical teams. Plan an out-of-band path in case containment cuts cloud reach.',
     recap: [
       'The same alert, one canvas: scope is 3 pumps on one segment, and EHR, phones and monitors are not involved.',
       'Outcomes are modeled: a smaller downtime footprint and an audit trail. No percentage is claimed.'
@@ -92,6 +92,14 @@ export default {
     { l: 'Mean time to contain, all industries [IBM 2026]', a: '64 days', b: '64 days', tag: 'S' },
     { l: 'Change approval', a: 'Ad hoc', b: 'Named approvers', tag: 'H' }
   ],
+  narrPatch: {
+    // Corrections to the shared narrative in stage/js/narrative.js (see AUTHORING.md, narrPatch)
+    steps: {
+      2: { callout: { node: 'pump', text: 'One of 40 pumps on 4 West is sending traffic to an address nobody recognizes.' } },
+      5: { say: { eng: 'AI Canvas correlates Security detections, Cisco Identity posture and topology. Identity in AI Canvas is beta.' } },
+      7: { say: { eng: 'A rollback is another planned change in ISE or Catalyst Center. Plan an out-of-band path in case containment cuts cloud reach.' } },
+    },
+  },
   scene: {
     decor: 'security',
     pos: {

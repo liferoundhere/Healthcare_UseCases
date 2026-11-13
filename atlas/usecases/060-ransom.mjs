@@ -35,7 +35,7 @@ export default {
   },
   tobe: {
     banner: 'AI Canvas draws the affected zone from the live topology. A person approves isolation, and restore starts from a clean copy in the order the clinical teams agreed in advance.',
-    strip: 'AI Canvas, Layer 3 topology, approvals, isolated clean-room backups',
+    strip: 'AI Canvas, Layer 3 topology, approvals, a clean-room backup copy',
     who: 'Hour one of an outage (sim)',
     console: {
       title: 'Cloud Control | affected zone',
@@ -49,7 +49,7 @@ export default {
         [ 'Diversion call', 'late', 'earlier, with evidence', 2, 'ambulance' ]
       ]
     },
-    stays: 'Downtime procedures stay on paper and in the clinical teams. Cloud Control scopes and restores; it never decides care. The timing here is illustrative.',
+    stays: 'Downtime procedures stay on paper and in the clinical teams. Cloud Control helps scope and isolate; the restore runs in the backup platform, and care decisions stay with clinicians. The timing here is illustrative.',
     recap: [
       'The zone is drawn, isolation waits for a person, and restore comes from a clean copy.',
       'Outcomes are modeled: a smaller zone and a faster, ordered restore. The clock is illustrative.'
@@ -92,6 +92,12 @@ export default {
     { l: 'Isolation', a: 'Pull the plug', b: 'Approved', tag: 'H' },
     { l: 'Restore source', a: 'Live backups', b: 'Clean copy', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      3: { say: { dir: 'Joint Commission expects a plan for four weeks offline. Kettering Health, Ohio, 2025: core Epic back in 13 days, phones in about three weeks.' } },
+      5: { say: { dir: 'ISE and the firewalls enforce the change. Life-safety systems stay on the keep-up list.' } },
+    },
+  },
   scene: {
     decor: 'ransom',
     pos: {

@@ -101,14 +101,13 @@ export default {
     { l: 'Blackbaud incident, on the vendor network [MSK 2020]', a: 'Jul 2020', b: 'Jul 2020', tag: 'S' },
     { l: 'Sources merged to find scope', a: '4 or more', b: '1 investigation', tag: 'H' },
     { l: 'Approval before supplier access is restricted', a: 'Per team', b: '1 named approver', tag: 'H' },
+    { l: 'Floor plan, generic, not a real MSK layout or equipment placement', a: 'Illustrative', b: 'Illustrative', tag: 'I' },
   ],
   scene: {
-    decor: 'security', // floor (x 20 to 270), dc (282 to 520), ext (532 to 720)
-    zoneLabels: { floor: 'Perioperative floor', dc: 'Clinical systems', ext: 'Outside: the supplier' },
-    labels: { 'Room 412': 'OR 1', 'Room 413': 'OR 2' },
+    decor: 'msk_supplier', // floor (x 20 to 260), dc (270 to 530), ext (540 to 720)
     pos: {
-      or: [82, 134], lead: [192, 134], sec: [150, 250], hosts: [400, 160], acc: [612, 268], sup: [612, 136],
-      inv: [92, 418], cid: [212, 418], canvas: [335, 418], appr: [470, 418],
+      or: [144, 156], lead: [192, 296], sec: [340, 294], hosts: [405, 170], acc: [466, 290], sup: [630, 118],
+      inv: [110, 418], cid: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {

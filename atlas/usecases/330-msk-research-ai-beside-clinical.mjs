@@ -102,15 +102,13 @@ export default {
     { l: 'AI models registered in the first governance year [NPJ Digital Medicine 2025]', a: '26', b: '26', tag: 'S' },
     { l: 'Log sets read to trace one dataset', a: '4', b: '1 query', tag: 'H' },
     { l: 'Approval before a change on a shared path', a: 'Per team', b: '1 named approver', tag: 'H' },
+    { l: 'Floor plan, based on public descriptions of MSK clinical, pathology and research buildings', a: 'Illustrative', b: 'Illustrative', tag: 'I' },
   ],
   scene: {
-    decor: 'ai', // hosp (x 20 to 520): exam room, CT suite, reading room, GPU rack row, office; vend (532 to 720)
-    zoneLabels: { hosp: 'Clinical and research computing', vend: 'Public cloud' },
-    labels: { 'CT suite': 'Image reading', 'Reading room': 'Digital pathology', 'Office': 'Review office' },
-    hide: ['gantry'],
+    decor: 'msk_research', // hosp (x 20 to 520): reading room, digital pathology, data governance, research computing, data center; vend (532 to 720)
     pos: {
-      view: [90, 290], path: [265, 128], rev: [437, 208], fab: [437, 302], gpu: [265, 292], cloud: [626, 150],
-      topo: [92, 418], fed: [212, 418], canvas: [335, 418], appr: [470, 418],
+      view: [105, 158], path: [268, 162], rev: [434, 158], gpu: [140, 298], fab: [330, 292], cloud: [626, 180],
+      topo: [110, 418], fed: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {

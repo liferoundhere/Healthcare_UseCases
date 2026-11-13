@@ -1,7 +1,8 @@
 // Screenshots of the built editions (reads atlas/dist over file://, no server needed).
 //   node atlas/tools/shoot.cjs                       library + three stories, 1600x900 and 1280x720, general edition
 //   node atlas/tools/shoot.cjs --ed=msk --uc=wifi,security --steps=1,3,approval,summary --size=1600x900 --theme=dark --out=shots
-// --steps takes step numbers, "approval" (the step with the Approve button), "approved", "mid" and "summary".
+// --steps takes step numbers, "approval" (the step with the Approve button), "approved", "mid", "summary" and
+// "all" (every step, the approved state and the summary).
 // --uc=all shoots every use case. --details also opens the Details drawer on the first step.
 // --stage clips each presenter screenshot to the floor plan panel. --nolib skips the library page.
 const { chromium } = require('playwright');
@@ -33,7 +34,9 @@ const base = url.pathToFileURL(path.join(root, ed)).href;
     for (const id of ucs) {
       await page.goto(`${base}/play.html?uc=${id}&theme=${theme}&aud=${aud}`); await page.waitForFunction(() => window.__atlas);
       const info = await page.evaluate(() => { const c = ATLAS.cases[__atlas.id]; return { n: __atlas.steps, modal: c.N.steps.findIndex((s) => s.modal) }; });
-      for (const s of arg('steps', '1,mid,approval,summary').split(',')) {
+      const want = arg('steps', '1,mid,approval,summary');
+      const list = want === 'all' ? Array.from({ length: info.n }, (_, k) => String(k + 1)).concat(info.modal >= 0 ? ['approved'] : [], ['summary']) : want.split(',');
+      for (const s of list) {
         if (s === 'summary') await page.evaluate(() => __atlas.go(__atlas.steps));
         else if (s === 'approval' || s === 'approved') { if (info.modal < 0) continue; await page.evaluate((k) => __atlas.go(k), info.modal); if (s === 'approved') await page.keyboard.press('Enter'); }
         else await page.evaluate((k) => __atlas.go(k), s === 'mid' ? Math.floor(info.n / 2) - 1 : +s - 1);

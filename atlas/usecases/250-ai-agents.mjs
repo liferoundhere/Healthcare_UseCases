@@ -93,21 +93,18 @@ export default {
     { l: 'Permission change', a: 'Vendor ticket', b: 'Approved by two people', tag: 'H' }
   ],
   scene: {
-    decor: 'ai',
-    zoneLabels: { hosp: 'Hospital', vend: 'Vendors and the internet' },
-    labels: { 'Reading room': 'EHR workstations', 'CT suite': 'Department', 'Office': 'IT office', 'GPU rack row': 'Data center racks' },
-    hide: ['gantry'],
+    decor: 'agents',
     pos: {
-      ehra: [ 88, 134 ],
-      ehr: [ 266, 134 ],
-      diy: [ 88, 290 ],
-      svc: [ 437, 215 ],
-      rcm: [ 626, 140 ],
-      inj: [ 650, 290 ],
-      sa: [ 70, 418 ],
-      appr: [ 200, 418 ],
-      cid: [ 330, 418 ],
-      obs: [ 460, 418 ]
+      diy: [ 113, 136 ],
+      svc: [ 113, 280 ],
+      ehr: [ 325, 136 ],
+      ehra: [ 325, 222 ],
+      rcm: [ 590, 264 ],
+      inj: [ 590, 130 ],
+      cid: [ 110, 418 ],
+      appr: [ 280, 418 ],
+      sa: [ 450, 418 ],
+      obs: [ 620, 418 ]
     }
   },
   narr: {

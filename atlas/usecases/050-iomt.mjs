@@ -92,6 +92,12 @@ export default {
     { l: 'Device identity', a: 'MAC only', b: 'model + behavior', tag: 'H' },
     { l: 'Pump network', a: 'Flat', b: 'Own segment', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      2: { say: { dir: 'Vendor research found devices bridging guest and internal networks in 22% of hospitals.' } },
+      6: { label: { guest: 'Bridge removed' } },
+    },
+  },
   scene: {
     decor: 'iomt',
     pos: {

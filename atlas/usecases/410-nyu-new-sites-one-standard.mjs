@@ -1,6 +1,6 @@
 // Account use case N1 (NYULH edition only): new hospitals and hubs, one operating standard.
 // Sources: research/10-account-nyu-langone.md (section G1) and research/data/account-nyu-langone.json.
-// Narrative converted from experience/src/story/accounts.ts. Floor plan reused: "wan". See atlas/AUTHORING.md.
+// Narrative converted from experience/src/story/accounts.ts. Floor plan: "nyulh_sites" in src/engine/46-decor-nyulh.js. See atlas/AUTHORING.md.
 const Q3 = 'NYU Langone Q3 report 2026';
 const n = (id, icon, title, sub, hidden = false) => ({ id, icon, title, sub: { exec: sub[0], dir: sub[1], eng: sub[2] }, hidden, r: 30 });
 const k = (a, b, bend = 0) => ({ id: `${a}-${b}`, a, b, bend });
@@ -90,19 +90,16 @@ export default {
     { l: 'Drift from the reference design', a: 'Sampled', b: 'Listed per site', tag: 'H' },
   ],
   scene: {
-    decor: 'wan',
-    zoneLabels: { clin: 'New hub and merged hospital', parent: 'NYU Langone Health system' },
-    labels: { 'Clinic floor': 'New ambulatory hub', 'Back office': 'Merged hospital', 'The circuit': 'WAN circuits', 'Parent data center': 'System data center', 'Parent network and SOC': 'Network and readiness teams' },
-    hide: ['exam-bed'],
+    decor: 'nyulh_sites',
     pos: {
-      hub: [84, 140], clin: [190, 140], merged: [110, 292],
-      ehr: [535, 130], std: [465, 296], teams: [650, 296],
+      hub: [80, 128], clin: [208, 128], merged: [214, 296],
+      ehr: [580, 136], std: [510, 296], teams: [646, 266],
       topo: [110, 418], te: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {
     subtitle: 'A merged hospital, a 45-acre future campus and three ambulatory hubs opening within weeks of each other must all reach the same record, network and security baseline.',
-    caveat: "No public source names NYU Langone's network vendor or says it has bought any Cisco product; every with-Cisco beat is a hypothesis to validate and the outcome is modeled, not measured.",
+    caveat: "No public source names NYU Langone's network vendor or says it has bought any Cisco product; every with-Cisco beat is a hypothesis to validate and the outcome is modeled, not measured. The floor plan layout is illustrative and based on public descriptions of NYU Langone sites; rooms and equipment are not shown at real locations.",
     nodes: [
       n('hub', 'building', 'New ambulatory hub', ['Opens within weeks', 'Its own go-live checklist', 'Templates staged per site']),
       n('clin', 'badge', 'Clinician at the hub', ['First to notice', 'Day-one care team', 'EHR client on new Wi-Fi']),
@@ -116,8 +113,9 @@ export default {
       n('appr', 'person', 'Network change owner', ['A named person decides', 'Existing change process', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'clin', label: 'New hub and merged hospital', hidden: false, cisco: false },
-      { id: 'parent', label: 'NYU Langone Health system', hidden: false, cisco: false },
+      { id: 'sites', label: 'New hub and merged hospital', hidden: false, cisco: false },
+      { id: 'wan', label: 'WAN', hidden: false, cisco: false },
+      { id: 'sys', label: 'NYU Langone Health system', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('clin', 'hub'), k('hub', 'ehr'), k('merged', 'ehr', 0.1), k('std', 'hub'), k('std', 'merged', -0.1), k('teams', 'hub', 0.1), k('teams', 'merged'), k('topo', 'hub'), k('topo', 'merged', 0.1), k('te', 'ehr'), k('topo', 'canvas'), k('te', 'canvas', 0.1), k('canvas', 'appr'), k('appr', 'hub', 0.12)],

@@ -92,7 +92,13 @@ export default {
     { l: 'Unapproved AI', a: 'Unseen', b: 'Guardrail on', tag: 'H' },
     { l: 'Token cost', a: 'Monthly bill', b: 'Per use', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      5: { say: { dir: 'AI Defense discovery controls the chatbot; it does not read the note. Agent Builder is announced, not available.' } },
+    },
+  },
   scene: {
+    hide: ['walkers'],
     decor: 'aiwork',
     pos: {
       room: [ 90, 142 ],

@@ -74,7 +74,7 @@ export default {
     legacy: [
       [ '20.4 s', 'saved per reconnect with badge SSO, 19 hospitals [published study]', 'S' ],
       [ 'No MFA', 'Change Healthcare remote portal [public reporting]', 'S' ],
-      [ 'Reported', 'Synnovis no two-factor is reported, not a primary forensic release', 'S' ]
+      [ '14 days', 'global median dwell time, all industries [Mandiant M-Trends 2026]', 'S' ]
     ],
     tobe: [
       [ '1 baseline', 'over three directories (modeled)', 'H' ],
@@ -92,6 +92,14 @@ export default {
     { l: 'Vendor session approval', a: 'None', b: 'A person', tag: 'H' },
     { l: 'Clinician login', a: 'Badge tap', b: 'Badge tap', tag: 'H' }
   ],
+  narrPatch: {
+    nodes: { app: { sub: { exec: 'Disable shared account' } } },
+    steps: {
+      4: { n: { vendor: 'warn' }, label: { vendor: 'Shared, no MFA' }, say: { eng: 'Identity risk next to network detections in the same AI Canvas investigation. Identity for AI Canvas is beta.' } },
+      5: { label: { vendor: '' } },
+      6: { chips: [['Cisco Identity', 'GA (US), license gate'], ['Identity for AI Canvas', 'Beta'], ['AI Canvas', 'GA (US)'], ['Audit log', 'GA (US)']] },
+    },
+  },
   scene: {
     decor: 'identity',
     pos: {

@@ -93,17 +93,14 @@ export default {
     { l: 'Reroute of slide traffic', a: 'Ad hoc', b: 'Approved by two people', tag: 'H' }
   ],
   scene: {
-    decor: 'wan',
-    zoneLabels: { clin: 'Pathology lab site', parent: 'Main campus' },
-    labels: { 'Clinic floor': 'Slide scanning lab', 'Back office': 'Pathology reading room', 'Parent data center': 'Main data center', 'Parent network and SOC': 'Network operations' },
-    hide: ['exam-bed'],
+    decor: 'pathlab',
     pos: {
-      scan: [ 130, 150 ],
-      path: [ 112, 296 ],
-      wan: [ 320, 200, { lab: 't' } ],
-      ims: [ 455, 176 ],
-      ai: [ 570, 140 ],
-      arch: [ 675, 176 ],
+      scan: [ 130, 146 ],
+      path: [ 100, 292 ],
+      wan: [ 315, 200, { lab: 't' } ],
+      ims: [ 485, 136 ],
+      ai: [ 485, 266 ],
+      arch: [ 655, 180 ],
       sdw: [ 110, 418 ],
       canvas: [ 280, 418 ],
       appr: [ 450, 418 ],
@@ -191,6 +188,7 @@ export default {
     zones: [
       { id: 'clin', label: 'Pathology lab site', hidden: false, cisco: false },
       { id: 'parent', label: 'Main campus', hidden: false, cisco: false },
+      { id: 'ext', label: 'Cloud provider', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true }
     ],
     links: [

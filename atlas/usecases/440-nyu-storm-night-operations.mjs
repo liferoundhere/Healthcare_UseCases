@@ -1,6 +1,6 @@
 // Account use case N4 (NYULH edition only): storm night, one view of plant and network.
 // Sources: research/10-account-nyu-langone.md (section G4) and research/data/account-nyu-langone.json.
-// Narrative converted from experience/src/story/accounts.ts. Floor plan reused: "facilities". See atlas/AUTHORING.md.
+// Narrative converted from experience/src/story/accounts.ts. Floor plan: "nyulh_storm" in src/engine/46-decor-nyulh.js. See atlas/AUTHORING.md.
 // The resilience program is published as a reference for other hospitals. This story must not imply a gap.
 const n = (id, icon, title, sub, hidden = false) => ({ id, icon, title, sub: { exec: sub[0], dir: sub[1], eng: sub[2] }, hidden, r: 30 });
 const k = (a, b, bend = 0) => ({ id: `${a}-${b}`, a, b, bend });
@@ -90,18 +90,16 @@ export default {
     { l: 'Decision record', a: 'Rebuilt later', b: '1 timeline', tag: 'I' },
   ],
   scene: {
-    decor: 'facilities',
-    zoneLabels: { tower: 'Inpatient tower', plant: 'Central plant', remote: 'Off campus' },
-    labels: { 'Room 412': 'Patient bay' },
+    decor: 'nyulh_storm',
     pos: {
-      unit: [74, 122], closet: [200, 124], noc: [168, 206],
-      fac: [528, 108], power: [668, 132], storm: [640, 296],
+      unit: [134, 150], closet: [236, 146], noc: [124, 288],
+      fac: [495, 302], power: [495, 154], storm: [673, 160],
       fabric: [110, 418], topo: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {
     subtitle: 'A coastal storm threatens the East River campus; facilities, network and clinical leaders need the same picture of power, water, connectivity and the systems patients depend on.',
-    caveat: "NYU Langone's resilience program is published as a reference for other hospitals; this story does not imply a gap. Built from public sources: every with-Cisco beat is a hypothesis to validate, any integration with its building systems is unverified and the outcome is modeled.",
+    caveat: "NYU Langone's resilience program is published as a reference for other hospitals; this story does not imply a gap. Built from public sources: every with-Cisco beat is a hypothesis to validate, any integration with its building systems is unverified and the outcome is modeled. The floor plan layout is illustrative and based on public descriptions of NYU Langone sites; rooms and equipment are not shown at real locations.",
     nodes: [
       n('storm', 'cloud', 'Coastal storm', ['Forecast for tonight', 'Outside the campus', 'Surge and wind warnings']),
       n('power', 'gear', 'Power and pumps', ['What the plant protects', 'Facilities', 'BMS, UPS, generator data']),
@@ -115,10 +113,9 @@ export default {
       n('appr', 'person', 'Incident commander', ['Approves each step', 'Hospital incident command', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'tower', label: 'Inpatient tower', hidden: false, cisco: false },
-      { id: 'imgz', label: '', hidden: false, cisco: false },
+      { id: 'campus', label: 'East River campus', hidden: false, cisco: false },
       { id: 'plant', label: 'Central plant', hidden: false, cisco: false },
-      { id: 'remote', label: 'Off campus', hidden: false, cisco: false },
+      { id: 'river', label: 'East River', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('storm', 'power'), k('power', 'closet'), k('closet', 'unit'), k('fac', 'power'), k('noc', 'closet'), k('fac', 'noc', 0.1), k('fabric', 'power'), k('topo', 'closet'), k('fabric', 'canvas'), k('topo', 'canvas', 0.1), k('canvas', 'appr'), k('appr', 'closet', 0.12)],

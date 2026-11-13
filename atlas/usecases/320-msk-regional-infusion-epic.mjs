@@ -101,15 +101,13 @@ export default {
     { l: 'Staff on one Epic record, vendor-reported [Epic customer story, undated]', a: '18,000+', b: '18,000+', tag: 'S' },
     { l: 'Consoles compared for one slow session', a: '4 or more', b: '1 investigation', tag: 'H' },
     { l: 'Approval before a path change', a: 'Ad hoc', b: '1 named approver', tag: 'H' },
+    { l: 'Floor plan, a composite based on public descriptions of MSK regional outpatient sites', a: 'Illustrative', b: 'Illustrative', tag: 'I' },
   ],
   scene: {
-    decor: 'ehr', // floor (x 20 to 256), path (266 to 408), dc (418 to 720)
-    zoneLabels: { floor: 'Regional infusion site', path: 'WAN and carriers', dc: 'Electronic health record' },
-    labels: { 'Room 408': 'Infusion bay', 'Hallway': 'Pharmacy' },
-    hide: ['wifi-waves'],
+    decor: 'msk_infusion', // site (x 20 to 330), carriers (340 to 490), dc (500 to 720)
     pos: {
-      chairs: [90, 134], pharm: [200, 146, { lab: 't' }], call: [96, 296], wan: [312, 138], carrier: [364, 276], ehr: [570, 196],
-      te: [92, 418], dr: [212, 418], canvas: [335, 418], appr: [470, 418],
+      chairs: [125, 170], pharm: [274, 150], wan: [262, 322], carrier: [415, 215], ehr: [610, 196], call: [610, 300],
+      te: [110, 418], dr: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {
@@ -128,8 +126,8 @@ export default {
       n('appr', 'person', 'Network duty manager', ['A named MSK approver', 'Infusion lead informed', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'floor', label: 'Regional infusion site', hidden: false, cisco: false },
-      { id: 'path', label: 'WAN and carriers', hidden: false, cisco: false },
+      { id: 'site', label: 'Regional infusion site', hidden: false, cisco: false },
+      { id: 'carriers', label: 'WAN and carriers', hidden: false, cisco: false },
       { id: 'dc', label: 'Electronic health record', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],

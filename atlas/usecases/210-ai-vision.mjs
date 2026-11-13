@@ -92,16 +92,14 @@ export default {
     { l: 'Change to room ports', a: 'Ad hoc', b: 'Approved by two people', tag: 'H' }
   ],
   scene: {
-    decor: 'security',
-    zoneLabels: { floor: 'Inpatient unit', dc: 'Data center and edge compute', ext: 'Outside the hospital' },
-    labels: { 'IDF closet': null }, // the device placed in that room carries its name
+    decor: 'vnurse',
     pos: {
-      cam: [ 82, 134 ],
-      bedn: [ 160, 240 ],
-      closet: [ 192, 322, { lab: 'l' } ],
-      edge: [ 400, 160 ],
-      relay: [ 620, 126 ],
-      vn: [ 626, 270 ],
+      cam: [ 118, 140 ],
+      bedn: [ 290, 300 ],
+      closet: [ 100, 300 ],
+      edge: [ 440, 106 ],
+      vn: [ 440, 266 ],
+      relay: [ 640, 152 ],
       topo: [ 110, 418 ],
       canvas: [ 280, 418 ],
       appr: [ 450, 418 ],
@@ -195,7 +193,8 @@ export default {
     ],
     zones: [
       { id: 'floor', label: 'Inpatient unit', hidden: false, cisco: false },
-      { id: 'dc', label: 'Data center and edge compute', hidden: false, cisco: false },
+      { id: 'dc', label: 'Edge compute', hidden: false, cisco: false },
+      { id: 'hub', label: 'Virtual nursing hub', hidden: false, cisco: false },
       { id: 'ext', label: 'Outside the hospital', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true }
     ],
@@ -204,7 +203,7 @@ export default {
       { id: 'closet-edge', a: 'closet', b: 'edge', bend: 0 },
       { id: 'edge-relay', a: 'edge', b: 'relay', bend: 0.1 },
       { id: 'relay-vn', a: 'relay', b: 'vn', bend: -0.1 },
-      { id: 'edge-bedn', a: 'edge', b: 'bedn', bend: 0.12 },
+      { id: 'edge-bedn', a: 'edge', b: 'bedn', bend: 0.3 },
       { id: 'vn-bedn', a: 'vn', b: 'bedn', bend: 0 },
       { id: 'topo-closet', a: 'topo', b: 'closet', bend: 0 },
       { id: 'topo-cam', a: 'topo', b: 'cam', bend: 0.1 },

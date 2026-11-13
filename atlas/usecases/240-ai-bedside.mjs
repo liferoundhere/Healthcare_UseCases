@@ -93,21 +93,18 @@ export default {
     { l: 'Bedside-facing change', a: 'Ad hoc', b: 'Approved by a person', tag: 'H' }
   ],
   scene: {
-    decor: 'ehr',
-    zoneLabels: { floor: 'Nursing unit and ED', path: 'Device network', dc: 'Data center' },
-    labels: { 'Room 408': 'Patient room', 'Hallway': 'Corridor', 'War room': 'Emergency department' },
-    hide: ['war-room'],
+    decor: 'bedside',
     pos: {
-      mon: [ 84, 134 ],
-      rn: [ 205, 134 ],
-      edd: [ 84, 300 ],
-      gw: [ 337, 300 ],
-      ie: [ 480, 290 ],
-      lab: [ 640, 290 ],
-      model: [ 550, 130 ],
-      canvas: [ 200, 418 ],
-      splunk: [ 330, 418 ],
-      appr: [ 460, 418 ]
+      mon: [ 108, 136 ],
+      rn: [ 262, 136 ],
+      edd: [ 232, 270 ],
+      gw: [ 384, 230 ],
+      model: [ 585, 122 ],
+      ie: [ 528, 272 ],
+      lab: [ 659, 272 ],
+      canvas: [ 165, 418 ],
+      splunk: [ 365, 418 ],
+      appr: [ 565, 418 ]
     }
   },
   narr: {

@@ -81,15 +81,38 @@ async function loadCases(narr) {
     c._file = 'usecases/' + f;
     // narrative: inline `narr` wins, then a narrative with the same id (or the id named in `narrId`)
     c.N = c.narr || narr.get(c.narrId || c.id) || null; delete c.narr;
+    // narrPatch corrects a shared narrative without editing it: steps by number (1 is the first), nodes by id
+    if (c.N && c.narrPatch) { c.N = structuredClone(c.N); c._patchErrs = applyNarrPatch(c.N, c.narrPatch); }
+    delete c.narrPatch;
     if (c.scene && !c.scene.decor) c.scene.decor = c.id;
     out.push(c);
   }
   return out;
 }
 
+/* Deep merge: objects merge key by key, anything else (text, list, number) replaces; null removes the key. */
+function mergeInto(t, p) {
+  Object.entries(p).forEach(([k, v]) => {
+    if (v === null) delete t[k];
+    else if (v && typeof v === 'object' && !Array.isArray(v) && t[k] && typeof t[k] === 'object' && !Array.isArray(t[k])) mergeInto(t[k], v);
+    else t[k] = structuredClone(v);
+  });
+}
+function applyNarrPatch(N, P) {
+  const errs = [];
+  Object.entries(P).forEach(([k, v]) => {
+    if (k === 'steps') Object.entries(v).forEach(([n, sp]) => { const st = N.steps[+n - 1]; if (!st) errs.push(`narrPatch.steps.${n}: there is no step ${n}`); else mergeInto(st, sp); });
+    else if (k === 'nodes') Object.entries(v).forEach(([id, np]) => { const nd = N.nodes.find((x) => x.id === id); if (!nd) errs.push(`narrPatch.nodes.${id}: no such node`); else mergeInto(nd, np); });
+    else if (['subtitle', 'caveat'].includes(k)) N[k] = v;
+    else errs.push(`narrPatch.${k}: only subtitle, caveat, steps and nodes can be patched`);
+  });
+  return errs;
+}
+
 /* ------------------------------------------------------------------ validation */
 function validateCase(c, decorIds, errs, registry = {}) {
   const E = (m) => errs.push(`${c._file}: ${m}`);
+  (c._patchErrs || []).forEach(E); delete c._patchErrs;
   const str = (o, k, where = '') => { if (typeof o[k] !== 'string' || !o[k].trim()) E(`missing text field ${where}${k}`); };
   ['id', 'code', 'short', 'name', 'setting', 'vision', 'ask'].forEach((k) => str(c, k));
   if (!/^[a-z0-9-]+$/.test(c.id || '')) E('id must be lower case letters, digits and hyphens');

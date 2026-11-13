@@ -74,7 +74,7 @@ export default {
     legacy: [
       [ '300 ms', 'Citrix ICA round-trip warning; 400 ms is critical [Citrix defaults]', 'S' ],
       [ '$1M/hr', 'large-hospital downtime, 2018 estimate, not a study [industry]', 'S' ],
-      [ '759', 'hospitals disrupted by CrowdStrike, 19 Jul 2024 [JAMA]', 'S' ]
+      [ '759', 'hospitals disrupted by CrowdStrike, 19 Jul 2024 [JAMA Network Open 2025]', 'S' ]
     ],
     tobe: [
       [ '1 tier', 'named with evidence, four teams cleared (modeled)', 'H' ],
@@ -87,11 +87,17 @@ export default {
   tiles: [
     { l: 'Citrix ICA round-trip warning [defaults]', a: '300 ms', b: '300 ms', tag: 'S' },
     { l: 'Downtime estimate, large hospital [2018]', a: '$1M/hr', b: '$1M/hr', tag: 'S' },
-    { l: 'Hospitals disrupted by CrowdStrike [JAMA]', a: '759', b: '759', tag: 'S' },
+    { l: 'Hospitals disrupted by CrowdStrike [JAMA Netw Open]', a: '759', b: '759', tag: 'S' },
     { l: 'Teams on the bridge', a: '5', b: '1 owner', tag: 'H' },
     { l: 'Mean time to innocence', a: 'not measured', b: 'proposed KPI', tag: 'H' },
     { l: 'Illustrative time to verdict', a: '2 hours', b: '12 min', tag: 'I' }
   ],
+  narrPatch: {
+    steps: {
+      3: { facts: [{ v: '$1M/hr', l: 'Large-hospital downtime, 2018 estimate, not a study', s: 'Industry estimate' }, { v: '759', l: 'Hospitals disrupted by CrowdStrike, 19 Jul 2024', s: 'JAMA Network Open 2025' }] },
+      5: { say: { exec: 'Wi-Fi, WAN, VDI and the application are cleared. Four teams go back to work.' }, label: { wifi: 'Cleared', wan: 'Cleared', vdi: 'Cleared', ehr: 'Cleared' } },
+    },
+  },
   scene: {
     decor: 'ehr',
     pos: {

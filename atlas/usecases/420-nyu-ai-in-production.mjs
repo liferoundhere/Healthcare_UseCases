@@ -1,6 +1,6 @@
 // Account use case N2 (NYULH edition only): keeping production AI models dependable.
 // Sources: research/10-account-nyu-langone.md (section G2) and research/data/account-nyu-langone.json.
-// Narrative converted from experience/src/story/accounts.ts. Floor plan reused: "ai". See atlas/AUTHORING.md.
+// Narrative converted from experience/src/story/accounts.ts. Floor plan: "nyulh_ai" in src/engine/46-decor-nyulh.js. See atlas/AUTHORING.md.
 const Q3 = 'NYU Langone Q3 report 2026';
 const n = (id, icon, title, sub, hidden = false) => ({ id, icon, title, sub: { exec: sub[0], dir: sub[1], eng: sub[2] }, hidden, r: 30 });
 const k = (a, b, bend = 0) => ({ id: `${a}-${b}`, a, b, bend });
@@ -90,18 +90,16 @@ export default {
     { l: 'Governance evidence', a: 'Rebuilt', b: 'One place', tag: 'I' },
   ],
   scene: {
-    decor: 'ai',
-    zoneLabels: { hosp: 'Emergency department and data center', vend: 'Cloud' },
-    labels: { 'Exam room': 'ED exam room', 'Reading room': 'ED workroom', 'GPU rack row': 'Data center', 'Office': 'AI program office' },
+    decor: 'nyulh_ai',
     pos: {
-      note: [92, 142], wifi: [264, 206, { lab: 'r' }], gpu: [218, 266], ehr: [318, 318], inv: [468, 232],
-      cloud: [626, 150],
+      note: [145, 138], wifi: [145, 237], gpu: [338, 150], ehr: [443, 150], inv: [390, 278],
+      cloud: [615, 170],
       te: [110, 418], splunk: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
   narr: {
     subtitle: 'Ambient notes, evidence search inside the record and prediction models now sit in clinical workflow, so a slow or misbehaving AI tool is a care-delivery problem.',
-    caveat: "Vendors named publicly in NYU Langone's AI work are Epic, Microsoft Azure OpenAI, Abridge and OpenEvidence; no public source names Cisco in that stack. Every with-Cisco beat is a hypothesis to validate and every outcome here is modeled.",
+    caveat: "Vendors named publicly in NYU Langone's AI work are Epic, Microsoft Azure OpenAI, Abridge and OpenEvidence; no public source names Cisco in that stack. Every with-Cisco beat is a hypothesis to validate and every outcome here is modeled. The floor plan layout is illustrative and based on public descriptions of NYU Langone sites; rooms and equipment are not shown at real locations.",
     nodes: [
       n('note', 'mic', 'ED ambient note', ['Physician waits for it', 'Emergency department', 'Client on clinical Wi-Fi']),
       n('wifi', 'wifi', 'ED wireless', ['Carries every AI request', 'Wireless team', 'Roaming events, own console']),
@@ -115,8 +113,9 @@ export default {
       n('appr', 'people', 'Two named approvers', ['Informatics and network', 'Tool owner, change owner', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'hosp', label: 'Emergency department and data center', hidden: false, cisco: false },
-      { id: 'vend', label: 'Cloud', hidden: false, cisco: false },
+      { id: 'ed', label: 'Emergency department', hidden: false, cisco: false },
+      { id: 'dc', label: 'Data center', hidden: false, cisco: false },
+      { id: 'cloud', label: 'Cloud', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('note', 'wifi'), k('wifi', 'cloud'), k('cloud', 'ehr', 0.1), k('gpu', 'ehr'), k('inv', 'gpu', 0.1), k('inv', 'cloud', -0.1), k('te', 'cloud'), k('splunk', 'gpu'), k('te', 'canvas'), k('splunk', 'canvas', 0.1), k('canvas', 'wifi'), k('canvas', 'appr'), k('appr', 'wifi', 0.12)],

@@ -49,7 +49,7 @@ export default {
         [ 'AI-driven change', 'ungated', 'waits for a person', 2, 'person' ]
       ]
     },
-    stays: 'The clinical record stays in the EHR. AI Defense does not read the note. Agent Builder and App Builder are not GA.',
+    stays: 'The clinical record stays in the EHR. AI Defense does not read the note. Agent Builder and App Builder are announced, not available.',
     recap: [
       'Now we can show the clinic that our side is green and the vendor is the delay.',
       'Outcomes are modeled: a guardrail on shadow AI and a gate before any change. No percentage is claimed.'
@@ -92,6 +92,12 @@ export default {
     { l: 'Shadow AI', a: 'Unseen', b: 'Found, guarded', tag: 'H' },
     { l: 'AI-driven change', a: 'Ungated', b: 'Approval gate', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      4: { callout: { node: 'gpu', text: '120 to 132 kW for one rack.' } },
+      6: { say: { eng: 'Discovery of unsanctioned AI apps plus runtime policy. Agent Builder and App Builder are announced, not available.' } },
+    },
+  },
   scene: {
     decor: 'ai',
     pos: {

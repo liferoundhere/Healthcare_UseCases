@@ -93,21 +93,18 @@ export default {
     { l: 'Node drain', a: 'Ad hoc', b: 'Approved by two people', tag: 'H' }
   ],
   scene: {
-    decor: 'ehr',
-    zoneLabels: { floor: 'Clinical floor', path: 'Cluster fabric', dc: 'Data center built for lighter racks' },
-    labels: { 'Room 408': 'Patient room', 'War room': 'Staff workroom' },
-    hide: ['wifi-waves', 'cloud'],
+    decor: 'aifactory',
     pos: {
-      app: [ 86, 134 ],
-      serve: [ 480, 124 ],
-      gpu: [ 622, 196 ],
-      fab: [ 337, 250 ],
-      store: [ 480, 300 ],
-      cool: [ 640, 312 ],
-      nexus: [ 70, 418 ],
-      canvas: [ 200, 418 ],
-      isight: [ 330, 418 ],
-      appr: [ 460, 418 ]
+      app: [ 105, 150 ],
+      serve: [ 278, 140 ],
+      gpu: [ 478, 148 ],
+      cool: [ 660, 220 ],
+      fab: [ 300, 290 ],
+      store: [ 500, 290 ],
+      nexus: [ 110, 418 ],
+      canvas: [ 280, 418 ],
+      isight: [ 450, 418 ],
+      appr: [ 620, 418 ]
     }
   },
   narr: {
@@ -176,7 +173,6 @@ export default {
     ],
     zones: [
       { id: 'floor', label: 'Clinical floor', hidden: false, cisco: false },
-      { id: 'path', label: 'Cluster fabric', hidden: false, cisco: false },
       { id: 'dc', label: 'Data center built for lighter racks', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true }
     ],

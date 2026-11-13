@@ -93,21 +93,18 @@ export default {
     { l: 'Reroute to staff', a: 'Vendor console', b: 'Approved by a person', tag: 'H' }
   ],
   scene: {
-    decor: 'home',
-    zoneLabels: { house: 'Patient calling', net: 'Vendor cloud services', hosp: 'Hospital' },
-    labels: { 'Command center': 'Access center' },
-    hide: ['patient-bed', 'houses', 'walkers'],
+    decor: 'access',
     pos: {
-      caller: [ 112, 150 ],
-      ccx: [ 330, 150 ],
-      agent: [ 330, 296, { lab: 'r' } ],
-      staff: [ 505, 150 ],
-      desk: [ 665, 150 ],
-      sched: [ 600, 296 ],
-      obs: [ 70, 418 ],
-      canvas: [ 200, 418 ],
-      te: [ 330, 418 ],
-      appr: [ 460, 418 ]
+      caller: [ 104, 140 ],
+      ccx: [ 285, 136 ],
+      agent: [ 285, 266 ],
+      staff: [ 550, 126 ],
+      desk: [ 468, 262 ],
+      sched: [ 635, 276 ],
+      obs: [ 110, 418 ],
+      canvas: [ 280, 418 ],
+      appr: [ 450, 418 ],
+      te: [ 620, 418 ]
     }
   },
   narr: {

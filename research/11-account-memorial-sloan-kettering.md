@@ -274,3 +274,28 @@ Search-level sources (page could not be opened; claim taken from the search resu
 17. **Koch Center and Josie Robertson Surgery Center detail** (size, operating rooms, opening year): location pages returned 404; only their names are verified [20].
 18. **2025 statistical profile:** not retrieved; 2024 volumes are used. MSK's history page gives 2025 counts of "1,435 attending physicians" and "4,691 nurses" [26].
 19. **Dell case study date:** the PDF carries no publication date; December 2025 is file metadata.
+
+## Physical estate used for floor plans (public sources)
+
+Used only to make the four MSK floor plans in `atlas/src/engine/45-decor-msk.js` recognisable. Only high-level public facts are used: building names, what a building holds, and how buildings relate on the street. Room layouts, network closets, data rooms, security rooms and equipment positions in the plans are illustrative and are not MSK's real arrangement.
+
+| Place | What the plans use | Source |
+|---|---|---|
+| Memorial Hospital | At York Avenue and 68th Street (1275 York Avenue); the existing inpatient hospital, running at 95.1% occupancy in 2024 | [P1] [5] |
+| Kenneth C. Griffin Pavilion | On York Avenue between East 66th and East 67th Streets, inside MSK's existing footprint, south of Memorial Hospital; "28 operating suites and 206 single-occupancy inpatient beds" (MSK) versus 12 suites and 208 beds (trade press), so the plan shows suites without a count; "advanced technology, cutting-edge robotics, improved digital infrastructure" | [P1] [10] [16] |
+| The bridge | "an enclosed two-story patient bridge over 67th street" for moving "critically ill patients, equipment, and faculty" between pavilion and hospital | [P1] |
+| Josie Robertson Surgery Center | 1133 York Avenue; freestanding outpatient surgery, 12 operating rooms, opened December 2015. Not drawn; it informs how an operating room is furnished (table, lights, anesthesia cart, robot console) | [P2] [P3] |
+| David H. Koch Center for Cancer Care | 530 East 74th Street; outpatient building with 110 private infusion rooms, opened January 2020. Informs the infusion bay dressing (private rooms with recliners and pumps) | [P4] [P5] |
+| Regional outpatient sites | Westchester (500 Westchester Avenue, West Harrison), Bergen (Montvale), Monmouth (Middletown; infusion suite of 18 rooms), Basking Ridge, Nassau (Uniondale), Commack; each offers chemotherapy, immunotherapy and radiation; Westchester also lists a pharmacy, clinical lab and radiology. The M2 plan is a generic regional outpatient building, not one named site | [P6] [P7] [P8] [20] |
+| Research buildings | Mortimer B. Zuckerman Research Center, 417 East 68th Street (23 stories; computational biology among its programs); Rockefeller Research Laboratories; research computing cluster (Dell, vendor-reported) | [P9] [8] [20] |
+| Digital pathology | 25 whole slide scanners in 2021, more than 6.1 million slides scanned, 9 PB allocated for slide storage. Informs the slide scanner room in the M3 plan | [33] |
+
+- [P1] "Building The Kenneth C. Griffin Pavilion at MSK", MSK, updated March 2025. https://www.mskcc.org/msk-community/building-the-kenneth-c-griffin-pavilion-at-msk
+- [P2] Josie Robertson Surgery Center, MSK location directory. https://www.mskcc.org/locations/directory/josie-robertson-surgery
+- [P3] "Memorial Sloan Kettering opens outpatient surgery center", The Cancer Letter, January 8, 2016. https://cancerletter.com/in-brief/20160108_6c/
+- [P4] David H. Koch Center for Cancer Care, MSK location directory. https://mskcc.org/locations/directory/david-koch-center-cancer-care
+- [P5] "The David H. Koch Center For Cancer Care At Memorial Sloan Kettering Cancer Center Opens", Healthcare Design, 2020. https://healthcaredesignmagazine.com/news/the-david-h-koch-center-for-cancer-care-at-memorial-sloan-kettering-cancer-center-opens/41301/
+- [P6] Memorial Sloan Kettering Westchester, MSK. https://mskcc.org/locations/westchester ; Stantec project page, Memorial Sloan Kettering Harrison Regional. https://www.stantec.com/en/projects/united-states-projects/m/memorial-sloan-kettering-harrison-regional
+- [P7] Memorial Sloan Kettering Monmouth, MSK. https://mskcc.org/monmouth ; Basking Ridge. https://www.mskcc.org/cancer-care/suburban-outpatient/mskcc-basking-ridge
+- [P8] "Chemotherapy at MSK", MSK. https://www.mskcc.org/cancer-care/diagnosis-treatment/cancer-treatments/chemotherapy/chemotherapy-msk
+- [P9] Mortimer B. Zuckerman Research Center, MSK location directory. https://www.mskcc.org/locations/directory/zuckerman-research

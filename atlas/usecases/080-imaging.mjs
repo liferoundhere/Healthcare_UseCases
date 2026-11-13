@@ -44,7 +44,7 @@ export default {
       rows: [
         [ 'Timestamps that span the path', 'none', 'one timeline', 0, 'clock' ],
         [ 'Delay attributed to', 'a guess', 'a named hop', 0, 'topology' ],
-        [ 'Clinic link', 'up or down', 'measured per study', 1, 'globe' ],
+        [ 'Clinic link', 'up or down', 'tested continuously', 1, 'globe' ],
         [ 'AI queue time', 'hidden', 'visible', 1, 'gpu' ],
         [ 'Owner of the delay', 'unclear', 'named', 1, 'person' ]
       ]
@@ -63,7 +63,7 @@ export default {
       [ 'Radiologist', 'waiting', 'monitor' ]
     ],
     tobe: [
-      [ 'ThousandEyes', 'clinic link by study', 'eye' ],
+      [ 'ThousandEyes', 'clinic link tested', 'eye' ],
       [ 'Nexus / Intersight', 'fabric and compute', 'rack' ],
       [ 'Transfer logs', 'in the data lake', 'database' ],
       [ 'AI Canvas', 'one timeline', 'canvas' ]
@@ -88,6 +88,17 @@ export default {
     { l: 'Delay attributed to', a: 'A guess', b: 'A hop', tag: 'H' },
     { l: 'AI queue wait', a: 'Hidden', b: 'Visible', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      4: { n: { wan: 'warn' }, label: { wan: 'Saturated' } },
+      5: {
+        say: { dir: 'Images that leave for a cloud model need a BAA unless they are de-identified. The pixel archive stays the VNA.' },
+        label: { wan: 'Right-sized', rad: 'Reads the study' },
+        callout: { node: 'rad', text: 'The study arrives. The radiologist reads it.' },
+        chips: [['ThousandEyes', 'GA (US)'], ['Nexus Dashboard, Intersight', 'GA (US)'], ['Catalyst SD-WAN', 'GA (US)'], ['Machine Data Lake', 'GA, listed regions']],
+      },
+    },
+  },
   scene: {
     decor: 'imaging',
     pos: { ct: [ 100, 160 ], wan: [ 350, 200 ], pacs: [ 545, 128 ], ai: [ 660, 128 ], rad: [ 570, 296 ], te: [ 110, 418 ], fab: [ 365, 418 ], lake: [ 620, 418 ] }

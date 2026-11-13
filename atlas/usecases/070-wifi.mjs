@@ -61,7 +61,7 @@ export default {
     ],
     tobe: [
       [ 'Meraki / Catalyst', 'roam and radio', 'wifi' ],
-      [ 'ThousandEyes', 'path to services', 'eye' ],
+      [ 'Nurse-call events', 'on the same timeline', 'bell' ],
       [ 'AI Canvas', 'one timeline', 'canvas' ],
       [ 'Spaces connector', 'health only', 'sensor' ]
     ]
@@ -89,13 +89,23 @@ export default {
     { l: 'Stairwell coverage', a: 'Unknown', b: 'Measured', tag: 'H' },
     { l: 'Patient location via Spaces', a: 'No', b: 'No', tag: 'S' }
   ],
+  narrPatch: {
+    caveat: 'No public 2023 to 2026 incident ties patient harm solely to a Wi-Fi voice failure. Downtime events do take phones down; Kettering Health in Ohio, 2025, is the example.',
+    steps: {
+      5: {
+        say: { exec: 'A wireless engineer and the 4 West nurse manager approve the voice profile. After the change, the badge call holds through the stairwell.' },
+        modal: { title: 'Approve the voice profile', lines: ['Apply the voice profile to the stairwell AP: 802.11r/k, 20 MHz, DTIM 1.', 'Approvers: Wireless engineering and the 4 West nurse manager', 'Executes in: Meraki or Catalyst Center'], button: 'Approve' },
+      },
+    },
+  },
   scene: {
+    labels: { Nurse: null },
     decor: 'wifi',
     pos: {
       ap1: [ 130, 134 ],
       ap2: [ 420, 134 ],
       badge: [ 270, 168 ],
-      idf: [ 130, 318 ],
+      idf: [ 130, 318, { lab: 'r' } ],
       nc: [ 565, 142 ],
       rtls: [ 640, 286 ],
       canvas: [ 110, 418 ],

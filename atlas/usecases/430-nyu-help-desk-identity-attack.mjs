@@ -1,6 +1,6 @@
 // Account use case N3 (NYULH edition only): stopping a help desk identity attack.
 // Sources: research/10-account-nyu-langone.md (section G3) and research/data/account-nyu-langone.json.
-// Narrative converted from experience/src/story/accounts.ts. Floor plan reused: "security". See atlas/AUTHORING.md.
+// Narrative converted from experience/src/story/accounts.ts. Floor plan: "nyulh_helpdesk" in src/engine/46-decor-nyulh.js. See atlas/AUTHORING.md.
 // The scenario is illustrative: no public record of such an attack at NYU Langone was found.
 const Q3 = 'NYU Langone Q3 report 2026';
 const n = (id, icon, title, sub, hidden = false) => ({ id, icon, title, sub: { exec: sub[0], dir: sub[1], eng: sub[2] }, hidden, r: 30 });
@@ -91,18 +91,16 @@ export default {
     { l: 'Incident report', a: 'By hand', b: 'First draft', tag: 'I' },
   ],
   scene: {
-    decor: 'security',
-    zoneLabels: { floor: 'Clinical floor and help desk', dc: 'Data center and SOC', ext: 'Outside the hospital' },
-    labels: { 'Room 412': 'Patient room', 'Room 413': 'Patient room' },
+    decor: 'nyulh_helpdesk',
     pos: {
-      rn: [82, 132], desk: [160, 236], caller: [626, 190],
-      idp: [336, 126], nac: [468, 172], soc: [342, 292], sys: [470, 292],
+      rn: [368, 314], desk: [311, 134], caller: [100, 180],
+      idp: [524, 140], nac: [650, 140], soc: [528, 290], sys: [664, 290],
       cid: [110, 418], canvas: [365, 418], appr: [620, 418],
     },
   },
   narr: {
     subtitle: 'An attacker phones the help desk posing as a clinician, gets a credential reset and signs in; security, identity and network teams must join the evidence before clinical systems are reached.',
-    caveat: "No public source names NYU Langone's identity, SIEM or firewall vendors, and we found no public record of such an attack there. The scenario is illustrative, every with-Cisco beat is a hypothesis to validate and the outcome is modeled.",
+    caveat: "No public source names NYU Langone's identity, SIEM or firewall vendors, and we found no public record of such an attack there. The scenario is illustrative, every with-Cisco beat is a hypothesis to validate and the outcome is modeled. The floor plan layout is illustrative and based on public descriptions of NYU Langone sites; rooms and equipment are not shown at real locations.",
     nodes: [
       n('caller', 'phone', 'Caller posing as clinician', ['Asks for a reset', 'Social engineering', 'Unverified phone call']),
       n('desk', 'chat', 'Help desk', ['Resets the credential', 'Service desk', 'Ticket, no identity context']),
@@ -116,9 +114,10 @@ export default {
       n('appr', 'person', 'Security lead on call', ['A named person decides', 'Clinical supervisor informed', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'floor', label: 'Clinical floor and help desk', hidden: false, cisco: false },
-      { id: 'dc', label: 'Data center and SOC', hidden: false, cisco: false },
       { id: 'ext', label: 'Outside the hospital', hidden: false, cisco: false },
+      { id: 'desk', label: 'IT service desk', hidden: false, cisco: false },
+      { id: 'unit', label: 'Inpatient unit', hidden: false, cisco: false },
+      { id: 'dc', label: 'Data center and SOC', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('caller', 'desk'), k('desk', 'idp'), k('idp', 'nac'), k('nac', 'sys'), k('rn', 'idp', 0.1), k('soc', 'desk', 0.1), k('soc', 'idp', -0.1), k('soc', 'nac', 0.12), k('cid', 'canvas'), k('canvas', 'idp'), k('canvas', 'nac', 0.1), k('canvas', 'appr'), k('appr', 'idp', 0.12), k('appr', 'nac', -0.12)],

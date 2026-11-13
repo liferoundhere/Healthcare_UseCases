@@ -34,12 +34,12 @@ export default {
     recap: 'The clinic is flat, its remote desktop is exposed, and Monday it must reach the parent EHR.'
   },
   tobe: {
-    banner: 'Inventory and a Layer 3 map come first, a trust gate stands before the EHR, an identity baseline follows, and an SD-WAN edge replaces the single circuit, each step approved.',
+    banner: 'Inventory and a Layer 3 map come first, a trust gate stands before the EHR, an identity baseline follows, and an SD-WAN edge adds a second path beside the single circuit, each step approved.',
     strip: 'Inventory and L3 map, trust gate, identity baseline, SD-WAN edge',
     who: 'Day one after close (sim)',
     console: {
       title: 'Cloud Control | onboarding',
-      body: 'Inventory first, then a gate before the parent EHR, then an identity baseline and an SD-WAN edge. Each change waits for approval by the network and security leads.',
+      body: 'Inventory first, then a gate before the parent EHR, then an identity baseline and an SD-WAN edge. Each change waits for approval by the IAM and network leads.',
       foot: 'No access until the gate passes',
       rows: [
         [ 'What the clinic owns', 'unknown', 'inventory and map', 0, 'topology' ],
@@ -88,7 +88,14 @@ export default {
     { l: 'Access to the EHR', a: 'Open', b: 'Gated', tag: 'H' },
     { l: 'Paths to the parent', a: '1 circuit', b: '2 paths', tag: 'H' }
   ],
+  narrPatch: {
+    steps: {
+      4: { say: { dir: 'Bring the clinic into inventory and topology first. One environment can hold several Meraki organizations.' } },
+      5: { say: { eng: 'Close RDP, remove shared admin, enforce MFA. Human-approved changes execute in the firewall and the identity provider.' } },
+    },
+  },
   scene: {
+    hide: ['walkers'],
     decor: 'wan',
     pos: {
       clinic: [ 110, 150 ],

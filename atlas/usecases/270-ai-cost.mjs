@@ -93,20 +93,18 @@ export default {
     { l: 'Usage cap', a: 'Vendor setting', b: 'Approved by a person', tag: 'H' }
   ],
   scene: {
-    decor: 'ai',
-    zoneLabels: { hosp: 'Hospital', vend: 'AI vendors' },
-    labels: { 'Reading room': 'Finance office', 'Office': 'IT operations' },
+    decor: 'aispend',
     pos: {
-      scribe: [ 88, 134 ],
-      img: [ 88, 290 ],
-      fin: [ 266, 134 ],
-      gpu: [ 266, 290 ],
-      it: [ 437, 215 ],
-      rcm: [ 600, 140 ],
-      lake: [ 70, 418 ],
-      canvas: [ 200, 418 ],
-      obs: [ 330, 418 ],
-      appr: [ 460, 418 ]
+      scribe: [ 130, 136 ],
+      img: [ 103, 270 ],
+      fin: [ 268, 134 ],
+      it: [ 268, 266 ],
+      gpu: [ 440, 215 ],
+      rcm: [ 604, 140 ],
+      lake: [ 110, 418 ],
+      canvas: [ 280, 418 ],
+      obs: [ 450, 418 ],
+      appr: [ 620, 418 ]
     }
   },
   narr: {

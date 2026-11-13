@@ -98,15 +98,13 @@ export default {
     { l: 'Inpatient beds planned, sources differ [MSK 2025; Construction Dive 2026]', a: '206 or 208', b: '206 or 208', tag: 'S' },
     { l: 'Readiness records per floor', a: '4 checklists', b: '1 record', tag: 'H' },
     { l: 'Approval before a production move', a: 'Per team', b: '1 named owner', tag: 'H' },
+    { l: 'Floor plan, based on public descriptions of Memorial Hospital, the bridge and the pavilion site', a: 'Illustrative', b: 'Illustrative', tag: 'I' },
   ],
   scene: {
-    decor: 'facilities', // tower (x 20 to 302), imgz (312 to 452), plant (462 to 720), remote (y 246 to 362)
-    zoneLabels: { tower: 'Memorial Hospital, live care', imgz: 'Pavilion suites', plant: 'Pavilion building systems', remote: 'Over 67th Street' },
-    labels: { 'Room 412': 'Care unit', 'IDF closet': 'Live systems', imgz: 'Pavilion suites', 'Imaging suite': 'Operating suite' },
-    hide: ['gantry', 'clinic', 'house'],
+    decor: 'msk_pavilion', // hosp (x 20 to 256), street (266 to 380), pav (390 to 720, y 56 to 246), plant (390 to 720, y 256 to 362)
     pos: {
-      care: [88, 118], clin: [216, 150], suites: [382, 138], bms: [524, 126], trades: [654, 142, { lab: 't' }], bridge: [340, 296],
-      topo: [92, 418], canvas: [212, 418], wf: [335, 418], appr: [470, 418],
+      care: [196, 150], clin: [138, 320], bridge: [322, 150], suites: [604, 200], bms: [516, 318], trades: [648, 316],
+      topo: [110, 418], canvas: [280, 418], wf: [450, 418], appr: [620, 418],
     },
   },
   narr: {
@@ -125,10 +123,10 @@ export default {
       n('appr', 'person', 'Pavilion change authority', ['A named MSK owner', 'Periop and biomed sign-off', 'L3: execute after approve'], true),
     ],
     zones: [
-      { id: 'tower', label: 'Memorial Hospital, live care', hidden: false, cisco: false },
-      { id: 'imgz', label: 'Pavilion suites', hidden: false, cisco: false },
+      { id: 'hosp', label: 'Memorial Hospital, live care', hidden: false, cisco: false },
+      { id: 'street', label: 'Over 67th Street', hidden: false, cisco: false },
+      { id: 'pav', label: 'Pavilion suites', hidden: false, cisco: false },
       { id: 'plant', label: 'Pavilion building systems', hidden: false, cisco: false },
-      { id: 'remote', label: 'Over 67th Street', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('suites', 'bridge'), k('bms', 'bridge', 0.1), k('bridge', 'care'), k('bridge', 'clin', -0.1), k('trades', 'suites', 0.1), k('trades', 'bms'), k('topo', 'suites'), k('topo', 'bms', 0.1), k('topo', 'canvas'), k('canvas', 'wf'), k('wf', 'appr'), k('appr', 'bridge', 0.12)],

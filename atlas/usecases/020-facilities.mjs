@@ -39,8 +39,8 @@ export default {
     who: 'Rapid response at 3 a.m. (sim)',
     console: {
       title: 'Cloud Control | the estate',
-      body: 'One inventory and a Layer 3 topology across Catalyst Center, Meraki and SD-WAN domains. Domain controllers stay the systems of record.',
-      foot: 'Domain controllers remain the record',
+      body: 'One inventory and a Layer 3 topology across Catalyst Center, Meraki and SD-WAN domains. Each product\'s own controller stays the system of record.',
+      foot: 'Each controller stays the system of record',
       rows: [
         [ 'Sites in one inventory', 'by campus', 'tower to clinic', 0, 'topology' ],
         [ 'Which building is broken', 'ask four teams', 'one inventory', 0, 'building' ],
@@ -49,7 +49,7 @@ export default {
         [ 'Patient location', 'not shown', 'not shown, by design', 2, 'lock' ]
       ]
     },
-    stays: "Domain controllers stay the systems of record. The patient's home internet is not the hospital's, and Spaces here is not a location system.",
+    stays: "Catalyst Center, Meraki and SD-WAN Manager stay the systems of record. The patient's home internet is not the hospital's, and Spaces here is not a location system.",
     recap: [
       'Campus, clinic and edge sit in one topology; plant events and network events arrive on the same timeline.',
       'Outcomes are modeled: one answer to which building is actually broken. The home hop stays gray by design.'
@@ -92,6 +92,13 @@ export default {
     { l: 'Plant and network events', a: 'Separate', b: 'One timeline', tag: 'H' },
     { l: 'Patient location from Spaces', a: 'No', b: 'No', tag: 'S' }
   ],
+  narrPatch: {
+    steps: {
+      2: { callout: null, label: { room: 'Call dropped' } },
+      7: { callout: { node: 'spaces', text: 'Connector health only, not patient location.' } },
+      5: { say: { eng: 'Layer 3 topology shows VLAN, VRF and subnet across domains. Each product\'s own controller stays the system of record.' } },
+    },
+  },
   scene: {
     decor: 'facilities',
     pos: {

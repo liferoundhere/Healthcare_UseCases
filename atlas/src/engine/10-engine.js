@@ -341,10 +341,11 @@ function layoutFor(S) {
     spots.forEach((sp, k) => {
       const r = { x: clamp(sp[0], 18, 724 - w), y: clamp(sp[1], 48, SCENE_R[3] - 4 - h), w, h };
       let cost = k * 3 + (Math.abs(r.x - sp[0]) + Math.abs(r.y - sp[1])) * 0.5;
-      circ.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 4); });
+      // a bubble that hides another device, or cuts a zone name in half, reads as an error: both cost more than a long leader line
+      circ.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 40); });
       placed.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 6); });
-      zones.forEach((q) => { cost += rOverlap(r, q, 3) * 5; }); // a bubble that cuts a zone name in half reads as an error
-      if (S.mode === 'legacy' && !S.c.scene.noLegacyBand) cost += rOverlap(r, { x: CC_BAND[0], y: CC_BAND[1], w: CC_BAND[2], h: CC_BAND[3] }) * 2; // keep off the "one tool per team" band
+      zones.forEach((q) => { cost += rOverlap(r, q, 3) * 40; });
+      if (S.mode === 'legacy' && !S.c.scene.noLegacyBand) cost += rOverlap(r, { x: CC_BAND[0], y: CC_BAND[1], w: CC_BAND[2], h: CC_BAND[3] }) * 20; // keep off the "one tool per team" band
       if (!callout || cost < callout.cost) callout = { x: r.x, y: r.y, w, h, lh, size, cost, U };
     });
   }
@@ -434,7 +435,10 @@ function drawCallout(S) {
 
 function drawClock(S) {
   const ck = S.cur.clock; if (!ck || ck.mode === 'hide') return;
-  const base = (S.i - S.cur.clockFrom + (ck.mode === 'run' ? S.su : 1)) * 600;
+  // a running clock gains ten simulated minutes per step; a stopped clock holds still. `value` ("h:mm", as in
+  // "00:12" for twelve minutes) sets what a stopped clock shows. The display is minutes and seconds.
+  const fixed = ck.mode !== 'run' && /^\d+:\d\d$/.test(ck.value || '') ? ck.value.split(':').reduce((h, m) => +h * 60 + +m) * 60 : null;
+  const base = fixed != null ? fixed : ck.mode === 'run' ? (S.i - S.cur.clockFrom + S.su) * 600 : 600;
   const sec = Math.floor(base) % 3600, txt = `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
   const w = D.measure(ck.label, 11, 700) + D.measure(txt + ' sim', 11.5, 700) + 52, y = 20, x = SCENE_R[2] + 14 - w;
   const col = ck.mode === 'run' ? COL.pain : COL.run;
@@ -525,6 +529,14 @@ function auditLabels(S) {
     if (l.x < SCENE_R[0] - SCENE_PAD[0] + 2 || l.x + l.w > SCENE_R[2] + SCENE_PAD[0] - 2 || l.y < SCENE_R[1] - SCENE_PAD[1] + 2 || l.y + l.h > SCENE_R[3] + SCENE_PAD[1] - 2) out.push(`${S.c.id}: ${l.kind} of "${l.id}" leaves the scene`);
   });
   if (CALLOUT.rect) L.forEach((l) => { if (l.kind !== 'node' && l.id !== CALLOUT.rect.node && hit(l, CALLOUT.rect, 2.5)) out.push(`${S.c.id}: callout covers ${l.kind} of "${l.id}"`); });
+  if (CALLOUT.rect) {
+    LABELS.filter((l) => l.kind === 'zone').forEach((z) => { if (hit(z, CALLOUT.rect, 2.5)) out.push(`${S.c.id}: callout covers the zone name "${z.id}"`); });
+    S.N.nodes.forEach((n) => {
+      const p = S.pos[n.id]; if (!p || n.id === CALLOUT.rect.node || !S.cur.vis.get(n.id)) return;
+      const R = 18 * ((n.r || 30) / 30) * 0.7, c = CALLOUT.rect;
+      if (p[0] + R > c.x && p[0] - R < c.x + c.w && p[1] + R > c.y && p[1] - R < c.y + c.h) out.push(`${S.c.id}: callout hides the device "${n.id}"`);
+    });
+  }
   // a link must not run behind a device on the band: the devices there sit in one row, so a straight link between two of them hides behind a third
   const segD = (p, a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], u = clamp(((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy || 1), 0, 1); return Math.hypot(p[0] - a[0] - dx * u, p[1] - a[1] - dy * u); };
   S.N.nodes.forEach((n) => {
