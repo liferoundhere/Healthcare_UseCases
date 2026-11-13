@@ -1,9 +1,10 @@
 // node tools/shoot.mjs [--uc=1,2,3] [--mode=legacy,tobe] [--theme=light] [--u=0.5,0.9] [--out=shots] [--aud=exec]
 // Renders the built HTML at a 1:1 stage scale (1600x900 logical) and saves PNGs. Also prints console errors and the overflow list.
 import puppeteer from 'puppeteer-core';
-import { mkdirSync, existsSync } from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { launchOptions } from './chrome.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const arg = (k, d) => { const a = process.argv.find((x) => x.startsWith('--' + k + '=')); return a ? a.slice(k.length + 3) : d; };
@@ -14,8 +15,7 @@ const themes = arg('theme', 'light').split(',');
 const us = arg('u', '0.9').split(',').map(Number);
 const aud = arg('aud', 'exec');
 const out = join(here, '..', arg('out', 'shots')); mkdirSync(out, { recursive: true });
-const chrome = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
-const browser = await puppeteer.launch({ executablePath: chrome, headless: true, defaultViewport: { width: +arg('vw', 1900), height: +arg('vh', 1064), deviceScaleFactor: 1 }, args: ['--allow-file-access-from-files'] });
+const browser = await puppeteer.launch({ ...launchOptions(['--allow-file-access-from-files']), headless: true, defaultViewport: { width: +arg('vw', 1900), height: +arg('vh', 1064), deviceScaleFactor: 1 } });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR', e.message));
 page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE', m.text()); });

@@ -47,13 +47,7 @@ cd showcase && node tools/smoke.mjs
 - `check.mjs` runs the `?check` overflow sweep: every story, three audiences, 18 points through the whole flow, light and dark. It exits non-zero and lists each distinct overflow. Expected result: `0 distinct overflow items` in both themes.
 - `smoke.mjs` exercises hover tooltips, rail clicks, the story flow, panels, audience, theme, tabs and the tour. Expected result: every line starts with `PASS` and it ends with `no page errors`.
 
-**Browser path.** All three tools find the browser from a list of Windows paths in the `chrome` constant near the top of each file. On Linux or macOS that constant is undefined and the launch fails before any check runs. That is an environment failure, not a passing check. In a Claude cloud session Chromium is at `/opt/pw-browsers/chromium` and needs `--no-sandbox`; run the tool from a temporary copy with the path swapped, then delete the copy:
-
-```bash
-cd showcase && sed "s#const chrome = .*#const chrome = '/opt/pw-browsers/chromium';#; s#headless: true,#headless: true, args: ['--no-sandbox'],#" tools/check.mjs > tools/_tmp_check.mjs && node tools/_tmp_check.mjs; rm -f tools/_tmp_check.mjs
-```
-
-The same substitution works for `smoke.mjs` and `shoot.mjs`. Do not commit the temporary copy. If the tools have since gained a portable browser lookup, use them directly and ignore this paragraph.
+All three tools honor the `CHROME` environment variable for the browser path, fall back to the usual Chrome, Chromium and Edge install locations on Windows, macOS and Linux, and exit with a one-line message naming `CHROME` if no browser is found.
 
 ## Screenshots
 
