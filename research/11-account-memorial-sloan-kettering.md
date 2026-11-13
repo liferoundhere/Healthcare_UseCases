@@ -277,11 +277,13 @@ Search-level sources (page could not be opened; claim taken from the search resu
 
 ## Physical estate used for floor plans (public sources)
 
+[P-addr] MSK, "Memorial Hospital" location directory page and "Planning Your Visit: Visitor Policy" page (main entrance at 1275 York Avenue), accessed 13 November 2026. https://www.mskcc.org/locations/directory/memorial-hospital ; https://www.mskcc.org/locations/planning-visit-travel-to-msk/policy-visitors-patients
+
 Used only to make the four MSK floor plans in `atlas/src/engine/45-decor-msk.js` recognisable. Only high-level public facts are used: building names, what a building holds, and how buildings relate on the street. Room layouts, network closets, data rooms, security rooms and equipment positions in the plans are illustrative and are not MSK's real arrangement.
 
 | Place | What the plans use | Source |
 |---|---|---|
-| Memorial Hospital | At York Avenue and 68th Street (1275 York Avenue); the existing inpatient hospital, running at 95.1% occupancy in 2024 | [P1] [5] |
+| Memorial Hospital | At York Avenue and 68th Street, main entrance 1275 York Avenue (between East 67th and East 68th Streets); the existing inpatient hospital, running at 95.1% occupancy in 2024 | [P1] [5] [P-addr] |
 | Kenneth C. Griffin Pavilion | On York Avenue between East 66th and East 67th Streets, inside MSK's existing footprint, south of Memorial Hospital; "28 operating suites and 206 single-occupancy inpatient beds" (MSK) versus 12 suites and 208 beds (trade press), so the plan shows suites without a count; "advanced technology, cutting-edge robotics, improved digital infrastructure" | [P1] [10] [16] |
 | The bridge | "an enclosed two-story patient bridge over 67th street" for moving "critically ill patients, equipment, and faculty" between pavilion and hospital | [P1] |
 | Josie Robertson Surgery Center | 1133 York Avenue; freestanding outpatient surgery, 12 operating rooms, opened December 2015. Not drawn; it informs how an operating room is furnished (table, lights, anesthesia cart, robot console) | [P2] [P3] |
