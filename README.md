@@ -47,6 +47,17 @@ The 28 use cases:
 
 An account edition says who it was prepared for and lists that organization's use cases first. There is no switch between editions in the interface, and the build fails if one account's name appears anywhere in another edition's files.
 
+## Every story has its own floor plan
+
+Each of the 28 stories is drawn on a floor plan made for it, so every room is named and furnished for what happens there: operating rooms have operating tables, an infusion suite has recliners and pumps, a pathology lab has slide scanners, a service desk has agents in headsets.
+
+The account plans are based on public descriptions of each organization's buildings, for example Memorial Hospital and the Kenneth C. Griffin Pavilion joined by a bridge over 67th Street, or the East River campus with its raised energy plant and flood barrier. They are illustrative: they do not reproduce real internal floor plans or show where real equipment is. Sources are listed in `research/10` and `research/11`.
+
+| Memorial Sloan Kettering: a supplier fault reaches the operating rooms | NYU Langone Health: storm night across plant and network |
+|---|---|
+| ![MSK story](atlas/docs/08-msk-story.jpg) | ![NYULH story](atlas/docs/10-nyulh-story.jpg) |
+
+
 ## How to run it
 
 You need [Node.js](https://nodejs.org) 18 or later. Nothing else to install.
