@@ -20,7 +20,7 @@ stories, `500` to `599` MSK account stories, `600` to `699` NYULH account storie
 | `editions` value | Where it appears |
 | --- | --- |
 | `['general', 'msk', 'nyulh']` | Shared: all three editions, in the "Use cases" section |
-| `['msk']` | Only the MSK edition, in "For your organization: hypotheses to validate" |
+| `['msk']` | Only the MSK edition, in the first section, "For <organization name>: hypotheses to validate" |
 | `['nyulh']` | Only the NYULH edition, in the same section there |
 
 Any other combination is a build error. An account use case may name its own organization in its text. It must
@@ -79,6 +79,8 @@ export default {
     decor: 'wifi',                     // the floor plan to draw on. See section 5.
     pos: { ap1: [130, 134], idf: [130, 320], canvas: [110, 418] },        // one entry per node. See section 6.
     zoneLabels: { floor: 'Infusion suite', sys: 'Main campus systems' },  // optional: rename the plan's zones
+    labels: { 'Room 411': 'Chair bay', 'Stairwell': null },               // optional: rename or hide what the plan writes. Section 5.
+    hide: ['cloud'],                                                      // optional: remove dressing of the plan's first story. Section 5.
     noLegacyBand: true,                // optional: hide the "one tool per team" band in the Today phase
   },
   narr: { /* section 4 */ },
@@ -175,24 +177,77 @@ if you set it, else from your `narr.zones` (matching zone ids), else from the or
 Open the matching original story in the presenter to see the plan before placing nodes
 (`node atlas/tools/shoot.cjs --uc=wifi --steps=1`).
 
-A few plans carry text or behaviour from their original story (for example `compliance` shows a surveyor quote,
-`iomt` draws a "device segment" outline when a node called `seg` appears, `ransom` moves an ambulance when a node
-called `ed` or `ehr` is down). Pick a plan whose rooms fit your story, or add a new one.
+### Making a reused plan fit your story: `scene.labels` and `scene.hide`
+
+A plan was drawn for one story. Its room names ("Room 412", "War room", "Parent data center") and some of its
+dressing (a CT gantry, a surveyor quote, an ambulance) belong to that story. When you reuse the plan, **every name
+the audience can read must be true in your story**. A customer reads an operating room labelled "Room 412" or an
+EHR server in the "Reading room" as an error.
+
+```js
+scene: {
+  decor: 'security',
+  labels: {                        // key: the text the plan draws (any letter case), or a zone id
+    'Room 412': 'OR 1',            //   a text renames the label
+    'Supply': null,                //   null (or '') hides it
+    ext: 'Outside: the supplier',  //   a zone id renames the zone; this wins over zoneLabels and narr.zones
+  },
+  hide: ['cloud', 'nurse-station'],  // dressing ids from the table below
+},
+```
+
+- `labels` applies to every text a plan draws: zone names, room names, tags under equipment ("Generator"), wall
+  text ("GLASS"), figure labels ("Nurse") and the lines of story text some plans carry.
+- Rename a room to what it is in your story. Hide a label that has no meaning there; if the drawing itself has no
+  meaning (an imaging gantry in an operating suite), hide the drawing with `hide`.
+- **A key that matches nothing is a build error**, so a typo or a label that was removed from a plan cannot pass
+  silently. The message lists what the plan draws. The presenter reports the same thing if it ever happens at run
+  time.
+- **A new label must fit its room at 1600x900 and at 1280x720.** A plan's own label that does not fit is left out;
+  a label you asked for is reported by `check.cjs` as text that overflows. Room names are drawn in capitals: allow
+  about 11 characters in a room 100 units wide, 20 in one 170 wide.
+- `node atlas/build.mjs --plans` prints this table from the drawing code, so it is always current.
+
+| decor id | Label keys (`scene.labels`) | Dressing ids (`scene.hide`) |
+| --- | --- | --- |
+| `security` | zones `floor` `dc` `ext`; Room 412, Room 413, Supply, IDF closet | `nurse-station` `walkers` `tower` `cloud` |
+| `facilities` | zones `tower` `imgz` `plant` `remote`; Room 412, IDF closet, NOC, Imaging suite, Air handling, Generator | `gantry` `air-handling` `generator` `clinic` `house` `walkers` |
+| `ai` | zones `hosp` `vend`; Exam room, CT suite, Reading room, GPU rack row, Office | `gantry` `walkers` `clouds` `tower` |
+| `ehr` | zones `floor` `path` `dc`; Room 408, Hallway, War room | `wifi-waves` `war-room` (screen, table and people) `walkers` `cloud` |
+| `iomt` | zones `flat` `teams`; ICU bays, Core closet, Radiology, Guest and visitor Wi-Fi, Vulnerability team, Clinical engineering, Security, Device segment, "Three teams, three lists, no shared device record" | `visitors` `wifi-waves` `device-segment` (the outline drawn when a node called `seg` appears) |
+| `ransom` | zones `hosp` `region`; Identity, EHR data center, Pharmacy, Laboratory, Backup vault, Emergency department, Neighbor hospital | `walkers` `neighbor-hospital` `ambulance` (it drives off when a node called `ed` or `ehr` is down) |
+| `wifi` | zones `floor` `sys`; Stairwell, Room 411, Room 412, IDF with PoE, Nurse | `wifi-waves` `walkers` `cloud` |
+| `imaging` | zones `clinic` `wanz` `main`; CT suite, Control room, PACS and AI, Reading room | `gantry` `cloud` |
+| `home` | zones `house` `net` `hosp`; Living room, Kitchen and entry, Command center, Data center | `patient-bed` `walkers` `houses` `cloud` |
+| `wan` | zones `clin` `parent`; Clinic floor, Back office, The circuit (or `circuit`), Parent data center, Parent network and SOC | `exam-bed` `walkers` `cloud` |
+| `identity` | zones `users` `dirs`; Hospitalist workstation, Modality (vendor remote), Break-glass, ED desk, GLASS, "Three mergers, three directories" | `gantry` `vendor-person` `cloud` `break-glass` (the red box) |
+| `compliance` | zones `ev` `ask`; Corkboard, "Surveyor, Tuesday", `quote` (the surveyor's sentence) | `corkboard` `walkers` `surveyor` `surveyor-quote` |
+| `aiwork` | zones `clinic` `out`; Exam room 3, Physician workroom, Wi-Fi closet, Physician laptop, Vendor GPU hall | `wifi-waves` `walkers` `clouds` `tower` |
+
+The `facilities` plan draws its `imgz` zone without a name; `labels: { imgz: '...' }` gives it one.
+
+If most of a plan has to be renamed or hidden, it is the wrong plan: pick another, or add a new one.
 
 **A new floor plan** is a function `DECOR.<id> = (S) => { ... }` in `atlas/src/engine/44-decor.js` (or a new file
 `atlas/src/engine/45-<name>.js`), built from the kit in `12-kit.js` (`K.ward`, `K.dataHall`, `K.rackRow`,
 `K.corridor`, `K.cloud`, `room(...)`, `Z(S, zoneId, x, y, w, h, [nodes whose state shades the zone], drawFn)`).
+So that the next story can reuse it, write every text through the helpers that honour `scene.labels` (`room`,
+`K.ward`, `K.corridor`, `tag`, `note`, `S.area`, or `LBL('text')` around anything else) and wrap dressing that only
+makes sense in your story in `opt('<id>', () => { ... })` so that `scene.hide` can remove it.
 If a plan must not ship in every edition, put it in its own file and start that file with `// @editions msk`.
 
 ## 6. The scene coordinate system and node positions
 
-- The scene is 712 units wide and 424 units tall: **x from 14 to 726, y from 44 to 468**, origin top left, y grows
-  downward. It is scaled to the window; at 1600x900 one unit is about 1.35 screen pixels.
+- The scene is 712 units wide and 450 units tall: **x from 14 to 726, y from 44 to 494**, origin top left, y grows
+  downward. It is scaled to the window; at 1600x900 one unit is about 1.3 screen pixels.
 - **Floor plan area: y 56 to 362.** Zones and rooms live here.
-- **Band: y 372 to 462.** In the Today phase it shows the `legacy.silos`; in the Cloud Control phase it is the
+- **Band: y 372 to 488.** In the Today phase it shows the `legacy.silos`; in the Cloud Control phase it is the
   "Cisco Cloud Control (modeled)" band. Place the Cisco nodes on the row **y = 418**, spread between **x = 110 and
-  x = 620** (four nodes: 110, 280, 450, 620). Today-only tool nodes may sit on the same row if you set
-  `noLegacyBand: true` (see `010-security.mjs`).
+  x = 620** (four nodes: 110, 280, 450, 620). The band is tall enough for a node on that row with its title and
+  caption, also when it is the node in focus, so keep band nodes on y = 418. Today-only tool nodes may sit on the
+  same row if you set `noLegacyBand: true` (see `010-security.mjs`).
+- A link between two band nodes that have a third one between them is drawn as an arc over it. You do not set a
+  bend for that; the check fails on any link that runs behind a band node.
 - `pos: { id: [x, y] }` is the centre of the node. A node is a circle of radius 18 (`r: 30`) or 14 (`r: 24`).
   Keep centres at least 100 units apart horizontally or 80 vertically so labels have room.
 - Labels place themselves: the title and caption go below the node, or above, right or left if that collides, and
@@ -200,20 +255,22 @@ If a plan must not ship in every edition, put it in its own file and start that 
 - Positions must be inside x 30 to 710 and y 70 to 440.
 
 **A node without a position is a build error**, and so is a position for a node that does not exist, a link or a
-step that refers to an unknown id, an unknown icon, a missing audience sentence, or a missing floor plan. The
+step that refers to an unknown id, an unknown icon, a missing audience sentence, a missing floor plan, or a
+`scene.labels` / `scene.hide` entry that matches nothing in the plan. The
 presenter also refuses to start a use case with a missing position and shows which one.
 
 ## 7. Validate
 
 ```
-node atlas/build.mjs                         # fields, positions, references, text rules, account names
+node atlas/build.mjs                         # fields, positions, references, label overrides, text rules, account names
 node atlas/tools/check.cjs --ed=msk --fast   # opens every use case in a browser and walks every step
 node atlas/tools/shoot.cjs --ed=msk --uc=<id> --steps=1,2,3,approval,summary   # screenshots in atlas/shots
 ```
 
 `check.cjs` fails on: console errors, HTML text under 14px, canvas text under 12px at 1600x900, text that
-overflows its box, labels that collide or leave the scene, a card whose text does not fit, a node without a
-position, another account's name in the page, and a step that advances by itself. When it reports a collision,
+overflows its box (including a `scene.labels` text that does not fit its room), labels that collide or leave the
+scene, a link that runs behind a node on the band, a card whose text does not fit, a node without a position,
+another account's name in the page, and a step that advances by itself. When it reports a collision,
 move the node a little or pin its label side. Then read the screenshots at 1600x900 and 1280x720.
 
 Limits that keep the card readable (the check enforces the result, not the numbers): step title up to about 45

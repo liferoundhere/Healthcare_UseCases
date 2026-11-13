@@ -78,7 +78,8 @@ the queued use cases in order: on a Summary, Next goes to the next story.
 | `msk` | Prepared for Memorial Sloan Kettering Cancer Center | Shared use cases, plus the account section |
 | `nyulh` | Prepared for NYU Langone Health | Shared use cases, plus the account section |
 
-Account use cases appear in their own section, "For your organization: hypotheses to validate". The build fails if
+Account use cases appear in their own section, first on the page, under a heading that names the organization
+("For <organization>: hypotheses to validate"). The build fails if
 the output of the MSK edition contains `NYU`, `Langone` or `NYULH`, if the output of the NYULH edition contains
 `MSK`, `Memorial Sloan` or `Sloan Kettering`, or if the general edition contains any of them. It scans every
 file it wrote, including file names.
@@ -86,14 +87,16 @@ file it wrote, including file names.
 ## What the build verifies
 
 Required fields; one position per node and no stray positions; every link, step, callout and zone reference;
-icons and floor plans that exist; no em dash, en dash or emoji; no reference to another host in HTML or CSS; no
+icons and floor plans that exist; `scene.labels` and `scene.hide` overrides that match what the floor plan draws
+(`node atlas/build.mjs --plans` lists it); no em dash, en dash or emoji; no reference to another host in HTML or CSS; no
 other account named in an edition. A failure stops the build with the file and the reason.
 
 ## What the check verifies
 
 For each edition: the library (label, cards, filters, search, account section, queue with reorder, reload and
 play), then every use case and every step with the keyboard. It fails on console errors, HTML text under 14px,
-canvas text under 12px at 1600x900, text that overflows, labels that collide, content that does not fit at
+canvas text under 12px at 1600x900, text that overflows, labels that collide, a link that runs behind a device on
+the Cloud Control band, content that does not fit at
 1600x900 or 1280x720, a node without a position, another account's name in the page, an approval that can be
 skipped, a control that does nothing, and a step that advances by itself within 15 seconds.
 

@@ -16,8 +16,8 @@ const fast = process.argv.includes('--fast');
 const root = path.resolve(arg('dist', path.join(__dirname, '..', 'dist'))); // --dist=<dir> reads another build folder
 const EDITIONS = {
   general: { label: 'General edition', forbid: ['MSK', 'Memorial Sloan', 'Sloan Kettering', 'NYU', 'Langone', 'NYULH'], account: false },
-  msk: { label: 'Prepared for Memorial Sloan Kettering Cancer Center', forbid: ['NYU', 'Langone', 'NYULH'], account: true },
-  nyulh: { label: 'Prepared for NYU Langone Health', forbid: ['MSK', 'Memorial Sloan', 'Sloan Kettering'], account: true },
+  msk: { label: 'Prepared for Memorial Sloan Kettering Cancer Center', org: 'Memorial Sloan Kettering Cancer Center', forbid: ['NYU', 'Langone', 'NYULH'], account: true },
+  nyulh: { label: 'Prepared for NYU Langone Health', org: 'NYU Langone Health', forbid: ['MSK', 'Memorial Sloan', 'Sloan Kettering'], account: true },
 };
 const fails = [];
 let checks = 0;
@@ -71,7 +71,10 @@ const domAudit = (forbid) => {
     ok((await page.textContent('#edition')) === E.label, `${ed} library: header label should be "${E.label}"`);
     ok((await page.locator('.card').count()) === cat.length, `${ed} library: one card per use case`);
     ok((await page.locator('#acctHead').count()) === (E.account ? 1 : 0), `${ed} library: account section ${E.account ? 'missing' : 'must not exist'}`);
-    if (E.account) ok((await page.textContent('#acctHead')).includes('For your organization: hypotheses to validate'), `${ed} library: account section title`);
+    if (E.account) {
+      ok((await page.textContent('#acctHead')) === `For ${E.org}: hypotheses to validate`, `${ed} library: the account section heading names the organization`);
+      ok(await page.evaluate(() => { const h = Array.from(document.querySelectorAll('#lists h2')); return h[0] && h[0].id === 'acctHead' && document.querySelectorAll('#lists .grid')[0].querySelectorAll('.card').length === ATLAS.catalog.filter((c) => c.account).length; }), `${ed} library: the account use cases come first`);
+    }
     ok((await page.locator('#fCat button', { hasText: 'Account' }).count()) === (E.account ? 1 : 0), `${ed} library: Account filter ${E.account ? 'missing' : 'must not exist'}`);
     ok(!(await page.content()).match(/edition switch|data-edition-switch/i) && (await page.locator('a[href*="../"]').count()) === 0, `${ed} library: no way to switch edition`);
     ok((await page.textContent('#lead')).startsWith(`${cat.length} stor`), `${ed} library: the story count in the header matches the catalog`);

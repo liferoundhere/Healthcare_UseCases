@@ -35,7 +35,7 @@
     const shown = cat.filter(match), shared = shown.filter((c) => !c.account), acct = shown.filter((c) => c.account);
     const anyAcct = cat.some((c) => c.account);
     const sharedHtml = f.cat !== 'Account' ? `<h2>Use cases</h2><p class="note">Shared stories. Figures tagged S are public sources, H are hypotheses to validate, and floor plan layouts are illustrative.</p>${shared.length ? `<div class="grid">${shared.map(card).join('')}</div>` : '<div class="empty">No use case matches these filters.</div>'}` : '';
-    const acctHtml = hasAccount ? `<h2 id="acctHead">For your organization: hypotheses to validate</h2><p class="note">${esc(ED.label)}. These stories are written from public information about your organization and are hypotheses to confirm with you, not findings.</p>${acct.length ? `<div class="grid">${acct.map(card).join('')}</div>` : `<div class="empty" id="acctEmpty">${anyAcct ? 'No account use case matches these filters.' : 'No account use cases have been added to this edition yet.'}</div>`}` : '';
+    const acctHtml = hasAccount ? `<h2 id="acctHead">For ${esc(ED.org || 'your organization')}: hypotheses to validate</h2><p class="note">These stories are written from public information about your organization and are hypotheses to confirm with you, not findings.</p>${acct.length ? `<div class="grid acct">${acct.map(card).join('')}</div>` : `<div class="empty" id="acctEmpty">${anyAcct ? 'No account use case matches these filters.' : 'No account use cases have been added to this edition yet.'}</div>`}` : '';
     // the account section leads once it has stories; while it is empty it stays below the shared ones
     const html = anyAcct ? acctHtml + sharedHtml : sharedHtml + acctHtml;
     $('lists').innerHTML = html;

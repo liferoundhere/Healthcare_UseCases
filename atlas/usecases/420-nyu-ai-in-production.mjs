@@ -94,7 +94,7 @@ export default {
     zoneLabels: { hosp: 'Emergency department and data center', vend: 'Cloud' },
     labels: { 'Exam room': 'ED exam room', 'Reading room': 'ED workroom', 'GPU rack row': 'Data center', 'Office': 'AI program office' },
     pos: {
-      note: [88, 132], wifi: [264, 206, { lab: 'r' }], gpu: [218, 266], ehr: [318, 318], inv: [456, 218],
+      note: [92, 142], wifi: [264, 206, { lab: 'r' }], gpu: [218, 266], ehr: [318, 318], inv: [468, 232],
       cloud: [626, 150],
       te: [110, 418], splunk: [280, 418], canvas: [450, 418], appr: [620, 418],
     },

@@ -1,6 +1,7 @@
 // Builds three separate static sites, one per edition:
 //   node atlas/build.mjs            ->  atlas/dist/general/  atlas/dist/msk/  atlas/dist/nyulh/
 //   node atlas/build.mjs --only=msk     build one edition
+//   node atlas/build.mjs --plans        list what each floor plan offers to scene.labels and scene.hide
 //   node atlas/build.mjs --usecases=<dir> --out=<dir>   other input and output folders (tools/selftest.mjs)
 // Each site holds index.html (library), play.html (presenter), css/, js/ and data/ and contains only that
 // edition's content. The build fails if a use case is incomplete, if a node has no position, if the text
@@ -20,8 +21,8 @@ const NAMES_MSK = ['MSK', /memorial\s+sloan/i, /sloan[\s-]*kettering/i, /\bMSKCC
 const NAMES_NYU = ['NYU', /langone/i, /nyulh/i];
 export const EDITIONS = {
   general: { label: 'General edition', forbid: [...NAMES_MSK, ...NAMES_NYU] },
-  msk: { label: 'Prepared for Memorial Sloan Kettering Cancer Center', forbid: NAMES_NYU },
-  nyulh: { label: 'Prepared for NYU Langone Health', forbid: NAMES_MSK },
+  msk: { label: 'Prepared for Memorial Sloan Kettering Cancer Center', org: 'Memorial Sloan Kettering Cancer Center', forbid: NAMES_NYU },
+  nyulh: { label: 'Prepared for NYU Langone Health', org: 'NYU Langone Health', forbid: NAMES_MSK },
 };
 const ALL = Object.keys(EDITIONS);
 const CATEGORIES = ['Flagship', 'Infrastructure', 'AI', 'Account'];
@@ -219,7 +220,7 @@ for (const ed of ALL.filter((e) => !only || e === only)) {
     if (c.scene.decor === c.id || !decorZones[c.scene.decor]) decorZones[c.scene.decor] = Object.fromEntries(N.zones.map((z) => [z.id, z.label]));
     return { id: c.id, code: c.code, category: c.category, account: full.account, pillars: c.pillars, short: c.short, name: c.name, setting: c.setting, situation: c.situation || N.subtitle, keywords: c.personas, steps: N.steps.length, today, cisco: N.steps.length - today };
   });
-  writeFileSync(join(out, 'data/catalog.js'), `window.ATLAS = ${JSON.stringify({ edition: { id: ed, label: E.label }, catalog, decorZones, cases: {} })};\n`);
+  writeFileSync(join(out, 'data/catalog.js'), `window.ATLAS = ${JSON.stringify({ edition: { id: ed, label: E.label, org: E.org || '' }, catalog, decorZones, cases: {} })};\n`);
 
   const page = (f) => read('src/web', f).replaceAll('{{EDITION_LABEL}}', E.label).replace('{{UC_SCRIPTS}}', mine.map((c) => `<script src="data/uc-${c.id}.js"></script>`).join('\n'));
   writeFileSync(join(out, 'index.html'), page('index.html'));

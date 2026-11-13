@@ -94,6 +94,7 @@ export default {
   scene: {
     decor: 'security',
     zoneLabels: { floor: 'Inpatient unit', dc: 'Data center and edge compute', ext: 'Outside the hospital' },
+    labels: { 'IDF closet': null }, // the device placed in that room carries its name
     pos: {
       cam: [ 82, 134 ],
       bedn: [ 160, 240 ],

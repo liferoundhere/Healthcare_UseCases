@@ -92,7 +92,7 @@ export default {
   scene: {
     decor: 'facilities',
     zoneLabels: { tower: 'Inpatient tower', plant: 'Central plant', remote: 'Off campus' },
-    labels: { 'Room 412': 'Unit room', 'IDF closet': 'Network closet' },
+    labels: { 'Room 412': 'Patient bay' },
     pos: {
       unit: [74, 122], closet: [200, 124], noc: [168, 206],
       fac: [528, 108], power: [668, 132], storm: [640, 296],

@@ -343,6 +343,7 @@ function layoutFor(S) {
       let cost = k * 3 + (Math.abs(r.x - sp[0]) + Math.abs(r.y - sp[1])) * 0.5;
       circ.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 4); });
       placed.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 6); });
+      zones.forEach((q) => { cost += rOverlap(r, q, 3) * 5; }); // a bubble that cuts a zone name in half reads as an error
       if (S.mode === 'legacy' && !S.c.scene.noLegacyBand) cost += rOverlap(r, { x: CC_BAND[0], y: CC_BAND[1], w: CC_BAND[2], h: CC_BAND[3] }) * 2; // keep off the "one tool per team" band
       if (!callout || cost < callout.cost) callout = { x: r.x, y: r.y, w, h, lh, size, cost, U };
     });
@@ -350,6 +351,12 @@ function layoutFor(S) {
   // set-dressing labels (room names and the like) that a device label or the callout would sit on are left out
   const hide = new Set();
   DECORLAB.list.forEach((d) => { if (placed.some((q) => rOverlap(d, q, 2) > 0) || (callout && rOverlap(d, callout, 2) > 0)) hide.add(d.key); });
+  // ... and so are the ones the focus ring of the device in focus would cut through
+  const pp = S.prim && S.pos[S.prim] && S.cur.vis.get(S.prim) ? S.pos[S.prim] : null;
+  if (pp) {
+    const pn = S.N.nodes.find((n) => n.id === S.prim), rr = (18 * ((pn.r || 30) / 30) + 13) * 1.45;
+    DECORLAB.list.forEach((d) => { const qx = clamp(pp[0], d.x, d.x + d.w), qy = clamp(pp[1], d.y, d.y + d.h); if (Math.hypot(qx - pp[0], qy - pp[1]) < rr) hide.add(d.key); });
+  }
   const out = { side, callout, hide, capDx };
   LAYOUTS.set(key, out);
   return out;
@@ -374,7 +381,7 @@ function drawLinks(S) {
       S.N.nodes.forEach((n) => {
         const p = S.pos[n.id]; if (!p || n.id === l.a || n.id === l.b || p[1] < CC_BAND[1]) return;
         const u = ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (len * len); if (u <= 0.04 || u >= 0.96) return;
-        if (Math.abs((p[0] - a[0]) * dy - (p[1] - a[1]) * dx) / len < 30) need = Math.max(need, 34 / (1.2 * u * (1 - u) * Math.max(40, len - 2 * 24)));
+        if (Math.abs((p[0] - a[0]) * dy - (p[1] - a[1]) * dx) / len < 30) need = Math.max(need, 38 / (1.2 * u * (1 - u) * Math.max(40, len - 2 * 24)));
       });
       const up = dx >= 0 ? -1 : 1; // the sign that bows the line toward the top of the band
       if (need && bend * up < need) bend = up * Math.min(0.7, need);
@@ -453,8 +460,11 @@ function drawCCBand(S) {
   const sx = x + mod(S.t * 70, w + 160) - 80, g = ctx.createLinearGradient(sx - 60, 0, sx + 60, 0);
   g.addColorStop(0, tint(COL.cisco, 0)); g.addColorStop(0.5, tint(COL.cisco, 0.1)); g.addColorStop(1, tint(COL.cisco, 0));
   ctx.fillStyle = g; ctx.fillRect(x, y, w, h); ctx.restore();
-  D.text('CISCO CLOUD CONTROL (MODELED)', x + 12, y + 13, { size: 10, weight: 800, color: COL.cisco });
-  if (a.a > 0.5) LABELS.push({ id: 'zone cc', kind: 'zone', x: x + 12, y: y + 13 - fsz(10) / 2, w: D.measure('CISCO CLOUD CONTROL (MODELED)', 10, 800), h: fsz(10) });
+  // the band's name sits on its top border, like a tab, so links that arc between band devices never run through it
+  const bn = 'CISCO CLOUD CONTROL (MODELED)', bw = D.measure(bn, 10, 800), bh = fsz(10) + 6;
+  D.box(x + 14, y - bh / 2, bw + 16, bh, { fill: T.panel, stroke: COL.cisco, lw: 1.4, r: bh / 2 });
+  D.text(bn, x + 22, y + 0.5, { size: 10, weight: 800, color: COL.cisco });
+  if (a.a > 0.5) LABELS.push({ id: 'zone cc', kind: 'zone', x: x + 14, y: y - bh / 2, w: bw + 16, h: bh });
   D.icon('cloud', x + w - 18, y + 13, 14, COL.cisco);
   ctx.restore();
   HOT('cc', x, y, w, h, { owner: 'cisco', tag: 'S', title: 'Cisco Cloud Control (modeled)', body: S.c.chips.map((q) => `${q[0]}: ${q[1]}`).join('<br>') || 'One place to see, correlate and act, with a person approving changes that touch care.', src: `${SRCNAME}, ${S.c.code}; availability per the research brief` });

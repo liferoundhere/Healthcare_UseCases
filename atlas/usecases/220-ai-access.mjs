@@ -95,8 +95,8 @@ export default {
   scene: {
     decor: 'home',
     zoneLabels: { house: 'Patient calling', net: 'Vendor cloud services', hosp: 'Hospital' },
-    labels: { 'Command center': 'Patient access center' },
-    hide: ['patient-bed', 'houses'],
+    labels: { 'Command center': 'Access center' },
+    hide: ['patient-bed', 'houses', 'walkers'],
     pos: {
       caller: [ 112, 150 ],
       ccx: [ 330, 150 ],
