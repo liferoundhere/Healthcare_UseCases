@@ -1,0 +1,707 @@
+[
+  {
+    "id": "ai-vision",
+    "title": "A camera in every room needs a network",
+    "subtitle": "A health system puts cameras, microphones and edge AI in hundreds of patient rooms for virtual nurses and fall alerts, on switches and Wi-Fi sized for badge readers and phones.",
+    "today": [
+      {
+        "title": "Rooms go live faster than closets",
+        "exec": "Each smart room adds a camera, microphone and screen, and the rollout is planned by the nursing project, not against switch power or uplink capacity.",
+        "dir": "Nobody holds one list of which rooms are live, which switch ports feed them and how much PoE budget is left in each closet.",
+        "eng": "Room devices draw PoE and send continuous video to an edge node or cloud, so port power class, uplink headroom and QoS marking decide picture quality."
+      },
+      {
+        "title": "The virtual nurse sees a frozen picture",
+        "exec": "When video stalls, the virtual nurse loses sight of the patient and the bedside nurse is called back, which is the workload the program was meant to remove.",
+        "dir": "The camera vendor, the network team and the video platform each check their own console, and each reports healthy.",
+        "eng": "Symptoms span switch PoE events, Wi-Fi roaming, QoS re-marking at the distribution layer and the vendor's cloud relay, with no shared timestamped trace."
+      },
+      {
+        "title": "A fall alert arrives late or never",
+        "exec": "A fall alert that depends on an overloaded closet or a stalled edge node can arrive late, and a correct alert still fails if staff cannot arrive.",
+        "dir": "Privacy questions land at the same time: who can view a room, what is recorded and where frames leave the building.",
+        "eng": "Without per-room health checks, an inference node that has stopped processing looks identical to a quiet room."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One view from room to cloud",
+        "exec": "Operations asks one question and sees room devices, switch power, wireless health and the vendor's cloud path together on one canvas.",
+        "dir": "AI Canvas in Cloud Control would pull Meraki or Catalyst Center port and PoE data, ThousandEyes path tests and Splunk events into one investigation.",
+        "eng": "Topology and Inventory would map each room device to its switch port and closet, with ThousandEyes tests to the vision vendor's endpoints and device logs in Splunk."
+      },
+      {
+        "title": "Nursing informatics approves the change",
+        "exec": "Before any switch or QoS change reaches patient rooms, named network and nursing approvers see the proposed change, the rooms affected and the rollback.",
+        "dir": "The Actions queue would hold the change until it is approved, and the Audit log would record who approved what and when.",
+        "eng": "The approved change (PoE priority, QoS policy or port move) is pushed by Catalyst Center or the Meraki dashboard, not by the agent directly."
+      },
+      {
+        "title": "Modeled: faster isolation, same clinical questions",
+        "exec": "Modeled outcome: the fault is located in one investigation instead of a multi-team call; whether virtual nursing reduces workload or falls is not something the network settles.",
+        "dir": "The model assumes room devices, switches and the vendor path are all onboarded; rooms on unmanaged switches stay invisible.",
+        "eng": "Camera firmware, model accuracy and the vendor's cloud remain outside Cisco telemetry except as measured from the network edge."
+      }
+    ],
+    "rooms": [
+      "ward",
+      "net",
+      "dc",
+      "outside"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Topology",
+      "Inventory",
+      "Actions",
+      "Audit log",
+      "Meraki",
+      "Catalyst Center",
+      "ThousandEyes"
+    ],
+    "facts": [
+      {
+        "v": "57%",
+        "l": "of 880 hospital nurses said virtual nurses did not reduce their workload",
+        "s": "JAMA Network Open 2025",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41348359/"
+      },
+      {
+        "v": "-0.79 days",
+        "l": "hospital length of stay after virtual nursing across nine hospitals (129,080 encounters)",
+        "s": "Int J Med Inform 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42976388/"
+      },
+      {
+        "v": "1.02 vs 1.29",
+        "l": "falls per 1,000 patient-days with and without AI video monitoring; difference not statistically significant",
+        "s": "Healthcare (Basel) 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42793538/"
+      },
+      {
+        "v": "<150 ms",
+        "l": "target for the full video round trip in virtual care, to avoid service interruptions",
+        "s": "American Telemedicine Association 2025",
+        "url": "https://www.americantelemed.org/resources/code-whats-next-scaling-the-digital-hospital-addressing-hardware-and-connectivity-challenges/"
+      },
+      {
+        "v": "1,800+",
+        "l": "smart-room devices being installed systemwide at UChicago Medicine",
+        "s": "AHA Market Scan 2026, vendor-reported",
+        "url": "https://www.aha.org/aha-center-health-innovation-market-scan/2026-05-12-uchicago-medicine-implement-smart-hospital-platform"
+      }
+    ],
+    "approval": {
+      "title": "Change to patient-room switch ports",
+      "what": "Raise PoE priority and apply the video QoS policy on the closets serving one unit's smart rooms.",
+      "approver": "Network change manager with the nursing informatics lead",
+      "executesIn": "Catalyst Center or the Meraki dashboard"
+    },
+    "ask": "If a virtual nurse's video froze tonight, who would know first, and how long before you knew whether it was the camera, the closet or the vendor's cloud?",
+    "stays": "Clinical protocols, consent and privacy policy, camera placement and the vision vendor's model accuracy stay with the hospital and its vendor.",
+    "caveat": "Evidence is mixed: 57% of surveyed nurses saw no workload relief, and a 2026 matched study found no significant fall reduction. Cisco tooling addresses the infrastructure path only; the outcome shown is modeled, not measured."
+  },
+  {
+    "id": "ai-access",
+    "title": "When the phone agent cannot reach the EHR",
+    "subtitle": "A voice agent answers scheduling, refill and billing calls around the clock. It depends on the contact center platform, a speech model, identity checks and the EHR's scheduling interface all working together.",
+    "today": [
+      {
+        "title": "Routine calls move to an agent",
+        "exec": "The agent takes routine calls at any hour, so patient access now depends on a chain of cloud services the hospital does not run.",
+        "dir": "The telephony carrier, contact center platform, speech and language models and the EHR interface each have a different owner and status page.",
+        "eng": "A call crosses SIP trunks, the contact center platform, speech-to-text, a language model and EHR API calls; added latency in any hop is audible to the caller."
+      },
+      {
+        "title": "The booking that never reached the schedule",
+        "exec": "A caller hears a confirmation, the write to the schedule fails silently, and the patient arrives for an appointment that does not exist.",
+        "dir": "Containment dashboards count the call as resolved, so the failure surfaces as complaints, not as an alert.",
+        "eng": "Nothing reconciles the agent's confirmations against EHR write-back responses or the interface error queue."
+      },
+      {
+        "title": "Identity and handoff are the weak points",
+        "exec": "A caller who is not who they claim to be can reach refill or billing details, and a distressed caller can loop instead of reaching a person.",
+        "dir": "Identity checks and transfer rules are configured in the vendor's console, outside the hospital's change control.",
+        "eng": "Agent service accounts often hold broad EHR scopes, and transfers lose context when the staffed queue and the agent platform do not share session data."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One investigation across the call path",
+        "exec": "One investigation shows the call path, the agent's steps and the EHR interface together, so the team sees where bookings stop.",
+        "dir": "AI Canvas would combine contact center data (Webex Contact Center where deployed), ThousandEyes tests to the model and EHR endpoints, and Splunk logs.",
+        "eng": "Agent Observability would trace each agent step and tool call, ThousandEyes would measure voice and API paths, and Splunk would join write-back errors to call records."
+      },
+      {
+        "title": "A person approves the failover",
+        "exec": "Before calls are rerouted to staff or the agent's permissions are narrowed, the patient access director approves the change and sees who is affected.",
+        "dir": "The Actions queue would hold the routing change for approval and the Audit log would keep the record.",
+        "eng": "The approved change runs in the contact center platform's routing configuration; Duo would verify the approver."
+      },
+      {
+        "title": "Modeled: failed bookings caught the same day",
+        "exec": "Modeled outcome: silent booking failures are caught the same day instead of at the front desk; the agent's accuracy and tone stay the vendor's to fix.",
+        "dir": "The model assumes the agent vendor exposes traces and the EHR interface logs are searchable; many vendors do not expose both.",
+        "eng": "Third-party agent platforms are visible only through their telemetry exports and from network path tests."
+      }
+    ],
+    "rooms": [
+      "office",
+      "clinic",
+      "home",
+      "outside"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Agent Observability",
+      "ThousandEyes",
+      "Splunk",
+      "Webex",
+      "Actions",
+      "Audit log",
+      "Duo"
+    ],
+    "facts": [
+      {
+        "v": "2.2M+",
+        "l": "patient calls handled by MUSC Health's voice agent since its 2024 launch",
+        "s": "HIT Consultant 2026, vendor-reported",
+        "url": "https://hitconsultant.net/2026/07/29/musc-health-expands-soundhound-ai-agent-emily-pharmacy-epic/"
+      },
+      {
+        "v": "160,000+",
+        "l": "patient calls a month handled by WellSpan Health's voice agent",
+        "s": "WellSpan Health 2026, vendor-reported",
+        "url": "https://www.wellspan.org/articles/2026/07/30/13/05/web---hippocractic-ai-partnership-expansion"
+      },
+      {
+        "v": "40%",
+        "l": "AI containment reported by Community Health Network on its contact center",
+        "s": "Webex Blog 2026, vendor-reported",
+        "url": "https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/"
+      },
+      {
+        "v": ">50%",
+        "l": "of the time, knowledge-based caller authentication is bypassed, per one voice-security vendor",
+        "s": "Pindrop 2026, vendor-reported",
+        "url": "https://www.pindrop.com/article/ama-deepfake-warning-healthcare-identity-security/"
+      }
+    ],
+    "approval": {
+      "title": "Reroute calls from agent to staff",
+      "what": "Send scheduling calls to the staffed queue and suspend the agent's booking permission until write-back errors clear.",
+      "approver": "Patient access director",
+      "executesIn": "Contact center platform routing (Webex Contact Center where deployed)"
+    },
+    "ask": "How would you find out that your phone agent confirmed appointments last night that never reached the schedule?",
+    "stays": "The agent's script, voice, accuracy and identity-verification method stay with the agent vendor and patient access; EHR scopes stay with the EHR team.",
+    "caveat": "Call volumes and containment rates here are vendor-reported, with no independent audit found. The Cisco story is a hypothesis about visibility and approval, and the outcome is modeled."
+  },
+  {
+    "id": "ai-factory",
+    "title": "The hospital buys its own GPUs",
+    "subtitle": "To keep patient data in-house and costs predictable, a health system installs a GPU cluster for language and imaging models in a data center built for far lighter racks.",
+    "today": [
+      {
+        "title": "Research hardware becomes clinical infrastructure",
+        "exec": "A cluster bought for research starts serving models that clinicians use daily, without the uptime design or staffing of a clinical system.",
+        "dir": "Ownership is split between research computing, infrastructure and data science, and none runs an on-call rota for model serving.",
+        "eng": "GPU nodes, a low-loss east-west fabric, shared storage and the inference serving stack are managed in separate tools with separate firmware cycles."
+      },
+      {
+        "title": "Power and cooling set the ceiling",
+        "exec": "A current GPU rack can draw more than ten times a typical rack, so facilities limits, not budget, decide how much AI the hospital can run.",
+        "dir": "Capacity planning for GPUs, power and cooling lives in spreadsheets, and requests from clinical teams queue without a shared view.",
+        "eng": "Racks of 120 to 132 kW need liquid cooling, against an industry average near 9 kW per rack."
+      },
+      {
+        "title": "A slow model looks like a broken app",
+        "exec": "When the cluster is saturated or a node fails, clinicians see a slow or failed tool, and nobody can say quickly which layer is at fault.",
+        "dir": "The application team blames the model, the model team blames the cluster, and the cluster team has no view of the application.",
+        "eng": "Fabric congestion or a failing optic shows up as slow tokens and timeouts, not as a link-down alarm."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One view from GPU to clinical app",
+        "exec": "One investigation shows GPU load, fabric health, storage and the applications that depend on the cluster in a single view.",
+        "dir": "AI Canvas would bring Intersight compute and GPU telemetry, Nexus fabric data and Splunk application logs into one investigation.",
+        "eng": "Intersight would report node, GPU and firmware state, Nexus telemetry would show fabric congestion, and Splunk would correlate inference latency with both."
+      },
+      {
+        "title": "Approval before clinical workloads move",
+        "exec": "Before a node is drained or a clinical model is moved, the infrastructure lead and the model's clinical owner approve the change and its timing.",
+        "dir": "The Actions queue would hold the change for both approvers and the Audit log would record the decision.",
+        "eng": "The approved action executes in Intersight (firmware, node maintenance) or the Nexus controller, not from the agent."
+      },
+      {
+        "title": "Modeled: saturation seen before clinicians feel it",
+        "exec": "Modeled outcome: saturation is seen before clinicians feel it; power, cooling, model quality and who staffs the platform remain the hospital's decisions.",
+        "dir": "The model assumes Cisco compute and fabric; clusters built on other vendors' hardware would appear only through Splunk data.",
+        "eng": "Model-serving software, schedulers and the models themselves are outside Intersight and Nexus telemetry, and AI Defense would test models for safety and security issues, not for uptime."
+      }
+    ],
+    "rooms": [
+      "dc",
+      "plant",
+      "net",
+      "office"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Intersight",
+      "Nexus",
+      "Splunk",
+      "AI Defense",
+      "Actions",
+      "Audit log"
+    ],
+    "facts": [
+      {
+        "v": "120-132 kW",
+        "l": "per rack for a current NVIDIA GPU design, against an industry average near 9 kW",
+        "s": "NVIDIA; Uptime Institute 2025",
+        "url": "https://developer.nvidia.com/blog/nvidia-contributes-nvidia-gb200-nvl72-designs-to-open-compute-project/"
+      },
+      {
+        "v": "4 wk to 1",
+        "l": "pathology model work on Mayo Clinic's NVIDIA DGX SuperPOD, as stated by Mayo Clinic",
+        "s": "AHA Market Scan 2025, vendor-reported",
+        "url": "https://www.aha.org/aha-center-health-innovation-market-scan/2025-08-12-mayo-clinic-new-ai-computing-platform-will-advance-precision-medicine"
+      },
+      {
+        "v": "322",
+        "l": "registered users of an on-premises language model at one German university hospital",
+        "s": "JMIR AI 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41984850/"
+      },
+      {
+        "v": "44%",
+        "l": "of 91 surveyed users there reported saving at least 30 minutes a week",
+        "s": "JMIR AI 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41984850/"
+      },
+      {
+        "v": "26%",
+        "l": "of organizations report robust GPU capacity for AI (cross-industry, n=8,000+)",
+        "s": "Cisco AI Readiness Index 2025, vendor-reported",
+        "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m10/cisco-ai-research-the-most-ai-ready-companies-outpace-peers-in-the-race-to-value.html"
+      }
+    ],
+    "approval": {
+      "title": "Drain a GPU node serving clinical models",
+      "what": "Drain one node for a firmware fix and shift imaging inference to the remaining nodes during the overnight window.",
+      "approver": "Infrastructure lead with the clinical AI owner",
+      "executesIn": "Cisco Intersight"
+    },
+    "ask": "Who is on call at 2 a.m. for the GPU cluster your clinicians now depend on, and what would they look at first?",
+    "stays": "Power and cooling build-out, the choice of models, clinical validation and the staffing of the platform team stay with the hospital and its facilities partners.",
+    "caveat": "No statistic on how many hospitals run their own GPU clusters was found; published examples are surveys and implementation reports, not outcome studies. What Cisco products would show is a hypothesis; the outcome is modeled."
+  },
+  {
+    "id": "ai-bedside",
+    "title": "A sepsis score depends on fresh data",
+    "subtitle": "A deterioration model scores every inpatient from vitals, labs and notes. If a feed from monitors or the lab lags, the score goes stale and nurses see alerts they stop trusting.",
+    "today": [
+      {
+        "title": "The model reads feeds nobody watches",
+        "exec": "The score depends on monitor, lab and EHR feeds arriving on time, and those feeds are watched as interfaces, not as a clinical dependency.",
+        "dir": "The interface engine, device gateways and the model runtime belong to three teams; the model owner sees scores, not feed latency.",
+        "eng": "Vitals arrive through device integration gateways and HL7 or FHIR interfaces; a queue backlog delays model inputs without raising an error to the model."
+      },
+      {
+        "title": "Stale inputs, confident output",
+        "exec": "When a feed lags, the model still produces a score, so a patient can look stable on screen while the latest readings are missing.",
+        "dir": "No dashboard shows clinicians or IT how old the inputs behind a given score are.",
+        "eng": "Most deployed models do not expose input freshness, so a missing lab or delayed vitals batch changes the score silently."
+      },
+      {
+        "title": "Alerts fire late or too often",
+        "exec": "Even the updated sepsis model, validated at four health systems in 2026, kept a low positive predictive value and a high alert burden, varying by site.",
+        "dir": "Alert fatigue rises, and with ONC's model-card requirement removed from December 28, 2026, local monitoring falls to the hospital.",
+        "eng": "Model drift, data-quality drift and pipeline latency cannot be told apart unless input timestamps are logged next to each prediction."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One view of the data path",
+        "exec": "One investigation shows whether monitors, the network, the interface engine and the model host are delivering data on time.",
+        "dir": "AI Canvas would join Catalyst Center network telemetry with interface-engine and model-host logs in Splunk, using Federated Search for data left in place.",
+        "eng": "Splunk would hold interface queue depth and message timestamps, Topology would show gateway connectivity, and Federated Search would reach logs kept in other stores."
+      },
+      {
+        "title": "Clinical informatics approves any change",
+        "exec": "Any change that could alter alerts at the bedside, such as restarting an interface or rerouting a gateway, waits for clinical informatics approval.",
+        "dir": "The Actions queue would hold the request and the Audit log would record the approver and the window agreed with the unit.",
+        "eng": "Network changes run in Catalyst Center; interface-engine restarts run in the hospital's own interface tooling through its change system."
+      },
+      {
+        "title": "Modeled: stale feeds flagged, accuracy unchanged",
+        "exec": "Modeled outcome: a lagging feed is flagged before scores go stale; the model's accuracy, thresholds and alert fatigue remain a clinical governance matter.",
+        "dir": "The model assumes interface-engine and model-host logs are sent to Splunk or retained in Machine Data Lake, which is integration work the hospital must do.",
+        "eng": "Nothing here validates the model; it only shows whether the inputs arrived and when."
+      }
+    ],
+    "rooms": [
+      "ward",
+      "ed",
+      "dc",
+      "net"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Splunk",
+      "Federated Search",
+      "Machine Data Lake",
+      "Catalyst Center",
+      "Topology",
+      "Actions",
+      "Audit log"
+    ],
+    "facts": [
+      {
+        "v": "0.13-0.26",
+        "l": "positive predictive value of the updated Epic Sepsis Model across 4 US health systems (227,091 encounters)",
+        "s": "JAMA Network Open 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41758510/"
+      },
+      {
+        "v": "0.82-0.92",
+        "l": "encounter-level AUROC for the same updated model, varying by site",
+        "s": "JAMA Network Open 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41758510/"
+      },
+      {
+        "v": "33.5%",
+        "l": "of cases at 60% sensitivity where the updated model alerted before clinical recognition (35,076 ED encounters)",
+        "s": "Am J Emerg Med 2025",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40729785/"
+      },
+      {
+        "v": "0.65",
+        "l": "pooled AUROC for the Epic Sepsis Model across external validations, mostly first-generation (922,754 patients)",
+        "s": "J Gen Intern Med 2026",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41917292/"
+      },
+      {
+        "v": "18.7%",
+        "l": "adjusted relative mortality reduction when a sepsis alert was confirmed within 3 hours (6,877 patients)",
+        "s": "Nature Medicine 2022",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/35864252/"
+      }
+    ],
+    "approval": {
+      "title": "Restart the vitals interface feed",
+      "what": "Restart the monitor-to-EHR interface channel and replay queued vitals for two units in a window agreed with charge nurses.",
+      "approver": "Clinical informatics lead",
+      "executesIn": "Hospital interface engine, through the change system"
+    },
+    "ask": "For your sepsis or deterioration score, can anyone tell you right now how old the newest vitals and labs behind it are?",
+    "stays": "Model choice, thresholds, validation, alert design and the clinical response stay with clinical governance and the model vendor.",
+    "caveat": "The updated model discriminates better than the first, but alert burden stays high. No published measurement of feed latency for these models was found. Infrastructure visibility does not make a model accurate; the outcome shown is modeled."
+  },
+  {
+    "id": "ai-agents",
+    "title": "Every agent in the chart needs an identity",
+    "subtitle": "Agents built in the EHR, by revenue-cycle vendors and by staff now read and write clinical systems. Few hospitals can list them, their permissions or what they did last night.",
+    "today": [
+      {
+        "title": "Agents arrive from three directions",
+        "exec": "EHR vendor agents, revenue-cycle agents and staff-built agents all gain access to patient data, each approved through a different door.",
+        "dir": "There is no single register of agents, owners, permissions and credentials, and service accounts are shared and rarely expire.",
+        "eng": "Agents authenticate with OAuth client credentials, SMART on FHIR backend services or API keys, and MCP servers add a tool layer with its own authorization."
+      },
+      {
+        "title": "Permissions wider than the task",
+        "exec": "An agent set up to check claim status can hold access broad enough to read whole charts, because narrowing it is work nobody owns.",
+        "dir": "Access reviews cover people; agent credentials are reviewed, if at all, when a vendor contract renews.",
+        "eng": "Scopes are granted per integration, not per task, and tokens are long-lived."
+      },
+      {
+        "title": "An injected instruction acts with real access",
+        "exec": "Text hidden in a document or message can redirect an agent, and the audit trail shows a service account, not which agent acted or why.",
+        "dir": "In a published test, prompt injection succeeded in 94.4% of simulated medical-advice dialogues.",
+        "eng": "EHR audit logs record the API client; the agent's reasoning, tool calls and the prompt that triggered them live in a separate system or nowhere."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One register of agents and their reach",
+        "exec": "One view lists agents, their identities, the systems they reach and their recent actions, drawn from identity, network and agent telemetry.",
+        "dir": "Cisco Identity would bring identity and agentic activity into one view, Duo would verify approvers, AI Defense would discover and test AI assets, and Agent Observability would trace agent behavior.",
+        "eng": "Secure Access would apply per-agent policy to MCP and API traffic, with traces, tool calls and guardrail events held in Splunk."
+      },
+      {
+        "title": "A named owner approves each permission change",
+        "exec": "Granting an agent write access, or suspending one that misbehaves, requires approval from the agent's named owner and from security.",
+        "dir": "The Actions queue would hold the request and the Audit log would tie the decision to a person.",
+        "eng": "Network-side blocks execute in Secure Access; EHR-side permissions are changed in the EHR vendor's console by the EHR team."
+      },
+      {
+        "title": "Modeled: a misbehaving agent stopped, with a record",
+        "exec": "Modeled outcome: a misbehaving agent is identified and suspended with a full record; what agents may do inside the EHR stays with the EHR vendor and hospital governance.",
+        "dir": "The model assumes agents are registered and their traffic passes through enforced paths; agents embedded inside the EHR are visible only through the vendor's own logs.",
+        "eng": "Guardrails reduce prompt-injection risk; they do not remove it."
+      }
+    ],
+    "rooms": [
+      "office",
+      "dc",
+      "clinic",
+      "outside"
+    ],
+    "ciscoBlocks": [
+      "Cisco Identity",
+      "Duo",
+      "AI Defense",
+      "Secure Access",
+      "Agent Observability",
+      "Splunk",
+      "Actions",
+      "Audit log"
+    ],
+    "facts": [
+      {
+        "v": "69.67%",
+        "l": "best agent success rate on 300 physician-written tasks in a FHIR test EHR",
+        "s": "NEJM AI 2025",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42932685/"
+      },
+      {
+        "v": "94.4%",
+        "l": "prompt-injection success rate against language models in simulated medical-advice dialogues",
+        "s": "JAMA Network Open 2025",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41632124/"
+      },
+      {
+        "v": "129",
+        "l": "agent features listed as available in Epic's Agent Factory at UGM 2026, with 78 in development",
+        "s": "Healthcare IT Today 2026",
+        "url": "https://www.healthcareittoday.com/2026/08/19/epic-ugm-2026-judy-faulkner-keynote-and-cool-stuff-ahead/"
+      },
+      {
+        "v": "55%",
+        "l": "of 60+ health-system IT leaders already run AI workflows with limited staff oversight",
+        "s": "Qventus CIO report 2026, vendor-reported",
+        "url": "https://www.qventus.com/company/newsroom/qventus-releases-second-annual-cio-report-revealing-how-health-systems-are-closing-the-gap-between-ai-pilots-and-payoff/"
+      },
+      {
+        "v": "109:1",
+        "l": "machine identities, including AI agents, to human identities (cross-industry)",
+        "s": "Palo Alto Networks 2026, vendor-reported",
+        "url": "https://www.paloaltonetworks.com/idira/idira-identity-security-landscape"
+      }
+    ],
+    "approval": {
+      "title": "Suspend an agent's access to records",
+      "what": "Block the prior-authorization agent's API traffic and request removal of its write permission until its owner reviews the flagged actions.",
+      "approver": "Security lead with the agent's business owner",
+      "executesIn": "Cisco Secure Access; EHR vendor console for EHR-side permissions"
+    },
+    "ask": "Could you list tonight every AI agent that can read or write your EHR, who owns each one, and what it did yesterday?",
+    "stays": "What agents may do inside the EHR, clinical sign-off rules and each vendor's agent design stay with the EHR vendor, the agent vendors and hospital AI governance.",
+    "caveat": "No healthcare survey of agent identities and no red-team of an agent with live EHR write access was found; identity ratios are cross-industry and vendor-reported. Cisco capabilities here are hypotheses, and the outcome is modeled."
+  },
+  {
+    "id": "ai-pathology",
+    "title": "Every glass slide becomes gigabytes on the network",
+    "subtitle": "The lab scans every slide so pathologists and AI can read them anywhere. Each slide is gigabytes, and scanners, storage, links between sites and the cloud must all keep pace.",
+    "today": [
+      {
+        "title": "Scanners outrun the network plan",
+        "exec": "Digitizing the lab turns a courier problem into a data problem: each slide is gigabytes, every day, kept for years.",
+        "dir": "Scanner purchases are led by pathology; storage growth, WAN capacity and cloud transfer costs are discovered after go-live.",
+        "eng": "Scanners write multi-gigabyte image files to an image management system, and viewers stream tiles, so latency and loss show up as slow pan and zoom."
+      },
+      {
+        "title": "A slow viewer means a waiting diagnosis",
+        "exec": "When a link between sites or to the cloud degrades, pathologists wait for images and cases queue, cancer cases included.",
+        "dir": "The lab reports the viewer is slow; the network, storage and cloud teams each see green.",
+        "eng": "Tile streaming is sensitive to round-trip time, and bulk archive jobs compete with interactive viewing on the same circuits."
+      },
+      {
+        "title": "AI results depend on the whole chain",
+        "exec": "AI tools need each slide to arrive complete and on time; a stalled transfer or a full storage tier delays the result without a clear alarm.",
+        "dir": "Few AI algorithms are cleared, each tied to specific scanners and viewers, so every site-to-site move must preserve a validated chain.",
+        "eng": "Failed or partial transfers surface as missing AI overlays in the viewer, with the cause in transfer or storage logs."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One view from scanner to archive",
+        "exec": "One investigation shows scanner connectivity, the links between sites, the cloud path and storage-side errors together.",
+        "dir": "AI Canvas would combine Catalyst SD-WAN path data, ThousandEyes tests to the cloud archive, Nexus and Intersight data-center telemetry and Splunk logs.",
+        "eng": "ThousandEyes would measure loss and latency to the image archive, Catalyst SD-WAN would show per-application path choice, and Splunk would hold transfer and storage logs."
+      },
+      {
+        "title": "The lab director approves traffic changes",
+        "exec": "Before slide traffic is rerouted or a transfer window is moved, the lab's medical director and the network lead approve it.",
+        "dir": "The Actions queue would hold the change and the Audit log would record the approval for the lab's quality file.",
+        "eng": "Approved policy changes are executed by the Catalyst SD-WAN controller, not by the agent."
+      },
+      {
+        "title": "Modeled: a degrading path found before sign-out slips",
+        "exec": "Modeled outcome: a degrading path is found before sign-out slips; storage cost, retention policy and AI validation stay with the lab and its vendors.",
+        "dir": "The model assumes the image management vendor's logs can be collected; some are closed.",
+        "eng": "Scanner throughput, compression and viewer performance are outside network telemetry."
+      }
+    ],
+    "rooms": [
+      "pharmlab",
+      "dc",
+      "net",
+      "outside"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Catalyst SD-WAN",
+      "ThousandEyes",
+      "Nexus",
+      "Intersight",
+      "Splunk",
+      "Actions",
+      "Audit log"
+    ],
+    "facts": [
+      {
+        "v": "51",
+        "l": "FDA-authorized AI-flagged pathology devices through April 2026; only 7 are whole-slide imaging algorithms",
+        "s": "Innolitics analysis of FDA data 2026",
+        "url": "https://innolitics.com/articles/ai-ml-in-digital-pathology-and-the-software-as-an-ivd-paradigm-snapshot/"
+      },
+      {
+        "v": "800-1,000",
+        "l": "routine slides scanned every day at one academic pathology institute, on eight scanners",
+        "s": "Virchows Archiv 2025",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12289765/"
+      },
+      {
+        "v": "2-4 GB",
+        "l": "typical size of one high-resolution pathology image",
+        "s": "CLP Magazine 2025, vendor-reported",
+        "url": "https://clpmag.com/diagnostic-technologies/digital-pathology/partnership-reduce-digital-pathology-storage-costs-85/"
+      },
+      {
+        "v": "99%",
+        "l": "concordance between glass and digital reports in the same institute's validation",
+        "s": "Virchows Archiv 2025",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12289765/"
+      },
+      {
+        "v": "10 of 10",
+        "l": "large US labs interviewed reported IT process issues during digital pathology adoption",
+        "s": "CAP Today 2025",
+        "url": "https://www.captodayonline.com/?p=85288"
+      }
+    ],
+    "approval": {
+      "title": "Reroute slide traffic between sites",
+      "what": "Move whole-slide transfers from the degraded circuit to the secondary path and reschedule the bulk archive job overnight.",
+      "approver": "Laboratory medical director with the network lead",
+      "executesIn": "Catalyst SD-WAN Manager"
+    },
+    "ask": "When a pathologist says the viewer is slow, how long does it take to learn whether it is the scanner, the link, the cloud or the storage?",
+    "stays": "Scanner and viewer validation, slide retention policy, storage spend and the choice of AI algorithms stay with the laboratory and its vendors.",
+    "caveat": "No peer-reviewed 2025 to 2026 figure for end-to-end turnaround from pathology AI or for petabyte-scale storage was found. Network visibility does not validate a diagnostic chain, and the outcome shown is modeled."
+  },
+  {
+    "id": "ai-cost",
+    "title": "Nobody can say what the AI costs",
+    "subtitle": "Scribes, agents, imaging tools and a GPU cluster each bill differently: per user, per token, per study, per watt. Finance sees invoices; IT sees usage; no one sees both.",
+    "today": [
+      {
+        "title": "AI spend moves from seats to tokens",
+        "exec": "AI is increasingly billed by consumption, so cost rises with every agent step and no longer tracks headcount or licenses.",
+        "dir": "Budgets are set per contract, while usage is driven by workflows nobody forecasts.",
+        "eng": "Token counts, model choice, retries and agent loops drive cost; without per-request telemetry tagged to an application, spend cannot be attributed."
+      },
+      {
+        "title": "Tools multiply faster than oversight",
+        "exec": "Each department adds AI tools, and IT spends a growing share of its time on vendors and integrations instead of outcomes.",
+        "dir": "In a 2026 vendor-run survey, 51% of health-system IT leaders spent 11% to 25% of IT bandwidth on vendor management, integrations and implementations.",
+        "eng": "Overlapping tools call different models through different gateways, so there is no common usage record."
+      },
+      {
+        "title": "Value is asserted, not measured",
+        "exec": "Leaders approve more AI spend while few can tie it to measured results, so the next budget cycle is argued on anecdotes.",
+        "dir": "Only 18% of AI-scaling organizations in a 2026 healthcare CFO survey reported mature financial attribution.",
+        "eng": "Before-and-after comparisons stand in for attribution because usage, cost and outcome data sit in different systems."
+      }
+    ],
+    "withCisco": [
+      {
+        "title": "One view of usage, capacity and cost drivers",
+        "exec": "One view shows which applications and agents consume tokens and GPU time, alongside the infrastructure they run on.",
+        "dir": "In AI Canvas, Agent Observability would report token use and cost per agent, Intersight would report GPU utilization, and Splunk with Machine Data Lake would keep the usage history.",
+        "eng": "Agent traces carry token and model metadata; Intersight exposes GPU utilization per node; Machine Data Lake retains the raw records for later attribution."
+      },
+      {
+        "title": "The AI program owner approves limits",
+        "exec": "A cap on an agent's usage, or a move to a cheaper model, is approved by the AI program owner, with clinical sign-off where care is touched.",
+        "dir": "The Actions queue would hold the change and the Audit log would record who accepted the trade-off.",
+        "eng": "The limit is applied in the agent platform or model gateway; Cisco tooling records the request, the approval and the usage afterwards."
+      },
+      {
+        "title": "Modeled: spend attributed by application",
+        "exec": "Modeled outcome: spend is attributed to applications and owners each month; whether the AI is worth it is still a clinical and financial judgment.",
+        "dir": "The model assumes vendors expose usage data; per-seat SaaS tools often expose none.",
+        "eng": "Vendor invoices and contract terms are not in machine telemetry and must be joined from finance systems."
+      }
+    ],
+    "rooms": [
+      "office",
+      "dc",
+      "outside"
+    ],
+    "ciscoBlocks": [
+      "AI Canvas",
+      "Agent Observability",
+      "Splunk",
+      "Machine Data Lake",
+      "Intersight",
+      "Actions",
+      "Audit log"
+    ],
+    "facts": [
+      {
+        "v": "18%",
+        "l": "of AI-scaling health systems and plans report mature financial attribution (n=64 CFOs)",
+        "s": "Deloitte Healthcare CFO Survey 2026",
+        "url": "https://www.deloitte.com/us/en/insights/industry/health-care/healthcare-cfos-proving-ai-value.html"
+      },
+      {
+        "v": "4%",
+        "l": "of 60+ health-system IT leaders report scaled AI with measurable outcomes",
+        "s": "Qventus CIO report 2026, vendor-reported",
+        "url": "https://www.qventus.com/company/newsroom/qventus-releases-second-annual-cio-report-revealing-how-health-systems-are-closing-the-gap-between-ai-pilots-and-payoff/"
+      },
+      {
+        "v": "51%",
+        "l": "spend 11% to 25% of IT bandwidth on vendor management, integrations and implementations",
+        "s": "Qventus CIO report 2026, vendor-reported",
+        "url": "https://www.qventus.com/company/newsroom/qventus-releases-second-annual-cio-report-revealing-how-health-systems-are-closing-the-gap-between-ai-pilots-and-payoff/"
+      },
+      {
+        "v": "$75",
+        "l": "in tokens for one task at Jefferson Health: about two weeks of file analysis done in a day",
+        "s": "DistilINFO, citing Becker's, 2026",
+        "url": "https://distilinfo.com/2026/08/12/health-system-ai-token-costs/"
+      },
+      {
+        "v": "55%",
+        "l": "of organizations cannot accurately control AI costs (cross-industry)",
+        "s": "Splunk State of Observability 2026, vendor-reported",
+        "url": "https://www.splunk.com/state-of-observability"
+      }
+    ],
+    "approval": {
+      "title": "Cap an agent's daily token budget",
+      "what": "Set a daily token limit on the revenue-cycle agent and route its summarization step to a lower-cost model.",
+      "approver": "AI program owner with a finance partner",
+      "executesIn": "The agent platform or model gateway"
+    },
+    "ask": "If your AI bill doubled next quarter, could you say which application, which agent and which department drove it?",
+    "stays": "Contracts, pricing, the decision to keep or retire a tool and the measure of clinical value stay with finance, clinical leaders and each vendor.",
+    "caveat": "No health-system figure for token or inference spend was found; cost-control statistics are cross-industry and vendor-reported. Cisco tooling would show usage, not value, and the outcome is modeled."
+  }
+]

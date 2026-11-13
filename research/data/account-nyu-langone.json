@@ -1,0 +1,526 @@
+{
+  "id": "nyu",
+  "name": "NYU Langone Health",
+  "tagline": "Vizient's No. 1 health system five years running, building across Long Island and Florida",
+  "about": "NYU Langone Health is an integrated academic health system in New York City, Long Island and Florida, with two medical schools, more than 54,000 staff and over 330 ambulatory locations on one Epic record. Long Island Community Hospital merged in on March 1, 2025 as NYU Langone Hospital—Suffolk. Fiscal 2025 operating revenue was $15.4 billion.",
+  "facts": [
+    {
+      "v": "$15.4B",
+      "l": "operating revenue, fiscal year ended August 31, 2025; operating margin 3.1%",
+      "s": "NYU Langone annual report 2025",
+      "url": "https://nyulangone.org/files/2025-annual-report.pdf"
+    },
+    {
+      "v": "54,000+",
+      "l": "staff members across the health system",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "No. 1",
+      "l": "Vizient health system ranking for the fifth consecutive year, announced September 2026",
+      "s": "NYU Langone news 2026",
+      "url": "https://nyulangone.org/news/nyu-langone-health-named-no-1-health-system-5th-consecutive-year-vizient"
+    },
+    {
+      "v": "330+",
+      "l": "ambulatory locations in the New York metropolitan area, plus eight in Palm Beach County, Florida",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "2,379 beds",
+      "l": "across five inpatient facilities; our sum of the per-hospital bed counts disclosed",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "128+",
+      "l": "AI models in production and 150 in development, home-grown and vendor-based",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "1,500+",
+      "l": "inpatient and emergency department providers supported by ambient AI documentation",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "Level 10",
+      "l": "CHIME Digital Health Most Wired, acute and ambulatory; the only one in New York State",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "$1.3B",
+      "l": "capital expenditures in fiscal 2025 to support strategic capital investments",
+      "s": "NYU Langone annual report 2025",
+      "url": "https://nyulangone.org/files/2025-annual-report.pdf"
+    },
+    {
+      "v": "45 acres",
+      "l": "Melville property acquired May 2026 for a new Long Island inpatient hospital campus",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "$982M",
+      "l": "active National Institutes of Health awards as of May 2026",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "v": "12 rounds",
+      "l": "of consecutive Leapfrog A grades at the Manhattan, Brooklyn and Long Island hospitals",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    }
+  ],
+  "priorities": [
+    {
+      "title": "Build a new Long Island inpatient campus",
+      "detail": "A 45-acre Melville property was acquired in May 2026; master planning is under way and requires environmental reviews, rezoning, and county and town approvals.",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "title": "Bring Suffolk to the system standard",
+      "detail": "Merged March 1, 2025; Suffolk advanced from a Leapfrog C to a B eight months after the merger and is working to achieve an A.",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "title": "Expand the Suffolk hospital",
+      "detail": "A $650 million, 270,000-square-foot, seven-story inpatient pavilion with space for 144 beds was approved by the Brookhaven Town Board in August 2026.",
+      "s": "RiverheadLOCAL 2026",
+      "url": "https://riverheadlocal.com/2026/08/31/nyu-langone-suffolk-patchogue-hospital-expansion/"
+    },
+    {
+      "title": "Open new ambulatory hubs in late 2026",
+      "detail": "Manhasset and Brooklyn hubs are expected to open in November 2026 and West Palm Beach in December 2026; the orthopedic center renovation adds 18 operating rooms.",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "title": "Scale AI with guardrails",
+      "detail": "More than 128 models in production; ambient documentation, a Find a Doctor agent and internal agentic chatbots are live, with impact evaluated by experimental designs including randomized trials.",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    },
+    {
+      "title": "Keep cybersecurity a strategic priority",
+      "detail": "The disclosure lists segmentation, password-less authentication, help desk user verification, and AI-driven triage and playbooks to reduce analyst workload.",
+      "s": "NYU Langone Q3 report 2026",
+      "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+    }
+  ],
+  "useCases": [
+    {
+      "id": "nyu-new-sites-one-standard",
+      "title": "New hospitals and hubs, one operating standard",
+      "subtitle": "A merged hospital, a 45-acre future campus and three ambulatory hubs opening within weeks of each other must all reach the same record, network and security baseline.",
+      "anchorFact": "Long Island Community Hospital merged into NYU Langone Hospitals effective March 1, 2025; in May 2026 the system closed on a 45-acre Melville property for a new inpatient campus; hubs in Manhasset and Brooklyn are expected to open in November 2026 and West Palm Beach in December 2026 (FY2026 Q3 quarterly report, issued July 2026).",
+      "anchorUrl": "https://nyulangone.org/files/2026-q3-report.pdf",
+      "today": [
+        {
+          "title": "Every opening is its own project",
+          "exec": "Each new site is brought up by separate network, security, clinical application and facilities teams working from separate checklists and trackers.",
+          "dir": "Readiness for a go-live is assembled by hand from the wireless survey, the firewall change list, the clinical device build and the biomedical inventory.",
+          "eng": "Switch templates, wireless networks, VLAN-to-policy mappings and WAN circuits are staged per site, and drift from the reference design is found by sampling."
+        },
+        {
+          "title": "Inherited networks carry unknowns",
+          "exec": "A merged hospital arrives with its own equipment, vendors and exceptions, so the true inventory takes months to establish.",
+          "dir": "Asset lists from an acquired site rarely match what is actually connected, which slows segmentation and audit readiness.",
+          "eng": "Unknown endpoints, flat VLANs and overlapping address space have to be discovered from switch tables, DHCP logs and walk-throughs."
+        },
+        {
+          "title": "Day-one problems go to a bridge call",
+          "exec": "When a clinician at a new hub reports a slow record, several teams join a call and each checks its own console.",
+          "dir": "Time to identify the faulty layer depends on who is on the call, because no single view spans WAN, wireless, identity and the application.",
+          "eng": "Engineers correlate timestamps by hand across controller logs, firewall logs, circuit monitors and EHR client traces."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One readiness view per site (hypothesis)",
+          "exec": "Hypothesis to validate: one shared view shows each new site's network, security and experience readiness against the system standard before the first patient arrives.",
+          "dir": "Hypothesis to validate: Cloud Control Topology and Inventory would show every site, device and policy gap in one place, fed by whichever campus, branch and WAN controllers are connected.",
+          "eng": "Hypothesis to validate: Catalyst Center, Meraki and Catalyst SD-WAN inventories plus ThousandEyes tests toward the EHR would be joined in AI Canvas to flag drift from the reference template."
+        },
+        {
+          "title": "A person approves each remediation",
+          "exec": "Any change that could affect a clinical area is proposed with its evidence and waits for a named NYU Langone approver.",
+          "dir": "The network change owner approves inside the existing change process, and the approval, the evidence and the result are written to the audit log.",
+          "eng": "The proposed template push or segmentation policy change is shown as a diff with affected ports and endpoints, then executed by the domain controller only after approval."
+        },
+        {
+          "title": "More repeatable openings (modeled)",
+          "exec": "Modeled, not measured: readiness reconciliation that takes weeks by hand becomes a standing view, with fewer day-one bridge calls.",
+          "dir": "Modeled outcome: each opening reuses the same checks, so the fifth site is audited the same way as the first.",
+          "eng": "Modeled outcome: drift is detected continuously from controller data rather than by sampling, and every change carries a linked approval record."
+        }
+      ],
+      "rooms": [
+        "net",
+        "clinic",
+        "ward",
+        "dc",
+        "office",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "Topology",
+        "Inventory",
+        "AI Canvas",
+        "Actions",
+        "Audit log",
+        "Catalyst Center",
+        "Meraki",
+        "Catalyst SD-WAN",
+        "ISE",
+        "ThousandEyes"
+      ],
+      "facts": [
+        {
+          "v": "306 beds",
+          "l": "NYU Langone Suffolk in Patchogue, merged into NYU Langone Hospitals on March 1, 2025",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "45 acres",
+          "l": "Melville property acquired in May 2026 for the new Long Island inpatient campus",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "162k sq ft",
+          "l": "Manhasset ambulatory hub with eight operating rooms, expected to open November 2026",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "$650M",
+          "l": "seven-story Suffolk inpatient pavilion approved by Brookhaven Town Board, August 2026",
+          "s": "RiverheadLOCAL 2026",
+          "url": "https://riverheadlocal.com/2026/08/31/nyu-langone-suffolk-patchogue-hospital-expansion/"
+        }
+      ],
+      "approval": {
+        "title": "Apply the standard access policy at the new hub",
+        "what": "Push the reference segmentation policy to the hub's clinical switch ports after hours, with rollback staged.",
+        "approver": "Network change owner, with the site's clinical operations lead informed",
+        "executesIn": "The campus network controller NYU Langone already operates (vendor to be confirmed in discovery)"
+      },
+      "ask": "For the Manhasset, Brooklyn and West Palm Beach openings, how do you confirm each site matches the system network and security standard before day one, and how long did that take at Suffolk?",
+      "stays": "EHR build and go-live, biomedical device onboarding, construction and commissioning, and the change advisory process stay with NYU Langone and its existing vendors.",
+      "caveat": "No public source names NYU Langone's network vendor or says it has bought any Cisco product; every with-Cisco beat is a hypothesis to validate and the outcome is modeled, not measured."
+    },
+    {
+      "id": "nyu-ai-in-production",
+      "title": "Keeping 128 production AI models dependable",
+      "subtitle": "Ambient notes, evidence search inside the record and prediction models now sit in clinical workflow, so a slow or misbehaving AI tool is a care-delivery problem.",
+      "anchorFact": "NYU Langone reports \"more than 128 models in production and 150 models in development\", ambient AI documentation supporting \"over 1,500 inpatient and emergency department providers\", and investment in \"robust infrastructure, privacy, and security across all cloud providers' AI offerings\" (FY2026 Q3 quarterly report, issued July 2026).",
+      "anchorUrl": "https://nyulangone.org/files/2026-q3-report.pdf",
+      "today": [
+        {
+          "title": "AI runs across many platforms",
+          "exec": "Models run on local GPUs, a research supercomputer, cloud AI services and vendor platforms, each with its own monitoring and owner.",
+          "dir": "No single service map links a model to the GPU, network path, cloud endpoint and EHR integration it depends on.",
+          "eng": "Inference latency, GPU utilization, API errors and FHIR call failures live in separate tools with different retention and time bases."
+        },
+        {
+          "title": "A slow note has many suspects",
+          "exec": "When an ambient note or an AI answer is slow, clinicians see only a delay and several teams investigate in parallel.",
+          "dir": "Triage moves between the wireless team, the cloud team, the vendor and the informatics team before the faulty layer is named.",
+          "eng": "Engineers compare client roaming events, internet path loss, vendor status pages and application logs by hand."
+        },
+        {
+          "title": "Governance evidence is gathered by hand",
+          "exec": "Each new AI product needs a security and architecture review, and the evidence is collected again for every review.",
+          "dir": "Role-based access, logging and data-flow evidence for AI tools is compiled from several systems for the governance board.",
+          "eng": "Prompt logging, egress destinations and the model inventory are reconciled manually across proxies, cloud consoles and application logs."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One investigation across the AI path (hypothesis)",
+          "exec": "Hypothesis to validate: one shared investigation shows the device, network, cloud path and AI service behind a slow clinical AI tool.",
+          "dir": "Hypothesis to validate: AI Canvas would bring ThousandEyes path tests, Splunk application and GPU telemetry and data center network state into one timeline for every team.",
+          "eng": "Hypothesis to validate: Nexus and Intersight telemetry, ThousandEyes tests to AI vendor endpoints and Splunk-indexed inference logs would be correlated on one time base, with Agent Observability where agents are involved."
+        },
+        {
+          "title": "Informatics approves any change",
+          "exec": "Anything that would reroute, throttle or restrict a clinical AI tool is proposed with evidence and waits for a named approver.",
+          "dir": "The informatics owner of the tool and the infrastructure change owner approve together, and the decision is written to the audit log.",
+          "eng": "The proposed traffic priority, path or AI Defense policy change is presented as a diff with affected users and applied by the owning controller after approval."
+        },
+        {
+          "title": "Faster to name the faulty layer (modeled)",
+          "exec": "Modeled, not measured: the team learns whether the device, network, cloud or model is at fault in minutes rather than across several handoffs.",
+          "dir": "Modeled outcome: governance reviews draw model inventory and access evidence from one place instead of rebuilding it for each product.",
+          "eng": "Modeled outcome: inference, network and security events share one searchable store, so a regression is traced without exporting logs between tools."
+        }
+      ],
+      "rooms": [
+        "dc",
+        "ward",
+        "ed",
+        "clinic",
+        "imaging",
+        "net",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "AI Assistant",
+        "Deep Reasoning",
+        "ThousandEyes",
+        "Splunk",
+        "Nexus",
+        "Intersight",
+        "AI Defense",
+        "Agent Observability",
+        "Machine Data Lake",
+        "Audit log"
+      ],
+      "facts": [
+        {
+          "v": "128+",
+          "l": "AI models in production, with 150 more in development",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "1,500+",
+          "l": "inpatient and emergency department providers using ambient AI documentation",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "78.7–94.9%",
+          "l": "area under the curve for NYUTron across five clinical and operational prediction tasks",
+          "s": "Nature 2023",
+          "url": "https://www.nature.com/articles/s41586-023-06160-y"
+        },
+        {
+          "v": "12.4M",
+          "l": "outpatient visits a year, the stated reach of evidence search embedded in the record",
+          "s": "NYU Langone news 2026",
+          "url": "https://nyulangone.org/news/openevidence-and-nyu-langone-health-partner-bring-patient-aware-intelligence-12-million-visits-new-york-city"
+        }
+      ],
+      "approval": {
+        "title": "Prioritize ambient AI traffic in the emergency department",
+        "what": "Apply a traffic priority policy for the ambient documentation service on emergency department access points for one shift.",
+        "approver": "Clinical informatics owner of the tool and the network change owner",
+        "executesIn": "The wireless controller NYU Langone already operates (vendor to be confirmed in discovery)"
+      },
+      "ask": "When an ambient note or an AI answer inside the record is slow for an emergency physician, who owns finding the faulty layer today, and how many tools do they open?",
+      "stays": "Model development, validation, bias assessment, clinical oversight, the AI governance framework, the EHR and each AI vendor's platform stay with NYU Langone and those vendors.",
+      "caveat": "Vendors named publicly in NYU Langone's AI work are Epic, Microsoft Azure OpenAI, Abridge and OpenEvidence; no source names Cisco in that stack, and every outcome here is modeled."
+    },
+    {
+      "id": "nyu-help-desk-identity-attack",
+      "title": "Stopping a help desk identity attack",
+      "subtitle": "An attacker phones the help desk posing as a clinician, gets a credential reset and signs in; security, identity and network teams must join the evidence before clinical systems are reached.",
+      "anchorFact": "NYU Langone's bondholder disclosure lists \"secure password-less authentication to eliminate password theft, and robust user verification to prevent social engineering attacks on the Help Desk\" and using AI to \"Automate triage, execute playbooks, and generate first-draft reports to reduce analyst workload\" (FY2026 Q3 quarterly report, issued July 2026).",
+      "anchorUrl": "https://nyulangone.org/files/2026-q3-report.pdf",
+      "today": [
+        {
+          "title": "Signals sit in separate tools",
+          "exec": "The help desk ticket, the identity log, the remote access session and the network record of one attack are held by different teams.",
+          "dir": "Analysts pivot between the service desk system, the identity provider, the SIEM and network access control to rebuild one user's timeline.",
+          "eng": "Correlating a password reset, a new device enrollment, an unusual sign-in location and east-west traffic means separate queries with different user identifiers."
+        },
+        {
+          "title": "Containment is a judgment call",
+          "exec": "Disabling a clinician's account in the middle of a shift can interrupt care, so analysts hesitate while they gather proof.",
+          "dir": "There is no quick way to see whether the account belongs to someone on shift and which clinical systems the session has touched.",
+          "eng": "Quarantine options differ at each control point, and each needs its own console and its own change record."
+        },
+        {
+          "title": "The report is written afterwards",
+          "exec": "The incident summary for leadership is assembled by hand after the event.",
+          "dir": "Evidence for the timeline is exported from several tools and reconciled in a document.",
+          "eng": "Log retention and field naming differ by source, so the final timeline is rebuilt from exports."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One identity timeline (hypothesis)",
+          "exec": "Hypothesis to validate: one shared view shows the reset, the sign-in, the device and the network activity for the suspect account.",
+          "dir": "Hypothesis to validate: Duo and Cisco Identity signals, ISE session data and Splunk detections would appear in one investigation that security, identity and network teams all see.",
+          "eng": "Hypothesis to validate: Federated Search would query identity, access and network logs where they live, keyed to one user and device, and AI Canvas would assemble the timeline."
+        },
+        {
+          "title": "A named person approves containment",
+          "exec": "Session revocation or quarantine is proposed with its evidence and waits for the security lead, with the clinical supervisor informed if the user is on shift.",
+          "dir": "The approval, the approver and the action are recorded, and the action is limited to the one account and device.",
+          "eng": "After approval the identity platform revokes the session and network access control applies a quarantine policy to the device, with a one-step rollback."
+        },
+        {
+          "title": "Contained sooner, first draft written (modeled)",
+          "exec": "Modeled, not measured: the time from first signal to a contained account falls, and the incident report starts as a generated first draft.",
+          "dir": "Modeled outcome: analyst time moves from collecting evidence to judging it, which is the aim the disclosure itself states.",
+          "eng": "Modeled outcome: one correlated record per incident, with linked approvals, replaces manual exports."
+        }
+      ],
+      "rooms": [
+        "office",
+        "net",
+        "dc",
+        "ward",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "Federated Search",
+        "Splunk",
+        "Duo",
+        "Cisco Identity",
+        "ISE",
+        "Secure Access",
+        "Security Cloud Control",
+        "Actions",
+        "Audit log"
+      ],
+      "facts": [
+        {
+          "v": "54,000+",
+          "l": "staff members whose identities and devices are in scope",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "6,537",
+          "l": "doctors on the NYU Langone Hospitals professional staff, 2,051 of them in private practice",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        },
+        {
+          "v": "330+",
+          "l": "ambulatory locations from which staff sign in",
+          "s": "NYU Langone Q3 report 2026",
+          "url": "https://nyulangone.org/files/2026-q3-report.pdf"
+        }
+      ],
+      "approval": {
+        "title": "Revoke sessions and quarantine one device",
+        "what": "Revoke the suspect account's active sessions and place its newly enrolled device in a restricted network segment.",
+        "approver": "Security operations lead on call, with the clinical supervisor informed if the user is on shift",
+        "executesIn": "The identity provider and network access control NYU Langone already operates (vendors to be confirmed in discovery)"
+      },
+      "ask": "Your disclosure names help desk social engineering as a threat: when a reset looks suspicious, how long does it take to see what that identity then touched on the network?",
+      "stays": "The help desk verification procedure, the identity provider, HR and credentialing records, incident command and any regulatory notification stay with NYU Langone.",
+      "caveat": "No public source names NYU Langone's identity, SIEM or firewall vendors, and we found no public record of such an attack there; the scenario is illustrative and the outcome is modeled."
+    },
+    {
+      "id": "nyu-storm-night-operations",
+      "title": "Storm night: one view of plant and network",
+      "subtitle": "A coastal storm threatens the East River campus; facilities, network and clinical leaders need the same picture of power, water, connectivity and the systems patients depend on.",
+      "anchorFact": "During Hurricane Sandy in October 2012, NYU Langone evacuated about 300 patients after two backup generators failed, and services reopened 59 days after the storm (Associated Press via CBS News and NBC New York, 2012); in January 2025 its resiliency program and design standards were published in the U.S. Climate Resilience for Health Care toolkit (FY2025 annual report).",
+      "anchorUrl": "https://www.cbsnews.com/news/nyc-hospital-successfully-evacuates-300-patients-after-superstorm-sandy/",
+      "today": [
+        {
+          "title": "Plant and IT watch separate screens",
+          "exec": "Building systems, power, the network and clinical applications are monitored by different teams in different rooms.",
+          "dir": "The facilities command post sees generators and pumps while IT sees circuits and servers, and each learns of the other's alarms by phone.",
+          "eng": "Building management alarms, UPS and generator telemetry, switch and circuit status and application health are not on a common timeline."
+        },
+        {
+          "title": "Dependencies live in people's heads",
+          "exec": "Which clinical units depend on which closets, circuits and power feeds is knowledge held by a few experienced staff.",
+          "dir": "During an event, deciding what to protect or move first relies on drawings and memory rather than a live dependency map.",
+          "eng": "Mapping an electrical panel or riser to the switches, access points and clinical endpoints it feeds means cross-referencing drawings and inventories."
+        },
+        {
+          "title": "Communication fragments under stress",
+          "exec": "As conditions change, updates travel by phone, radio and several chat threads, and decisions are hard to reconstruct later.",
+          "dir": "Incident command lacks a single record of what was known, decided and done at each time.",
+          "eng": "Paging, voice, messaging and conferencing run on separate platforms with separate logs."
+        }
+      ],
+      "withCisco": [
+        {
+          "title": "One shared operating picture (hypothesis)",
+          "exec": "Hypothesis to validate: facilities, IT and clinical leaders look at one view of power, environment, network and application health by building and floor.",
+          "dir": "Hypothesis to validate: building and power telemetry brought into the Data Fabric alongside network state would show which care areas each alarm puts at risk.",
+          "eng": "Hypothesis to validate: Meraki environmental sensors, Spaces location context, switch and circuit telemetry and third-party building data in Splunk would be searched together and drawn on Topology."
+        },
+        {
+          "title": "Incident command approves each step",
+          "exec": "Any proposed step that affects a care area, such as moving a unit's traffic to a backup path, waits for the incident commander.",
+          "dir": "Each recommendation carries its evidence and expected effect, and the approval is logged with a time and a name.",
+          "eng": "The reroute or pre-staged failover is executed by the WAN or campus controller after approval, with the prior state saved for rollback."
+        },
+        {
+          "title": "Earlier warning, cleaner record (modeled)",
+          "exec": "Modeled, not measured: teams see the clinical consequence of a plant alarm earlier and leave the event with a complete decision record.",
+          "dir": "Modeled outcome: the after-action review is drawn from one timeline rather than from interviews and exported logs.",
+          "eng": "Modeled outcome: one correlated event store links sensor, power, network and collaboration records for the incident window."
+        }
+      ],
+      "rooms": [
+        "plant",
+        "dc",
+        "net",
+        "ward",
+        "ed",
+        "office",
+        "outside"
+      ],
+      "ciscoBlocks": [
+        "AI Canvas",
+        "Topology",
+        "Machine Data Lake",
+        "Federated Search",
+        "Splunk",
+        "Meraki",
+        "Spaces",
+        "Catalyst SD-WAN",
+        "ThousandEyes",
+        "Webex",
+        "Agentic Workflows",
+        "Audit log"
+      ],
+      "facts": [
+        {
+          "v": "About 300",
+          "l": "patients evacuated from NYU Langone during Hurricane Sandy after backup generators failed",
+          "s": "AP via CBS News 2012",
+          "url": "https://www.cbsnews.com/news/nyc-hospital-successfully-evacuates-300-patients-after-superstorm-sandy/"
+        },
+        {
+          "v": "59 days",
+          "l": "after the storm before operating rooms and intensive care units reopened",
+          "s": "AP via NBC New York 2012",
+          "url": "https://www.nbcnewyork.com/news/local/nyu-langone-medical-center-sandy-evacuated-patients-federal-aid-power/2095324/"
+        },
+        {
+          "v": "$1B",
+          "l": "estimated damage from Hurricane Sandy, as reported at the reopening",
+          "s": "AP via NBC New York 2012",
+          "url": "https://www.nbcnewyork.com/news/local/nyu-langone-medical-center-sandy-evacuated-patients-federal-aid-power/2095324/"
+        },
+        {
+          "v": "Jan 2025",
+          "l": "resiliency program and design standards published in the federal health care climate resilience toolkit",
+          "s": "NYU Langone annual report 2025",
+          "url": "https://nyulangone.org/files/2025-annual-report.pdf"
+        }
+      ],
+      "approval": {
+        "title": "Move one unit's traffic to the backup path",
+        "what": "Shift one inpatient unit's clinical network traffic to the alternate riser and circuit before the primary closet loses power.",
+        "approver": "Hospital incident commander, on the advice of the network and facilities leads",
+        "executesIn": "The campus and WAN controllers NYU Langone already operates (vendors to be confirmed in discovery)"
+      },
+      "ask": "Since the rebuild after Sandy, can your facilities command post and your network operations team see each other's alarms on one timeline during a storm drill?",
+      "stays": "Emergency management, the incident command system, the building management system, generators and switchgear, evacuation decisions and clinical downtime procedures stay with NYU Langone and its facilities vendors.",
+      "caveat": "NYU Langone's resilience program is published as a reference for other hospitals; this story does not imply a gap, and any integration with its building systems is unverified."
+    }
+  ]
+}

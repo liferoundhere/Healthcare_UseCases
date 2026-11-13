@@ -1,0 +1,315 @@
+# Adding a use case to Atlas
+
+A use case is **one data file plus one floor plan reference**.
+
+1. Copy `atlas/usecases/_template.mjs` (a complete working example with an inline narrative) to a new name.
+2. Change the content, set `editions`, and point `scene.decor` at a floor plan.
+3. Give every node a position in `scene.pos`.
+4. Run `node atlas/build.mjs`, then `node atlas/tools/check.cjs --ed=<edition>`.
+
+Nothing else is registered anywhere. The build picks up every `atlas/usecases/*.mjs` file (files starting with `_`
+are skipped) in file name order, which is also the order of the cards in the library.
+
+## 1. File name and order
+
+`NNN-id.mjs`. The number only sets the order. Ranges in use: `010` to `199` shared stories, `200` to `299` AI
+stories, `300` to `399` MSK account stories, `400` to `499` NYULH account stories.
+
+## 2. Editions (who sees it)
+
+| `editions` value | Where it appears |
+| --- | --- |
+| `['general', 'msk', 'nyulh']` | Shared: all three editions, in the "Use cases" section |
+| `['msk']` | Only the MSK edition, in the first section, "For <organization name>: hypotheses to validate" |
+| `['nyulh']` | Only the NYULH edition, in the same section there |
+
+Any other combination is a build error. An account use case may name its own organization in its text. It must
+never name the other one: the build scans every output file and fails if the MSK edition contains `NYU`,
+`Langone` or `NYULH`, if the NYULH edition contains `MSK`, `Memorial Sloan` or `Sloan Kettering`, or if the
+general edition contains any of them. Keep the use case `id` free of the other account's name too, because the id
+becomes a file name (`data/uc-<id>.js`).
+
+## 3. Required fields
+
+```js
+export default {
+  id: 'msk-infusion-epic',            // lower case letters, digits, hyphens. Unique. Becomes data/uc-<id>.js
+  code: 'M1',                          // short label on the card and in the header (F1, UC4, AI3, M1, N2 ...)
+  editions: ['msk'],
+  category: 'Account',                 // 'Flagship' | 'Infrastructure' | 'AI' | 'Account'  (library filter)
+  pillars: ['Security', 'Facilities'], // one or more of 'Security', 'Facilities', 'AI'      (library filter)
+  short: 'Regional infusion',          // two or three words
+  name: 'The infusion site that depends on one circuit',   // card title and presenter title
+  setting: 'Regional infusion suite, the WAN and the main campus',
+  situation: 'One sentence for the library card.',          // optional; defaults to narr.subtitle
+  personas: ['CIO', 'Pharmacy director'],
+  vision: 'One or two sentences: the modeled outcome.',
+  legacy: {                            // TODAY
+    banner: 'The situation today, two sentences.',
+    strip: 'Today: three owners, no shared view [H]',
+    who: 'Tuesday clinic (sim)',       // optional, shown small in the card footer
+    silos: [                           // 1 to 6 rows: [tool, what it sees, '' or 'p' (p = outside party), icon]
+      ['WAN portal', 'circuit up or down [H]', 'p', 'globe'],
+    ],
+    gaps: ['Nobody owns the path end to end [H]'],
+    big: ['3', 'owners for one infusion chair [H]'],        // [value, label]
+    recap: 'One sentence for the summary step.',            // optional; defaults to narr.subtitle
+  },
+  tobe: {                              // WITH CISCO CLOUD CONTROL (modeled)
+    banner: 'What changes, two sentences.',
+    strip: 'AI Canvas, ThousandEyes, SD-WAN',
+    console: { title: 'Cloud Control | infusion site', body: 'What the console shows.', foot: 'optional short note',
+      rows: [['Item', 'today value', 'modeled value', 0, 'topology']] },   // [item, today, modeled, step, icon]
+    stays: 'What stays with the hospital and its vendors.',
+    recap: ['One sentence for the summary step.'],          // optional; defaults to vision
+  },
+  hops: {                              // exactly 4 hops each: [name, note, icon]
+    legacy: [['A', 'note', 'pump'], ['B', 'note', 'globe'], ['C', 'note', 'server'], ['D', 'note', 'doc']],
+    tobe:   [['A', 'note', 'eye'], ['B', 'note', 'canvas'], ['C', 'note', 'person'], ['D', 'note', 'gear']],
+  },
+  pathNote: { legacy: 'One line [H]', tobe: 'One line' },
+  outcomes: {                          // exactly 3 rows each: [value, label, provenance tag]
+    legacy: [['64 days', 'what it is [source, year]', 'S'], ['...', '...', 'S'], ['...', '...', 'H']],
+    tobe:   [['1 view', 'what it is (modeled)', 'H'], ['...', '...', 'H'], ['...', '...', 'H']],
+  },
+  kpis: ['KPI to baseline in a pilot'],
+  ask: 'The discovery question.',
+  tiles: [{ l: 'Label [source]', a: 'today', b: 'modeled', tag: 'S' }],   // key figures table in Details
+  scene: {
+    decor: 'wifi',                     // the floor plan to draw on. See section 5.
+    pos: { ap1: [130, 134], idf: [130, 320], canvas: [110, 418] },        // one entry per node. See section 6.
+    zoneLabels: { floor: 'Infusion suite', sys: 'Main campus systems' },  // optional: rename the plan's zones
+    labels: { 'Room 411': 'Chair bay', 'Stairwell': null },               // optional: rename or hide what the plan writes. Section 5.
+    hide: ['cloud'],                                                      // optional: remove dressing of the plan's first story. Section 5.
+    noLegacyBand: true,                // optional: hide the "one tool per team" band in the Today phase
+  },
+  narr: { /* section 4 */ },
+};
+```
+
+Provenance tags: `S` sourced (name the source and year in the label), `H` hypothesis to validate with the customer,
+`I` illustrative. Write `[H]` or `[S]` at the end of a sentence in `gaps`, `silos`, `strip`, `banner` or `pathNote`
+and it is drawn as the same tag. Keep "modeled" on anything that describes the Cisco Cloud Control outcome, and do
+not forecast a percentage or a saving.
+
+Text rules, enforced by the build: no em dash, no en dash, no emoji. Plain sentences, no marketing adjectives.
+
+## 4. The narrative (nodes, links, steps)
+
+The old showcase looked the narrative up in `stage/js/narrative.js` by id. Atlas resolves it in this order:
+
+1. **Inline**: a `narr` object in the use case file. Use this for new use cases.
+2. **A narrative file**: `atlas/narratives/<anything>.json` or `.mjs` (default export: one narrative or an array)
+   whose `id` equals the use case `id`, or equals `narrId` if the use case sets one.
+3. **The shared file** `stage/js/narrative.js`, by the same id. The 13 original use cases use this.
+
+A use case that takes its narrative from 2 or 3 can correct it without editing the shared file, with `narrPatch`.
+Steps are numbered from 1, nodes are named by id. Objects merge key by key, any other value replaces, and `null`
+removes a key (for example a callout). A step number or node id that does not exist is a build error.
+
+```js
+narrPatch: {
+  subtitle: 'Replaces the subtitle.',
+  nodes: { app: { sub: { exec: 'Disable shared account' } } },
+  steps: { 4: { n: { vendor: 'warn' }, label: { vendor: 'Shared, no MFA' } }, 2: { callout: null } },
+},
+```
+
+```js
+narr: {
+  subtitle: 'One sentence: the situation.',
+  caveat: 'What is modeled, what is not claimed.',
+  nodes: [   // devices, systems, people. `hidden: true` means it appears only when a step shows it.
+    { id: 'ap1', icon: 'wifi', title: 'Hall AP', sub: { exec: 'Signal fine', dir: 'Wireless team', eng: '5 GHz, ch 36' }, hidden: false, r: 30 },
+    { id: 'canvas', icon: 'canvas', title: 'AI Canvas', sub: { exec: 'One picture', dir: 'Shared view', eng: 'GA in the US' }, hidden: true, r: 30 },
+  ],
+  zones: [   // use the zone ids of the floor plan you picked (section 5); add the Cloud Control band as 'cc'
+    { id: 'floor', label: 'Infusion suite', hidden: false, cisco: false },
+    { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
+  ],
+  links: [{ id: 'ap1-idf', a: 'ap1', b: 'idf', bend: 0 }],   // bend: -0.3 to 0.3 bows the line
+  steps: [   // all 'today' steps first, then the 'cisco' steps. 3 to 4 of each reads well.
+    { phase: 'today', title: 'A call starts in the hallway',
+      say: { exec: '...', dir: '...', eng: '...' },           // one or two sentences per audience, under 160 characters
+      n: { ap1: 'ok' },                                       // node states: ok warn down pending unknown idle off
+      l: { 'ap1-idf': 'ok' },                                 // link states, same values; 'off' hides the link
+      label: { ap1: 'Roam fails' },                           // optional caption under a node from this step on ('' clears)
+      show: ['x'], hide: ['y'],                               // node or zone ids to reveal or remove
+      callout: { node: 'ap1', text: 'Up to about 75 characters.' },   // optional bubble; also sets the step's focus
+      facts: [{ v: '8.9 s', l: 'what the number is', s: 'Source, year' }],   // optional; the first one shows in the card
+      clock: { label: 'Time to a shared picture', mode: 'run' },      // optional: run | stop | hide. A running clock gains ten simulated
+                                                                     // minutes per step; with mode 'stop', value: '0:12' shows 12 minutes
+    },
+    { phase: 'cisco', title: 'A person approves', say: { exec: '...', dir: '...', eng: '...' },
+      show: ['cc', 'canvas'], n: { canvas: 'pending' },
+      modal: { title: 'Approve the change', lines: ['What changes.', 'Approvers: ...', 'Executes in: ...'], button: 'Approve' },
+    },
+    { phase: 'cisco', title: 'What it does and does not do', say: { exec: '...', dir: '...', eng: '...' },
+      chips: [['AI Canvas', 'GA (US)'], ['ThousandEyes', 'GA']],     // product status, shown on the step that has it
+    },
+  ],
+},
+```
+
+What the presenter sees per step: the phase, the step counter, the title, the `say` sentence for the chosen audience,
+and at most one supporting element, chosen in this order: the approval (`modal`), else the first `facts` entry, else
+`chips`. The `callout` is drawn on the floor plan next to its node. A step with a `modal` holds the story until the
+presenter clicks Approve or presses Enter. The closing Summary step is generated from `outcomes`, `ask`,
+`tobe.stays`, `kpis` and the two `recap` lines; you do not write it as a step.
+
+The With Cloud Control phase replays the same event: every node the Today steps revealed is already visible when
+the first `cisco` step starts, so hide the Today-only nodes there (`hide: [...]`) and show `'cc'` plus the first
+Cisco node.
+
+Icons available: `pump monitor server database shield person people ambulance ct cloud clock badge wifi router rack
+gear bell building home gpu mic chat doc eye lock canvas topology key scan board phone pill flask switch globe bed
+heart sensor truck plug tower check cross`. An unknown icon is a build error.
+
+## 5. Floor plans (decor) you can reuse
+
+`scene.decor` names a drawing in `atlas/src/engine/44-decor.js`. A new use case reuses one of these 13 by id; the
+rooms, racks and people are drawn for you and you only place nodes on top. Zone labels come from `scene.zoneLabels`
+if you set it, else from your `narr.zones` (matching zone ids), else from the original story of that plan.
+
+| decor id | Zones: id, original label, area (x range, y range) | Rooms drawn inside |
+| --- | --- | --- |
+| `security` | `floor` Clinical floor 20-270; `dc` Data center 282-520; `ext` Outside the hospital 532-720 (all y 56-362) | Room 412, Room 413, Supply, IDF closet, data hall, road and cloud |
+| `facilities` | `tower` Main hospital tower 20-302, y 56-236; `imgz` imaging 312-452, y 56-236; `plant` Central plant 462-720, y 56-236; `remote` Off campus 20-720, y 246-362 | Room 412, IDF closet, NOC, Imaging suite, air handling, generator, clinic building, house |
+| `ai` | `hosp` Hospital 20-520; `vend` Vendors and the internet 532-720 | Exam room, CT suite, Reading room, GPU rack row, Office, vendor clouds |
+| `ehr` | `floor` Nursing unit 20-256; `path` Network path 266-408; `dc` Data center 418-720 | Room 408, Hallway, War room, data hall |
+| `iomt` | `flat` One flat clinical network 20-350; `teams` Who knows what 362-720 | ICU bays, Core closet, Radiology, Guest Wi-Fi, three team desks |
+| `ransom` | `hosp` Health system 20-580; `region` The region 592-720 | Identity, EHR data center, Pharmacy, Laboratory, Backup vault, Emergency department, neighbor hospital |
+| `wifi` | `floor` 4 West and the stairwell 20-490; `sys` Clinical systems 502-720 | Corridor, Stairwell, Room 411, Room 412, IDF with PoE, data hall |
+| `imaging` | `clinic` Outpatient imaging center 20-220; `wanz` WAN 232-468; `main` Main hospital 480-720 | CT suite, Control room, PACS and AI, Reading room |
+| `home` | `house` Patient's home 20-220; `net` Internet 232-432; `hosp` Hospital 444-720 | Living room, Kitchen and entry, Command center, Data center |
+| `wan` | `clin` Acquired clinic 20-240; `parent` Parent health system 400-720 | Clinic floor, Back office, Parent data center, Parent network and SOC |
+| `identity` | `users` Who signs in 20-220; `dirs` Three directories 232-602 | Hospitalist workstation, Modality (vendor remote), ED desk |
+| `compliance` | `ev` Evidence today 20-450; `ask` The ask 462-720 | Corkboard, binders, surveyor desk |
+| `aiwork` | `clinic` Clinic 20-350; `out` Outside the hospital 362-720 | Exam room 3, Physician workroom, Wi-Fi closet, Physician laptop, Vendor GPU hall |
+
+Open the matching original story in the presenter to see the plan before placing nodes
+(`node atlas/tools/shoot.cjs --uc=wifi --steps=1`).
+
+### Story-specific plans
+
+These plans were drawn for one story each. They live in their own files, and the two account files are included only in their own edition.
+
+| Plan | File | Editions | Drawn for |
+| --- | --- | --- | --- |
+| `vnurse` | `src/engine/47-decor-ai.js` | all | AI1 virtual nursing: smart rooms with ceiling cameras, PoE closet, nurse station, edge compute, virtual nursing hub |
+| `access` | `47-decor-ai.js` | all | AI2 patient access: patient's home and carrier, contact center and agent model clouds, patient access center, clinic front desk, EHR data center |
+| `aifactory` | `47-decor-ai.js` | all | AI3 private clinical AI: physician workroom, model serving, liquid-cooled GPU cluster, fabric and storage, power and cooling |
+| `bedside` | `47-decor-ai.js` | all | AI4 bedside prediction: patient room, nurse station, emergency department, IDF closet, model host, integration, lab system |
+| `agents` | `47-decor-ai.js` | all | AI5 agents in the EHR: department offices, identity and access, EHR data center, payer portals and fax, revenue-cycle vendor |
+| `pathlab` | `47-decor-ai.js` | all | AI6 digital pathology: slide scanning lab, pathologist office, site-to-site circuit, image storage, pathology AI servers, cloud archive |
+| `aispend` | `47-decor-ai.js` | all | AI7 AI cost: exam room, reading room, finance office, IT operations, GPU cluster, AI vendor clouds |
+| `msk_pavilion` | `45-decor-msk.js` | msk | M1: Memorial Hospital, the street with the bridge, the pavilion's inpatient rooms, OR suites, mechanical room and site office |
+| `msk_infusion` | `45-decor-msk.js` | msk | M2: regional outpatient building (infusion suite, pharmacy, waiting room, IDF closet), carrier circuits, data center |
+| `msk_research` | `45-decor-msk.js` | msk | M3: reading room, digital pathology, data governance, research computing, data center, public cloud |
+| `msk_supplier` | `45-decor-msk.js` | msk | M4: operating rooms, recovery, control desk, server room, IT and security, vendor access, the supplier's office |
+| `nyulh_sites` | `46-decor-nyulh.js` | nyulh | N1: new ambulatory hub, merged hospital ward, inherited closet, WAN and planned campus, system data center, readiness room |
+| `nyulh_ai` | `46-decor-nyulh.js` | nyulh | N2: ED exam bays, ED corridor and workroom, GPU cluster, integration, model operations room, cloud |
+| `nyulh_helpdesk` | `46-decor-nyulh.js` | nyulh | N3: outside caller, IT service desk, inpatient unit, identity and access, security operations, data hall |
+| `nyulh_storm` | `46-decor-nyulh.js` | nyulh | N4: inpatient unit, network closet, risers, network operations, emergency department, raised energy plant, command post, flood barrier and East River |
+
+The account plans are illustrative layouts based on public descriptions of each organization's buildings (sources in `research/10` and `research/11`). They do not show real internal floor plans or the real locations of equipment. A new plan for an account goes in that account's file, which starts with `// @editions msk` or `// @editions nyulh`.
+
+### Making a reused plan fit your story: `scene.labels` and `scene.hide`
+
+A plan was drawn for one story. Its room names ("Room 412", "War room", "Parent data center") and some of its
+dressing (a CT gantry, a surveyor quote, an ambulance) belong to that story. When you reuse the plan, **every name
+the audience can read must be true in your story**. A customer reads an operating room labelled "Room 412" or an
+EHR server in the "Reading room" as an error.
+
+```js
+scene: {
+  decor: 'security',
+  labels: {                        // key: the text the plan draws (any letter case), or a zone id
+    'Room 412': 'OR 1',            //   a text renames the label
+    'Supply': null,                //   null (or '') hides it
+    ext: 'Outside: the supplier',  //   a zone id renames the zone; this wins over zoneLabels and narr.zones
+  },
+  hide: ['cloud', 'nurse-station'],  // dressing ids from the table below
+},
+```
+
+- `labels` applies to every text a plan draws: zone names, room names, tags under equipment ("Generator"), wall
+  text ("GLASS"), figure labels ("Nurse") and the lines of story text some plans carry.
+- Rename a room to what it is in your story. Hide a label that has no meaning there; if the drawing itself has no
+  meaning (an imaging gantry in an operating suite), hide the drawing with `hide`.
+- **A key that matches nothing is a build error**, so a typo or a label that was removed from a plan cannot pass
+  silently. The message lists what the plan draws. The presenter reports the same thing if it ever happens at run
+  time.
+- **A new label must fit its room at 1600x900 and at 1280x720.** A plan's own label that does not fit is left out;
+  a label you asked for is reported by `check.cjs` as text that overflows. Room names are drawn in capitals: allow
+  about 11 characters in a room 100 units wide, 20 in one 170 wide.
+- `node atlas/build.mjs --plans` prints this table from the drawing code, so it is always current.
+
+| decor id | Label keys (`scene.labels`) | Dressing ids (`scene.hide`) |
+| --- | --- | --- |
+| `security` | zones `floor` `dc` `ext`; Room 412, Room 413, Supply, IDF closet | `nurse-station` `walkers` `tower` `cloud` |
+| `facilities` | zones `tower` `imgz` `plant` `remote`; Room 412, IDF closet, NOC, Imaging suite, Air handling, Generator | `gantry` `air-handling` `generator` `clinic` `house` `walkers` |
+| `ai` | zones `hosp` `vend`; Exam room, CT suite, Reading room, GPU rack row, Office | `gantry` `walkers` `clouds` `tower` |
+| `ehr` | zones `floor` `path` `dc`; Room 408, Hallway, War room | `wifi-waves` `war-room` (screen, table and people) `walkers` `cloud` |
+| `iomt` | zones `flat` `teams`; ICU bays, Core closet, Radiology, Guest and visitor Wi-Fi, Vulnerability team, Clinical engineering, Security, Device segment, "Three teams, three lists, no shared device record" | `visitors` `wifi-waves` `device-segment` (the outline drawn when a node called `seg` appears) |
+| `ransom` | zones `hosp` `region`; Identity, EHR data center, Pharmacy, Laboratory, Backup vault, Emergency department, Neighbor hospital | `walkers` `neighbor-hospital` `ambulance` (it drives off when a node called `ed` or `ehr` is down) |
+| `wifi` | zones `floor` `sys`; Stairwell, Room 411, Room 412, IDF with PoE, Nurse | `wifi-waves` `walkers` `cloud` |
+| `imaging` | zones `clinic` `wanz` `main`; CT suite, Control room, PACS and AI, Reading room | `gantry` `cloud` |
+| `home` | zones `house` `net` `hosp`; Living room, Kitchen and entry, Command center, Data center | `patient-bed` `walkers` `houses` `cloud` |
+| `wan` | zones `clin` `parent`; Clinic floor, Back office, The circuit (or `circuit`), Parent data center, Parent network and SOC | `exam-bed` `walkers` `cloud` |
+| `identity` | zones `users` `dirs`; Hospitalist workstation, Modality (vendor remote), Break-glass, ED desk, GLASS, "Three mergers, three directories" | `gantry` `vendor-person` `cloud` `break-glass` (the red box) |
+| `compliance` | zones `ev` `ask`; Corkboard, "Surveyor, Tuesday", `quote` (the surveyor's sentence) | `corkboard` `walkers` `surveyor` `surveyor-quote` |
+| `aiwork` | zones `clinic` `out`; Exam room 3, Physician workroom, Wi-Fi closet, Physician laptop, Vendor GPU hall | `wifi-waves` `walkers` `clouds` `tower` |
+
+The `facilities` plan draws its `imgz` zone without a name; `labels: { imgz: '...' }` gives it one.
+
+If most of a plan has to be renamed or hidden, it is the wrong plan: pick another, or add a new one.
+
+**A new floor plan** is a function `DECOR.<id> = (S) => { ... }` in `atlas/src/engine/44-decor.js` (or a new file
+`atlas/src/engine/45-<name>.js`), built from the kit in `12-kit.js` (`K.ward`, `K.dataHall`, `K.rackRow`,
+`K.corridor`, `K.cloud`, `room(...)`, `Z(S, zoneId, x, y, w, h, [nodes whose state shades the zone], drawFn)`).
+So that the next story can reuse it, write every text through the helpers that honour `scene.labels` (`room`,
+`K.ward`, `K.corridor`, `tag`, `note`, `S.area`, or `LBL('text')` around anything else) and wrap dressing that only
+makes sense in your story in `opt('<id>', () => { ... })` so that `scene.hide` can remove it.
+If a plan must not ship in every edition, put it in its own file and start that file with `// @editions msk`.
+
+## 6. The scene coordinate system and node positions
+
+- The scene is 712 units wide and 450 units tall: **x from 14 to 726, y from 44 to 494**, origin top left, y grows
+  downward. It is scaled to the window; at 1600x900 one unit is about 1.3 screen pixels.
+- **Floor plan area: y 56 to 362.** Zones and rooms live here.
+- **Band: y 372 to 488.** In the Today phase it shows the `legacy.silos`; in the Cloud Control phase it is the
+  "Cisco Cloud Control (modeled)" band. Place the Cisco nodes on the row **y = 418**, spread between **x = 110 and
+  x = 620** (four nodes: 110, 280, 450, 620). The band is tall enough for a node on that row with its title and
+  caption, also when it is the node in focus, so keep band nodes on y = 418. Today-only tool nodes may sit on the
+  same row if you set `noLegacyBand: true` (see `010-security.mjs`).
+- A link between two band nodes that have a third one between them is drawn as an arc over it. You do not set a
+  bend for that; the check fails on any link that runs behind a band node.
+- `pos: { id: [x, y] }` is the centre of the node. A node is a circle of radius 18 (`r: 30`) or 14 (`r: 24`).
+  Keep centres at least 100 units apart horizontally or 80 vertically so labels have room.
+- Labels place themselves: the title and caption go below the node, or above, right or left if that collides, and
+  the callout bubble goes where it covers nothing. To pin a side: `id: [x, y, { lab: 't' }]` (`b`, `t`, `r`, `l`).
+- Positions must be inside x 30 to 710 and y 70 to 440.
+
+**A node without a position is a build error**, and so is a position for a node that does not exist, a link or a
+step that refers to an unknown id, an unknown icon, a missing audience sentence, a missing floor plan, or a
+`scene.labels` / `scene.hide` entry that matches nothing in the plan. The
+presenter also refuses to start a use case with a missing position and shows which one.
+
+## 7. Validate
+
+```
+node atlas/build.mjs                         # fields, positions, references, label overrides, text rules, account names
+node atlas/tools/check.cjs --ed=msk --fast   # opens every use case in a browser and walks every step
+node atlas/tools/shoot.cjs --ed=msk --uc=<id> --steps=1,2,3,approval,summary   # screenshots in atlas/shots
+```
+
+`check.cjs` fails on: console errors, HTML text under 14px, canvas text under 12px at 1600x900, text that
+overflows its box (including a `scene.labels` text that does not fit its room), labels that collide or leave the
+scene, a callout bubble that hides another device or a zone name, a link that runs behind a node on the band, a card whose text does not fit, a node without a position,
+another account's name in the page, and a step that advances by itself. When it reports a collision,
+move the node a little or pin its label side. Then read the screenshots at 1600x900 and 1280x720.
+
+Limits that keep the card readable (the check enforces the result, not the numbers): step title up to about 45
+characters, `say` up to about 160, callout up to about 75, modal up to 4 lines of about 60 characters, fact label up
+to about 60.

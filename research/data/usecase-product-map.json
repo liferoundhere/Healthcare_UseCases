@@ -1,0 +1,510 @@
+[
+  {
+    "useCase": 1,
+    "name": "EHR slowness triage across Wi-Fi, WAN, VDI, data center and app",
+    "products": [
+      {
+        "name": "ThousandEyes",
+        "role": "End-to-end path visualization for EHRs and cloud applications",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Splunk AppDynamics",
+        "role": "Full-stack observability that traces application slowdowns to their source",
+        "sourceUrl": "https://www.splunk.com/en_us/customers/success-stories/nyc-health-and-hospitals.html"
+      },
+      {
+        "name": "Catalyst Center",
+        "role": "Investigates network health and diagnoses client issues in natural language",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html"
+      },
+      {
+        "name": "Splunk ITSI",
+        "role": "Correlates related alerts into episodes tied to service health",
+        "sourceUrl": "https://www.splunk.com/en_us/products/it-service-intelligence.html"
+      },
+      {
+        "name": "UCS X-Series and Intersight",
+        "role": "Validated compute platform hosting Epic HyperSpace, IRIS and Clarity",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/flashstack_epic_xseries.html"
+      },
+      {
+        "name": "Nexus and ACI",
+        "role": "Data center fabric giving visibility and traffic control",
+        "sourceUrl": "https://www.cisco.com/c/m/en_us/customer-experience/success-stories/customer/nyc-health-hospitals.html"
+      },
+      {
+        "name": "Meraki dashboard",
+        "role": "Single cloud dashboard for hospital-wide wireless, switching and firewall visibility",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/phuong-dong-hospital.html"
+      },
+      {
+        "name": "Cisco IQ",
+        "role": "AI-powered support layer providing insights and assessments on Cisco estate",
+        "sourceUrl": "https://blogs.cisco.com/customerexperience/cisco-iq-intelligence-that-elevates-partners"
+      }
+    ],
+    "partners": [
+      "Epic",
+      "Pure Storage",
+      "NetApp",
+      "VMware",
+      "AMD"
+    ]
+  },
+  {
+    "useCase": 2,
+    "name": "Medical device (IoMT) visibility and segmentation",
+    "products": [
+      {
+        "name": "ISE",
+        "role": "Profiles device types and places them in segmented VLANs",
+        "sourceUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/security/identity-services-engine/DaytonChildrens_CaseStudy.pdf"
+      },
+      {
+        "name": "SD-Access with Catalyst Center",
+        "role": "Validated macro and micro segmentation, including silent medical devices",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/cisco-validated-solution-profiles/validated-profile-healthcare_vertical.html"
+      },
+      {
+        "name": "Secure Network Analytics",
+        "role": "Network visibility and real-time threat detection without device agents",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Secure Firewall",
+        "role": "Threat protection across data center, cloud and IoT environments",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Hypershield",
+        "role": "Distributed enforcement layer extending segmentation to workloads and switches",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Cisco XDR",
+        "role": "Detects anomalies from network flows without altering medical endpoints",
+        "sourceUrl": "https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/maebashi-jrc-en.pdf"
+      },
+      {
+        "name": "Meraki",
+        "role": "Feeds wired and wireless device visibility to Claroty xDome",
+        "sourceUrl": "https://claroty.com/partners/technology-alliances/cisco-and-medigate"
+      },
+      {
+        "name": "Cisco Spaces",
+        "role": "Works with Claroty xDome to locate specific devices",
+        "sourceUrl": "https://claroty.com/partners/technology-alliances/cisco-and-medigate"
+      },
+      {
+        "name": "Cyber Vision",
+        "role": "Inventories building and plant OT assets; not healthcare-specific",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/security/industrial-security/cyber-vision/index.html"
+      }
+    ],
+    "partners": [
+      "Claroty xDome (formerly Medigate)",
+      "Ordr",
+      "Armis",
+      "Cynerio"
+    ]
+  },
+  {
+    "useCase": 3,
+    "name": "Ransomware containment and downtime",
+    "products": [
+      {
+        "name": "Cisco XDR",
+        "role": "On detection, triggers snapshot requests to integrated backup systems",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/xdr/xdr-healthcare-sb.html"
+      },
+      {
+        "name": "Secure Endpoint",
+        "role": "Endpoint protection; protected devices were untouched at Dayton Children's",
+        "sourceUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/security/identity-services-engine/DaytonChildrens_CaseStudy.pdf"
+      },
+      {
+        "name": "ISE",
+        "role": "Enforces automated quarantine policies on wireless controllers and firewalls",
+        "sourceUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/security/identity-services-engine/DaytonChildrens_CaseStudy.pdf"
+      },
+      {
+        "name": "Secure Workload",
+        "role": "Workload segmentation that mitigated legacy application risk in weeks",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/rush.html"
+      },
+      {
+        "name": "Secure Firewall 4200",
+        "role": "Standardized firewall platform in Rush's zero trust architecture",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/rush.html"
+      },
+      {
+        "name": "Talos Incident Response",
+        "role": "Incident response playbooks and 24x7 emergency support",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Splunk Enterprise Security",
+        "role": "Unifies threat detection, alert triage, investigation and response",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Splunk SOAR",
+        "role": "Automates repetitive tasks and orchestrates response workflows",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Umbrella and Secure Access",
+        "role": "Blocks malicious domains, URLs and IPs before connection",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Meraki",
+        "role": "Cloud-managed network rebuilt with XDR after a 2022 attack",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/joris-zorg.html"
+      }
+    ],
+    "partners": [
+      "Cohesity",
+      "Ordr",
+      "Trustwave",
+      "HOB ICT Security"
+    ]
+  },
+  {
+    "useCase": 4,
+    "name": "Clinical Wi-Fi for voice badges, mobile devices and RTLS",
+    "products": [
+      {
+        "name": "Cisco Wireless Wi-Fi 7 access points (CW9171I, CW9174)",
+        "role": "Wi-Fi 7 access points announced November 2025",
+        "sourceUrl": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m11/cisco-supercharges-its-secure-enterprise-network-architecture-for-the-ai-era.html"
+      },
+      {
+        "name": "Catalyst 9100 access points",
+        "role": "Wi-Fi 7 refresh at 456-bed Aizawa Hospital",
+        "sourceUrl": "https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/aizawahospital.pdf"
+      },
+      {
+        "name": "Catalyst 9800 wireless controllers",
+        "role": "Cisco-published deployment guide for Vocera badges",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/wireless-mobility/wireless-lan-wlan/wireless-vocera-dep-guide-og.html"
+      },
+      {
+        "name": "Catalyst Center",
+        "role": "AI-powered assurance for campus wired and wireless networks",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html"
+      },
+      {
+        "name": "Cisco Spaces",
+        "role": "Asset tracking, staff panic buttons, wayfinding and environmental monitoring",
+        "sourceUrl": "https://spaces.cisco.com/experience-smart-healthcare/"
+      },
+      {
+        "name": "ISE",
+        "role": "Enforces zero-trust policy across wired, wireless and VPN",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Meraki MR",
+        "role": "Cloud-managed access points; 588 deployed at Phuong Dong hospital",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/phuong-dong-hospital.html"
+      }
+    ],
+    "partners": [
+      "Vocera (Stryker)",
+      "Draeger",
+      "Securitas Healthcare",
+      "Kontakt.io",
+      "CenTrak",
+      "Hypros",
+      "Axians"
+    ]
+  },
+  {
+    "useCase": 5,
+    "name": "Imaging and AI inference infrastructure (PACS, GPU)",
+    "products": [
+      {
+        "name": "Cisco AI PODs",
+        "role": "Prescriptive AI reference architecture; medical imaging is a named use",
+        "sourceUrl": "https://www.cisco.com/c/en/us/solutions/collateral/artificial-intelligence/infrastructure/ai-pods/enterprises-so.html"
+      },
+      {
+        "name": "UCS C240 M7 with NVIDIA GPUs",
+        "role": "On-premises generative AI infrastructure at Kasugai Municipal Hospital",
+        "sourceUrl": "https://www.cisco.com/site/jp/ja/about/case-studies-customer-stories/kasugai-municipal-hospital.html"
+      },
+      {
+        "name": "UCS X-Series",
+        "role": "Validated design for chest X-ray AI inference",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/ai_inferencing_cisco_intel_medical_image_analysis.html"
+      },
+      {
+        "name": "Nexus 9000 and ACI",
+        "role": "High-speed, segmented connectivity for the OR-X surgical research environment",
+        "sourceUrl": "https://blogs.cisco.com/our-corporate-purpose/how-connectivity-is-shaping-the-future-of-healthcare"
+      },
+      {
+        "name": "Nexus Hyperfabric",
+        "role": "Cloud-managed full-stack fabric deployment and lifecycle automation",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/networking/data-center-networking/nexus-hyperfabric/index.html"
+      },
+      {
+        "name": "Cisco Unified Edge",
+        "role": "Local AI processing that keeps sensitive patient data on site",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/computing/unified-edge/intelligent-healthcare-so.html"
+      },
+      {
+        "name": "Intersight",
+        "role": "SaaS lifecycle management for the compute infrastructure",
+        "sourceUrl": "https://www.cisco.com/c/en/us/solutions/collateral/artificial-intelligence/infrastructure/ai-pods/enterprises-so.html"
+      },
+      {
+        "name": "ThousandEyes and Splunk AppDynamics",
+        "role": "Assure radiologists can read PACS imaging from any location",
+        "sourceUrl": "https://www.splunk.com/en_us/customers/success-stories/nyc-health-and-hospitals.html"
+      }
+    ],
+    "partners": [
+      "NVIDIA",
+      "Intel",
+      "Red Hat",
+      "AI4CMR",
+      "Medical Informatics Corp",
+      "Pure Storage",
+      "NetApp"
+    ]
+  },
+  {
+    "useCase": 6,
+    "name": "Hospital-at-home and telehealth",
+    "products": [
+      {
+        "name": "Webex Instant Connect for Epic",
+        "role": "Browser video visits scheduled and launched inside Epic",
+        "sourceUrl": "https://apphub.webex.com/applications/webex-telehealth-connector-for-epic"
+      },
+      {
+        "name": "Webex Connect",
+        "role": "Proactive two-way text messaging for patient outreach",
+        "sourceUrl": "https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/"
+      },
+      {
+        "name": "Webex Contact Center",
+        "role": "Patient access contact center integrated with Epic",
+        "sourceUrl": "https://blog.webex.com/customer-experience/announcing-epic-integration-webex-contact-center-empowering-seamless-patient-experience/"
+      },
+      {
+        "name": "Cisco Secure Access",
+        "role": "Zero trust network access for remote users and private apps",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/security/secure-access/index.html"
+      },
+      {
+        "name": "Secure Client",
+        "role": "Unified secure access for users on any device or location",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Duo",
+        "role": "MFA that keeps telehealth in HIPAA and EPCS compliance",
+        "sourceUrl": "https://duo.com/solutions/healthcare/duo-for-epic-ehr"
+      },
+      {
+        "name": "ThousandEyes",
+        "role": "Visibility into paths clinicians take to reach EHRs and cloud apps",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Meraki with Cisco XDR",
+        "role": "Secures a smart sensor project for independent living at Joris Zorg",
+        "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/joris-zorg.html"
+      },
+      {
+        "name": "Cisco Spaces and Webex Boards",
+        "role": "Patient flow and care-team collaboration in a hospital-to-home unit",
+        "sourceUrl": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m07/cisco-canada-and-peterborough-regional-health-centre-transform-transitional-care.html"
+      }
+    ],
+    "partners": [
+      "Epic",
+      "Kontakt.io",
+      "Corsano"
+    ]
+  },
+  {
+    "useCase": 7,
+    "name": "Onboarding an acquired clinic (SD-WAN, SASE, branch)",
+    "products": [
+      {
+        "name": "Catalyst SD-WAN",
+        "role": "Healthcare validated profile with separate Clinical and Guest segments",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/cisco-validated-solution-profiles/validated-profile-healthcare-sdwan.html"
+      },
+      {
+        "name": "Cisco Secure Access",
+        "role": "SSE that integrates with all Cisco SD-WAN offerings, including Meraki",
+        "sourceUrl": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m11/cisco-supercharges-its-secure-enterprise-network-architecture-for-the-ai-era.html"
+      },
+      {
+        "name": "Meraki and Cisco Unified Branch",
+        "role": "Faster, more reliable branch deployments",
+        "sourceUrl": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m11/cisco-supercharges-its-secure-enterprise-network-architecture-for-the-ai-era.html"
+      },
+      {
+        "name": "SD-Access",
+        "role": "Zero-touch LAN automation for expanding to new healthcare sites",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/cisco-validated-solution-profiles/validated-profile-healthcare_vertical.html"
+      },
+      {
+        "name": "Catalyst Center",
+        "role": "Automates Plug and Play onboarding, provisioning, compliance and software updates",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html"
+      },
+      {
+        "name": "Webex Contact Center",
+        "role": "Onboarded 43 additional medical practices in four weeks",
+        "sourceUrl": "https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/"
+      },
+      {
+        "name": "Cisco CX INFRAM assessment",
+        "role": "Benchmarks infrastructure maturity to plan clinic expansion",
+        "sourceUrl": "https://www.cisco.com/c/dam/en_us/services/healthcare-it-services/infram-increases-access-to-care-for-central-health.pdf"
+      }
+    ],
+    "partners": [
+      "Presidio",
+      "HIMSS"
+    ]
+  },
+  {
+    "useCase": 8,
+    "name": "Identity for clinicians, vendors and shared workstations",
+    "products": [
+      {
+        "name": "Duo",
+        "role": "MFA and device trust, compatible with Epic e-prescribing",
+        "sourceUrl": "https://duo.com/solutions/healthcare/duo-for-epic-ehr"
+      },
+      {
+        "name": "Cisco Identity Intelligence",
+        "role": "Identity visibility, detection and remediation, including accounts without MFA",
+        "sourceUrl": "https://duo.com/blog/security-updates-to-get-ahead-of-proposed-2025-hipaa-amendments"
+      },
+      {
+        "name": "ISE",
+        "role": "Identity-based zero-trust policy across wired, wireless and VPN",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Cisco Secure Access",
+        "role": "ZTNA and VPN-as-a-service for remote and third-party access",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/security/secure-access/index.html"
+      },
+      {
+        "name": "User Protection Suite",
+        "role": "Frictionless secure access for clinicians to any application",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      }
+    ],
+    "partners": [
+      "Epic"
+    ]
+  },
+  {
+    "useCase": 9,
+    "name": "Compliance evidence (HIPAA Security Rule update, HHS 405(d), CPGs)",
+    "products": [
+      {
+        "name": "Secure Workload",
+        "role": "Maintains a real-time inventory of assets that handle ePHI",
+        "sourceUrl": "https://blogs.cisco.com/security/get-ahead-of-hipaa-security-rule-update-with-secure-workload"
+      },
+      {
+        "name": "Splunk Asset and Risk Intelligence",
+        "role": "Continuous asset discovery and compliance monitoring",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Security Analytics and Logging",
+        "role": "Centralizes security telemetry and logs for audit trails",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Duo Desktop",
+        "role": "Checks device vulnerabilities before granting access",
+        "sourceUrl": "https://duo.com/blog/security-updates-to-get-ahead-of-proposed-2025-hipaa-amendments"
+      },
+      {
+        "name": "Cisco Identity Intelligence",
+        "role": "Surfaces MFA gaps and generates audit-oriented reports",
+        "sourceUrl": "https://duo.com/blog/security-updates-to-get-ahead-of-proposed-2025-hipaa-amendments"
+      },
+      {
+        "name": "Splunk Enterprise Security",
+        "role": "Detection, investigation and case management for the SOC",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Cisco CX HIPAA Aligned Security Assessment",
+        "role": "Planned 2026 assessment against NIST 800-207 and proposed HIPAA changes",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      },
+      {
+        "name": "Cisco INFRAM Services",
+        "role": "Seven-stage HIMSS infrastructure maturity assessment and roadmap",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html"
+      }
+    ],
+    "partners": [
+      "HIMSS"
+    ]
+  },
+  {
+    "useCase": 10,
+    "name": "AI at work: governed AI assistants and agents for staff",
+    "products": [
+      {
+        "name": "Cisco AI Defense",
+        "role": "Discovers third-party AI apps and enforces access and data-loss policies",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/security/ai-defense/index.html"
+      },
+      {
+        "name": "Cisco Secure Access (AI Access)",
+        "role": "Visibility and control for third-party generative AI apps",
+        "sourceUrl": "https://www.cisco.com/site/us/en/products/security/secure-access/index.html"
+      },
+      {
+        "name": "Webex AI Agent",
+        "role": "Automates patient authentication and appointment changes against Epic",
+        "sourceUrl": "https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/"
+      },
+      {
+        "name": "Webex Contact Center",
+        "role": "Gives agents Epic patient context in one interface",
+        "sourceUrl": "https://blog.webex.com/customer-experience/announcing-epic-integration-webex-contact-center-empowering-seamless-patient-experience/"
+      },
+      {
+        "name": "UCS with NVIDIA GPUs",
+        "role": "Private generative AI drafting discharge summaries on premises",
+        "sourceUrl": "https://www.cisco.com/site/jp/ja/about/case-studies-customer-stories/kasugai-municipal-hospital.html"
+      },
+      {
+        "name": "Cisco Unified Edge",
+        "role": "Runs AI at the point of care with data kept local",
+        "sourceUrl": "https://www.cisco.com/c/en/us/products/collateral/computing/unified-edge/intelligent-healthcare-so.html"
+      },
+      {
+        "name": "Cisco AI Assistant in Catalyst Center",
+        "role": "AI assistant used with Catalyst Center in a hospital Wi-Fi refresh",
+        "sourceUrl": "https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/aizawahospital.pdf"
+      }
+    ],
+    "partners": [
+      "Epic",
+      "NVIDIA",
+      "AI4CMR",
+      "Medical Informatics Corp"
+    ]
+  }
+]
