@@ -43,6 +43,7 @@ node tools/shoot.mjs --uc=1,2 --mode=tobe --theme=dark --u=0.8 --panel=0   # scr
 Controls: Space pauses, left and right change use case, M cycles the flow (Story, Today only, Cloud Control only), P shows or hides the side panel, 1, 2, 3 switch audience, D toggles dark. Click any step in the rail to replay from it. URL parameters: `uc`, `flow` (or `mode`), `u` (0 to 1 position in the flow), `aud`, `theme`, `panel` (0 or 1), `t`, `paused`, `tour`, `check`; `#ehr/tobe` also works.
 
 How it is built: `stage/js/narrative.js` (generated from `app/src/scenes.ts`) is the single source of truth for nodes, links, step states, narration, facts and caveats. `showcase/src/10-engine.js` draws the scene (focus, camera, links, callouts), `12-kit.js` is the set-dressing kit, `20-page.js` is the layout, and `44-decor.js` draws the floor plan of each use case. Each use case file in `showcase/src/4x-*.js` adds only node placement and the authored Today and With Cloud Control content. The `stage/` 3D build is paused.
+
 ## How the pack is structured
 
 1. **Part 0.** Macro picture (margins, breach cost, outages, AI adoption) and a glossary.
@@ -66,15 +67,22 @@ Sectional drafts used to assemble the master live in `docs/`.
 
 ## Rules for anyone using this as context
 
-- Preserve **ESTIMATE**, **VENDOR-REPORTED**, **Analysis**, **Gap**, and **Modeled** labels.
-- Do not invent a number to close a Gap. Mean time to innocence (written MTTInn so it is not confused with IBM's mean time to identify) has no published healthcare benchmark.
-- Do not turn a Modeled Phase 2 outcome into a percentage. No Cisco healthcare customer metric for Cloud Control was found.
-- Cloud Control is generally available in the United States only as of 25 August 2026.
-- Data Fabric is an aggregation layer for **machine data** (network, security, identity, IoMT connectivity, nurse call and RTLS system events, EHR performance telemetry). It is not a clinical data repository and it does not replace the EHR.
-- Do not use the phrase "clinical data fabric."
-- "Reversible" in Cloud Control sources means rollback of **agent versions**, not automatic undo of network changes.
-- Human approval is required on any action that can touch clinical systems.
-- Do not show attacker procedures in any scene.
+The rules live in [CLAUDE.md](CLAUDE.md), which is the single copy: evidence labels, gaps, Modeled outcomes, Cisco status tags, the machine-data boundary, human approval, and what must never appear in a scene. Read it before deriving anything from this pack, with or without an AI assistant.
+
+## Working in this repo with Claude Code
+
+`CLAUDE.md` holds only the rules that apply to every task. Step-by-step procedures are skills in `.claude/skills/`, one per task:
+
+| Task | Skill |
+|---|---|
+| Add or change a story, step, node, narration line or fact | `edit-story` |
+| Design or review a scene against the visual conventions | `design-scene` |
+| Build the showcase, run the overflow and smoke checks, take screenshots | `build-showcase` |
+| Run or build the animated 2D app | `run-storyboard-app` |
+| Add or update a source, figure, gap or status tag | `update-research` |
+| Reassemble the master document, bibliography and Word copy | `rebuild-context-pack` |
+| Check Cisco statements for overclaims | `check-cisco-claims` |
+| Work on the paused 3D stage | `stage-3d` |
 
 ## Rebuild
 
