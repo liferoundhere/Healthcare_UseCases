@@ -1,5 +1,819 @@
-import type { SceneDef } from "./types";
+import type { IconKind } from "./icons";
+import type { Aud, Fact, LinkDef, NodeDef, SceneDef } from "./types";
 import type { Staging } from "./staging";
 
-export const ACCOUNT_SCENES: SceneDef[] = [];
-export const ACCOUNT_STAGING: Record<string, Staging> = {};
+/**
+ * Account stories: four for NYU Langone Health, four for Memorial Sloan Kettering.
+ * Source: research/data/account-nyu-langone.json and account-msk.json (briefs 10 and 11).
+ * Rules: nothing here states what an account runs or has bought. Today beats name no vendor.
+ * Product beats are hypotheses to validate and every outcome is modeled.
+ */
+const n = (id: string, icon: IconKind, title: string, sub: [string, string, string], hidden = false): NodeDef => ({ id, x: 0, y: 0, icon, title, sub: { exec: sub[0], dir: sub[1], eng: sub[2] }, hidden });
+const k = (a: string, b: string, bend = 0): LinkDef => ({ id: `${a}-${b}`, a, b, bend });
+const s = (exec: string, dir: string, eng: string): Record<Aud, string> => ({ exec, dir, eng });
+const f = (v: string, l: string, src: string): Fact => ({ v, l, s: src });
+const deck = (...ids: string[]) => Object.fromEntries(ids.map((i) => [i, "deck"]));
+
+const NYU_Q3 = "NYU Langone Q3 report 2026";
+const MSK_PROFILE = "MSK Statistical Profile 2024";
+const L3 = "Trust level: L3, execute after approve";
+
+export const ACCOUNT_SCENES: SceneDef[] = [
+  // ---- NYU Langone Health -------------------------------------------------------
+  {
+    id: "nyu-new-sites-one-standard",
+    group: "Account",
+    account: "nyu",
+    title: "New hospitals and hubs, one operating standard",
+    pillars: "Network, security, clinical applications, facilities",
+    subtitle: "A merged hospital, a 45-acre future campus and three ambulatory hubs opening within weeks of each other must all reach the same record, network and security baseline.",
+    zones: [],
+    nodes: [
+      n("hub", "building", "New ambulatory hub", ["Opens within weeks", "Its own go-live checklist", "Templates staged per site"]),
+      n("clin", "badge", "Clinician at the hub", ["First to notice", "Day-one care team", "EHR client on new Wi-Fi"]),
+      n("merged", "router", "Merged hospital network", ["Arrived with its history", "Inherited equipment and vendors", "Flat VLANs, unknown endpoints"]),
+      n("std", "doc", "Reference design", ["The system standard", "Network and security baseline", "Templates and policy maps"]),
+      n("ehr", "server", "Electronic health record", ["One record, every site", "Clinical application team", "Reached over the WAN"]),
+      n("teams", "people", "Readiness teams", ["Four teams, four trackers", "Network, security, apps, facilities", "Checklists reconciled by hand"]),
+      n("topo", "topology", "Topology and Inventory", ["Every site, one view", "Devices and policy gaps", "Fed by connected controllers"], true),
+      n("te", "eye", "ThousandEyes", ["Tests toward the record", "Experience per site", "Path tests to EHR"], true),
+      n("canvas", "canvas", "AI Canvas", ["One readiness investigation", "All teams, one page", "Drift against the template"], true),
+      n("appr", "person", "Network change owner", ["A named person decides", "Existing change process", "L3: execute after approve"], true),
+    ],
+    links: [k("clin", "hub"), k("hub", "ehr"), k("merged", "ehr", 0.1), k("std", "hub"), k("std", "merged", -0.1), k("teams", "hub", 0.1), k("teams", "merged"), k("topo", "hub"), k("topo", "merged", 0.1), k("te", "ehr"), k("topo", "canvas"), k("te", "canvas", 0.1), k("canvas", "appr"), k("appr", "hub", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "Every opening is its own project",
+        say: s(
+          "Each new site is brought up by separate network, security, clinical application and facilities teams, each with its own checklist.",
+          "Go-live readiness is assembled by hand from the wireless survey, the firewall change list, the clinical device build and the biomedical inventory.",
+          "Switch templates, wireless networks, VLAN-to-policy mappings and WAN circuits are staged per site. Drift from the reference design is found by sampling.",
+        ),
+        l: { "hub-ehr": "ok", "merged-ehr": "ok", "std-hub": "ok", "teams-hub": "ok" },
+        facts: [f("162k sq ft", "Manhasset ambulatory hub with eight operating rooms, expected to open November 2026", NYU_Q3), f("45 acres", "Melville property acquired in May 2026 for the new Long Island inpatient campus", NYU_Q3)],
+      },
+      {
+        phase: "today", title: "Inherited networks carry unknowns",
+        say: s(
+          "A merged hospital arrives with its own equipment, vendors and exceptions, so the true inventory takes months to establish.",
+          "Asset lists from an acquired site rarely match what is actually connected, which slows segmentation and audit readiness.",
+          "Unknown endpoints, flat VLANs and overlapping address space have to be discovered from switch tables, DHCP logs and walk-throughs.",
+        ),
+        n: { merged: "unknown" }, l: { "std-merged": "unknown", "teams-merged": "warn" },
+        label: { merged: "Inventory not yet established" },
+        facts: [f("306 beds", "NYU Langone Suffolk in Patchogue, merged into NYU Langone Hospitals on March 1, 2025", NYU_Q3), f("$650M", "seven-story Suffolk inpatient pavilion approved by Brookhaven Town Board, August 2026", "RiverheadLOCAL 2026")],
+      },
+      {
+        phase: "today", title: "Day-one problems go to a bridge call",
+        say: s(
+          "When a clinician at a new hub reports a slow record, several teams join a call and each checks its own console.",
+          "Time to identify the faulty layer depends on who is on the call. No single view spans WAN, wireless, identity and the application.",
+          "Engineers correlate timestamps by hand across controller logs, firewall logs, circuit monitors and EHR client traces.",
+        ),
+        n: { hub: "warn" }, l: { "clin-hub": "warn", "hub-ehr": "unknown", "teams-hub": "unknown" },
+        clock: { label: "Time to name the faulty layer", mode: "run" },
+        callout: { node: "teams", text: "Four teams on the call. Each checks its own console." },
+      },
+      {
+        phase: "cisco", title: "One readiness view per site (hypothesis)",
+        say: s(
+          "Hypothesis to validate: one shared view shows each new site's network, security and experience readiness against the standard before the first patient arrives.",
+          "Hypothesis to validate: Topology and Inventory would show every site, device and policy gap in one place, fed by whichever campus, branch and WAN controllers are connected.",
+          "Hypothesis to validate: inventories from connected Catalyst Center, Meraki and SD-WAN controllers plus ThousandEyes tests to the EHR would be joined in AI Canvas to flag template drift.",
+        ),
+        show: ["topo", "te", "canvas"], n: { merged: "warn" },
+        label: { merged: "Gaps listed against standard" },
+        l: { "hub-ehr": "ok", "std-merged": "off", "teams-hub": "off", "teams-merged": "off", "topo-hub": "warn", "topo-merged": "warn", "te-ehr": "ok", "topo-canvas": "ok", "te-canvas": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "hub", text: "Modeled: hub clinical ports differ from the reference policy." },
+      },
+      {
+        phase: "cisco", title: "A person approves each remediation",
+        say: s(
+          "Any change that could affect a clinical area is proposed with its evidence and waits for a named NYU Langone approver.",
+          "The network change owner approves inside the existing change process. The approval, the evidence and the result are written to the audit log.",
+          "The proposed template push or segmentation change is shown as a diff with affected ports and endpoints, then executed by the domain controller only after approval.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Apply the standard access policy at the new hub", lines: ["Push the reference segmentation policy to the hub's clinical switch ports after hours, with rollback staged.", "Approver: Network change owner, with the site's clinical operations lead informed", L3, "Executes in: the campus network controller already in place (vendor to confirm in discovery)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "More repeatable openings (modeled)",
+        say: s(
+          "Modeled, not measured: readiness reconciliation that takes weeks by hand becomes a standing view, with fewer day-one bridge calls.",
+          "Modeled outcome: each opening reuses the same checks, so the fifth site is audited the same way as the first.",
+          "Modeled outcome: drift is detected continuously from controller data rather than by sampling, and every change carries a linked approval record.",
+        ),
+        n: { appr: "ok", hub: "ok" }, l: { "canvas-appr": "ok", "appr-hub": "ok", "topo-hub": "ok", "clin-hub": "ok" },
+        chips: [["Topology, Inventory", "GA (US)"], ["AI Canvas", "GA (US)"], ["ThousandEyes", "GA (US)"], ["Audit log", "GA (US)"]],
+      },
+    ],
+    caveat: "No public source names NYU Langone's network vendor or says it has bought any Cisco product; every with-Cisco beat is a hypothesis to validate and the outcome is modeled, not measured.",
+  },
+
+  {
+    id: "nyu-ai-in-production",
+    group: "Account",
+    account: "nyu",
+    title: "Keeping 128 production AI models dependable",
+    pillars: "Clinical informatics, network, cloud, AI governance",
+    subtitle: "Ambient notes, evidence search inside the record and prediction models now sit in clinical workflow, so a slow or misbehaving AI tool is a care-delivery problem.",
+    zones: [],
+    nodes: [
+      n("note", "mic", "ED ambient note", ["Physician waits for it", "Emergency department", "Client on clinical Wi-Fi"]),
+      n("wifi", "wifi", "ED wireless", ["Carries every AI request", "Wireless team", "Roaming events, own console"]),
+      n("cloud", "cloud", "Cloud AI services", ["Models hosted outside", "Cloud team and vendors", "API errors, status pages"]),
+      n("ehr", "server", "EHR integration", ["Where AI answers land", "Informatics team", "FHIR calls, own logs"]),
+      n("gpu", "gpu", "Local GPU cluster", ["Runs home-grown models", "Research computing", "Utilization in another tool"]),
+      n("inv", "doc", "Model inventory", ["What runs where", "Reviewed per AI product", "Rebuilt from several consoles"]),
+      n("te", "eye", "ThousandEyes", ["Path to AI vendors", "Internet and cloud path", "Tests to vendor endpoints"], true),
+      n("splunk", "database", "Splunk telemetry", ["Inference and GPU logs", "One time base", "Indexed inference logs"], true),
+      n("canvas", "canvas", "AI Canvas", ["One investigation", "Every team, one timeline", "Device, network, cloud, model"], true),
+      n("appr", "people", "Two named approvers", ["Informatics and network", "Tool owner, change owner", "L3: execute after approve"], true),
+    ],
+    links: [k("note", "wifi"), k("wifi", "cloud"), k("cloud", "ehr", 0.1), k("gpu", "ehr"), k("inv", "gpu", 0.1), k("inv", "cloud", -0.1), k("te", "cloud"), k("splunk", "gpu"), k("te", "canvas"), k("splunk", "canvas", 0.1), k("canvas", "wifi"), k("canvas", "appr"), k("appr", "wifi", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "AI runs across many platforms",
+        say: s(
+          "Models run on local GPUs, a research supercomputer, cloud AI services and vendor platforms, each with its own monitoring and owner.",
+          "No single service map links a model to the GPU, network path, cloud endpoint and EHR integration it depends on.",
+          "Inference latency, GPU utilization, API errors and FHIR call failures live in separate tools with different retention and time bases.",
+        ),
+        l: { "note-wifi": "ok", "wifi-cloud": "ok", "cloud-ehr": "ok", "gpu-ehr": "ok" },
+        facts: [f("128+", "AI models in production, with 150 more in development", NYU_Q3), f("1,500+", "inpatient and emergency department providers using ambient AI documentation", NYU_Q3)],
+      },
+      {
+        phase: "today", title: "A slow note has many suspects",
+        say: s(
+          "When an ambient note or an AI answer is slow, clinicians see only a delay and several teams investigate in parallel.",
+          "Triage moves between the wireless team, the cloud team, the vendor and the informatics team before the faulty layer is named.",
+          "Engineers compare client roaming events, internet path loss, vendor status pages and application logs by hand.",
+        ),
+        n: { note: "warn" }, l: { "note-wifi": "warn", "wifi-cloud": "unknown", "cloud-ehr": "unknown" },
+        clock: { label: "Time to name the faulty layer", mode: "run" },
+        callout: { node: "note", text: "The note is slow. Wi-Fi, cloud path or model?" },
+        facts: [f("12.4M", "outpatient visits a year, the stated reach of evidence search embedded in the record", "NYU Langone news 2026")],
+      },
+      {
+        phase: "today", title: "Governance evidence is gathered by hand",
+        say: s(
+          "Each new AI product needs a security and architecture review, and the evidence is collected again for every review.",
+          "Role-based access, logging and data-flow evidence for AI tools is compiled from several systems for the governance board.",
+          "Prompt logging, egress destinations and the model inventory are reconciled manually across proxies, cloud consoles and application logs.",
+        ),
+        l: { "inv-gpu": "unknown", "inv-cloud": "unknown" },
+        label: { inv: "Rebuilt for each review" },
+      },
+      {
+        phase: "cisco", title: "One investigation across the AI path (hypothesis)",
+        say: s(
+          "Hypothesis to validate: one shared investigation shows the device, network, cloud path and AI service behind a slow clinical AI tool.",
+          "Hypothesis to validate: AI Canvas would bring ThousandEyes path tests, Splunk application and GPU telemetry and data center network state into one timeline.",
+          "Hypothesis to validate: Nexus and Intersight telemetry, ThousandEyes tests to AI vendor endpoints and Splunk-indexed inference logs would be correlated on one time base.",
+        ),
+        show: ["te", "splunk", "canvas"], n: { wifi: "warn" },
+        label: { inv: "" },
+        l: { "wifi-cloud": "ok", "cloud-ehr": "ok", "inv-gpu": "off", "inv-cloud": "off", "te-cloud": "ok", "splunk-gpu": "ok", "te-canvas": "ok", "splunk-canvas": "ok", "canvas-wifi": "warn" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "wifi", text: "Modeled: cloud path and model are healthy. The delay is on ED wireless." },
+      },
+      {
+        phase: "cisco", title: "Informatics approves any change",
+        say: s(
+          "Anything that would reroute, throttle or restrict a clinical AI tool is proposed with evidence and waits for a named approver.",
+          "The informatics owner of the tool and the infrastructure change owner approve together, and the decision is written to the audit log.",
+          "The proposed traffic priority, path or AI Defense policy change is presented as a diff with affected users and applied by the owning controller after approval.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Prioritize ambient AI traffic in the emergency department", lines: ["Apply a traffic priority policy for the ambient documentation service on emergency department access points for one shift.", "Approver: Clinical informatics owner of the tool and the network change owner", L3, "Executes in: the wireless controller already in place (vendor to confirm in discovery)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Faster to name the faulty layer (modeled)",
+        say: s(
+          "Modeled, not measured: the team learns whether the device, network, cloud or model is at fault in minutes rather than across several handoffs.",
+          "Modeled outcome: governance reviews draw model inventory and access evidence from one place instead of rebuilding it for each product.",
+          "Modeled outcome: inference, network and security events share one searchable store, so a regression is traced without exporting logs between tools.",
+        ),
+        n: { appr: "ok", wifi: "ok", note: "ok" }, l: { "canvas-appr": "ok", "appr-wifi": "ok", "note-wifi": "ok", "canvas-wifi": "ok" },
+        chips: [["AI Canvas", "GA (US)"], ["ThousandEyes", "GA (US)"], ["Splunk", "GA (US)"], ["Agent Observability", "GA"]],
+      },
+    ],
+    caveat: "Vendors named publicly in NYU Langone's AI work are Epic, Microsoft Azure OpenAI, Abridge and OpenEvidence; no public source names Cisco in that stack. Every with-Cisco beat is a hypothesis to validate and every outcome here is modeled.",
+  },
+
+  {
+    id: "nyu-help-desk-identity-attack",
+    group: "Account",
+    account: "nyu",
+    title: "Stopping a help desk identity attack",
+    pillars: "Security operations, identity, network, help desk",
+    subtitle: "An attacker phones the help desk posing as a clinician, gets a credential reset and signs in; security, identity and network teams must join the evidence before clinical systems are reached.",
+    zones: [],
+    nodes: [
+      n("caller", "phone", "Caller posing as clinician", ["Asks for a reset", "Social engineering", "Unverified phone call"]),
+      n("desk", "chat", "Help desk", ["Resets the credential", "Service desk", "Ticket, no identity context"]),
+      n("idp", "key", "Identity provider", ["Issues the new sign-in", "Identity team", "Reset, then device enrollment"]),
+      n("nac", "lock", "Network access control", ["Admits the new device", "Network team", "Session keyed by MAC"]),
+      n("sys", "server", "Clinical systems", ["What the attacker wants", "Application owners", "East-west traffic"]),
+      n("rn", "badge", "Clinician on shift", ["Real owner of account", "May be mid-shift", "Same username, different device"]),
+      n("soc", "eye", "SOC analyst", ["Rebuilds one timeline", "Security operations", "Four queries, four identifiers"]),
+      n("cid", "badge", "Cisco Identity", ["Who and which device", "Duo and ISE signals", "Posture and session data"], true),
+      n("canvas", "canvas", "AI Canvas", ["One identity timeline", "Security, identity, network", "Keyed to user and device"], true),
+      n("appr", "person", "Security lead on call", ["A named person decides", "Clinical supervisor informed", "L3: execute after approve"], true),
+    ],
+    links: [k("caller", "desk"), k("desk", "idp"), k("idp", "nac"), k("nac", "sys"), k("rn", "idp", 0.1), k("soc", "desk", 0.1), k("soc", "idp", -0.1), k("soc", "nac", 0.12), k("cid", "canvas"), k("canvas", "idp"), k("canvas", "nac", 0.1), k("canvas", "appr"), k("appr", "idp", 0.12), k("appr", "nac", -0.12)],
+    steps: [
+      {
+        phase: "today", title: "Signals sit in separate tools",
+        say: s(
+          "The help desk ticket, the identity log, the remote access session and the network record of one attack are held by different teams.",
+          "Analysts pivot between the service desk system, the identity provider, the SIEM and network access control to rebuild one user's timeline.",
+          "Correlating a password reset, a new device enrollment, an unusual sign-in location and east-west traffic means separate queries with different user identifiers.",
+        ),
+        l: { "caller-desk": "ok", "desk-idp": "ok", "idp-nac": "ok", "nac-sys": "ok", "rn-idp": "ok" },
+        facts: [f("54,000+", "staff members whose identities and devices are in scope", NYU_Q3), f("330+", "ambulatory locations from which staff sign in", NYU_Q3)],
+      },
+      {
+        phase: "today", title: "Containment is a judgment call",
+        say: s(
+          "Disabling a clinician's account in the middle of a shift can interrupt care, so analysts hesitate while they gather proof.",
+          "There is no quick way to see whether the account belongs to someone on shift and which clinical systems the session has touched.",
+          "Quarantine options differ at each control point, and each needs its own console and its own change record.",
+        ),
+        l: { "caller-desk": "warn", "desk-idp": "warn", "soc-desk": "unknown", "soc-idp": "unknown", "soc-nac": "unknown", "rn-idp": "unknown" },
+        clock: { label: "Time to contain one account", mode: "run" },
+        callout: { node: "rn", text: "Is the real owner on shift right now? Nobody can tell quickly." },
+        facts: [f("6,537", "doctors on the NYU Langone Hospitals professional staff, 2,051 of them in private practice", NYU_Q3)],
+      },
+      {
+        phase: "today", title: "The report is written afterwards",
+        say: s(
+          "The incident summary for leadership is assembled by hand after the event.",
+          "Evidence for the timeline is exported from several tools and reconciled in a document.",
+          "Log retention and field naming differ by source, so the final timeline is rebuilt from exports.",
+        ),
+        l: { "idp-nac": "warn", "nac-sys": "warn" },
+        label: { soc: "Timeline rebuilt from exports", sys: "Did the session reach it?" },
+      },
+      {
+        phase: "cisco", title: "One identity timeline (hypothesis)",
+        say: s(
+          "Hypothesis to validate: one shared view shows the reset, the sign-in, the device and the network activity for the suspect account.",
+          "Hypothesis to validate: Duo and Cisco Identity signals, ISE session data and Splunk detections would appear in one investigation that security, identity and network teams all see.",
+          "Hypothesis to validate: Federated Search would query identity, access and network logs where they live, keyed to one user and device, and AI Canvas would assemble the timeline.",
+        ),
+        show: ["cid", "canvas"], n: { idp: "warn", nac: "warn" },
+        label: { soc: "", sys: "" },
+        l: { "nac-sys": "ok", "rn-idp": "ok", "soc-desk": "off", "soc-idp": "off", "soc-nac": "off", "cid-canvas": "ok", "canvas-idp": "ok", "canvas-nac": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "canvas", text: "One timeline: reset, new device, sign-in, network session." },
+      },
+      {
+        phase: "cisco", title: "A named person approves containment",
+        say: s(
+          "Session revocation or quarantine is proposed with its evidence and waits for the security lead. The clinical supervisor is informed if the user is on shift.",
+          "The approval, the approver and the action are recorded, and the action is limited to the one account and device.",
+          "After approval the identity platform revokes the session and network access control applies a quarantine policy to the device, with a one-step rollback.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Revoke sessions and quarantine one device", lines: ["Revoke the suspect account's active sessions and place its newly enrolled device in a restricted network segment.", "Approver: Security operations lead on call, with the clinical supervisor informed if the user is on shift", L3, "Executes in: the identity provider and network access control already in place (vendors to confirm in discovery)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Contained sooner, first draft written (modeled)",
+        say: s(
+          "Modeled, not measured: the time from first signal to a contained account falls, and the incident report starts as a generated first draft.",
+          "Modeled outcome: analyst time moves from collecting evidence to judging it, which is the aim the disclosure itself states.",
+          "Modeled outcome: one correlated record per incident, with linked approvals, replaces manual exports.",
+        ),
+        n: { appr: "ok", idp: "ok", nac: "ok" }, l: { "canvas-appr": "ok", "appr-idp": "ok", "appr-nac": "ok", "idp-nac": "ok", "desk-idp": "ok", "caller-desk": "off" },
+        label: { nac: "One device quarantined" },
+        chips: [["AI Canvas", "GA (US)"], ["Cisco Identity", "GA (US)"], ["Federated Search", "GA"], ["Audit log", "GA (US)"]],
+      },
+    ],
+    caveat: "No public source names NYU Langone's identity, SIEM or firewall vendors, and we found no public record of such an attack there. The scenario is illustrative, every with-Cisco beat is a hypothesis to validate and the outcome is modeled.",
+  },
+
+  {
+    id: "nyu-storm-night-operations",
+    group: "Account",
+    account: "nyu",
+    title: "Storm night: one view of plant and network",
+    pillars: "Facilities, network operations, incident command",
+    subtitle: "A coastal storm threatens the East River campus; facilities, network and clinical leaders need the same picture of power, water, connectivity and the systems patients depend on.",
+    zones: [],
+    nodes: [
+      n("storm", "cloud", "Coastal storm", ["Forecast for tonight", "Outside the campus", "Surge and wind warnings"]),
+      n("power", "gear", "Power and pumps", ["What the plant protects", "Facilities", "BMS, UPS, generator telemetry"]),
+      n("fac", "people", "Facilities command post", ["Watches the plant", "Facilities leads", "Building alarms, own screens"]),
+      n("closet", "router", "Network closet", ["Feeds one inpatient unit", "Campus network", "Switches on one riser"]),
+      n("unit", "monitor", "Inpatient unit", ["Patients depend on it", "Nursing leadership", "Monitors, badges, carts"]),
+      n("noc", "eye", "Network operations", ["Watches circuits and servers", "IT operations", "Switch and circuit status"]),
+      n("fabric", "database", "Data Fabric search", ["Plant and network together", "Building and power telemetry", "Searched where it lives"], true),
+      n("topo", "topology", "Topology", ["Alarm drawn on the map", "By building and floor", "Closets, risers, circuits"], true),
+      n("canvas", "canvas", "AI Canvas", ["One operating picture", "Facilities, IT, clinical", "One timeline of decisions"], true),
+      n("appr", "person", "Incident commander", ["Approves each step", "Hospital incident command", "L3: execute after approve"], true),
+    ],
+    links: [k("storm", "power"), k("power", "closet"), k("closet", "unit"), k("fac", "power"), k("noc", "closet"), k("fac", "noc", 0.1), k("fabric", "power"), k("topo", "closet"), k("fabric", "canvas"), k("topo", "canvas", 0.1), k("canvas", "appr"), k("appr", "closet", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "Plant and IT watch separate screens",
+        say: s(
+          "Building systems, power, the network and clinical applications are monitored by different teams in different rooms.",
+          "The facilities command post sees generators and pumps while IT sees circuits and servers. Each learns of the other's alarms by phone.",
+          "Building management alarms, UPS and generator telemetry, switch and circuit status and application health are not on a common timeline.",
+        ),
+        l: { "power-closet": "ok", "closet-unit": "ok", "fac-power": "ok", "noc-closet": "ok" },
+        facts: [f("About 300", "patients evacuated during Hurricane Sandy in 2012 after backup generators failed", "AP via CBS News 2012"), f("Jan 2025", "resiliency program and design standards published in the federal health care climate resilience toolkit", "NYU Langone annual report 2025")],
+      },
+      {
+        phase: "today", title: "Dependencies live in people's heads",
+        say: s(
+          "Which clinical units depend on which closets, circuits and power feeds is knowledge held by a few experienced staff.",
+          "During an event, deciding what to protect or move first relies on drawings and memory rather than a live dependency map.",
+          "Mapping an electrical panel or riser to the switches, access points and clinical endpoints it feeds means cross-referencing drawings and inventories.",
+        ),
+        n: { storm: "warn", power: "warn" }, l: { "storm-power": "warn", "power-closet": "unknown", "closet-unit": "unknown" },
+        label: { power: "Alarm on one power feed" },
+        clock: { label: "Time to know which units are at risk", mode: "run" },
+        callout: { node: "power", text: "Which closets and units does this feed serve?" },
+      },
+      {
+        phase: "today", title: "Communication fragments under stress",
+        say: s(
+          "As conditions change, updates travel by phone, radio and several chat threads, and decisions are hard to reconstruct later.",
+          "Incident command lacks a single record of what was known, decided and done at each time.",
+          "Paging, voice, messaging and conferencing run on separate platforms with separate logs.",
+        ),
+        n: { unit: "unknown" }, l: { "fac-noc": "unknown" },
+        label: { unit: "At risk? Not yet known" },
+        facts: [f("59 days", "after the 2012 storm before operating rooms and intensive care units reopened", "AP via NBC New York 2012"), f("$1B", "estimated damage from Hurricane Sandy, as reported at the reopening", "AP via NBC New York 2012")],
+      },
+      {
+        phase: "cisco", title: "One shared operating picture (hypothesis)",
+        say: s(
+          "Hypothesis to validate: facilities, IT and clinical leaders look at one view of power, environment, network and application health by building and floor.",
+          "Hypothesis to validate: building and power telemetry brought into the Data Fabric alongside network state would show which care areas each alarm puts at risk.",
+          "Hypothesis to validate: Meraki environmental sensors, switch and circuit telemetry and third-party building data in Splunk would be searched together and drawn on Topology.",
+        ),
+        show: ["fabric", "topo", "canvas"], n: { closet: "warn", unit: "warn" },
+        label: { power: "", unit: "" },
+        l: { "power-closet": "warn", "closet-unit": "warn", "fac-noc": "off", "fabric-power": "ok", "topo-closet": "warn", "fabric-canvas": "ok", "topo-canvas": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "closet", text: "Modeled: this alarm puts one closet and one inpatient unit at risk." },
+      },
+      {
+        phase: "cisco", title: "Incident command approves each step",
+        say: s(
+          "Any proposed step that affects a care area, such as moving a unit's traffic to a backup path, waits for the incident commander.",
+          "Each recommendation carries its evidence and expected effect, and the approval is logged with a time and a name.",
+          "The reroute or pre-staged failover is executed by the WAN or campus controller after approval, with the prior state saved for rollback.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Move one unit's traffic to the backup path", lines: ["Shift one inpatient unit's clinical network traffic to the alternate riser and circuit before the primary closet loses power.", "Approver: Hospital incident commander, on the advice of the network and facilities leads", L3, "Executes in: the campus and WAN controllers already in place (vendors to confirm in discovery)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Earlier warning, cleaner record (modeled)",
+        say: s(
+          "Modeled, not measured: teams see the clinical consequence of a plant alarm earlier and leave the event with a complete decision record.",
+          "Modeled outcome: the after-action review is drawn from one timeline rather than from interviews and exported logs.",
+          "Modeled outcome: one correlated event store links sensor, power, network and collaboration records. Integration with the building systems is unverified.",
+        ),
+        n: { appr: "ok", closet: "ok", unit: "ok" }, l: { "canvas-appr": "ok", "appr-closet": "ok", "closet-unit": "ok", "topo-closet": "ok", "power-closet": "off" },
+        label: { closet: "Unit moved to backup path" },
+        chips: [["AI Canvas", "GA (US)"], ["Topology", "GA (US)"], ["Machine Data Lake, Federated Search", "GA"], ["Building systems data", "Via Splunk"]],
+      },
+    ],
+    caveat: "NYU Langone's resilience program is published as a reference for other hospitals; this story does not imply a gap. Built from public sources: every with-Cisco beat is a hypothesis to validate, any integration with its building systems is unverified and the outcome is modeled.",
+  },
+
+  // ---- Memorial Sloan Kettering Cancer Center -----------------------------------
+  {
+    id: "msk-pavilion-live-campus",
+    group: "Account",
+    account: "msk",
+    title: "Bringing a 2030 pavilion onto a live campus",
+    pillars: "Network, security, biomedical engineering, facilities",
+    subtitle: "A new inpatient and surgical building must join Memorial Hospital's network, security and building systems while cancer care continues in the hospital next door.",
+    zones: [],
+    nodes: [
+      n("suites", "ct", "New operating suites", ["Every room a device list", "Perioperative and biomedical", "Ports, VLANs, access policy"]),
+      n("bms", "gear", "Building controllers", ["Air, power, access", "Facilities and contractors", "Staged trade by trade"]),
+      n("trades", "people", "Commissioning teams", ["Four teams, four checklists", "IT, security, biomed, facilities", "Spreadsheets, handover documents"]),
+      n("bridge", "router", "Bridge and core links", ["Joins new tower to old", "Network team", "Shared trunks and routing"]),
+      n("care", "monitor", "Memorial Hospital units", ["Cancer care continues", "Clinical teams", "Production segments"]),
+      n("clin", "server", "Live clinical systems", ["Must not be disturbed", "Application owners", "Reached through the core"]),
+      n("topo", "topology", "Topology and Inventory", ["Designed versus installed", "One view per floor", "Controller and identity data"], true),
+      n("canvas", "canvas", "AI Canvas", ["One investigation per floor", "Network, security, facilities", "Gaps against the design"], true),
+      n("wf", "gear", "Agentic Workflow", ["Prepares the change", "Lists what it touches", "Stops for approval"], true),
+      n("appr", "person", "Pavilion change authority", ["A named MSK owner", "Periop and biomed sign-off", "L3: execute after approve"], true),
+    ],
+    links: [k("suites", "bridge"), k("bms", "bridge", 0.1), k("bridge", "care"), k("bridge", "clin", -0.1), k("trades", "suites", 0.1), k("trades", "bms"), k("topo", "suites"), k("topo", "bms", 0.1), k("topo", "canvas"), k("canvas", "wf"), k("wf", "appr"), k("appr", "bridge", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "Thousands of new devices, one opening date",
+        say: s(
+          "Every operating suite, bed and building system in a new tower arrives as a device that someone must identify, place and secure before opening day.",
+          "Onboarding usually runs through separate network, security, biomedical and facilities teams, each with its own inventory and acceptance checklist.",
+          "Switch ports, VLANs, wireless coverage, access policy and building-management controllers are staged trade by trade from spreadsheets and contractor handover documents.",
+        ),
+        l: { "bridge-care": "ok", "bridge-clin": "ok", "trades-suites": "ok", "trades-bms": "ok" },
+        facts: [f("2030", "expected completion of the Kenneth C. Griffin Pavilion", "MSK 2025"), f("883,000", "square feet, per the architect's listing as reported in trade press", "Construction Dive 2026")],
+      },
+      {
+        phase: "today", title: "Commissioning beside live care",
+        say: s(
+          "Building next to an operating hospital means a change made for the new tower can reach the old one.",
+          "Core, bridge and plant links carry commissioning traffic and live clinical traffic together, so change windows are scarce and heavily negotiated.",
+          "A trunk, routing or policy change made for commissioning can leak into production segments unless every dependency is traced by hand first.",
+        ),
+        l: { "suites-bridge": "warn", "bms-bridge": "warn", "bridge-care": "unknown", "bridge-clin": "unknown" },
+        callout: { node: "bridge", text: "Commissioning and live clinical traffic share these links." },
+        facts: [f("95.1%", "bed occupancy rate in 2024, based on adjusted bed count", MSK_PROFILE)],
+      },
+      {
+        phase: "today", title: "Readiness assembled from separate reports",
+        say: s(
+          "Leaders judge whether a floor is technically ready from several status reports that do not share one definition of ready.",
+          "Each team reports against its own checklist, so gaps between network, security and clinical engineering surface late, often during activation rehearsals.",
+          "Engineers reconcile device lists, port maps and policy exports manually to prove that what was designed is what was installed.",
+        ),
+        n: { suites: "unknown" }, l: { "trades-suites": "unknown", "trades-bms": "unknown" },
+        label: { suites: "Ready? Depends who you ask" },
+        clock: { label: "Time to prove one floor is ready", mode: "run" },
+        facts: [f("208", "single-occupancy inpatient beds in 2026 trade press; MSK's March 2025 page said 206", "Construction Dive 2026")],
+      },
+      {
+        phase: "cisco", title: "One readiness view per floor (hypothesis)",
+        say: s(
+          "Hypothesis: one shared view could show, floor by floor, which pavilion devices are connected, identified and placed in the right security group.",
+          "Hypothesis: network, security and facilities teams would work one investigation per floor instead of reconciling separate inventories before each activation rehearsal.",
+          "Hypothesis: Topology and Inventory would join controller and identity data so a missing or misclassified device shows against the design, not in a spreadsheet.",
+        ),
+        show: ["topo", "canvas"], n: { suites: "warn" },
+        label: { suites: "" },
+        l: { "suites-bridge": "off", "bms-bridge": "off", "bridge-care": "ok", "bridge-clin": "ok", "trades-suites": "off", "trades-bms": "off", "topo-suites": "warn", "topo-canvas": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "suites", text: "Modeled: two devices on this floor sit in the wrong security group." },
+      },
+      {
+        phase: "cisco", title: "A person approves each production move",
+        say: s(
+          "Hypothesis: no pavilion floor would join the clinical network until a named MSK owner approves that specific change.",
+          "Hypothesis: an agentic workflow would prepare the change, list what it touches on the Memorial Hospital side, and stop for approval.",
+          "Hypothesis: the approved change would execute in the domain controller that owns it, with the request, approver and result written to the audit log.",
+        ),
+        show: ["wf", "appr"], n: { wf: "ok", appr: "pending" }, l: { "canvas-wf": "ok", "wf-appr": "pending" },
+        modal: { title: "Move one pavilion floor to production", lines: ["Activate network access and segmentation policy for one commissioned floor, including its operating suites and the bridge link.", "Approver: MSK's named change authority for the pavilion, with perioperative and biomedical engineering sign-off (roles to confirm with MSK)", L3, "Executes in: Catalyst Center and ISE (hypothesis; MSK's actual campus controllers are not public)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Fewer surprises at activation (modeled)",
+        say: s(
+          "Hypothesis: activation risk would fall because dependencies on the existing hospital are visible before the change, not discovered after it. Modeled, not measured.",
+          "Hypothesis: readiness would become a shared, current record that perioperative, biomedical and IT leaders can all read the same way.",
+          "Modeled, not measured: rollback steps and evidence would be attached to each change record. Any time saving is a model to test with MSK.",
+        ),
+        n: { appr: "ok", suites: "ok" }, l: { "wf-appr": "ok", "appr-bridge": "ok", "suites-bridge": "ok", "topo-suites": "ok" },
+        chips: [["Topology, Inventory", "GA (US)"], ["AI Canvas", "GA (US)"], ["Agentic Workflows", "GA (US); run from canvas is beta"], ["Audit log", "GA (US)"]],
+      },
+    ],
+    caveat: "All 'with Cisco' beats are hypotheses to validate. MSK has not said which network, security or building vendors the pavilion will use. Public sources conflict on operating suite count (28 in MSK's March 2025 page, 12 in June 2026 trade press); do not quote a count. Outcomes are modeled, not measured.",
+  },
+
+  {
+    id: "msk-regional-infusion-epic",
+    group: "Account",
+    account: "msk",
+    title: "Epic slow at a regional infusion site",
+    pillars: "Regional site, network, record team, pharmacy",
+    subtitle: "Most MSK chemotherapy is given outside Manhattan, so a slow record, pharmacy or network path at one regional site delays infusion chairs that same day.",
+    zones: [],
+    nodes: [
+      n("chairs", "pump", "Infusion chair bay", ["Patients wait in chairs", "Regional site nursing", "Workstations on site Wi-Fi"]),
+      n("pharm", "pill", "Infusion pharmacy", ["Doses prepared to schedule", "Pharmacy", "Needs record and orders"]),
+      n("wan", "router", "Site WAN edge", ["The site's way out", "Network team", "Primary and alternate path"]),
+      n("carrier", "cloud", "Carrier circuits", ["Someone else's network", "Carriers", "Loss and latency per path"]),
+      n("ehr", "server", "Electronic health record", ["One record, every site", "Record team and host", "Response times, own logs"]),
+      n("call", "people", "Bridge call", ["Each layer proves innocence", "Device, Wi-Fi, WAN, application", "Separate consoles, time bases"], true),
+      n("te", "eye", "ThousandEyes", ["Path seen hop by hop", "Site to record", "Loss and latency per path"], true),
+      n("dr", "chat", "Deep Reasoning", ["Compares with healthy sites", "Hypotheses with evidence", "Plan approved before agents run"], true),
+      n("canvas", "canvas", "AI Canvas", ["One investigation", "Site, network, record team", "Wireless, WAN, path, logs"], true),
+      n("appr", "person", "Network duty manager", ["A named MSK approver", "Infusion nursing lead informed", "L3: execute after approve"], true),
+    ],
+    links: [k("chairs", "wan"), k("pharm", "wan", 0.1), k("wan", "carrier"), k("carrier", "ehr"), k("call", "wan", 0.1), k("call", "ehr", -0.1), k("te", "carrier"), k("te", "canvas"), k("dr", "canvas", 0.1), k("canvas", "wan"), k("canvas", "appr"), k("appr", "wan", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "The chair is ready, the screen is not",
+        say: s(
+          "When the record or pharmacy system is slow at a regional site, patients wait in infusion chairs and the day's schedule slips.",
+          "The site reports that the record is slow. The cause could be the device, the Wi-Fi, the WAN, the hosting environment or an interface, each with a different owner.",
+          "Engineers compare client response times, wireless statistics, WAN path metrics and application logs in separate consoles with different time bases.",
+        ),
+        n: { chairs: "warn" }, l: { "chairs-wan": "ok", "pharm-wan": "ok", "wan-carrier": "ok", "carrier-ehr": "ok" },
+        label: { chairs: "Waiting on the screen" },
+        facts: [f("212,457", "chemotherapy treatments in the regional network in 2024", MSK_PROFILE), f("317,766", "regional network outpatient visits in 2024", MSK_PROFILE)],
+      },
+      {
+        phase: "today", title: "A bridge call per site",
+        say: s(
+          "Specialists join a call and each proves their own layer is healthy while the site keeps waiting.",
+          "Without a shared timeline, mean time to innocence replaces mean time to repair, and the site lead gets no reliable estimate.",
+          "Correlating one user's slow session across access point, circuit, data center and application hop is manual and rarely finished before the symptom clears.",
+        ),
+        show: ["call"], n: { call: "warn" },
+        l: { "chairs-wan": "warn", "wan-carrier": "unknown", "carrier-ehr": "unknown", "call-wan": "unknown", "call-ehr": "unknown" },
+        clock: { label: "Time to locate the delay", mode: "run" },
+        callout: { node: "call", text: "Every layer reports healthy. The site is still waiting." },
+        facts: [f("18,000+", "staff across hospitals and outpatient sites on one Epic record", "Epic customer story, undated, vendor-reported")],
+      },
+      {
+        phase: "today", title: "The pattern is found late",
+        say: s(
+          "The same fault can recur at another site because nobody had the whole picture the first time.",
+          "Root cause is written up days later from partial evidence, so preventive changes are slow to reach other regional sites.",
+          "Path and performance data are kept for different periods in different tools, so comparing one site with another after the fact is hard.",
+        ),
+        l: { "pharm-wan": "warn" },
+        label: { chairs: "The day's schedule slips", call: "Root cause written days later" },
+      },
+      {
+        phase: "cisco", title: "One investigation from chair to record (hypothesis)",
+        say: s(
+          "Hypothesis: one shared investigation could show where the delay sits between the infusion site, the network and the record, in language each team accepts.",
+          "Hypothesis: the site lead, network team and Epic team would look at the same timeline instead of arguing from separate dashboards.",
+          "Hypothesis: AI Canvas would join wireless, SD-WAN, path and log data for the affected site and compare it with unaffected sites.",
+        ),
+        hide: ["call"], show: ["te", "dr", "canvas"], n: { wan: "warn", carrier: "warn" },
+        label: { chairs: "", call: "" },
+        l: { "wan-carrier": "warn", "carrier-ehr": "ok", "call-wan": "off", "call-ehr": "off", "te-carrier": "warn", "te-canvas": "ok", "dr-canvas": "ok", "canvas-wan": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "wan", text: "Modeled: loss on one WAN path at this site. The record is healthy." },
+      },
+      {
+        phase: "cisco", title: "A person approves the path change",
+        say: s(
+          "Hypothesis: any change to how an infusion site reaches the record would wait for a named MSK approver.",
+          "Hypothesis: the workflow would propose a specific change, state which sites and applications it touches, and stop for the duty manager.",
+          "Hypothesis: the approved change would execute in the WAN controller that owns the policy, and the request, approval and result would be logged.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Shift one regional site's traffic path", lines: ["Move one regional site's record and pharmacy traffic to the alternate WAN path during infusion hours.", "Approver: MSK network operations duty manager, with the site's infusion nursing lead informed (roles to confirm with MSK)", L3, "Executes in: Catalyst SD-WAN Manager (hypothesis; MSK's WAN vendor is not public)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Shorter delays, fewer repeats (modeled)",
+        say: s(
+          "Hypothesis: delays would be located sooner and the fix applied to similar sites before they are affected. Modeled, not measured.",
+          "Hypothesis: one evidence record per incident would make vendor escalations to carriers or application owners faster and less contested.",
+          "Modeled, not measured: the same query would be rerun across all regional sites to find others with the same signature. Savings need a baseline from MSK.",
+        ),
+        n: { appr: "ok", wan: "ok", chairs: "ok" }, l: { "canvas-appr": "ok", "appr-wan": "ok", "wan-carrier": "ok", "chairs-wan": "ok", "pharm-wan": "ok", "te-carrier": "ok" },
+        label: { wan: "On the alternate path", carrier: "Primary path escalated" },
+        chips: [["AI Canvas", "GA (US)"], ["ThousandEyes", "GA (US)"], ["Deep Reasoning", "Beta"], ["Catalyst SD-WAN", "GA (US)"]],
+      },
+    ],
+    caveat: "All 'with Cisco' beats are hypotheses to validate. No public source names MSK's WAN, wireless or monitoring vendors, or says where its Epic environment is hosted. The slow-record scenario is illustrative, not a reported MSK incident. Outcomes are modeled, not measured.",
+  },
+
+  {
+    id: "msk-research-ai-beside-clinical",
+    group: "Account",
+    account: "msk",
+    title: "Research AI computing beside clinical systems",
+    pillars: "Infrastructure, research computing, imaging informatics, security",
+    subtitle: "Pathology slides, scans and genomic data feed both patient care and research AI, on premises and in public cloud, across infrastructure the two worlds share.",
+    zones: [],
+    nodes: [
+      n("view", "scan", "Clinical image viewing", ["Scans read for care", "Imaging informatics", "Large studies, low delay"]),
+      n("path", "flask", "Digital pathology slides", ["Feed care and research", "Pathology informatics", "Very large slide transfers"]),
+      n("rev", "doc", "Data-use review", ["Asks where data went", "Security and governance", "Evidence from four logs"]),
+      n("fab", "rack", "Shared data center paths", ["Both worlds cross here", "Infrastructure team", "Fabric and storage network"]),
+      n("gpu", "gpu", "Research GPU cluster", ["Trains research models", "Research computing", "Scheduler queues, own logs"]),
+      n("cloud", "cloud", "Public cloud", ["Second home for AI", "Cloud team", "Interconnect, audit trails"]),
+      n("topo", "topology", "Topology", ["Both traffic types, one map", "Data center to cloud", "Fabric paths and classes"], true),
+      n("fed", "database", "Federated Search", ["Searches data in place", "Fabric, compute, path, security", "No copy to another store"], true),
+      n("canvas", "canvas", "AI Canvas", ["One investigation", "Infrastructure, research, security", "What competes, and where"], true),
+      n("appr", "person", "Infrastructure change authority", ["A named MSK approver", "Imaging informatics sign-off", "L3: execute after approve"], true),
+    ],
+    links: [k("view", "fab"), k("path", "fab", 0.1), k("fab", "gpu"), k("fab", "cloud"), k("rev", "gpu", 0.1), k("rev", "cloud", -0.1), k("topo", "fab"), k("fed", "cloud"), k("topo", "canvas"), k("fed", "canvas", 0.1), k("canvas", "appr"), k("appr", "fab", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "Two worlds on shared ground",
+        say: s(
+          "Research computing and clinical systems draw on the same images and data, so a surge in one can slow the other.",
+          "Clinical imaging, digital pathology and research transfers often share data center paths, storage networks and cloud links run by different teams.",
+          "Large slide and sequencing transfers, GPU training jobs and clinical image viewing compete on shared fabrics unless traffic classes are engineered and watched.",
+        ),
+        l: { "view-fab": "ok", "path-fab": "ok", "fab-gpu": "ok", "fab-cloud": "ok" },
+        facts: [f("15+ PB", "imaging data processed on research computing", "Dell Technologies 2025, vendor-reported"), f("9 PB", "allocated for digital pathology slide storage; more than 6.1 million slides scanned", "J Pathol Inform 2023")],
+      },
+      {
+        phase: "today", title: "Proving where sensitive data went",
+        say: s(
+          "Showing that patient data stayed inside approved environments takes effort across several teams.",
+          "Evidence for a research data-use or security review is assembled from firewall, cloud, identity and storage logs held in separate systems.",
+          "Flow records, cloud audit trails and job scheduler logs use different identifiers, so tracing one dataset from source to GPU node is manual.",
+        ),
+        l: { "rev-gpu": "unknown", "rev-cloud": "unknown" },
+        callout: { node: "rev", text: "Which path did this dataset take to the GPU node?" },
+        facts: [f("6 million", "monthly computational jobs supported", "Dell Technologies 2025, vendor-reported")],
+      },
+      {
+        phase: "today", title: "Slow jobs, unclear cause",
+        say: s(
+          "When research jobs or image viewing slow down, it is hard to tell whether to add capacity or fix a fault.",
+          "Compute, storage, network and cloud teams each see part of the path, so capacity decisions are made on partial evidence.",
+          "Engineers check fabric telemetry, storage latency, scheduler queues and cloud interconnect metrics one tool at a time.",
+        ),
+        n: { fab: "unknown" }, l: { "view-fab": "warn", "fab-gpu": "warn", "fab-cloud": "unknown" },
+        clock: { label: "Time to tell a fault from a capacity limit", mode: "run" },
+        facts: [f("790,378", "diagnostic and interventional radiology procedures in 2024", MSK_PROFILE)],
+      },
+      {
+        phase: "cisco", title: "One view across clinical and research paths (hypothesis)",
+        say: s(
+          "Hypothesis: one shared view could show clinical imaging and research AI traffic on the same map, with what is competing and where.",
+          "Hypothesis: infrastructure, research computing and security teams would work one investigation that spans data center, cloud path and identity.",
+          "Hypothesis: Data Fabric search would query fabric, compute, path and security data where it lives instead of copying it into one more store.",
+        ),
+        show: ["topo", "fed", "canvas"], n: { fab: "warn" },
+        l: { "rev-gpu": "off", "rev-cloud": "off", "view-fab": "warn", "fab-cloud": "ok", "topo-fab": "warn", "fed-cloud": "ok", "topo-canvas": "ok", "fed-canvas": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "fab", text: "Modeled: a research transfer and image viewing compete on one path." },
+      },
+      {
+        phase: "cisco", title: "A person approves anything near care",
+        say: s(
+          "Hypothesis: any change on a path that also carries clinical imaging would wait for a named MSK approver.",
+          "Hypothesis: the workflow would state which clinical and research services share the path before proposing a priority or routing change.",
+          "Hypothesis: the approved change would execute in the data center fabric controller that owns it, with a full audit record.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Change a path shared with clinical imaging", lines: ["Apply a traffic priority change on a data center path that carries both clinical image viewing and research transfers.", "Approver: MSK infrastructure change authority, with imaging or pathology informatics sign-off (roles to confirm with MSK)", L3, "Executes in: Nexus fabric controller (hypothesis; MSK's data center network vendor is not public)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Evidence on demand (modeled)",
+        say: s(
+          "Hypothesis: MSK could answer where a dataset travelled, and whether care was affected, without a multi-team evidence hunt. Modeled, not measured.",
+          "Hypothesis: security and data governance reviews would draw on one consistent record of access and movement across environments.",
+          "Modeled, not measured: AI workloads and agents would be observed for data exposure alongside infrastructure telemetry. Coverage must be tested against MSK's actual stack.",
+        ),
+        n: { appr: "ok", fab: "ok" }, l: { "canvas-appr": "ok", "appr-fab": "ok", "view-fab": "ok", "fab-gpu": "ok", "topo-fab": "ok" },
+        chips: [["AI Canvas", "GA (US)"], ["Topology", "GA (US)"], ["Federated Search", "GA"], ["AI Defense, Agent Observability", "GA"]],
+      },
+    ],
+    caveat: "All 'with Cisco' beats are hypotheses to validate. Public sources name Dell and WEKA for research computing and AWS for cloud; none names MSK's data center network or security vendors. Dell's figures are vendor-reported. Whether clinical and research traffic share paths at MSK is not public. Outcomes are modeled, not measured.",
+  },
+
+  {
+    id: "msk-supplier-fault-day",
+    group: "Account",
+    account: "msk",
+    title: "When a supplier fault reaches the operating room",
+    pillars: "Security, network, clinical engineering, perioperative leadership",
+    subtitle: "MSK's public incident record is mostly about suppliers: a faulty vendor update suspended procedures needing anesthesia in July 2024, and three data incidents began at vendors.",
+    zones: [],
+    nodes: [
+      n("sup", "cloud", "A supplier", ["Software and remote access", "Third party", "Updates, VPN, file transfer"]),
+      n("acc", "lock", "Vendor access paths", ["What the supplier reaches", "Several owning teams", "Firewall, VPN, groups, keys"]),
+      n("hosts", "server", "Clinical hosts", ["Workstations and servers", "Clinical engineering and IT", "Checked host by host"]),
+      n("or", "monitor", "Operating rooms", ["Procedures need working systems", "Perioperative teams", "Anesthesia workstations"]),
+      n("lead", "people", "Clinical leaders", ["Pause or resume care", "Clinical operations", "Waiting on IT facts"]),
+      n("sec", "eye", "Security and IT teams", ["Piece the scope together", "Service desk, endpoint, network", "Separate consoles and lists"]),
+      n("inv", "board", "Inventory", ["Affected hosts and sites", "One asset view", "Joined with log data"], true),
+      n("cid", "badge", "Cisco Identity", ["The supplier's accounts", "Identity posture", "Groups and sessions"], true),
+      n("canvas", "canvas", "AI Canvas", ["One scope, one page", "Security, network, biomed", "Connections, accounts, hosts"], true),
+      n("appr", "person", "Security operations lead", ["A named MSK approver", "Clinical administrator on call", "L3: execute after approve"], true),
+    ],
+    links: [k("sup", "acc"), k("acc", "hosts"), k("hosts", "or"), k("lead", "or", 0.1), k("sec", "hosts", 0.1), k("sec", "acc", -0.1), k("inv", "hosts"), k("cid", "acc"), k("inv", "canvas"), k("cid", "canvas", 0.1), k("canvas", "lead", 0.1), k("canvas", "appr"), k("appr", "acc", 0.12)],
+    steps: [
+      {
+        phase: "today", title: "The first hour is spent finding scope",
+        say: s(
+          "When a supplier's fault or breach lands, the first question is which clinical areas are affected, and the answer arrives slowly.",
+          "Scope is pieced together from service desk calls, endpoint tools, network tools and the vendor's own status page.",
+          "Engineers pull device lists, connection logs and vendor access records from separate consoles to see which hosts and sites are touched.",
+        ),
+        n: { sup: "warn" }, l: { "sup-acc": "ok", "acc-hosts": "ok", "hosts-or": "ok", "lead-or": "ok" },
+        label: { sup: "Incident at the supplier" },
+        facts: [f("29,494", "surgical cases in 2024", MSK_PROFILE)],
+      },
+      {
+        phase: "today", title: "Vendor connections are known in pieces",
+        say: s(
+          "A hospital depends on many suppliers, and no single list shows what each one can reach.",
+          "Remote access, file transfer and cloud integrations are owned by different teams, so containing one supplier takes several separate changes.",
+          "Firewall rules, VPN profiles, identity groups and API keys for one vendor live in different systems with different owners.",
+        ),
+        n: { acc: "unknown", hosts: "unknown" }, l: { "sup-acc": "unknown", "acc-hosts": "unknown", "sec-hosts": "unknown", "sec-acc": "unknown" },
+        clock: { label: "Time to know the scope", mode: "run" },
+        callout: { node: "acc", text: "No single list shows what this supplier can reach." },
+        facts: [f("Sept 2023", "notice of a Nuance MOVEit incident that did not affect MSK's own systems", "MSK 2023"), f("Jan 2021", "Accellion file-sharing vulnerability; MSK's own IT systems were not involved", "MSK 2021")],
+      },
+      {
+        phase: "today", title: "Care decisions wait on IT facts",
+        say: s(
+          "Clinical leaders decide whether to pause or resume procedures while the technical picture is still forming.",
+          "Downtime procedures start on judgement. Confirmation that systems are safe to use again comes area by area.",
+          "Recovery is verified host by host, and evidence for the after-action review is rebuilt later from many logs.",
+        ),
+        n: { or: "down" }, l: { "hosts-or": "down", "lead-or": "pending" },
+        label: { or: "Procedures paused" },
+        facts: [f("Jul 19, 2024", "procedures requiring anesthesia were suspended at MSK during the global outage", "STAT 2024")],
+      },
+      {
+        phase: "cisco", title: "One view of what the supplier touches (hypothesis)",
+        say: s(
+          "Hypothesis: one shared view could show which sites, systems and clinical areas a supplier incident touches within minutes.",
+          "Hypothesis: security, network and clinical engineering teams would work one investigation instead of merging separate scopes on a call.",
+          "Hypothesis: Inventory, identity and log data would be joined so one vendor's connections, accounts and affected hosts appear together.",
+        ),
+        show: ["inv", "cid", "canvas"], n: { acc: "warn", hosts: "warn", or: "warn" },
+        label: { sup: "", or: "" },
+        l: { "sup-acc": "warn", "acc-hosts": "warn", "hosts-or": "warn", "sec-hosts": "off", "sec-acc": "off", "inv-hosts": "ok", "cid-acc": "ok", "inv-canvas": "ok", "cid-canvas": "ok" },
+        clock: { label: "", mode: "hide" },
+        callout: { node: "acc", text: "Modeled scope: one supplier, its accounts and the hosts it reaches." },
+      },
+      {
+        phase: "cisco", title: "A person approves each containment step",
+        say: s(
+          "Hypothesis: nothing that could interrupt care, such as cutting a supplier's access, would run without a named MSK approver.",
+          "Hypothesis: the workflow would list the clinical services that depend on the supplier before proposing to restrict its access.",
+          "Hypothesis: the approved restriction would execute in the access and identity controls that own it, and would be logged and reversible.",
+        ),
+        show: ["appr"], n: { appr: "pending" }, l: { "canvas-appr": "pending" },
+        modal: { title: "Restrict one supplier's access", lines: ["Suspend one named supplier's remote access and data transfer paths until the supplier confirms the incident is contained.", "Approver: MSK security operations lead, with the clinical operations administrator on call (roles to confirm with MSK)", L3, "Executes in: Secure Access and ISE (hypothesis; MSK's access and identity vendors are not public)"], button: "Approve" },
+      },
+      {
+        phase: "cisco", title: "Faster scope, clearer restart (modeled)",
+        say: s(
+          "Hypothesis: clinical leaders would get a current list of affected and recovered areas sooner, supporting pause and restart decisions. Modeled, not measured.",
+          "Hypothesis: one record of scope, actions and approvals would serve the after-action review and any regulatory notification.",
+          "Modeled, not measured: recovery checks would be queried across hosts and sites at once. This would not have prevented a faulty third-party software update.",
+        ),
+        n: { appr: "ok", acc: "ok", hosts: "ok", or: "ok" }, l: { "canvas-appr": "ok", "appr-acc": "ok", "sup-acc": "off", "acc-hosts": "ok", "hosts-or": "ok", "lead-or": "ok", "canvas-lead": "ok" },
+        label: { acc: "Supplier access suspended", or: "Restart decided by clinicians" },
+        chips: [["AI Canvas", "GA (US)"], ["Inventory", "GA (US)"], ["Cisco Identity", "GA (US)"], ["Secure Access, ISE", "GA (US)"]],
+      },
+    ],
+    caveat: "All 'with Cisco' beats are hypotheses to validate. The July 2024 event was a faulty software update, not an attack, and nothing here would have prevented it. MSK has not published how long the pause lasted or how many procedures were affected. MSK's security vendors are not public. Outcomes are modeled, not measured.",
+  },
+];
+
+export const ACCOUNT_STAGING: Record<string, Staging> = {
+  "nyu-new-sites-one-standard": {
+    short: "New sites, one standard",
+    place: { hub: "clinic", clin: "clinic", merged: "ward", std: "net", ehr: "dc", teams: "office", ...deck("topo", "te", "canvas", "appr") },
+    recipe: ["topology", "inventory", "canvas", "audit", "catc", "meraki", "sdwan", "ise", "te"],
+    ask: "For the Manhasset, Brooklyn and West Palm Beach openings, how do you confirm each site matches the system network and security standard before day one, and how long did that take at Suffolk?",
+    stays: "EHR build and go-live, biomedical device onboarding, construction and commissioning, and the change advisory process stay with NYU Langone and its existing vendors.",
+  },
+  "nyu-ai-in-production": {
+    short: "AI in production",
+    place: { note: "ed", wifi: "net", cloud: "outside", ehr: "dc", gpu: "dc", inv: "dc", ...deck("te", "splunk", "canvas", "appr") },
+    recipe: ["canvas", "deepreason", "te", "splunk", "nexus", "intersight", "aidefense", "agentobs", "audit"],
+    ask: "When an ambient note or an AI answer inside the record is slow for an emergency physician, who owns finding the faulty layer today, and how many tools do they open?",
+    stays: "Model development, validation, bias assessment, clinical oversight, the AI governance framework, the EHR and each AI vendor's platform stay with NYU Langone and those vendors.",
+  },
+  "nyu-help-desk-identity-attack": {
+    short: "Help desk attack",
+    place: { caller: "outside", desk: "office", soc: "office", idp: "dc", sys: "dc", nac: "net", rn: "ward", ...deck("cid", "canvas", "appr") },
+    recipe: ["canvas", "fedsearch", "splunk", "duo", "identity", "ise", "secureaccess", "scc", "audit"],
+    ask: "Your disclosure names help desk social engineering as a threat: when a reset looks suspicious, how long does it take to see what that identity then touched on the network?",
+    stays: "The help desk verification procedure, the identity provider, HR and credentialing records, incident command and any regulatory notification stay with NYU Langone.",
+  },
+  "nyu-storm-night-operations": {
+    short: "Storm night",
+    place: { storm: "outside", power: "plant", fac: "plant", closet: "net", unit: "ward", noc: "office", ...deck("fabric", "topo", "canvas", "appr") },
+    recipe: ["canvas", "topology", "lake", "fedsearch", "splunk", "meraki", "sdwan", "workflows", "audit"],
+    ask: "Since the rebuild after Sandy, can your facilities command post and your network operations team see each other's alarms on one timeline during a storm drill?",
+    stays: "Emergency management, the incident command system, the building management system, generators and switchgear, evacuation decisions and clinical downtime procedures stay with NYU Langone and its facilities vendors.",
+  },
+  "msk-pavilion-live-campus": {
+    short: "Pavilion onboarding",
+    place: { suites: "imaging", bms: "plant", trades: "plant", bridge: "net", care: "ward", clin: "dc", ...deck("topo", "canvas", "wf", "appr") },
+    recipe: ["canvas", "topology", "inventory", "workflows", "actions", "audit", "catc", "ise"],
+    ask: "For the Griffin Pavilion, who owns technical readiness across network, security, biomedical and building systems, and how will you prove a floor is ready before it connects to Memorial Hospital?",
+    stays: "Building design, construction and commissioning stay with MSK, its architect and its builders; medical devices stay with biomedical engineering and their manufacturers; building-management systems stay with facilities and their vendors.",
+  },
+  "msk-regional-infusion-epic": {
+    short: "Regional infusion site",
+    place: { chairs: "clinic", pharm: "pharmlab", wan: "net", call: "net", carrier: "outside", ehr: "dc", ...deck("te", "dr", "canvas", "appr") },
+    recipe: ["canvas", "assistant", "deepreason", "topology", "audit", "sdwan", "meraki", "te", "splunk"],
+    ask: "When a regional site says Epic is slow during infusion hours, how long does it take to know whether it is the device, the Wi-Fi, the WAN or the application, and who decides?",
+    stays: "Epic and its hosting stay with MSK's Epic team and Epic; pharmacy and infusion systems stay with their owners and vendors; carrier circuits stay with the carriers; clinical scheduling decisions stay with the site.",
+  },
+  "msk-research-ai-beside-clinical": {
+    short: "Research AI paths",
+    place: { view: "imaging", path: "pharmlab", rev: "pharmlab", fab: "dc", gpu: "dc", cloud: "outside", ...deck("topo", "fed", "canvas", "appr") },
+    recipe: ["canvas", "topology", "audit", "nexus", "intersight", "te", "fedsearch", "aidefense", "agentobs"],
+    ask: "Where do clinical imaging, digital pathology and research AI share network, storage or cloud paths today, and how do you show reviewers where patient data did and did not travel?",
+    stays: "Research clusters, schedulers and storage stay with MSK research computing and their vendors; PACS and pathology systems stay with their owners; cloud services stay with the cloud provider; data-use decisions stay with MSK's IRB and governance committees.",
+  },
+  "msk-supplier-fault-day": {
+    short: "Supplier fault day",
+    place: { sup: "outside", acc: "net", hosts: "dc", or: "ward", lead: "ward", sec: "office", ...deck("inv", "cid", "canvas", "appr") },
+    recipe: ["canvas", "inventory", "workflows", "identity", "audit", "scc", "secureaccess", "ise", "duo"],
+    ask: "On July 19, 2024, how long did it take to know which clinical areas were affected and when it was safe to restart, and what would you want to see sooner next time?",
+    stays: "Clinical downtime procedures and the decision to pause or resume care stay with MSK clinical leadership; the supplier's software and its fix stay with the supplier; breach notification stays with MSK privacy and legal.",
+  },
+};

@@ -6,6 +6,8 @@ export const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "
 export const tagCls = (t: string) => (/GA|Available/i.test(t) && !/beta|alpha/i.test(t.split(";")[0]) ? "ga" : /beta|alpha|controlled|license|separate/i.test(t) ? "beta" : "road");
 /** True when a catalog tag says generally available ("GA" or "GA (US)"). */
 export const isGA = (tag: string) => /^GA\b/.test(tag);
+/** "Via Splunk" is a way in, not a product status: the customer's own systems, whose machine data reaches the fabric through Splunk. */
+export const isVia = (tag: string) => /^Via\b/.test(tag);
 
 /** "a", "a and b", "a, b and c". */
 export const list = (xs: string[]) => (xs.length < 2 ? xs.join("") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1]);

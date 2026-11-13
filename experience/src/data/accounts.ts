@@ -33,5 +33,22 @@ export const ACCOUNTS: Account[] = [
   },
 ];
 
+/**
+ * Researched content is generated into ./account-content.ts (ACCOUNT_CONTENT, keyed by account id) from the research briefs.
+ * When that file is present its tagline, about, facts and priorities replace the neutral placeholders above;
+ * when it is absent the workspaces still work, with an empty brief.
+ */
+type Content = Partial<Pick<Account, "tagline" | "about" | "facts" | "priorities">>;
+const generated = import.meta.glob<{ ACCOUNT_CONTENT?: Record<string, Content> }>("./account-content.ts", { eager: true });
+for (const mod of Object.values(generated)) {
+  for (const a of ACCOUNTS) {
+    const c = a.id === "generic" ? undefined : mod.ACCOUNT_CONTENT?.[a.id]; if (!c) continue;
+    if (c.tagline) a.tagline = c.tagline;
+    if (c.about) a.about = c.about;
+    if (Array.isArray(c.facts)) a.facts = c.facts;
+    if (Array.isArray(c.priorities)) a.priorities = c.priorities;
+  }
+}
+
 export const DEFAULT_ACCOUNT = "generic";
 export const accountById = (id: string | null | undefined): Account | undefined => ACCOUNTS.find((a) => a.id === id);

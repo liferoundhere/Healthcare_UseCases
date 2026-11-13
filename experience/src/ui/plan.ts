@@ -2,7 +2,7 @@ import type { Account } from "../data/accounts";
 import type { AccountState } from "../data/store";
 import { CATALOG, ITEM, type Item } from "../data/catalog";
 import type { SceneDef } from "../story/types";
-import { ICON, esc, isGA, list, plural, tagCls } from "./util";
+import { ICON, esc, isGA, isVia, list, plural, tagCls } from "./util";
 
 /** One story the customer rated or commented on. */
 export interface PlanStory { sc: SceneDef; short: string; code: string; rating: number; note: string; teams: string; last: number }
@@ -13,7 +13,9 @@ export interface PlanModel {
   /** The ones with a rating: these drive the blocks and the next steps. */
   rated: PlanStory[];
   /** Union of the building blocks the rated stories need, in catalog order. */
-  blocks: Item[]; toAdd: Item[]; owned: Item[]; ga: Item[]; notGa: Item[];
+  blocks: Item[]; toAdd: Item[]; owned: Item[];
+  /** By the catalog tag: generally available, not yet (beta, alpha, controlled availability, announced, roadmap), and reached through Splunk. */
+  ga: Item[]; notGa: Item[]; via: Item[];
   /** How many rated stories use each block. */
   uses: Map<string, string[]>;
   steps: string[]; contact: string; nextStep: string;
@@ -21,19 +23,18 @@ export interface PlanModel {
   unrated: number;
 }
 
-const TEAM: Record<string, string> = {
-  security: "security operations", facilities: "infrastructure operations", ai: "the AI platform owners",
-  "network operations": "network operations", "security operations": "security operations", "clinical operations": "clinical operations", "workplace and office operations": "workplace IT",
-};
-/** The teams to invite, read from a story's pillars ("Security, with Facilities and AI"). */
+/**
+ * The teams to invite, read from a story's pillars: "Security, with Facilities and AI" gives security, facilities and AI;
+ * "Regional site, network, record team, pharmacy" gives those four. A pillar line that is a sentence gives none.
+ */
 export function teamList(sc: SceneDef): string[] {
-  if (TEAM[sc.pillars.trim().toLowerCase()]) return [TEAM[sc.pillars.trim().toLowerCase()]];
-  const parts = sc.pillars.split(/,|\bwith\b|\band\b|&/i).map((p) => p.trim().toLowerCase()).filter(Boolean);
-  const known = [...new Set(parts.map((p) => TEAM[p]).filter(Boolean))];
-  if (known.length) return known;
-  return parts.length > 1 && parts.every((p) => p.split(" ").length <= 3) ? parts.map((p) => `the ${p} team`) : ["the infrastructure, security and clinical operations leads"];
+  const parts = sc.pillars.split(/,|\bwith\b|\band\b|&/i).map((p) => p.trim().replace(/\s+teams?$/i, "")).filter(Boolean)
+    .map((p) => p.split(" ").map((w) => (w === w.toUpperCase() ? w : w.toLowerCase())).join(" "));
+  return parts.every((p) => p.split(" ").length <= 3) ? [...new Set(parts)] : [];
 }
-export const teamsFor = (sc: SceneDef) => list(teamList(sc));
+/** "the security, facilities and AI teams", or a neutral fallback when the pillars name no teams. */
+const teamPhrase = (xs: string[]) => (xs.length ? `the ${list(xs)} ${xs.length === 1 ? "team" : "teams"}` : "the infrastructure, security and clinical operations leads");
+export const teamsFor = (sc: SceneDef) => teamPhrase(teamList(sc));
 
 export function buildPlan(account: Account, scoped: SceneDef[], state: AccountState, recipeOf: (id: string) => string[], shortOf: (s: SceneDef) => string, codeOf: (s: SceneDef) => string): PlanModel {
   const stories: PlanStory[] = scoped.filter((s) => state.stories[s.id] && (state.stories[s.id].rating > 0 || state.stories[s.id].note.trim()))
@@ -45,8 +46,8 @@ export function buildPlan(account: Account, scoped: SceneDef[], state: AccountSt
   const blocks = CATALOG.filter((i) => uses.has(i.id));
   const own = new Set(state.owned);
   const toAdd = blocks.filter((i) => !own.has(i.id)), owned = blocks.filter((i) => own.has(i.id));
-  const ga = blocks.filter((i) => isGA(i.tag)), notGa = blocks.filter((i) => !isGA(i.tag));
-  const m: PlanModel = { account, date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }), stories, rated, blocks, toAdd, owned, ga, notGa, uses, steps: [], contact: state.contact.trim(), nextStep: state.nextStep.trim(), unrated: scoped.length - rated.length };
+  const ga = blocks.filter((i) => isGA(i.tag)), via = blocks.filter((i) => isVia(i.tag)), notGa = blocks.filter((i) => !isGA(i.tag) && !isVia(i.tag));
+  const m: PlanModel = { account, date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }), stories, rated, blocks, toAdd, owned, ga, notGa, via, uses, steps: [], contact: state.contact.trim(), nextStep: state.nextStep.trim(), unrated: scoped.length - rated.length };
   m.steps = nextSteps(m);
   return m;
 }
@@ -59,22 +60,22 @@ export function nextSteps(m: PlanModel): string[] {
   if (b) {
     const rest = [b, c].filter(Boolean) as PlanStory[];
     const teams = [...new Set(rest.flatMap((s) => teamList(s.sc)))];
-    out.push(`Follow with ${rest.map((s) => `"${s.sc.title}" (${s.rating} of 5)`).join(" and ")}${rest.length > 1 ? ", in that order," : ""} with ${list(teams)}.`);
+    out.push(`Follow with ${rest.map((s) => `"${s.sc.title}" (${s.rating} of 5)`).join(" and ")}${rest.length > 1 ? ", in that order," : ""} with ${teamPhrase(teams)}.`);
   } else {
     out.push(`Confirm what was said about "${a.sc.title}" with ${m.contact || "the customer sponsor"}, then rate more stories: ${plural(m.unrated, "story", "stories")} in this workspace ${m.unrated === 1 ? "has" : "have"} no rating yet.`);
   }
   const add = m.toAdd;
   if (add.length) {
     const first = [...add].sort((x, y) => Number(isGA(y.tag)) - Number(isGA(x.tag)) || (m.uses.get(y.id)?.length ?? 0) - (m.uses.get(x.id)?.length ?? 0)).slice(0, 3).map((i) => i.short);
-    const wait = add.filter((i) => !isGA(i.tag));
-    out.push(`Check which of the ${plural(add.length, "block")} still to add the customer already licenses, starting with ${list(first)}.${wait.length ? ` ${list(wait.map((i) => `${i.short} (${i.tag})`))} ${wait.length === 1 ? "is" : "are"} not generally available: present ${wait.length === 1 ? "it" : "them"} as direction, not as something to deploy now.` : ""}`);
+    const wait = add.filter((i) => !isGA(i.tag) && !isVia(i.tag));
+    out.push(`Check which of the ${plural(add.length, "block")} still to add the customer already licenses, starting with ${list(first)}.${wait.length ? ` ${list(wait.map((i) => `${i.short} (${i.tag})`))} ${wait.length === 1 ? "is" : "are"} not generally available: say so, and do not plan a deployment on ${wait.length === 1 ? "it" : "them"} yet.` : ""}`);
   } else {
     out.push(`All ${plural(m.blocks.length, "block")} these stories need are marked as already in place. Ask which of them are connected to Cisco Cloud Control today, and who would approve connecting the rest.`);
   }
   return out;
 }
 
-const availLine = (m: PlanModel) => `${m.ga.length} of ${m.blocks.length} generally available${m.notGa.length ? `; ${m.notGa.length} not yet (${m.notGa.map((i) => `${i.short}: ${i.tag}`).join(", ")})` : ""}.`;
+const availLine = (m: PlanModel) => `${m.ga.length} of ${m.blocks.length} generally available${m.notGa.length ? `; ${m.notGa.length} not yet (${m.notGa.map((i) => `${i.short}: ${i.tag}`).join(", ")})` : ""}${m.via.length ? `; ${m.via.length} reached through Splunk, with no native connector (${m.via.map((i) => i.short).join(", ")})` : ""}.`;
 
 // ---------------------------------------------------------------- on screen
 const rt = (n: number) => (n ? `<span class="rt r${n}" title="Rated ${n} of 5">${n}<i>/5</i></span>` : `<span class="rt r0" title="Note without a rating">&ndash;</span>`);
@@ -110,11 +111,11 @@ export function planPanelHtml(m: PlanModel, scoped: SceneDef[], shortOf: (s: Sce
 export function planBlocksHtml(m: PlanModel): string {
   if (!m.blocks.length) return `<h3>Building blocks</h3><p class="lead">No blocks yet. They appear here once a story has a rating, with the availability of each one.</p>`;
   const row = (i: Item, on: boolean) => `<button class="it ${on ? "on" : ""}" data-own="${i.id}" role="checkbox" aria-checked="${on}" title="${esc(i.name)}. Used by: ${esc((m.uses.get(i.id) ?? []).join(", "))}"><span class="ck">${on ? "&#10003;" : ""}</span><span class="nm">${esc(i.short)}</span><small>${m.uses.get(i.id)?.length ?? 0}&times;</small><span class="tag ${tagCls(i.tag)}">${esc(i.tag)}</span></button>`;
-  const pct = Math.round((m.ga.length / m.blocks.length) * 100);
+  const pct = (xs: Item[]) => `${((xs.length / m.blocks.length) * 100).toFixed(1)}%`;
   return `<h3>Building blocks</h3>
     <div class="bigN"><b>${m.blocks.length}</b><span>${m.blocks.length === 1 ? "block is" : "blocks are"} needed by ${m.rated.length === 1 ? "the rated story" : `the ${m.rated.length} rated stories`}. ${m.owned.length} already in place, ${m.toAdd.length} to add.</span></div>
-    <div class="avail"><div class="bar" role="img" aria-label="${m.ga.length} of ${m.blocks.length} blocks generally available"><i style="width:${pct}%"></i></div>
-      <p><b class="g">${m.ga.length} generally available</b>${m.notGa.length ? ` &middot; <b class="b">${m.notGa.length} not yet</b>: ${m.notGa.map((i) => `${esc(i.short)} (${esc(i.tag)})`).join(", ")}` : " &middot; none in beta or announced only"}</p></div>
+    <div class="avail"><div class="bar" role="img" aria-label="${esc(availLine(m))}"><i class="g" style="width:${pct(m.ga)}"></i><i class="b" style="width:${pct(m.notGa)}"></i><i class="v" style="width:${pct(m.via)}"></i></div>
+      <p><b class="g">${m.ga.length} generally available</b> &middot; ${m.notGa.length ? `<b class="b">${m.notGa.length} not yet</b>: ${m.notGa.map((i) => `${esc(i.short)} (${esc(i.tag)})`).join(", ")}` : "none in beta or announced only"}${m.via.length ? ` &middot; <b>${m.via.length} through Splunk</b>: ${m.via.map((i) => esc(i.short)).join(", ")}` : ""}</p></div>
     <div class="scroll">
       <h5><i></i>To add (${m.toAdd.length})</h5>${m.toAdd.map((i) => row(i, false)).join("") || `<p class="lead">Nothing to add: every block is marked as already in place.</p>`}
       <h5 class="own"><i></i>Already in place (${m.owned.length})</h5>${m.owned.map((i) => row(i, true)).join("") || `<p class="lead">Tick a block above when the customer already owns it.</p>`}

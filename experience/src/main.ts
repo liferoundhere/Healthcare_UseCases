@@ -36,7 +36,7 @@ app.innerHTML = `
     <div class="seg" id="acct" role="group" aria-label="Account workspace"></div>
     <div class="seg" id="view" role="group" aria-label="Scene view"></div>
     <div class="seg" id="aud" role="group" aria-label="Audience"></div>
-    <button class="btn" id="planBtn" title="Account plan for this workspace (A)">${ICON.plan}<span class="t">Plan</span><kbd>A</kbd></button>
+    <button class="btn" id="planBtn" title="Account plan for this workspace (A)">${ICON.plan}<span class="lg">Account plan</span><span class="sm">Plan</span></button>
     <button class="btn ic" id="findBtn" title="Search stories and platform blocks (/ or Ctrl+K)" aria-label="Search stories and platform blocks">${ICON.search}</button>
     <button class="btn ic" id="notesBtn" title="Presenter notes (N)" aria-label="Presenter notes">${ICON.notes}</button>
     <button class="btn ic" id="srcBtn" title="Sources (S)" aria-label="Sources">${ICON.sources}</button>
@@ -69,6 +69,8 @@ const S = {
   acct: accountById(q.get("acct"))?.id ?? accountById(store.lastWorkspace())?.id ?? DEFAULT_ACCOUNT,
   /** Story group shown in the home-page dock. */
   tab: "" as Group | "",
+  /** Section of the account brief on the home page. */
+  brief: "about" as "about" | "facts" | "prio",
   approved: new Set<string>(),
   playing: false,
   timer: 0,
@@ -119,6 +121,7 @@ $("#acct").addEventListener("click", (e) => { const b = (e.target as HTMLElement
 function setAcct(id: string, repaint = true) {
   if (!accountById(id) || id === S.acct) return;
   S.acct = id; store.rememberWorkspace(id); paintAcct();
+  S.tab = ""; S.brief = "about"; // the home page opens on this workspace's own stories and on its summary
   if (!repaint) return;
   if (S.mode === "home" || (S.mode === "story" && S.scene && !inScope(S.scene))) goHome();
   else if (S.mode === "story") paintStory(false);
@@ -148,7 +151,7 @@ function setMode(m: Mode) {
   show("#panel", m === "platform" || m === "compose" || m === "plan"); show("#panelR", m === "compose" || m === "plan"); show("#detail", false); show("#clock", false);
   show("#aud", m === "story"); show("#notesBtn", m === "story");
   $("#panel").classList.toggle("plan", m === "plan"); $("#panelR").classList.toggle("plan", m === "plan"); $("#planBtn").classList.toggle("on", m === "plan");
-  if (m === "story") stage.setSafe(0.13, 0.29, 0.01, 0.01); else if (m === "home") stage.setSafe(0.07, 0.28, S.acct === DEFAULT_ACCOUNT ? 0.33 : 0.42, 0.0); else if (m === "platform") stage.setSafe(0.08, 0.2, 0.29, 0.0); else stage.setSafe(0.09, 0.03, 0.28, 0.28);
+  if (m === "story") stage.setSafe(0.13, 0.29, 0.01, 0.01); else if (m === "home") stage.setSafe(0.07, 0.28, S.acct === DEFAULT_ACCOUNT ? 0.33 : 0.42, 0.0); else if (m === "platform") stage.setSafe(0.08, 0.2, 0.29, 0.0); else if (m === "plan") stage.setSafe(0.09, 0.03, 0.34, 0.28); else stage.setSafe(0.09, 0.03, 0.28, 0.28);
 }
 
 // ---------------------------------------------------------------- home
@@ -159,18 +162,20 @@ function goHome() {
   paintHome();
   setHash();
 }
-/** The account brief: who they are, sourced facts, priorities, and the caveat. Empty sections are left out. */
+/** The account brief: who they are, sourced facts, priorities, and the caveat. One section at a time so nothing is cut off; empty sections are left out. */
 function briefHtml(a: Account) {
   const src = (t: string | undefined, url?: string) => (t ? `<small>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t)}</small>` : "");
-  const facts = a.facts.slice(0, 6).map((f) => `<div class="ft"><b>${esc(f.v)}</b><span>${esc(f.l)}</span>${src(f.s, f.url)}</div>`).join("");
-  const prio = a.priorities.map((p) => `<li><b>${esc(p.title)}</b><span>${esc(p.detail)}</span>${src(p.s, p.url)}</li>`).join("");
-  const rated = store.rated(a.id).filter(([, n]) => n.rating > 0).length;
+  const facts = a.facts.slice(0, 6), prio = a.priorities;
+  const tabs = ([["about", "About"], ["facts", `Facts`], ["prio", `Priorities`]] as [typeof S.brief, string][]).filter(([k]) => k === "about" || (k === "facts" ? facts.length : prio.length));
+  if (!tabs.some(([k]) => k === S.brief)) S.brief = "about";
+  const body = S.brief === "facts" ? `<div class="fts">${facts.map((f) => `<div class="ft"><b>${esc(f.v)}</b><span title="${esc(f.l)}">${esc(f.l)}</span>${src(f.s, f.url)}</div>`).join("")}</div>`
+    : S.brief === "prio" ? `<div class="prio">${prio.map((p) => `<details name="prio"><summary>${esc(p.title)}</summary><p>${esc(p.detail)}</p>${src(p.s, p.url)}</details>`).join("")}</div>`
+    : `<p class="ab">${esc(a.about)}</p>${facts.length || prio.length ? "" : `<p class="pend">Sourced facts and priorities for this account are not loaded yet. Rating stories, notes and the account plan already work in this workspace.</p>`}`;
   return `<section class="brief" aria-label="Account brief">
-    <div class="bh"><div><div class="ly">Account workspace</div><h2>${esc(a.name)}</h2>${a.tagline && a.tagline !== "Account workspace" ? `<p class="tl">${esc(a.tagline)}</p>` : ""}</div><button class="btn" data-go="plan">${ICON.plan}Account plan${rated ? ` &middot; ${rated} rated` : ""}</button></div>
-    <div class="bd"><p class="ab">${esc(a.about)}</p>
-      ${facts ? `<div class="fts">${facts}</div>` : ""}
-      ${prio ? `<h4>Priorities, from public sources</h4><ul class="prio">${prio}</ul>` : ""}
-      ${facts || prio ? "" : `<p class="pend">Sourced facts and priorities for this account are not loaded yet. Rating stories, notes and the account plan already work in this workspace.</p>`}</div>
+    <div class="bh"><div><div class="ly">Account workspace</div><h2>${esc(a.name)}</h2></div>
+      ${tabs.length > 1 ? `<div class="seg" role="tablist" aria-label="Account brief sections">${tabs.map(([k, t]) => `<button role="tab" aria-selected="${k === S.brief}" class="${k === S.brief ? "on" : ""}" data-brief="${k}">${t}</button>`).join("")}</div>` : ""}
+      ${a.tagline && a.tagline !== "Account workspace" ? `<p class="tl">${esc(a.tagline)}</p>` : ""}</div>
+    <div class="bd" role="tabpanel">${body}</div>
     <p class="caveat">${esc(a.caveat)}</p></section>`;
 }
 function dockHtml() {
@@ -193,8 +198,9 @@ function paintHome() {
         <button class="btn primary big" data-s="opening">&#9654;&nbsp; Start the story</button>
         <button class="btn big" data-go="platform">Explore the platform</button>
         <button class="btn big" data-go="compose">Build a combination</button>
+        ${named ? `<button class="btn big" data-go="plan">Account plan</button>` : ""}
       </div>
-      ${named ? briefHtml(a) : ""}
+      ${named ? `<div id="brief">${briefHtml(a)}</div>` : ""}
     </div>
     <div>
       <div class="dock" id="dock">${dockHtml()}</div>
@@ -202,7 +208,8 @@ function paintHome() {
     </div>`;
 }
 $("#home").addEventListener("click", (e) => {
-  const b = (e.target as HTMLElement).closest("[data-s],[data-go],[data-tab]") as HTMLElement | null; if (!b) return;
+  const b = (e.target as HTMLElement).closest("[data-s],[data-go],[data-tab],[data-brief]") as HTMLElement | null; if (!b) return;
+  if (b.dataset.brief) { S.brief = b.dataset.brief as typeof S.brief; $("#brief").innerHTML = briefHtml(acct()); return; }
   if (b.dataset.tab) { S.tab = b.dataset.tab as Group; $("#dock").innerHTML = dockHtml(); ($(`#dock [data-tab="${S.tab}"]`) as HTMLElement | null)?.focus(); }
   else if (b.dataset.s) openStory(b.dataset.s); else if (b.dataset.go === "platform") openPlatform(); else if (b.dataset.go === "plan") openPlan(); else openCompose();
 });
@@ -239,7 +246,7 @@ function paintStory(snap: boolean) {
   if (last) {
     // The closing beat is where discovery is captured: a rating and what the room said, saved per workspace.
     const cap = store.story(S.acct, sc.id);
-    side += `<div class="card ask"><h4>Ask the room</h4><p>${esc(sg.ask)}</p>
+    side += `<div class="card ask"><div class="ah"><h4>Ask the room</h4><button class="lnk nb" data-note id="askNoteBtn"></button></div><p>${esc(sg.ask)}</p>
       <div class="rate"><span id="rateL">How much does this hurt? 1 to 5</span><div class="rb" role="group" aria-labelledby="rateL">${[1, 2, 3, 4, 5].map((i) => `<button data-rate="${i}" title="${i} of 5">${i}</button>`).join("")}</div></div>
       <label class="vh" for="askNote">What they said</label><textarea id="askNote" rows="2" placeholder="What they said" spellcheck="true">${esc(cap.note)}</textarea>
       <div class="sv"><span id="askSaved"></span><button class="lnk" data-go="plan">Account plan &rsaquo;</button></div></div><p class="caveat">${esc(sc.caveat)}</p>`;
@@ -249,6 +256,7 @@ function paintStory(snap: boolean) {
   if (last) paintRate();
   paintRail();
   paintModal(st); paintClock(st);
+  fitSide();
   if (S.sheet) paintSheet();
   setHash();
 }
@@ -263,17 +271,23 @@ function paintRate() {
   if (!S.scene || !$("#askSaved")) return;
   const cap = store.story(S.acct, S.scene.id);
   document.querySelectorAll<HTMLElement>("#side [data-rate]").forEach((b) => { const i = +b.dataset.rate!; b.classList.toggle("on", i === cap.rating); b.classList.toggle("fill", i <= cap.rating); b.setAttribute("aria-pressed", String(i === cap.rating)); });
+  $("#askNoteBtn").textContent = cap.note ? "Edit what they said" : "+ What they said";
   $("#askSaved").textContent = cap.rating ? `Rated ${cap.rating} of 5. Saved for ${acct().short}.` : cap.note ? `Note saved for ${acct().short}. Not rated yet.` : `Saved in this browser for ${acct().short}.`;
 }
+/** When the closing beat also carries an approval, the column can outgrow a short screen: the note field then folds into a button. */
+function fitSide() { const el = $("#side"); el.classList.remove("tight"); if (S.mode === "story" && el.getBoundingClientRect().top < 72) el.classList.add("tight"); }
+addEventListener("resize", fitSide);
 $("#side").addEventListener("click", (e) => {
-  const b = (e.target as HTMLElement).closest("[data-rate],[data-go]") as HTMLElement | null; if (!b || !S.scene) return;
+  const b = (e.target as HTMLElement).closest("[data-rate],[data-go],[data-note]") as HTMLElement | null; if (!b || !S.scene) return;
   if (b.dataset.go === "plan") return openPlan();
+  if (b.dataset.note !== undefined) { b.closest(".ask")!.classList.add("open"); $("#askNote").focus(); return; }
   const v = +b.dataset.rate!;
   store.setRating(S.acct, S.scene.id, store.story(S.acct, S.scene.id).rating === v ? 0 : v); paintRate();
 });
 $("#side").addEventListener("input", (e) => { const t = e.target as HTMLTextAreaElement; if (t.id === "askNote" && S.scene) { store.setNote(S.acct, S.scene.id, t.value); paintRate(); } });
 // Autoplay must not carry the presenter off the closing beat while they type.
 $("#side").addEventListener("focusin", (e) => { if ((e.target as HTMLElement).id === "askNote" && S.playing) { stopPlay(); paintRail(); } });
+$("#side").addEventListener("focusout", (e) => { const t = e.target as HTMLElement; if (t.id === "askNote") t.closest(".ask")?.classList.remove("open"); });
 
 /** The next (or previous) story of this workspace; account stories of other workspaces are skipped. */
 function nextScene(d = 1): SceneDef | undefined { const all = stories(); if (!all.length) return undefined; const i = all.indexOf(S.scene!); return i < 0 ? all[0] : all[(i + d + all.length) % all.length]; }
