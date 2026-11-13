@@ -23,7 +23,7 @@ node atlas/build.mjs              # writes atlas/dist/general, atlas/dist/msk, a
 node atlas/tools/check.cjs        # walks every edition, every use case, every step (about 6 minutes)
 node atlas/tools/check.cjs --fast # same, without the two real-time waits (about 3 minutes)
 node atlas/tools/selftest.mjs     # proves the build rejects bad data and keeps editions apart
-node atlas/tools/shoot.cjs        # screenshots into atlas/shots
+node atlas/tools/shoot.cjs        # screenshots into atlas/shots (--uc=all --steps=all for every step)
 node atlas/server.mjs             # http://localhost:8080/general/  /msk/  /nyulh/
 ```
 
@@ -48,10 +48,13 @@ atlas/
   tools/check.cjs      Playwright end to end check
   tools/shoot.cjs      Playwright screenshots
   tools/selftest.mjs   negative tests for the build
+  tools/publish-herenow.mjs   publishes one built edition to here.now
+  docs/                screenshots used by the root README
   dist/<edition>/      index.html, play.html, css/atlas.css, js/*.js, data/catalog.js, data/uc-<id>.js
 ```
 
-The narrative of the 13 original use cases is read from `stage/js/narrative.js`, as in the showcase.
+The narrative of the 13 original use cases is read from `stage/js/narrative.js`, as in the showcase. That file is
+not edited here: corrections to it live in each use case file under `narrPatch` (see AUTHORING.md, section 4).
 
 ## Presenting
 
@@ -67,8 +70,11 @@ The narrative of the 13 original use cases is read from `stage/js/narrative.js`,
 | A | Auto: one step every 12 seconds. Off unless you turn it on. It never passes an approval. |
 | Esc | Close the Details drawer |
 
+The Library button returns to the library.
+
 `play.html?uc=<id>#4` opens a use case on step 4, `#summary` on the summary. From the library, "Play queue" runs
-the queued use cases in order: on a Summary, Next goes to the next story.
+the queued use cases in order: on a Summary, Next goes to the next story, and Back on the first step of a story
+returns to the summary of the one before.
 
 ## Editions
 
@@ -95,7 +101,8 @@ other account named in an edition. A failure stops the build with the file and t
 
 For each edition: the library (label, cards, filters, search, account section, queue with reorder, reload and
 play), then every use case and every step with the keyboard. It fails on console errors, HTML text under 14px,
-canvas text under 12px at 1600x900, text that overflows, labels that collide, a link that runs behind a device on
+canvas text under 12px at 1600x900, text that overflows, labels that collide, a callout bubble that hides a device or
+a zone name, a link that runs behind a device on
 the Cloud Control band, content that does not fit at
 1600x900 or 1280x720, a node without a position, another account's name in the page, an approval that can be
 skipped, a control that does nothing, and a step that advances by itself within 15 seconds.

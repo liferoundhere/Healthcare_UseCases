@@ -46,6 +46,9 @@
 
   function paintQueue() {
     const q = Queue.get();
+    // the list is redrawn: keep keyboard focus on the same control, or on the nearest one that still exists
+    const a = document.activeElement, inList = a && a.closest && a.closest('#qList');
+    const keep = inList ? { m: a.dataset.m, d: a.dataset.d, x: a.dataset.x, i: Array.from($('qList').children).indexOf(a.closest('li')) } : null;
     document.querySelectorAll('[data-q]').forEach((b) => { const on = q.includes(b.dataset.q); b.textContent = on ? 'In queue: remove' : 'Add to queue'; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
     $('qList').innerHTML = q.map((id, i) => { const c = byId(id); return `<li><span class="n">${i + 1}</span><span class="t">${esc(c.name)}</span>
       <button data-m="${id}" data-d="-1" title="Move up" aria-label="Move up" ${i === 0 ? 'disabled' : ''}>&#8593;</button><button data-m="${id}" data-d="1" title="Move down" aria-label="Move down" ${i === q.length - 1 ? 'disabled' : ''}>&#8595;</button><button data-x="${id}" title="Remove" aria-label="Remove from queue">&times;</button></li>`; }).join('');
@@ -54,6 +57,12 @@
     $('qPlay').textContent = q.length ? `Play queue (${q.length})` : 'Play queue';
     $('qList').querySelectorAll('[data-m]').forEach((b) => (b.onclick = () => { Queue.move(b.dataset.m, +b.dataset.d); paintQueue(); }));
     $('qList').querySelectorAll('[data-x]').forEach((b) => (b.onclick = () => { Queue.toggle(b.dataset.x); paintQueue(); }));
+    if (keep) {
+      const same = keep.m ? $('qList').querySelector(`[data-m="${keep.m}"][data-d="${keep.d}"]`) : null;
+      const li = $('qList').children[Math.min(keep.i, q.length - 1)];
+      const t = same && !same.disabled ? same : same ? $('qList').querySelector(`[data-m="${keep.m}"]:not([disabled])`) : li ? li.querySelector('[data-x]') : $('qPlay').disabled ? $('q') : $('qPlay');
+      if (t) t.focus();
+    }
   }
   $('qPlay').onclick = () => { const q = Queue.get(); if (q.length) location.href = `play.html?uc=${q[0]}&queue=1`; };
   $('qClear').onclick = () => { Queue.set([]); paintQueue(); };

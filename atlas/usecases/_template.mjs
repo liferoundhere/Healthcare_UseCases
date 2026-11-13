@@ -79,7 +79,7 @@ export default {
         modal: { title: 'Approve the voice profile change', lines: ['Raise the minimum data rate on the hall access points.', 'Approver: wireless lead', 'Executes in: Catalyst Center'], button: 'Approve' } },
       { phase: 'cisco', title: 'Executed where policy lives', say: { exec: 'The change runs in the system of record, and the alert arrives on time.', dir: 'The approval is in the audit log.', eng: 'Catalyst Center applies the profile; the canvas keeps the record.' },
         n: { approve: 'ok', cat: 'ok', badge: 'ok' }, l: { 'canvas-approve': 'ok', 'approve-cat': 'ok', 'nc-badge': 'ok' }, label: { badge: '' },
-        chips: [['AI Canvas', 'GA (US)'], ['Catalyst Center', 'GA']] },
+        chips: [['AI Canvas', 'GA (US)'], ['Catalyst Center', 'GA (US)']] },
     ],
   },
 };

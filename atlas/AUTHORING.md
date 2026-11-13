@@ -12,8 +12,8 @@ are skipped) in file name order, which is also the order of the cards in the lib
 
 ## 1. File name and order
 
-`NNN-id.mjs`. The number only sets the order. Suggested ranges: `010` to `199` shared stories, `200` to `299` AI
-stories, `500` to `599` MSK account stories, `600` to `699` NYULH account stories.
+`NNN-id.mjs`. The number only sets the order. Ranges in use: `010` to `199` shared stories, `200` to `299` AI
+stories, `300` to `399` MSK account stories, `400` to `499` NYULH account stories.
 
 ## 2. Editions (who sees it)
 
@@ -103,6 +103,18 @@ The old showcase looked the narrative up in `stage/js/narrative.js` by id. Atlas
    whose `id` equals the use case `id`, or equals `narrId` if the use case sets one.
 3. **The shared file** `stage/js/narrative.js`, by the same id. The 13 original use cases use this.
 
+A use case that takes its narrative from 2 or 3 can correct it without editing the shared file, with `narrPatch`.
+Steps are numbered from 1, nodes are named by id. Objects merge key by key, any other value replaces, and `null`
+removes a key (for example a callout). A step number or node id that does not exist is a build error.
+
+```js
+narrPatch: {
+  subtitle: 'Replaces the subtitle.',
+  nodes: { app: { sub: { exec: 'Disable shared account' } } },
+  steps: { 4: { n: { vendor: 'warn' }, label: { vendor: 'Shared, no MFA' } }, 2: { callout: null } },
+},
+```
+
 ```js
 narr: {
   subtitle: 'One sentence: the situation.',
@@ -125,7 +137,8 @@ narr: {
       show: ['x'], hide: ['y'],                               // node or zone ids to reveal or remove
       callout: { node: 'ap1', text: 'Up to about 75 characters.' },   // optional bubble; also sets the step's focus
       facts: [{ v: '8.9 s', l: 'what the number is', s: 'Source, year' }],   // optional; the first one shows in the card
-      clock: { label: 'Time to a shared picture', mode: 'run' },      // optional: run | stop | hide
+      clock: { label: 'Time to a shared picture', mode: 'run' },      // optional: run | stop | hide. A running clock gains ten simulated
+                                                                     // minutes per step; with mode 'stop', value: '0:12' shows 12 minutes
     },
     { phase: 'cisco', title: 'A person approves', say: { exec: '...', dir: '...', eng: '...' },
       show: ['cc', 'canvas'], n: { canvas: 'pending' },
@@ -176,6 +189,30 @@ if you set it, else from your `narr.zones` (matching zone ids), else from the or
 
 Open the matching original story in the presenter to see the plan before placing nodes
 (`node atlas/tools/shoot.cjs --uc=wifi --steps=1`).
+
+### Story-specific plans
+
+These plans were drawn for one story each. They live in their own files, and the two account files are included only in their own edition.
+
+| Plan | File | Editions | Drawn for |
+| --- | --- | --- | --- |
+| `vnurse` | `src/engine/47-decor-ai.js` | all | AI1 virtual nursing: smart rooms with ceiling cameras, PoE closet, nurse station, edge compute, virtual nursing hub |
+| `access` | `47-decor-ai.js` | all | AI2 patient access: patient's home and carrier, contact center and agent model clouds, patient access center, clinic front desk, EHR data center |
+| `aifactory` | `47-decor-ai.js` | all | AI3 private clinical AI: physician workroom, model serving, liquid-cooled GPU cluster, fabric and storage, power and cooling |
+| `bedside` | `47-decor-ai.js` | all | AI4 bedside prediction: patient room, nurse station, emergency department, IDF closet, model host, integration, lab system |
+| `agents` | `47-decor-ai.js` | all | AI5 agents in the EHR: department offices, identity and access, EHR data center, payer portals and fax, revenue-cycle vendor |
+| `pathlab` | `47-decor-ai.js` | all | AI6 digital pathology: slide scanning lab, pathologist office, site-to-site circuit, image storage, pathology AI servers, cloud archive |
+| `aispend` | `47-decor-ai.js` | all | AI7 AI cost: exam room, reading room, finance office, IT operations, GPU cluster, AI vendor clouds |
+| `msk_pavilion` | `45-decor-msk.js` | msk | M1: Memorial Hospital, the street with the bridge, the pavilion's inpatient rooms, OR suites, mechanical room and site office |
+| `msk_infusion` | `45-decor-msk.js` | msk | M2: regional outpatient building (infusion suite, pharmacy, waiting room, IDF closet), carrier circuits, data center |
+| `msk_research` | `45-decor-msk.js` | msk | M3: reading room, digital pathology, data governance, research computing, data center, public cloud |
+| `msk_supplier` | `45-decor-msk.js` | msk | M4: operating rooms, recovery, control desk, server room, IT and security, vendor access, the supplier's office |
+| `nyulh_sites` | `46-decor-nyulh.js` | nyulh | N1: new ambulatory hub, merged hospital ward, inherited closet, WAN and planned campus, system data center, readiness room |
+| `nyulh_ai` | `46-decor-nyulh.js` | nyulh | N2: ED exam bays, ED corridor and workroom, GPU cluster, integration, model operations room, cloud |
+| `nyulh_helpdesk` | `46-decor-nyulh.js` | nyulh | N3: outside caller, IT service desk, inpatient unit, identity and access, security operations, data hall |
+| `nyulh_storm` | `46-decor-nyulh.js` | nyulh | N4: inpatient unit, network closet, risers, network operations, emergency department, raised energy plant, command post, flood barrier and East River |
+
+The account plans are illustrative layouts based on public descriptions of each organization's buildings (sources in `research/10` and `research/11`). They do not show real internal floor plans or the real locations of equipment. A new plan for an account goes in that account's file, which starts with `// @editions msk` or `// @editions nyulh`.
 
 ### Making a reused plan fit your story: `scene.labels` and `scene.hide`
 
@@ -269,7 +306,7 @@ node atlas/tools/shoot.cjs --ed=msk --uc=<id> --steps=1,2,3,approval,summary   #
 
 `check.cjs` fails on: console errors, HTML text under 14px, canvas text under 12px at 1600x900, text that
 overflows its box (including a `scene.labels` text that does not fit its room), labels that collide or leave the
-scene, a link that runs behind a node on the band, a card whose text does not fit, a node without a position,
+scene, a callout bubble that hides another device or a zone name, a link that runs behind a node on the band, a card whose text does not fit, a node without a position,
 another account's name in the page, and a step that advances by itself. When it reports a collision,
 move the node a little or pin its label side. Then read the screenshots at 1600x900 and 1280x720.
 

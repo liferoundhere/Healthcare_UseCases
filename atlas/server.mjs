@@ -106,4 +106,5 @@ server.listen(PORT, HOST, () => {
   console.log(`Atlas host on http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
   for (const r of routes.values()) console.log(`  /${r.slug}/`.padEnd(22) + `${r.ed.padEnd(8)} ${existsSync(join(r.dir, 'index.html')) ? (r.code ? 'access code required' : 'open (no access code set)') : 'NOT BUILT: run node atlas/build.mjs'}`);
   console.log('  /                     neutral page, no list of editions');
+  for (const r of routes.values()) if (r.ed !== 'general' && r.slug === r.ed) console.log(`  Note: /${r.slug}/ is the default path and can be guessed. Set ATLAS_SLUG_${r.ed.toUpperCase()} to give this edition an address only its audience knows.`);
 });

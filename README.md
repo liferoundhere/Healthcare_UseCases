@@ -13,7 +13,7 @@ The system is in [`atlas/`](atlas/). It grew out of the original 2D showcase in 
 | **A use case library** | 28 use cases you can search, filter by category and pillar, and line up in a presentation queue. |
 | **Presenter-paced stories** | Nothing moves until you press Next. One large card says what is happening; the floor plan shows where. |
 | **Three separate editions** | General, Memorial Sloan Kettering, and NYU Langone Health. Each is built on its own and never contains the other account's name. |
-| **A human approval in every story** | Any change that could touch care stops until you click Approve. |
+| **A human approval before any change that could touch care** | In the stories that make such a change, the story stops until you click Approve. |
 | **A closing summary** | Outcomes, the question to ask the room, and what stays with the hospital. |
 | **Sources on every number** | Tagged S (public source), H (hypothesis to validate) or I (illustrative). Cloud Control outcomes are modeled. |
 
@@ -84,11 +84,15 @@ node atlas/server.mjs
 | Right, Space, PageDown | Next step |
 | Left, PageUp | Previous step |
 | Enter | Approve, when an approval is waiting |
-| Esc | Back to the library |
+| I | Open or close Details |
+| Esc | Close Details |
+| Home, End | First step, Summary |
+
+Use the Library button to go back to the library. In a queue, Back on the first step of a story returns to the summary of the previous story.
 
 ## How to add a use case
 
-1. Copy `atlas/usecases/_template.mjs` to a new numbered file, for example `atlas/usecases/280-my-story.mjs`.
+1. Copy `atlas/usecases/_template.mjs` to a new numbered file, for example `atlas/usecases/280-my-story.mjs` (`300` to `399` are MSK account stories, `400` to `499` NYULH).
 2. Set `editions` to who should see it: `['general','msk','nyulh']` for everyone, or `['msk']` or `['nyulh']` for one account.
 3. Write the steps, pick an existing floor plan with `scene.decor`, and place each device with `scene.pos`. Rename rooms to fit your story with `scene.labels`.
 4. Build and check it:
@@ -127,7 +131,7 @@ Without an account the site expires after 24 hours and anyone with the link can 
 node atlas/tools/check.cjs
 ```
 
-This opens every use case in every edition in a headless browser and steps through it with the keyboard. It fails on a console error, any text under 14 pixels, text that overflows its box, overlapping labels, a device without a position, another account's name on screen, or a story that advances by itself. Last run: general 4,887 checks, MSK 5,769, NYULH 5,769, none failed. Tested in Chromium at 1600x900 and 1280x720 only.
+This opens every use case in every edition in a headless browser and steps through it with the keyboard. It fails on a console error, any text under 14 pixels, text that overflows its box, overlapping labels, a callout that hides a device or a zone name, a device without a position, another account's name on screen, or a story that advances by itself. Last run (13 Nov 2026): 16,464 checks across the three editions, none failed. Tested in Chromium at 1600x900 and 1280x720 only.
 
 ## Rules the content follows
 

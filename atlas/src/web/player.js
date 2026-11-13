@@ -22,6 +22,7 @@
     const stepAt = (p) => (p < nL ? { mode: 'legacy', i: p, s: phaseSteps(c, 'legacy')[p] } : { mode: 'tobe', i: p - nL, s: phaseSteps(c, 'tobe')[p - nL] });
     const queue = queueMode ? Queue.get() : [], qi = queue.indexOf(c.id);
     const nextInQueue = queueMode && qi >= 0 && qi < queue.length - 1 ? byId(queue[qi + 1]) : null;
+    const prevInQueue = queueMode && qi > 0 ? byId(queue[qi - 1]) : null;
 
     document.title = `${c.name} | ${ED.label}`;
     $('ucCode').textContent = c.code; $('ucName').textContent = c.name; $('ucName').title = c.name;
@@ -42,7 +43,7 @@
       const m = q.s.modal;
       if (m) {
         const done = st.approved.has(p);
-        return `<div class="approval${done ? ' done' : ''}" id="approval"><div class="hd"><b>${esc(m.title)}</b><span>Simulated</span></div>
+        return `<div class="approval${done ? ' done' : ''}" id="approval" tabindex="-1"><div class="hd"><b>${esc(m.title)}</b><span>Simulated</span></div>
           <ul>${m.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
           <div class="act"><button class="ok" id="bApprove" ${done ? 'disabled' : ''}>${done ? 'Approved' : esc(m.button || 'Approve')}</button>
           <span class="hint">${done ? 'Recorded in the audit log.' : 'A named person decides. Click or press Enter.'}</span></div></div>`;
@@ -61,7 +62,7 @@
       const p = st.pos;
       document.body.classList.toggle('sum', p === SUMMARY);
       strip.querySelectorAll('button').forEach((b) => { const k = +b.dataset.p; b.classList.toggle('cur', k === p); b.classList.toggle('done', k < p); if (k === p) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
-      $('bBack').disabled = p === 0;
+      $('bBack').disabled = p === 0 && !prevInQueue; $('bBack').title = p === 0 && prevInQueue ? `Back to the summary of ${prevInQueue.name}` : 'Left arrow or Page Up';
       const bn = $('bNext');
       if (p === SUMMARY) {
         document.body.classList.remove('today', 'cc');
@@ -82,8 +83,8 @@
         <p class="say" id="say">${esc(q.s.say[st.aud])}</p>
         <div id="support">${support(q, p)}</div>
         <div class="more"><button id="bMore" title="Gaps, console, data path, outcomes, sources and legend (I)">Details</button><span>${tobe ? 'Modeled outcome' : c.legacy.who ? esc(c.legacy.who) : ''}</span></div>`;
-      const ba = $('bApprove'); if (ba) ba.onclick = (e) => { approve(); };
-      document.querySelectorAll('#aud button').forEach((b) => (b.onclick = () => setAud(b.dataset.v)));
+      const ba = $('bApprove'); if (ba) ba.onclick = () => { if (approve()) $('approval').focus(); };
+      document.querySelectorAll('#aud button').forEach((b) => (b.onclick = () => { setAud(b.dataset.v); const f = document.querySelector(`#aud button[data-v="${st.aud}"]`); if (f) f.focus(); }));
       $('bMore').onclick = (e) => { setDrawer(true); if (e.detail) e.currentTarget.blur(); };
       location.replace('#' + (p + 1));
       fitCard();
@@ -161,7 +162,7 @@
       if (q.s.modal && !st.approved.has(st.pos)) { const b = $('bApprove'); if (b) { b.classList.remove('nudge'); void b.offsetWidth; b.classList.add('nudge'); } return; }
       go(st.pos + 1);
     }
-    const back = () => go(st.pos - 1);
+    const back = () => { if (st.pos === 0 && prevInQueue) { location.href = `play.html?uc=${prevInQueue.id}&queue=1#summary`; return; } go(st.pos - 1); };
     function approve() {
       if (st.pos === SUMMARY) return false;
       const q = stepAt(st.pos); if (!q.s.modal || st.approved.has(st.pos)) return false;
