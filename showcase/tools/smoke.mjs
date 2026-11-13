@@ -1,13 +1,13 @@
 // node tools/smoke.mjs : exercises hover tooltip, rail click, story auto-advance, flow, panels, audience, theme, tour, tab switching.
 import puppeteer from 'puppeteer-core';
-import { existsSync, mkdirSync } from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { launchOptions } from './chrome.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 mkdirSync(join(here, '..', 'shots'), { recursive: true });
-const chrome = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
-const browser = await puppeteer.launch({ executablePath: chrome, headless: true, defaultViewport: { width: 1900, height: 1064 } });
+const browser = await puppeteer.launch({ ...launchOptions(), headless: true, defaultViewport: { width: 1900, height: 1064 } });
 const page = await browser.newPage();
 const errs = []; page.on('pageerror', (e) => errs.push(e.message));
 await page.goto(pathToFileURL(join(here, '..', 'healthcare-2d-models.html')).href + '?paused&uc=4&panel=0&t=0', { waitUntil: 'load' });
