@@ -1,8 +1,20 @@
 # Healthcare Infrastructure Storyboard
 
-Context pack for healthcare customer storyboards. Prepared 12 November 2026.
+Context pack and interactive explainer for healthcare customers. Research first prepared 12 November 2026; extended and rebuilt 13 November 2026.
 
 The pack describes how a health system runs network, security, facilities, and AI infrastructure today, then maps the same stories onto Cisco Cloud Control and Cisco Data Fabric. Phase 1 is vendor-neutral. Phase 2 is Cisco-specific and tags every capability GA, CA, or Roadmap.
+
+## The explainer (`experience/`)
+
+**Open [`experience/healthcare-cloud-control.html`](experience/healthcare-cloud-control.html) in a browser.** It is one self-contained file: no server, no network.
+
+An isometric model of a health system (patient floor, emergency department, imaging, data center, central plant, network core, offices, pharmacy and lab, a clinic, a patient's home and the outside world) with Cisco Cloud Control and Cisco Data Fabric as layers above it. It plays an opening film, four operating lenses (network, security, clinical, workplace), three flagship stories and ten use cases, each as amber Today beats followed by blue Cloud Control beats with a human approval. A platform explorer and a combination builder sit beside the stories.
+
+![The explainer](experience/docs/02-today-five-consoles.jpg)
+
+See [`experience/README.md`](experience/README.md) for controls and build steps, and [`experience/PRESENTER-GUIDE.md`](experience/PRESENTER-GUIDE.md) for a 20-minute run.
+
+Earlier iterations are kept for reference: `showcase/` (the first single-file 2D floor plans), `app/` (the 2D Canvas storyboard whose `scenes.ts` is still the narrative source of truth) and `stage/` (a paused 3D deck).
 
 ## Start here
 
@@ -61,6 +73,13 @@ Underlying cited research lives in `research/`. Do not discard these; they hold 
 - `research/03-facilities.md`
 - `research/04-ai-healthcare.md`
 - `research/05-cisco-cloud-control-data-fabric.md`
+- `research/06-cloud-control-agentic-orchestrator.md` (13 Nov 2026: what Cloud Control manages product by product, how it is agentic, AgenticOps, what is new since 26 Oct)
+- `research/07-data-fabric-third-party-reach.md` (13 Nov 2026: architecture, federated targets, Splunkbase integrations, hospital data-source map, governance)
+- `research/08-cisco-healthcare-portfolio.md` (13 Nov 2026: Cisco healthcare positioning, product map for the ten use cases, 21 named customer stories)
+- `research/09-agentic-clinical-and-workplace-ops.md` (13 Nov 2026: evidence for the four operating lenses, infrastructure demands of agentic care, risks)
+- `research/data/*.json` (machine-readable extracts the explainer is generated from)
+
+Briefs 06 and 07 correct brief 05 in places. Each has a section headed "Where this brief differs from Brief 05". The main ones: Machine Data Lake is now documented for AWS regions except GovCloud; "Agentic Actions for networking" is in Controlled Availability while the Actions view is shipped; Identity for AI Canvas is beta; Topology shows data center and compute relationships at Layer 1 and 2 only; AI model training on AI Canvas data is enabled by default per tenant; the phrase "commodity object storage cost" is now verified.
 
 Sectional drafts used to assemble the master live in `docs/`.
 

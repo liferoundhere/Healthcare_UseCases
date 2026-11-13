@@ -1,0 +1,351 @@
+[
+  {
+    "customer": "Dayton Children's",
+    "country": "United States",
+    "products": [
+      "ISE",
+      "Secure Network Analytics",
+      "Secure Firewall",
+      "Secure Endpoint",
+      "Secure Client",
+      "Umbrella",
+      "Ordr (partner)"
+    ],
+    "outcome": "During a partner's ransomware attack, the hospital cut the partner link in five minutes and auto-quarantined five MRI machines in another five.",
+    "quote": "We have a variety of Cisco products, and what I love is that they're designed to work with each other in a way that you can correlate if something is going on. (Nicholas Schopperth, Chief Information Security Officer)",
+    "metric": "Approximately 25,000 devices on the network; partner connection dropped in five minutes; five MRI machines quarantined in another five minutes",
+    "vendorReported": true,
+    "year": 2026,
+    "sourceUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/security/identity-services-engine/DaytonChildrens_CaseStudy.pdf",
+    "sourceTitle": "Dayton Children's Customer Case Study: Filling the Medical Device Security Gap (Cisco, 03/26)"
+  },
+  {
+    "customer": "Community Health Network",
+    "country": "United States",
+    "products": [
+      "Webex Contact Center",
+      "Webex AI Agent",
+      "Webex Connect",
+      "Webex Suite",
+      "Cisco Room and Desk devices"
+    ],
+    "outcome": "Webex AI Agent integrated with Epic now handles patient authentication and appointment confirm, cancel and reschedule calls without a human agent.",
+    "quote": "The integration with our EHR was a game-changer, (Shane Woolf, Lead Unified Communications Engineer)",
+    "metric": "40% AI containment of appointment-related calls; 95% patient-matching success; 15% lower agent attrition; did-not-attend rate from 12% to 6%; 43 practices onboarded in four weeks",
+    "vendorReported": true,
+    "year": 2026,
+    "sourceUrl": "https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/",
+    "sourceTitle": "Community Health Network Achieves 40% AI Containment and Streamlines Patient Care with Webex Contact Center and Cisco Collaboration Devices (Webex Blog, Aug 20, 2026)"
+  },
+  {
+    "customer": "NYC Health + Hospitals",
+    "country": "United States",
+    "products": [
+      "Splunk AppDynamics",
+      "ThousandEyes",
+      "Cisco ACI",
+      "Cisco Professional Services"
+    ],
+    "outcome": "Full-stack observability traces slowdowns to their source across more than 70 locations, and radiologists can read PACS imaging from any location.",
+    "quote": "The full-stack observability we get with AppDynamics and ThousandEyes enables us to trace slowdowns to their source (Jeffrey Lutz, Chief Technology Officer)",
+    "metric": "No quantified performance metric published; scale: more than 70 locations and 43,000 healthcare professionals",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.splunk.com/en_us/customers/success-stories/nyc-health-and-hospitals.html",
+    "sourceTitle": "NYC Health + Hospitals customer story (Splunk, undated, footer 2026)"
+  },
+  {
+    "customer": "Rush University System for Health",
+    "country": "United States",
+    "products": [
+      "Secure Firewall 4200 Series",
+      "Secure Workload",
+      "ISE",
+      "Secure Network Analytics"
+    ],
+    "outcome": "Automated application discovery replaced manual mapping, so legacy application risk was segmented and mitigated far faster than planned.",
+    "quote": "We didn't have to accept the risk—we were able to mitigate it much faster than expected. (Uzair Khan, Director for Network Engineering and Unified Communications)",
+    "metric": "Mitigated critical application risk in weeks vs. years; policy development cut from months to weeks; 25,000+ users across 65+ locations",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/rush.html",
+    "sourceTitle": "Rush University System for Health customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Children's National Hospital",
+    "country": "United States",
+    "products": [
+      "Splunk Enterprise Security",
+      "Splunk Cloud Platform"
+    ],
+    "outcome": "Splunk Enterprise Security became the hub of security operations, with threats often addressed within 15 minutes of an alert.",
+    "quote": "The bad actors only have to be right one time, but I have to be right every time. (Sharon Finney, Director of Cybersecurity Operations)",
+    "metric": "40% increase in detection of threats; 25% increase in analyst productivity; 80+ security use cases implemented",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.splunk.com/en_us/customers/success-stories/childrens-national-hospital.html",
+    "sourceTitle": "Children's National Hospital customer story (Splunk, undated)"
+  },
+  {
+    "customer": "Springfield Clinic",
+    "country": "United States",
+    "products": [
+      "Webex Contact Center"
+    ],
+    "outcome": "A 680-provider group replaced six or seven phone systems with one contact center, so patient access staff can cover any location.",
+    "quote": "Before, people were exhausted and burnt out. (Nick Fuchs, CIO)",
+    "metric": "Call abandonment rate down 44%; average wait time down 71%",
+    "vendorReported": true,
+    "year": 2025,
+    "sourceUrl": "https://healthtechmagazine.net/article/2025/11/modernize-healthcare-contact-centers-staff-and-patients",
+    "sourceTitle": "Modernize Healthcare Contact Centers for Staff and Patients (HealthTech Magazine, published by CDW, Nov 2025)"
+  },
+  {
+    "customer": "Clarke County Hospital",
+    "country": "United States",
+    "products": [
+      "Catalyst 9300 (90W UPOE+)"
+    ],
+    "outcome": "The hospital runs clinic lighting over PoE from Catalyst 9300 switches, deploying faster and cheaper than traditional electrical work.",
+    "quote": "That's the beauty of the Cisco Catalyst 9300: it's all Universal Power over Ethernet switches. (Dennis Blazek, Manager, Network)",
+    "metric": "30% reduction in total cost of ownership; 2X deployment acceleration; an estimated $500,000 saved on a 2017 expansion",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/clarke-county-hospital.html",
+    "sourceTitle": "Clarke County Hospital customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Central Health (Travis County)",
+    "country": "United States",
+    "products": [
+      "Cisco CX INFRAM assessment",
+      "Three-year strategic technology plan"
+    ],
+    "outcome": "A Cisco-led HIMSS INFRAM assessment benchmarked the safety-net system and exposed gaps in wireless, mobile clinics and home care delivery.",
+    "quote": "We are evolving fast, and we needed a partner like Cisco to help us grow in certain areas, (Amrit Giani, Chief Technology Officer)",
+    "metric": "Scores in the mid-range compared to 180 other healthcare organizations; more than 40 health clinics supported",
+    "vendorReported": true,
+    "year": 2024,
+    "sourceUrl": "https://www.cisco.com/c/dam/en_us/services/healthcare-it-services/infram-increases-access-to-care-for-central-health.pdf",
+    "sourceTitle": "INFRAM Increases Access to Care for Central Health (HIMSS, produced for Cisco, 2024)"
+  },
+  {
+    "customer": "Mount Sinai Health System",
+    "country": "United States",
+    "products": [
+      "ISE",
+      "Claroty Medigate (partner)"
+    ],
+    "outcome": "Medigate recommends segmentation policies from observed device traffic and Cisco ISE enforces them with VLANs and device-specific dACLs.",
+    "quote": "",
+    "metric": "Micro-segmentation for more than 1,000 devices (partner-reported; read from a third-party mirror)",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.casestudies.com/company/claroty/case-study/integrating-medigate-cisco-for-enhanced-medical-device-security-at-mount-sinai-health-system",
+    "sourceTitle": "Mount Sinai Health System enhances medical device security with Claroty (Medigate) and Cisco (CaseStudies.com mirror, undated)"
+  },
+  {
+    "customer": "Children's Mercy Kansas City",
+    "country": "United States",
+    "products": [
+      "ISE",
+      "Claroty (partner)"
+    ],
+    "outcome": "Claroty device profiles and policies were integrated into Cisco ISE, and the stalled ISE segmentation project finished ahead of schedule and under budget.",
+    "quote": "They have provided the means for us to protect and monitor every connected device in a hospital at machine speeds. (Tarunjeet \"T.J.\" Mann, CISO, speaking about Claroty)",
+    "metric": "No quantified metric published; scale: 700 beds, 2 hospitals, 18 outpatient locations (partner-reported)",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://blog.claroty.com/resources/case-studies/children-s-mercy-kansas-city-fast-tracks-network-segmentation",
+    "sourceTitle": "Children's Mercy Kansas City Fast-Tracks Network Segmentation (Claroty, undated, footer 2026)"
+  },
+  {
+    "customer": "Barts Health NHS Trust",
+    "country": "United Kingdom",
+    "products": [
+      "SD-Access",
+      "Catalyst Center",
+      "ISE",
+      "ThousandEyes",
+      "Secure Firewall"
+    ],
+    "outcome": "One unified, resilient network across five London hospitals lets IT see and fix problems before staff report them.",
+    "quote": "We are able to get ahead of the curve and address these problems before they become a serious issue. (Fay Stevenson, ICT director)",
+    "metric": "No performance metric published; scale: five hospitals, 24,000 staff, 2.5 million people served",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/barts-health-nhs-trust.html",
+    "sourceTitle": "Barts Health NHS Trust customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Mersey Care NHS Foundation Trust",
+    "country": "United Kingdom",
+    "products": [
+      "Webex Contact Center",
+      "Webex Workforce Optimization (Calabrio)"
+    ],
+    "outcome": "A 24/7 mental health crisis line prioritizes urgent calls and uses a what3words integration to help emergency services find callers.",
+    "quote": "",
+    "metric": "114 people located for rescue up to September 2024; about 14,000 crisis-line contacts per month",
+    "vendorReported": false,
+    "year": 2025,
+    "sourceUrl": "https://uctoday.com/how-webex-helps-mersey-care-nhs-manage-the-growing-mental-health-crisis",
+    "sourceTitle": "How Webex Helps Mersey Care NHS Manage the Growing Mental Health Crisis (UC Today, Jan 28, 2025)"
+  },
+  {
+    "customer": "Bayside Health Peninsula",
+    "country": "Australia",
+    "products": [
+      "Catalyst Center",
+      "SD-Access",
+      "Nexus 9000 with ACI",
+      "UCS X-Series with Intersight",
+      "FlashStack",
+      "Secure Firewall 4200",
+      "ISE",
+      "Umbrella",
+      "SD-WAN",
+      "Webex",
+      "Cisco Spaces",
+      "Wi-Fi 6"
+    ],
+    "outcome": "A new 12-level clinical tower was built on one software-defined fabric spanning campus, data center, security and collaboration.",
+    "quote": "I don't think there's a project I am more proud of than this hospital. (Matt Walker, Manager Network and Communications)",
+    "metric": "Up to 1,500 concurrent users supported reliably; over 5,000 clinicians and nurses; 130 additional beds",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/bayside-health.html",
+    "sourceTitle": "Bayside Health Peninsula customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Frankfurt University Hospital",
+    "country": "Germany",
+    "products": [
+      "Cisco campus switching",
+      "Cisco wireless with BLE",
+      "Cisco Spaces"
+    ],
+    "outcome": "A cardiology pilot made patient paths visible and equipment trackable in real time over the existing Cisco wireless network.",
+    "quote": "Thanks to Cisco, we've made patient paths and resources visible, easy and seamless (Dr. Michael von Wagner, Managing Director UCDHC, Senior Physician)",
+    "metric": "No numeric metric published",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/frankfurt-university-connected-healthcare.html",
+    "sourceTitle": "University Hospital Frankfurt customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Joris Zorg",
+    "country": "Netherlands",
+    "products": [
+      "Meraki",
+      "Cisco XDR",
+      "Cisco Secure Access",
+      "Talos"
+    ],
+    "outcome": "After a Christmas Eve 2022 attack, the elderly-care provider rebuilt on Meraki and XDR and now secures a smart sensor project for independent living.",
+    "quote": "HOB ICT Security and Cisco XDR give us eyes (telemetry) in every corner of the network. (Maik Berkelmans, IT Architect)",
+    "metric": "Key applications operational again within a day; sensors at over 500 clients; plan to scale from two homes to 2000",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/joris-zorg.html",
+    "sourceTitle": "Joris Zorg customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Phuong Dong General Hospital",
+    "country": "Vietnam",
+    "products": [
+      "Meraki dashboard",
+      "Meraki MR",
+      "Meraki MS",
+      "Meraki MX250"
+    ],
+    "outcome": "Cloud-managed Meraki across three towers gave a lean IT team one dashboard and more reliable PACS access.",
+    "quote": "When a doctor needs it, the system must be ready. (Nguyen Cong Minh, Deputy Director, Phuong Dong General Hospital)",
+    "metric": "Incidents down 80% and uptime at 95% across all towers; 588 access points, 122 switches, 2 firewalls",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/us/en/about/case-studies-customer-stories/phuong-dong-hospital.html",
+    "sourceTitle": "Phuong Dong Hospital customer story (Cisco, undated)"
+  },
+  {
+    "customer": "Maebashi Red Cross Hospital",
+    "country": "Japan",
+    "products": [
+      "Cisco XDR",
+      "Talos",
+      "Webex"
+    ],
+    "outcome": "Cisco XDR detects abnormal behavior from network flows without installing agents on medical systems, and scores incidents so a small team can prioritize.",
+    "quote": "Incidents are scored between 1 and 1,000 based on their level of risk. This prevents staff from being overwhelmed by alerts, allowing them to focus on the most urgent incidents, (Eiji Ichinei)",
+    "metric": "No outcome metric published; 555 beds; IT department of seven, three on networks and security",
+    "vendorReported": true,
+    "year": 2025,
+    "sourceUrl": "https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/maebashi-jrc-en.pdf",
+    "sourceTitle": "Maebashi Red Cross Hospital case study (Cisco, 2025)"
+  },
+  {
+    "customer": "Kasugai Municipal Hospital",
+    "country": "Japan",
+    "products": [
+      "UCS C240 M7",
+      "NVIDIA L40S GPUs"
+    ],
+    "outcome": "The hospital built in-house generative AI on Cisco UCS so patient data stays on premises; AI drafts discharge summaries for staff review.",
+    "quote": "医療情報は個人情報の塊であり、クラウド上にそのまま置くことはできません。 (水草 博希, pharmacist; Japanese original)",
+    "metric": "More than 1,000 discharge summaries per month drafted by AI; available to all staff",
+    "vendorReported": true,
+    "year": null,
+    "sourceUrl": "https://www.cisco.com/site/jp/ja/about/case-studies-customer-stories/kasugai-municipal-hospital.html",
+    "sourceTitle": "Kasugai Municipal Hospital customer story (Cisco Japan, undated, Japanese)"
+  },
+  {
+    "customer": "Peterborough Regional Health Centre",
+    "country": "Canada",
+    "products": [
+      "Webex Boards",
+      "Room Navigators",
+      "Cisco Spaces",
+      "Kontakt.io badges (partner)"
+    ],
+    "outcome": "A Reactivation Care Centre for patients moving from hospital to home uses Webex devices and Cisco Spaces location services.",
+    "quote": "Our partnership with PRHC demonstrates how technology can transform healthcare delivery (Wayne Cuervo, Director, Cisco Canada's Digital Impact Office)",
+    "metric": "No measured clinical outcome published",
+    "vendorReported": true,
+    "year": 2025,
+    "sourceUrl": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m07/cisco-canada-and-peterborough-regional-health-centre-transform-transitional-care.html",
+    "sourceTitle": "Cisco Canada and Peterborough Regional Health Centre Transform Transitional Care (Cisco Newsroom, July 30, 2025)"
+  },
+  {
+    "customer": "Balgrist University Hospital (OR-X)",
+    "country": "Switzerland",
+    "products": [
+      "Nexus 9316D-GX",
+      "Cisco ACI",
+      "Wi-Fi 6E access points"
+    ],
+    "outcome": "Nexus, ACI and Wi-Fi 6E connect OR-X, a surgical training and research environment supported by Cisco's Country Digital Acceleration program.",
+    "quote": "its success depends on something fundamental: reliable, secure connectivity. (Garif Yalak, Cisco, article author)",
+    "metric": "144 R&D experiments in surgical data science, AI, and robotics; 2,195 medical professionals trained across 108 courses over two years",
+    "vendorReported": true,
+    "year": 2026,
+    "sourceUrl": "https://blogs.cisco.com/our-corporate-purpose/how-connectivity-is-shaping-the-future-of-healthcare",
+    "sourceTitle": "How connectivity is shaping the future of healthcare (Cisco Blogs, Apr 28, 2026)"
+  },
+  {
+    "customer": "Aizawa Hospital",
+    "country": "Japan",
+    "products": [
+      "Catalyst 9100 (Wi-Fi 7)",
+      "Catalyst Center",
+      "Cisco AI Assistant",
+      "Cisco Spaces"
+    ],
+    "outcome": "A 456-bed hospital refreshed its wireless LAN to Wi-Fi 7; outcome text could not be extracted from the Japanese PDF.",
+    "quote": "",
+    "metric": "Not extracted",
+    "vendorReported": true,
+    "year": 2026,
+    "sourceUrl": "https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/aizawahospital.pdf",
+    "sourceTitle": "Aizawa Hospital case study (Cisco Japan, 2026, Japanese PDF)"
+  }
+]

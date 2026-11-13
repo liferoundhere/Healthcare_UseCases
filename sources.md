@@ -512,3 +512,287 @@ From `research/05-cisco-cloud-control-data-fabric.md`.
 13. **MCP-enabled Catalog Discovery, knowledge graph, and lineage:** no GA dates found.
 14. **Quantum Ready Assessments in Cisco IQ:** "Global availability planned for July 2026" [2]; current status not confirmed.
 15. **Publication dates** for sources [24], [25], and [26] could not be confirmed.
+
+## R: Research briefs 06 to 09 (13 November 2026)
+
+Sources added by the four briefs written on 13 November 2026. Ids match the citations shown in the explainer (press S). Each brief keeps its own numbered list and gap list; this is the combined index.
+
+### Cloud Control as an agentic orchestrator (brief 06)
+
+- **[CC1]** Cisco Blogs, "A new chapter for IT operations: Cisco Cloud Control is now generally available for U.S. customers," Balaji Venkatraman, August 25, 2026. https://blogs.cisco.com/ai/cisco-cloud-control-us-general-availability
+- **[CC2]** Cisco Newsroom, "Cisco Unveils Agentic Platform for Operating and Defending Critical IT Infrastructure," June 2, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m06/cisco-unveils-agentic-platform-for-operating-and-defending-critical-it-infrastructure.html
+- **[CC3]** Cisco, "Cisco Cloud Control Release Notes" (header "Updated: October 30, 2026"; latest entry November 10, 2026; accessed November 13, 2026). https://www.cisco.com/c/en/us/td/docs/ai/cisco-cloud-control/release-notes/cisco-cloud-control-release-notes.html
+- **[CC4]** Cisco, "Cisco Cloud Control Getting Started" (last updated November 10, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-getting-started/cisco-cloud-control-getting-started.html
+- **[CC5]** Cisco, "Cisco Cloud Control Overview" (last updated November 10, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-overview/cisco-cloud-control-overview.html
+- **[CC6]** Cisco, "Cisco Cloud Control AI Canvas and AI Assistant" (last updated November 7, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-canvas/cisco-cloud-control-canvas.html
+- **[CC7]** Cisco, "Cisco Cloud Control Actions" (last updated November 5, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-actions/cisco-cloud-control-actions.html
+- **[CC8]** Cisco, "Cisco Cloud Control RBAC" (last updated October 31, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-rbac/cisco-cloud-control-rbac.html
+- **[CC9]** Cisco, "Cisco Cloud Control Inventory" (last updated October 31, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-inventory/cisco-cloud-control-inventory.html
+- **[CC10]** Cisco, "Cisco Cloud Control Topology" (last updated November 3, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-topology/cisco-cloud-control-topology.html
+- **[CC11]** Cisco, "Cisco Cloud Control Workflows" (last updated November 7, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-workflows/cisco-cloud-control-workflows.html
+- **[CC12]** Cisco, "Cisco Cloud Control Administration" (last updated November 10, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-administration/cisco-cloud-control-administration.html
+- **[CC13]** Cisco, "Cisco Cloud Control Terminology" (last updated October 31, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-terminology/cisco-cloud-control-terminology.html
+- **[CC14]** Cisco, "Cisco Cloud Control Licensing" (last updated October 31, 2026). https://cloud.cisco.com/docs/en/cisco-cloud-control-licensing/cisco-cloud-control-licensing.html
+- **[CC15]** Cisco Identity Intelligence Knowledge Base, "Cisco Identity in Cloud Control" (undated; accessed November 13, 2026). https://docs.oort.io/how-to-guides/cisco-identity-in-cloud-control
+- **[CC16]** Cisco Blogs, "Cisco Cloud Control: The Secure Harness for the Agentic Era," DJ Sampath, June 2, 2026. https://blogs.cisco.com/ai/cisco-cloud-control-the-secure-harness-for-the-agentic-era
+- **[CC17]** Cisco Blogs, "Inside Cisco Cloud Control: Building the AI-Native Platform of Record for Cross-Domain Operations," Balaji Venkatraman, June 2, 2026. https://blogs.cisco.com/ai/inside-cisco-cloud-control-building-the-ai-native-platform-of-record-for-cross-domain-operations
+- **[CC18]** Cisco Blogs, "Cisco AI Canvas is here: the workspace for agentic operations," Rohit Bakshi and Colby Philbin, June 2, 2026. https://blogs.cisco.com/ai/ai-canvas-controlled-availability
+- **[CC19]** Cisco Blogs, "Agent Builder in Cloud Control Studio: A new way to extend and customize Cisco Cloud Control," Vimarsh Puneet and Naveen Elango, June 2, 2026. https://blogs.cisco.com/ai/announcing-cisco-cloud-control-agent-builder
+- **[CC20]** Cisco Blogs, "From an Idea to a Live App on Cisco, in Minutes" (App Builder), Travis Sugarbaker, June 2, 2026. https://blogs.cisco.com/ai/from-an-idea-to-a-live-app-on-cisco-in-minutes
+- **[CC21]** Cisco Blogs, "From signal to action: The next step in Cisco AgenticOps," Joe Vaccaro, June 2, 2026. https://blogs.cisco.com/networking/from-signal-to-action-the-next-step-in-cisco-agenticops
+- **[CC22]** Cisco Blogs, "The Agentic Workplace Runs on Cisco," Anurag Dhingra, June 2, 2026. https://blogs.cisco.com/news/the-agentic-workplace-runs-on-cisco
+- **[CC23]** Cisco Blogs, "Navigating the Frontier of Agentic AI," Jeetu Patel, June 2, 2026. https://blogs.cisco.com/news/navigating-the-frontier-of-agentic-ai
+- **[CC24]** Cisco Blogs, "The Network is the Foundation: Powering the Agentic AI Era," Steve Clayton, June 2, 2026. https://blogs.cisco.com/news/the-network-is-the-foundation-powering-the-agentic-ai-era
+- **[CC25]** Cisco Newsroom, "Cisco Live 2026 keynotes: TL;DR edition," June 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m06/cisco-live-2026-keynotes-tldr-edition.html
+- **[CC26]** Cisco Newsroom, "Cisco Expands Partner Opportunity with New Cisco 360 Program Updates, High Yield Customer Experience Offerings, and AI-Ready Innovations," October 26, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m10/cisco-expands-partner-opportunity-with-new-cisco-360-program-updates-high-yield-customer-experience-offerings-and-ai-ready-innovations.html
+- **[CC27]** Cisco Blogs, "Powering Partner Potential in a World of Agentic AI," Joe Vaccaro, October 26, 2026. https://blogs.cisco.com/news/powering-partner-potential-in-a-world-of-agentic-ai
+- **[CC28]** Cisco Blogs, "Introducing Cisco Model Foundry: Bringing AI to our partners," DJ Sampath, October 26, 2026. https://blogs.cisco.com/ai/cisco-model-foundry-partner-summit
+- **[CC29]** Cisco Blogs, "Agentic AI demands a stronger, more assured network foundation," Grant Shirk, November 9, 2026. https://blogs.cisco.com/networking/agentic-ai-demands-a-stronger-more-assured-network-foundation
+- **[CC30]** Cisco Newsroom, "Cisco Unveils Frontier AI Red Teaming and Agent Observability to Secure the Agentic Enterprise," November 10, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m11/cisco-unveils-frontier-ai-red-teaming-and-agent-observability-to-secure-the-agentic-enterprise.html
+- **[CC31]** Cisco Blogs, "Moving Fast and Staying in Control in the Agentic AI Era," Steve Clayton, November 9, 2026. https://blogs.cisco.com/news/moving-fast-and-staying-in-control-in-the-agentic-ai-era
+- **[CC32]** Network World, "Cisco Live Melbourne: AI agents will break today's enterprise network, and Cisco wants to rebuild it," Zeus Kerravala, November 10, 2026. https://www.networkworld.com/article/4247022/cisco-live-melbourne-ai-agents-will-break-todays-enterprise-network-and-cisco-wants-to-rebuild-it.html
+- **[CC33]** Network World, "What is Cisco Cloud Control and why should customers care?" Zeus Kerravala, June 3, 2026. https://www.networkworld.com/article/4180810/what-is-cisco-cloud-control-and-why-should-customers-care.html
+- **[CC34]** Network World, "Cisco brings agentic ops platform and security overhaul to Cisco Live," Sean Michael Kerner, June 2, 2026. https://www.networkworld.com/article/4179673/cisco-brings-agentic-ops-platform-and-security-overhaul-to-cisco-live.html
+- **[CC35]** Network World, "Cisco taps AI, partners to modernize IT operations and fortify network security," Michael Cooney, October 27, 2026. https://www.networkworld.com/article/4240556/cisco-taps-ai-partners-to-modernize-it-operations-and-fortify-network-security.html
+- **[CC36]** Network World, "Cisco's partner shift: What customers should expect from their Cisco partner in the AI era," Zeus Kerravala, October 27, 2026. https://www.networkworld.com/article/4241463/ciscos-partner-shift-what-customers-should-expect-from-their-cisco-partner-in-the-ai-era.html
+- **[CC37]** TechTarget, "Cisco Cloud Control unites AgenticOps for IT infrastructure," Beth Pariseau, June 2, 2026. https://www.techtarget.com/searchitoperations/news/366643670/Cisco-Cloud-Control-unites-AgenticOps-for-IT-infrastructure
+- **[CC38]** Futurum, "Can Cisco Cloud Control Make AgenticOps Practical for Enterprises?" Tom Hollingsworth, June 5, 2026. https://futurumgroup.com/insights/can-cisco-cloud-control-make-agenticops-practical-for-enterprises/
+- **[CC39]** Futurum, "Cisco Live 2026: Platform, Silicon, and Security for the Agentic Era," Fernando Montenegro, June 8, 2026. https://futurumgroup.com/insights/cisco-live-2026-platform-silicon-and-security-for-the-agentic-era/
+- **[CC40]** Futurum, "Cisco Partner Summit 2026: An Energized Cisco Bets on Partner-Led AI," Alex Smith, October 30, 2026. https://futurumgroup.com/?p=97338
+- **[CC41]** NAND Research, "Cisco's Full-Stack Play for Agentic Enterprise AI," Steve McDowell, June 7, 2026. https://nand-research.com/?p=5652
+- **[CC42]** Efficiently Connected, "Cisco Cloud Control: AgenticOps Comes to Enterprise IT," Paul Nashawaty and Samantha Weston, June 5, 2026. https://www.efficientlyconnected.com/?p=7625
+- **[CC43]** Efficiently Connected, "Cisco Cloud Control and AgenticOps: Autonomous Infra or Bold Rebrand?" Paul Nashawaty and Samantha Weston, July 27, 2026. https://www.efficientlyconnected.com/?p=8526
+- **[CC44]** Aragon Research, "Cisco Live: The Race to Agentic Network Ops," Jim Lundy, June 3, 2026. https://aragonresearch.com/cisco-live-the-race-to-agentic-network-ops/
+- **[CC45]** Cisco Connect St. Louis, "Networking for the Agentic Era," David Friday and Brandon Dodd, October 13, 2026 (PDF, text extracted). https://www.cisco.com/c/dam/en_us/training-events/events/cisco-connect/stl-fpw-networking-for-the-agentic-era.pdf
+- **[CC46]** Cisco, AgenticOps learn topic page (URL slug "what-is-agentic-operations-agenticops"; page title not captured; undated; accessed November 13, 2026). https://www.cisco.com/site/us/en/learn/topics/artificial-intelligence/what-is-agentic-operations-agenticops.html
+- **[CC47]** Cisco, "Cisco AI Canvas" product page (accessed November 13, 2026). https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/ai-canvas/index.html
+- **[CC48]** Cisco, "Cisco Cloud Control" product page (accessed November 13, 2026). https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/cisco-cloud-control/index.html
+- **[CC49]** Cisco, "Agent Builder in Cloud Control Studio" product page (accessed November 13, 2026). https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/cloud-control-studio/index.html
+- **[CC50]** Cisco, AgenticOps for network operations page (accessed November 13, 2026). https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/net-ops/index.html
+- **[CC51]** Cisco, AgenticOps for security page (accessed November 13, 2026). https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/security/index.html
+- **[CC52]** Cisco, "Cisco Intersight Integration with Cisco Cloud Control (AI Canvas/AI Assistant) FAQ," updated September 1, 2026. https://www.cisco.com/c/en/us/products/collateral/computing/hybrid-cloud-operations/ii-cc-ai-canvas-asst-faq.html
+- **[CC53]** Cisco, "Resolve Data Center Issues Faster with Agentic AI Operations Solution Overview," updated June 2, 2026. https://www.cisco.com/c/en/us/products/collateral/networking/cloud-networking/resolve-dc-issues-faster-agentic-ai-operations-so.html
+- **[CC54]** Cisco Live, "Cisco Live 2026 Las Vegas Showcase Demo Guide" (PDF, text extracted), June 2026. https://www.ciscolive.com/c/dam/r/ciscolive/global-event/docs/2026/Cisco-Live-2026-Las-Vegas-Showcase-Demo-Guide.pdf
+- **[CC55]** Cisco Blogs, "Enabling Local AI Resilience with Cisco Cloud Control and NVIDIA DGX Station," Yash Sheth, October 21, 2026. https://blogs.cisco.com/ai/enabling-local-ai-resilience-with-cisco-cloud-control-and-nvidia-dgx-station
+- **[CC56]** Cisco Blogs, "Cisco IQ: Scaling Secure Resilience," Bhaskar Jayakrishnan, June 2, 2026. https://blogs.cisco.com/customerexperience/cisco-iq-scaling-secure-resilience
+- **[CC57]** Cisco, "Cisco Unified Edge for Intelligent Healthcare Solution Overview," updated February 10, 2026. https://www.cisco.com/c/en/us/products/collateral/computing/unified-edge/intelligent-healthcare-so.html
+
+### Data Fabric and third-party reach (brief 07)
+
+- **[DF1]** Splunk Blog, "From Vision to Value: New Splunk Platform Innovations Supporting Cisco Data Fabric Are Generally Available," Mangesh Pimpalkhare, August 4, 2026. https://www.splunk.com/en_us/blog/platform/splunk-platform-innovations-cisco-data-fabric-generally-available.html
+- **[DF2]** Splunk Blog, "Cisco Data Fabric: Solving for Visibility, Economics, and AI Readiness," Sancha Norris, August 13, 2026. https://www.splunk.com/en_us/blog/platform/cisco-data-fabric-solving-for-visibility-economics-and-ai-readiness.html
+- **[DF3]** Splunk Blog, "From Alert Fatigue to Operational Clarity: Turning Cisco Data Fabric Vision, powered by Splunk, into Agentic Operations Reality," Hanlin Fang, June 15, 2026. https://www.splunk.com/en_us/blog/leadership/turning-cisco-data-fabric-vision-into-agentic-operations-reality.html
+- **[DF4]** Splunk Blog, "Splunk at Cisco Live: Building the Intelligence Layer for Trusted Agentic Operations," Mangesh Pimpalkhare, June 2, 2026. https://www.splunk.com/en_us/blog/leadership/splunk-cisco-live-agentic-operations.html
+- **[DF5]** Splunk Blog, "Accelerating the Agentic Enterprise: New Splunk Platform Innovations at Cisco Live Las Vegas 2026," JK Lialias, June 2, 2026. https://www.splunk.com/en_us/blog/platform/new-splunk-platform-innovations-cisco-live-2026.html
+- **[DF6]** Splunk Blog, "From Data at Rest to Data in Action: Machine Data Lake and Catalog," Piyush Revuri and Teja Gattupalli, August 11, 2026. https://www.splunk.com/en_us/blog/platform/machine-data-lake-and-catalog.html
+- **[DF7]** Splunk Blog, "The Agentic Era Demands a New Data Foundation: How Cisco is Delivering It with Splunk," Mangesh Pimpalkhare, September 15, 2026. https://www.splunk.com/en_us/blog/platform/the-agentic-era-demands-a-new-data-foundation-how-cisco-is-delivering-it-with-splunk.html
+- **[DF8]** Cisco Newsroom, "Cisco Delivers Trusted AI at Scale Through New Splunk Advancements," September 15, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m09/cisco-delivers-trusted-ai-at-scale-through-new-splunk-advancements.html
+- **[DF9]** Cisco Newsroom, "Cisco Data Fabric Transforms Machine Data into AI-Ready Intelligence," September 8, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m09/cisco-data-fabric-transforms-machine-data-into-ai-ready-intelligence.html
+- **[DF10]** Cisco Newsroom, "Cisco Unveils Agentic Platform for Operating and Defending Critical IT Infrastructure," June 2, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m06/cisco-unveils-agentic-platform-for-operating-and-defending-critical-it-infrastructure.html
+- **[DF11]** Splunk Docs, "Overview of the federated search options for the Splunk platform," Splunk Cloud Platform 10.7, last updated October 17, 2026. https://help.splunk.com/en/splunk-cloud-platform/search/federated-search/10.7/welcome-to-splunk-federated-search/overview-of-the-federated-search-options-for-the-splunk-platform
+- **[DF12]** Splunk Docs, "Splunk Cloud Platform Service Details," version 10.7, last updated October 19, 2026. https://help.splunk.com/en/splunk-cloud-platform/get-started/service-terms-and-policies/10.7
+- **[DF13]** Splunk Docs, "Create an Amazon S3 dataset for federated search that is backed by an AWS Glue catalog table," Splunk Cloud Platform 10.6, last updated September 16, 2026. https://help.splunk.com/en/splunk-cloud-platform/search/federated-search/10.6/run-federated-searches-over-amazon-s3-datasets/define-an-amazon-s3-dataset/create-an-amazon-s3-dataset-for-federated-search-that-is-backed-by-an-aws-glue-catalog-table
+- **[DF14]** Splunk Docs, "What's new," Splunk Cloud Platform 10.6 release notes, last updated September 16, 2026. https://help.splunk.com/en/splunk-cloud-platform/release-notes/10.6/splunk-cloud-platform-release-notes/whats-new
+- **[DF15]** Splunk Docs, "What's new," Splunk Cloud Platform 10.7 release notes, last updated October 17, 2026. https://help.splunk.com/en/splunk-cloud-platform/release-notes/10.7/splunk-cloud-platform-release-notes/whats-new
+- **[DF16]** Splunk Docs, "Get started with Machine Data Lake," version 10.7, last updated October 21, 2026. https://help.splunk.com/en/splunk-cloud-platform/land-data-in-machine-data-lake/10.7/get-started-with-machine-data-lake
+- **[DF17]** Splunk Docs, "Release notes" (Machine Data Lake), last updated October 22, 2026. https://help.splunk.com/en/splunk-cloud-platform/land-data-in-machine-data-lake/10.7/release-notes
+- **[DF18]** Splunk Docs, "Cloud Monitoring Console" release notes, Splunk Cloud Platform 10.7, page header dated October 17, 2026. https://help.splunk.com/en/splunk-cloud-platform/release-notes/10.7/splunk-cloud-platform-release-notes/cloud-monitoring-console
+- **[DF19]** Splunk Docs, "Integrated Enterprise Value for Cisco data," Splunk Cloud Platform 10.5.2605, last updated August 3, 2026. https://help.splunk.com/en/splunk-cloud-platform/get-started/get-data-in/10.5.2605/cisco-source-type-benefit
+- **[DF20]** Splunk Docs, "About MCP Server for Splunk platform," version 1.0, last updated March 19, 2026. https://help.splunk.com/en/splunk-cloud-platform/mcp-server-for-splunk-platform/1.0/about-mcp-server-for-splunk-platform
+- **[DF21]** Splunk Docs, "About the MCP server for Splunk platform," version 2.1, last updated October 23, 2026. https://help.splunk.com/en/splunk-cloud-platform/mcp-server-for-splunk-platform
+- **[DF22]** Splunkbase, "Splunk MCP Server" (app 7931), version 2.1.0, October 24, 2026. https://splunkbase.splunk.com/app/7931
+- **[DF23]** Splunk Docs, "AI Toolkit Agent Launchpad," AI Toolkit 6.2.0, last updated October 13, 2026. https://help.splunk.com/en/splunk-enterprise/apply-machine-learning/use-ai-toolkit/6.2.0/ai-toolkit-connections-containers-and-agents/ai-toolkit-agent-launchpad
+- **[DF24]** GitHub, "splunk/splunk-agent-skills" (README), accessed November 13, 2026. https://github.com/splunk/splunk-agent-skills
+- **[DF25]** Splunk Blog, "Gen-AI Anomaly Detection Powered by the Cisco Deep Time Series Model," Brian Goleno, June 23, 2026. https://www.splunk.com/en_us/blog/platform/gen-ai-anomaly-detection-powered-by-the-cisco-deep-time-series-model.html
+- **[DF26]** Splunk Blog, "Introducing the Cisco Time Series Model: Unlock Machine Data Insights with Gen AI," Liang Gou and Sonal Pardeshi, November 24, 2025. https://www.splunk.com/en_us/blog/artificial-intelligence/introducing-the-cisco-time-series-model.html
+- **[DF27]** Splunk Blog, "Celebrating 20 Years of Splunkbase and What Comes Next," Rinita Datta and Dan Hosaka, July 9, 2026. https://www.splunk.com/en_us/blog/platform/celebrating-20-years-of-splunkbase.html
+- **[DF28]** Splunk, "Federated Search" product page, accessed November 13, 2026. https://www.splunk.com/en_us/products/federated-search.html
+- **[DF29]** TechTarget, "Splunk .conf26: Context, control for Cisco's AI agents at scale," Torsten Volk, September 17, 2026. https://www.techtarget.com/news/Splunk-conf26-Context-control-for-Ciscos-AI-agents-at-scale/856956/
+- **[DF30]** TechTarget, "Seismic shift in Splunk pricing spotlights AI data management," Beth Pariseau, September 18, 2026. https://www.techtarget.com/it-infrastructure/news/366650721/Seismic-shift-in-Splunk-pricing-spotlights-AI-data-management
+- **[DF31]** SiliconANGLE, "Splunk rebuilds its platform around agents," Paul Gillin, September 15, 2026. https://siliconangle.com/2026/09/15/splunk-rebuilds-its-platform-around-agents/
+- **[DF32]** Network World, "Highlights from Splunk .conf26 and what the news means to network engineers," Zeus Kerravala, September 15, 2026. https://www.networkworld.com/article/4222273/highlights-from-splunk-conf26-and-what-the-news-means-to-network-engineers.html
+- **[DF33]** Network World, "Cisco brings Splunk AI on-premises, expands agent observability, monitors token costs," Denise Dubie, September 15, 2026. https://www.networkworld.com/article/4222333/cisco-brings-splunk-ai-on-premises-expands-agent-observability-monitors-token-costs.html
+- **[DF34]** Splunk Blog, "Splunk Observability at .conf26: Optimize AI at Scale," Dave Hickman, September 16, 2026. https://www.splunk.com/en_us/blog/observability/splunk-observability-at-conf26-optimize-ai-at-scale.html
+- **[DF35]** Splunk Blog, "The Partner Advantage: Reimagine the Foundation for the Agentic Era," Jason Conger, September 24, 2026. https://www.splunk.com/en_us/blog/partners/reimagine-the-foundation-for-the-agentic-era.html
+- **[DF36]** Cisco Blogs, "Partner Summit 26: Building Trusted AI at Scale, Together," Shannon Leininger, November 5, 2026. https://blogs.cisco.com/partner/partner-summit-26-building-trusted-ai-at-scale-together
+- **[DF37]** Splunk Blog, "Turning Machine Data into Agentic Action: Splunk Now Available in Cisco Cloud Control," Coty Sugg, August 27, 2026. https://www.splunk.com/en_us/blog/platform/splunk-now-available-in-cisco-cloud-control.html
+- **[DF38]** Splunk Lantern, "Integrating Splunk Cloud Platform with Cisco Cloud Control and AI Canvas," accessed November 13, 2026 (no date shown). https://lantern.splunk.com/Splunk_and_Cisco_Use_Cases/Integrating_Splunk_Cloud_Platform_with_Cisco_Cloud_Control_and_AI_Canvas
+- **[DF39]** Cisco, "Cisco Cloud Control Release Notes" (HTML; header dated October 30, 2026; entries through November 10, 2026). https://www.cisco.com/c/en/us/td/docs/ai/cisco-cloud-control/release-notes/cisco-cloud-control-release-notes.html
+- **[DF40]** Splunk, "Healthcare" industry page, accessed November 13, 2026. https://www.splunk.com/en_us/solutions/industries/healthcare.html
+- **[DF41]** Splunk customer story, "NewYork-Presbyterian" (undated). https://www.splunk.com/en_us/customers/success-stories/new-york-presbyterian.html
+- **[DF42]** Splunk customer story, "Children's National Hospital" (undated). https://www.splunk.com/en_us/customers/success-stories/childrens-national-hospital.html
+- **[DF43]** Splunk customer story, "NYC Health + Hospitals" (undated). https://www.splunk.com/en_us/customers/success-stories/nyc-health-and-hospitals.html
+- **[DF44]** Splunk customer story, "Research University" (anonymized, undated). https://www.splunk.com/en_us/customers/success-stories/research-university.html
+- **[DF45]** Splunk customer story, "Imprivata" (undated). https://www.splunk.com/en_us/customers/success-stories/imprivata.html
+- **[DF46]** Cisco Newsroom, "Cisco and Splunk: Powering and protecting the AI revolution" (no date on page; URL path dated March 2024). https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2024/m03/powering-and-protecting-the-ai-revolution.html
+- **[DF47]** Splunk Lantern, "Monitoring medical record numbers for anomalous access," accessed November 13, 2026 (no date shown). https://lantern.splunk.com/Platform_Data_Management/Protect_Data/Monitoring_medical_record_numbers_for_anomalous_access
+- **[DF48]** Splunk, "Compliance at Splunk" (states information is current as of February 2026). https://www.splunk.com/en_us/about-splunk/splunk-data-security-and-privacy/compliance-at-splunk.html
+- **[DF49]** Splunk, "Splunk's Business Associate Agreement," accessed November 13, 2026. https://www.splunk.com/en_us/legal/splunk-baa.html
+- **[DF50]** Splunk, "Splunk Business Associate Agreement" exemplar PDF, marked "v. 10.23". https://www.splunk.com/en_us/pdfs/legal/splunk-baa.pdf
+- **[DF51]** Splunk Docs, "Filter and mask data using Ingest Processor," last updated June 16, 2026. https://help.splunk.com/en/splunk-cloud-platform/process-data-at-ingest-time/use-ingest-processors/process-data-using-pipelines/filter-and-mask-data-using-ingest-processor
+- **[DF52]** ThousandEyes Documentation, "Splunk ITSI Integration," accessed November 13, 2026. https://docs.thousandeyes.com/product-documentation/integration-guides/custom-built-integrations/splunk-app/itsi
+- **[DF53]** Splunk, "Operational Technology Intelligence" solution page, accessed November 13, 2026. https://www.splunk.com/en_us/solutions/operational-technology-intelligence.html
+- **[DF54]** Splunkbase, "Splunk Add-on for ServiceNow" (app 1928). https://splunkbase.splunk.com/app/1928
+- **[DF55]** Splunkbase, "CrowdStrike Falcon Event Streams Technical Add-On" (app 5082). https://splunkbase.splunk.com/app/5082
+- **[DF56]** Splunkbase, "Splunk Add-on for Okta Identity Cloud" (app 6553). https://splunkbase.splunk.com/app/6553
+- **[DF57]** Splunkbase, "Splunk Add-on for Palo Alto Networks" (app 7523). https://splunkbase.splunk.com/app/7523
+- **[DF58]** Splunkbase, "Zscaler Technical Add-On for Splunk" (app 3865). https://splunkbase.splunk.com/app/3865
+- **[DF59]** Splunkbase, "Splunk Add-on for Microsoft Security" (app 6207). https://splunkbase.splunk.com/app/6207
+- **[DF60]** Splunkbase, "Splunk Add-on for Microsoft Cloud Services" (app 3110). https://splunkbase.splunk.com/app/3110
+- **[DF61]** Splunkbase, "Splunk Add-on for Amazon Web Services (AWS)" (app 1876). https://splunkbase.splunk.com/app/1876
+- **[DF62]** Splunkbase, "Claroty xDome Add-on for Splunk" (app 6488). https://splunkbase.splunk.com/app/6488
+- **[DF63]** Splunkbase, "Medigate" (app 4820, archived). https://splunkbase.splunk.com/app/4820
+- **[DF64]** Splunkbase, "Armis App for Splunk" (app 4873). https://splunkbase.splunk.com/app/4873
+- **[DF65]** ORDR, "ORDR + Splunk" solution brief (PDF, copyright 2025). https://ordr.net/api/media/file/ORDR-Splunk-Solution-Brief_layout.pdf
+- **[DF66]** Splunkbase, "Splunk Add-on for VMware" (app 3215). https://splunkbase.splunk.com/app/3215
+- **[DF67]** Splunkbase, "TA for Nutanix Prism Central" (app 8349). https://splunkbase.splunk.com/app/8349
+- **[DF68]** Splunkbase, "Splunk Add-on for Citrix NetScaler" (app 2770). https://splunkbase.splunk.com/app/2770
+- **[DF69]** Splunkbase, "uberAgent UXM - Digital Employee Experience (DEX)" (app 1448). https://splunkbase.splunk.com/app/1448
+- **[DF70]** Splunkbase, "Perseeva LakeView Add-on" (app 10063). https://splunkbase.splunk.com/app/10063
+- **[DF71]** Splunkbase, "OT Security Add-on for Splunk" (app 5151). https://splunkbase.splunk.com/app/5151
+- **[DF72]** Splunkbase, "Cisco Security Cloud" (app 7404). https://splunkbase.splunk.com/app/7404
+- **[DF73]** Splunkbase, "Cisco Meraki Add-on for Splunk" (app 5580). https://splunkbase.splunk.com/app/5580
+- **[DF74]** Splunkbase, "Cisco ThousandEyes App for Splunk" (app 7719). https://splunkbase.splunk.com/app/7719
+- **[DF75]** Splunkbase, "Cisco Enterprise Networking Add-on for Splunk" / Cisco Catalyst Add-on (app 7538). https://splunkbase.splunk.com/app/7538
+- **[DF76]** Claroty, "Claroty xDome for Healthcare and Splunk Integration Brief" (landing page, no date). https://claroty.com/resources/integration-briefs/claroty-xdome-for-healthcare-and-splunk-integration-brief
+- **[DF77]** Splunk Blog, "HIMSS25: Digital Resilience in Healthcare - What It Really Means," Sean Price, March 24, 2025. https://www.splunk.com/en_us/blog/industries/himss25-digital-resilience-in-healthcare-what-it-means
+
+### Cisco healthcare portfolio and customers (brief 08)
+
+- **[HP1]** Cisco in healthcare (industry page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/solutions/industries/healthcare/index.html
+- **[HP2]** Why Cisco for healthcare. Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/solutions/industries/healthcare/why-cisco-for-healthcare.html
+- **[HP3]** Industry Use Case Explorer for healthcare (portfolio explorer). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/m/en_us/solutions/industries/portfolio-explorer/portfolio-explorer-for-healthcare.html
+- **[HP4]** Modernizing Cybersecurity in Healthcare (solution brief). Cisco. Updated Oct 16, 2026. https://www.cisco.com/c/en/us/products/collateral/security/modernizing-cybersecurity-healthcare-sb.html
+- **[HP5]** Validated Profile: Healthcare (SD-Access) Vertical. Cisco. Updated Oct 26, 2026. https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/cisco-validated-solution-profiles/validated-profile-healthcare_vertical.html
+- **[HP6]** Validated Profile: Healthcare (SD-WAN). Cisco. Updated Mar 4, 2026. https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/cisco-validated-solution-profiles/validated-profile-healthcare-sdwan.html
+- **[HP7]** FlashStack for Healthcare with Epic on Cisco UCS M7 X-Series, Pure Storage FlashArray//X R3 Series, and VMware vSphere 8.0 (Cisco Validated Design). Cisco. July 2023. https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/flashstack_epic_xseries.html
+- **[HP8]** FlexPod for Epic EHR (Cisco Validated Design). Cisco. November 2022. https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/flexpod_xseries_vmw_epic.html
+- **[HP9]** AI Inferencing on Cisco UCS X-Series with Intel AMX for Medical Image Analysis (Cisco Validated Design). Cisco. November 2024. https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/ai_inferencing_cisco_intel_medical_image_analysis.html
+- **[HP10]** Cisco Unified Edge for Intelligent Healthcare Solution Overview. Cisco. Updated Feb 10, 2026. https://www.cisco.com/c/en/us/products/collateral/computing/unified-edge/intelligent-healthcare-so.html
+- **[HP11]** Cisco AI POD Infrastructure for Enterprises Solution Overview. Cisco. Updated Feb 10, 2026. https://www.cisco.com/c/en/us/solutions/collateral/artificial-intelligence/infrastructure/ai-pods/enterprises-so.html
+- **[HP12]** Cisco XDR for Healthcare Solution Brief. Cisco. Updated Nov 13, 2024. https://www.cisco.com/c/en/us/products/collateral/security/xdr/xdr-healthcare-sb.html
+- **[HP13]** State of Wireless 2026. Unlocking the Multiplier Effect: How Strategic Investments Drive Healthcare Growth in the AI Era (Healthcare). Cisco. 2026 (PDF created Mar 27, 2026; survey Nov 2025). https://www.cisco.com/c/dam/en/us/products/wireless/state-of-wireless-report/cisco-wireless-report-healthcare.pdf
+- **[HP14]** Cisco Wireless Vocera Deployment Guide. Cisco. Updated Sept 23, 2022. https://www.cisco.com/c/en/us/products/collateral/wireless-mobility/wireless-lan-wlan/wireless-vocera-dep-guide-og.html
+- **[HP15]** Dräger Patient Monitoring with Cisco Catalyst Wireless Deployment Guide. Cisco. Updated July 14, 2021. https://www.cisco.com/c/en/us/products/collateral/wireless/drager-patient-monitoring-cat-wireless-dg.html
+- **[HP16]** Experience smart healthcare. Cisco Spaces. Undated; read Nov 13, 2026. https://spaces.cisco.com/experience-smart-healthcare/
+- **[HP17]** Care Re-Imagined: The Smart Hospital (Spaces Showcase Series, session 3). Cisco Spaces. Undated; read Nov 13, 2026. https://spaces.cisco.com/reimagined-the-smart-hospital/
+- **[HP18]** Cisco Spaces for Healthcare Use Case. Cisco. Updated Sept 23, 2022. https://www.cisco.com/c/en/us/solutions/collateral/enterprise-networks/dna-spaces/use-case-c96-742737.html
+- **[HP19]** Smart workspaces ("The Future of Workspaces Is Here"). Cisco Spaces. Undated; read Nov 13, 2026. https://spaces.cisco.com/smart-workspaces/
+- **[HP20]** Webex Instant Connect for Epic (app listing). Webex App Hub, Cisco. Undated; read Nov 13, 2026. https://apphub.webex.com/applications/webex-telehealth-connector-for-epic
+- **[HP21]** Announcing the new Epic integration for Webex Contact Center, empowering a seamless patient experience. Devinder Kathuria, Webex Blog, Cisco. Mar 3, 2025. https://blog.webex.com/customer-experience/announcing-epic-integration-webex-contact-center-empowering-seamless-patient-experience/
+- **[HP22]** Community Health Network Achieves 40% AI Containment and Streamlines Patient Care with Webex Contact Center and Cisco Collaboration Devices. Melody Leatherbury, Webex Blog, Cisco. Aug 20, 2026. https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/
+- **[HP23]** Modernize Healthcare Contact Centers for Staff and Patients. Calvin Hennick, HealthTech Magazine (CDW). November 2025. https://healthtechmagazine.net/article/2025/11/modernize-healthcare-contact-centers-staff-and-patients
+- **[HP24]** How Webex Helps Mersey Care NHS Manage the Growing Mental Health Crisis. Kristian McCann, UC Today. Jan 28, 2025. https://uctoday.com/how-webex-helps-mersey-care-nhs-manage-the-growing-mental-health-crisis
+- **[HP25]** Rush University System for Health (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/rush.html
+- **[HP26]** Bayside Health Peninsula (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/bayside-health.html
+- **[HP27]** Barts Health NHS Trust (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/barts-health-nhs-trust.html
+- **[HP28]** Joris Zorg (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/joris-zorg.html
+- **[HP29]** Phuong Dong Hospital (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/phuong-dong-hospital.html
+- **[HP30]** University Hospital Frankfurt (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/frankfurt-university-connected-healthcare.html
+- **[HP31]** Frankfurt University Hospital: enhancing patient and asset visibility. Cisco Spaces. Undated; read Nov 13, 2026. https://spaces.cisco.com/frankfurt-university-hospital-enhancing-patient-asset-visibility/
+- **[HP32]** Clarke County Hospital (customer story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/clarke-county-hospital.html
+- **[HP33]** NYC Health + Hospitals (customer story). Splunk, a Cisco company. Undated (footer 2026); read Nov 13, 2026. https://www.splunk.com/en_us/customers/success-stories/nyc-health-and-hospitals.html
+- **[HP34]** NYC Health + Hospitals (Customer Experience success story). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/m/en_us/customer-experience/success-stories/customer/nyc-health-hospitals.html
+- **[HP35]** Children's National Hospital (customer story). Splunk, a Cisco company. Undated; read Nov 13, 2026. https://www.splunk.com/en_us/customers/success-stories/childrens-national-hospital.html
+- **[HP36]** Dayton Children's Customer Case Study: Filling the Medical Device Security Gap (Customer Highlights). Cisco. March 2026 (footer 03/26). https://www.cisco.com/c/dam/en/us/products/collateral/security/identity-services-engine/DaytonChildrens_CaseStudy.pdf
+- **[HP37]** Maebashi Red Cross Hospital: Harnessing the Power of AI for Analysis, Detection, Scoring, and Automated Response to Ensure Uninterrupted Healthcare (case study, English). Cisco. 2025. https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/maebashi-jrc-en.pdf
+- **[HP38]** Kasugai Municipal Hospital (customer story, Japanese). Cisco Japan. Undated; read Nov 13, 2026. https://www.cisco.com/site/jp/ja/about/case-studies-customer-stories/kasugai-municipal-hospital.html
+- **[HP39]** Aizawa Hospital (case study, Japanese PDF). Cisco Japan. 2026. https://www.cisco.com/c/dam/global/ja_jp/about/case-studies-customer-success-stories/pdf/aizawahospital.pdf
+- **[HP40]** INFRAM Increases Access to Care for Central Health. HIMSS, produced for Cisco. 2024 (PDF created Oct 29, 2024). https://www.cisco.com/c/dam/en_us/services/healthcare-it-services/infram-increases-access-to-care-for-central-health.pdf
+- **[HP41]** Cisco Canada and Peterborough Regional Health Centre Transform Transitional Care (press release). Cisco Newsroom. July 30, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m07/cisco-canada-and-peterborough-regional-health-centre-transform-transitional-care.html
+- **[HP42]** How connectivity is shaping the future of healthcare. Garif Yalak, Cisco Blogs. Apr 28, 2026 (syndicated copies carry June 4, 2026). https://blogs.cisco.com/our-corporate-purpose/how-connectivity-is-shaping-the-future-of-healthcare
+- **[HP43]** AMD healthcare (anonymized customer story: three unnamed providers). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/amd-healthcare.html
+- **[HP44]** Cisco Security and Medigate (technical alliance partner page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/en/us/products/security/technical-alliance-partners/medigate.html
+- **[HP45]** Cisco Security and Claroty (technical alliance partner page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/en/us/products/security/technical-alliance-partners/claroty.html
+- **[HP46]** Cisco technology alliance page. Claroty. Undated; read Nov 13, 2026. https://claroty.com/partners/technology-alliances/cisco-and-medigate
+- **[HP47]** Mount Sinai Health System enhances medical device security with Claroty (Medigate) and Cisco (mirror of a Claroty case study). CaseStudies.com. Undated; read Nov 13, 2026. https://www.casestudies.com/company/claroty/case-study/integrating-medigate-cisco-for-enhanced-medical-device-security-at-mount-sinai-health-system
+- **[HP48]** Cisco partner page. Ordr. Undated; read Nov 13, 2026. https://ordr.net/partners/cisco
+- **[HP49]** Get Ahead of the HIPAA Security Rule Update With Secure Workload. Jorge Quintero, Cisco Blogs. Aug 27, 2025. https://blogs.cisco.com/security/get-ahead-of-hipaa-security-rule-update-with-secure-workload
+- **[HP50]** Four security updates to get ahead of proposed 2025 HIPAA amendments. Katherine Yang, Duo Blog, Cisco. Mar 31, 2025. https://duo.com/blog/security-updates-to-get-ahead-of-proposed-2025-hipaa-amendments
+- **[HP51]** Duo for healthcare (Epic EHR page). Duo, Cisco. Undated; read Nov 13, 2026. https://duo.com/solutions/healthcare/duo-for-epic-ehr
+- **[HP52]** Cisco Supercharges its Secure Enterprise Network Architecture for the AI Era (press release). Cisco Newsroom. Nov 3, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m11/cisco-supercharges-its-secure-enterprise-network-architecture-for-the-ai-era.html
+- **[HP53]** Cisco AI Defense (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/security/ai-defense/index.html
+- **[HP54]** Cisco Secure Access (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/security/secure-access/index.html
+- **[HP55]** Cisco Identity Services Engine (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/security/identity-services-engine/index.html
+- **[HP56]** Cisco Cyber Vision (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/security/industrial-security/cyber-vision/index.html
+- **[HP57]** Cisco Catalyst Center (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html
+- **[HP58]** Cisco Nexus Hyperfabric (product page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/products/networking/data-center-networking/nexus-hyperfabric/index.html
+- **[HP59]** Splunk IT Service Intelligence (product page). Splunk, a Cisco company. Undated; read Nov 13, 2026. https://www.splunk.com/en_us/products/it-service-intelligence.html
+- **[HP60]** Cisco IQ: Intelligence that Elevates Partners. Jennifer Craine, Cisco Blogs. June 2, 2026. https://blogs.cisco.com/customerexperience/cisco-iq-intelligence-that-elevates-partners
+- **[HP61]** Cisco Enterprise Networking Presents at Tech Field Day Extra at Cisco Live US 2026. Tech Field Day. June 2, 2026. https://techfieldday.com/appearance/cisco-enterprise-networking-presents-at-tech-field-day-extra-at-cisco-live-us-2026/
+- **[HP62]** The Agentic Workplace Runs on Cisco. Anurag Dhingra, Cisco Blogs. June 2, 2026. https://blogs.cisco.com/news/the-agentic-workplace-runs-on-cisco
+- **[HP63]** Cisco Named a Leader in the 2026 Gartner Magic Quadrant for Enterprise Wired and Wireless LAN Infrastructure. Anurag Dhingra, Cisco Blogs. May 20, 2026. https://blogs.cisco.com/news/cisco-named-a-leader-in-the-2026-gartner-magic-quadrant-for-enterprise-wired-and-wireless-lan-infrastructure
+- **[HP64]** Case studies and customer stories, healthcare filter (index page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/site/us/en/about/case-studies-customer-stories/index.html?filters=%2Findustries%2Fhealthcare
+- **[HP65]** Cisco Security and Armis (technical alliance partner page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/en/us/products/security/technical-alliance-partners/armis.html
+- **[HP66]** Cisco Security and Cynerio (technical alliance partner page). Cisco. Undated; read Nov 13, 2026. https://www.cisco.com/c/en/us/products/security/technical-alliance-partners/cynerio.html
+- **[HP67]** CenTrak – Locating and Sensing Services (partner app listing). Cisco Spaces. Undated; read Nov 13, 2026. https://spaces.cisco.com/apps/centrak-locating-and-sensing-services/
+- **[HP68]** Cisco IQ: Scaling Secure Resilience. Bhaskar Jayakrishnan, Cisco Blogs. June 2, 2026. https://blogs.cisco.com/customerexperience/cisco-iq-scaling-secure-resilience
+- **[HP69]** Children's Mercy Kansas City Fast-Tracks Network Segmentation (case study). Claroty. Undated (footer 2026); read Nov 13, 2026. https://blog.claroty.com/resources/case-studies/children-s-mercy-kansas-city-fast-tracks-network-segmentation
+
+### Agentic clinical and workplace operations (brief 09)
+
+- **[OP1]** Lukac PJ, et al. "Ambient AI Scribes in Clinical Practice: A Randomized Trial." NEJM AI 2025;2(12). Epub Nov 26, 2025. https://pubmed.ncbi.nlm.nih.gov/41497288/
+- **[OP2]** Afshar M, et al. "A Pragmatic Randomized Controlled Trial of Ambient Artificial Intelligence to Improve Health Practitioner Well-Being." NEJM AI 2025;2(12). Epub Nov 26, 2025. https://pubmed.ncbi.nlm.nih.gov/41625485/
+- **[OP3]** Olson KD, et al. "Use of Ambient AI Scribes to Reduce Administrative Burden and Professional Burnout." JAMA Network Open 2025;8(10):e2534976. https://pubmed.ncbi.nlm.nih.gov/41037268/
+- **[OP4]** Taylor SL, et al. "Quality of Clinical Notes Created by Ambient Listening Generative AI: Pragmatic Prospective Pilot Study." JMIR Medical Informatics, Apr 17, 2026;14:e86474. https://pubmed.ncbi.nlm.nih.gov/41996389/
+- **[OP5]** Muir KJ, et al. "Virtual Nursing for the Care of Hospitalized Patients." JAMA Network Open 2025;8(12):e2545597. https://pubmed.ncbi.nlm.nih.gov/41348359/
+- **[OP6]** Lee RW, et al. "Vulnerability of Large Language Models to Prompt Injection When Providing Medical Advice." JAMA Network Open 2025;8(12):e2549963. https://pubmed.ncbi.nlm.nih.gov/41632124/
+- **[OP7]** Jabbour S, et al. "Measuring the Impact of AI in the Diagnosis of Hospitalized Patients: A Randomized Clinical Vignette Survey Study." JAMA 2023;330(23):2275-2284. https://pubmed.ncbi.nlm.nih.gov/38112814/
+- **[OP8]** Jacques D, et al. "Evaluating Nurses' Perceptions of Documentation in the Electronic Health Record: Multimethod Analysis." JMIR Nursing, Apr 28, 2025;8:e69651. https://pubmed.ncbi.nlm.nih.gov/40294588/
+- **[OP9]** Shrank WH, Rogstad TL, Parekh N. "Waste in the US Health Care System: Estimated Costs and Potential for Savings." JAMA 2019;322(15):1501-1509. https://pubmed.ncbi.nlm.nih.gov/31589283/
+- **[OP10]** Menlo Ventures. "2025: The State of AI in Healthcare." Oct 21, 2025. https://menlovc.com/perspective/2025-the-state-of-ai-in-healthcare/
+- **[OP11]** Epic. "Real Results, Right Now: How Epic AI Is Reducing Costs, Improving Care, and Helping Patients." Mar 10, 2026. https://www.epic.com/epic/post/real-results-right-now-how-epic-ai-is-reducing-costs-improving-care-and-helping-patients/
+- **[OP12]** Healthcare IT Today (John Lynn). "Epic UGM 2026 - Judy Faulkner Keynote and Cool Stuff Ahead." Aug 19, 2026. https://www.healthcareittoday.com/2026/08/19/epic-ugm-2026-judy-faulkner-keynote-and-cool-stuff-ahead/
+- **[OP13]** Healthcare IT News. "Epic bets its AI speed at UGM." 2026. https://www.healthcareitnews.com/news/epic-bets-its-ai-speed-ugm
+- **[OP14]** Microsoft Industry Blog (Kees Hertogh). "Unify. Simplify. Scale: Microsoft Dragon Copilot meets the moment at HIMSS 2026." Mar 5, 2026. https://www.microsoft.com/en-us/industry/blog/?p=124758
+- **[OP15]** HIT Consultant (Fred Pennic). "Abridge expands clinical intelligence agent enterprise-wide." Aug 17, 2026. https://hitconsultant.net/2026/08/17/abridge-expands-clinical-intelligence-agent-enterprise-wide-ehr/
+- **[OP16]** HIT Consultant (Fred Pennic), reporting KLAS "AI Insights from the Arch Collaborative 2026." Jul 17, 2026. https://hitconsultant.net/2026/07/17/klas-arch-collaborative-2026-healthcare-ai-insights/
+- **[OP17]** Bain & Company and KLAS Research. Press release on the 2025 Healthcare IT Spending report. Oct 9, 2025. https://www.bain.com/about/media-center/press-releases/20252/healthcare-ai-investment-focusing-on-hard-dollar-returns-and-clinical-workflows-amid-shift-from-pilots-to-widespread-productionbain--company-and-klas-research/
+- **[OP18]** Deloitte Center for Health Solutions. "2026 US Health Care Executive Outlook." Dec 11, 2025. https://www.deloitte.com/us/en/insights/industry/health-care/life-sciences-and-health-care-industry-outlooks/2026-us-health-care-executive-outlook.html
+- **[OP19]** McKinsey & Company. "Generative AI in healthcare: Adoption trends and what's next." Q4 2025 survey. https://www.mckinsey.com/industries/healthcare/our-insights/generative-ai-in-healthcare-adoption-trends-and-whats-next
+- **[OP20]** HealthManagement.org. "Microsoft extends Dragon Copilot to nursing and partner ecosystem." Oct 23, 2025. https://healthmanagement.org/c/healthmanagement/News/microsoft-extends-dragon-copilot-to-nursing-and-partner-ecosystem
+- **[OP21]** American Medical Association. "AMA survey: Prior authorization reform pledge falls short with physicians." May 13, 2026. https://www.ama-assn.org/press-center/ama-press-releases/ama-survey-prior-authorization-reform-pledge-falls-short-physicians
+- **[OP22]** CMS. "CMS Interoperability and Prior Authorization Final Rule (CMS-0057-F)." Released Jan 17, 2024. https://www.cms.gov/priorities/burden-reduction/overview/interoperability/policies-regulations/cms-interoperability-prior-authorization-final-rule-cms-0057-f
+- **[OP23]** Georgetown University Center on Health Insurance Reforms. "New CMS WISeR Model Revives Concerns of Prior Authorization and Artificial Intelligence.". https://medicare.chir.georgetown.edu/new-cms-wiser-model-revives-concerns-of-prior-authorization-and-artificial-intelligence/
+- **[OP24]** Experian Health. "3rd Annual State of Claims Survey Finds Denials Still on the Rise." Sept 22, 2025. https://www.experianplc.com/newsroom/press-releases/2025/experian-health-s-3rd-annual-state-of-claims-survey-finds-denial
+- **[OP25]** Webex Blog (Cisco). "Community Health Network achieves 40% AI containment, streamlines patient care." Aug 20, 2026 (page also shows Sep 1, 2026). https://blog.webex.com/customer-experience/community-health-network-achieves-40-ai-containment-streamlines-patient-care/
+- **[OP26]** American Hospital Association, Center for Health Innovation Market Scan. "How Tampa General Hospital Accelerates AI Adoption." URL dated Mar 3, 2026. https://www.aha.org/aha-center-health-innovation-market-scan/2026-03-03-how-tampa-general-hospital-accelerates-ai-adoption
+- **[OP27]** Microsoft Source. "NHS England accelerates AI adoption with Microsoft 365 Copilot." June 8, 2026. https://news.microsoft.com/source/2026/06/08/nhs-england-accelerates-ai-adoption-with-microsoft-365-copilot-to-improve-service-delivery-reduce-costs-and-create-more-time-for-care/
+- **[OP28]** NSI Nursing Solutions. "2026 NSI National Health Care Retention & RN Staffing Report." March 2026. https://www.nsinursingsolutions.com/documents/library/nsi_national_health_care_retention_report.pdf
+- **[OP29]** US Energy Information Administration. "Commercial Buildings Energy Consumption Survey (CBECS) 2018: Health care buildings.". https://www.eia.gov/consumption/commercial/pba/health-care.php
+- **[OP30]** Kastle Systems. "Getting America Back to Work" occupancy barometer. Accessed Nov 13, 2026. https://www.kastle.com/safety-wellness/getting-america-back-to-work/
+- **[OP31]** Health Affairs. "The Role of Administrative Waste in Excess US Health Spending." Research brief, Oct 2022. https://www.healthaffairs.org/do/10.1377/hpb20220909.830296/
+- **[OP32]** Netskope Threat Labs. "Threat Labs Report: Healthcare 2026." Mar 2, 2026. https://threatlabs.netskope.com/reports/2026/threat-labs-report-healthcare-2026
+- **[OP33]** Wolters Kluwer Health. "Shadow AI: a hidden risk to healthcare" (survey report PDF, 2026; survey conducted Dec 2025, N=518). https://assets.contenthub.wolterskluwer.com/api/public/content/shadow-ai-a-hidden-risk-to-healthcare-pdf
+- **[OP34]** Censinet and CHIME Foundation. "AI Adoption Survey." Dec 16, 2025. https://www.censinet.com/blog/ai-adoption-survey-reveals-healthcares-governance-gap-and-drive-toward-agentic-usage
+- **[OP35]** Coalition for Health AI. "Joint Commission and Coalition for Health AI (CHAI) Release Initial Guidance to Support Responsible AI Adoption Across U.S. Health Systems." Sept 17, 2025. https://www.chai.org/news/joint-commission-and-coalition-for-health-ai-chai-release-initial-guidance
+- **[OP36]** Digital Health Insights. "Joint Commission launches responsible AI use certification." June 18, 2026. https://dhinsights.org/news/joint-commission-launches-responsible-ai-use-certification
+- **[OP37]** ECRI. "Misuse of AI chatbots tops annual list of health technology hazards." Jan 21, 2026. https://home.ecri.org/blogs/ecri-news/misuse-of-ai-chatbots-tops-annual-list-of-health-technology-hazards
+- **[OP38]** ECRI. "Artificial intelligence tops 2025 health technology hazards list." Dec 2024. https://home.ecri.org/blogs/ecri-news/artificial-intelligence-tops-2025-health-technology-hazards-list
+- **[OP39]** Holland & Knight. "HHS Releases Strategy Positioning Artificial Intelligence as the Core of Health Innovation." Dec 10, 2025. https://www.hklaw.com/en/insights/publications/2025/12/hhs-releases-strategy-positioning-artificial-intelligence
+- **[OP40]** Akerman LLP. "New Year, New AI Rules: Healthcare AI Laws Now in Effect." Jan 5, 2026. https://www.akerman.com/en/perspectives/hrx-new-year-new-ai-rules-healthcare-ai-laws-now-in-effect.html
+- **[OP41]** Manatt Health. "Health AI Policy Tracker." Published July 30, 2026. https://www.manatt.com/insights/newsletters/health-highlights/manatt-health-health-ai-policy-tracker
+- **[OP42]** Covington & Burling. "5 Key Takeaways from FDA's Revised Clinical Decision Support (CDS) Software Guidance." Jan 2026. https://www.cov.com/en/news-and-insights/insights/2026/01/5-key-takeaways-from-fdas-revised-clinical-decision-support-cds-software-guidance
+- **[OP43]** NIST. "Announcing the 'AI Agent Standards Initiative' for Interoperable and Secure Innovation." Feb 17, 2026. https://www.nist.gov/node/1906621
+- **[OP44]** OWASP GenAI Security Project. "OWASP Top 10 for Agentic Applications for 2026." Dec 9, 2025. https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+- **[OP45]** Koenecke A, et al. "Careless Whisper: Speech-to-Text Hallucination Harms." arXiv:2402.08021, submitted Feb 12, 2024, revised May 3, 2024 (ACM FAccT 2024). https://arxiv.org/abs/2402.08021
+- **[OP46]** Nelson Mullins. "Texas Attorney General Announces First-of-its-Kind Healthcare Generative AI Settlement." Sept 20, 2024. https://www.nelsonmullins.com/insights/blogs/ai-task-force/all/texas-attorney-general-announces-first-of-its-kind-healthcare-generative-ai-settlement
+- **[OP47]** Cisco. "Cisco AI Research: The Most AI-ready Companies Outpace Peers in the Race to Value" (AI Readiness Index 2025). Oct 14, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m10/cisco-ai-research-the-most-ai-ready-companies-outpace-peers-in-the-race-to-value.html
+- **[OP48]** Cisco. "Cisco Study Reveals Alarming Deficiencies in Security Readiness" (2025 Cybersecurity Readiness Index). May 7, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m05/cisco-study-reveals-alarming-deficiencies-in-security-readiness.html
+- **[OP49]** Cisco. "Cisco Research: A Major Infrastructure Shift Is Underway. AI Could Double the Strain or Solve It." June 4, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m06/cisco-research-a-major-infrastructure-shift-is-underway-ai-could-double-the-strain-or-solve-it.html
+- **[OP50]** Cisco/Splunk. "Global State of Security Report Reveals Critical Need for Connected Security Operations" (State of Security 2025). May 20, 2025. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m05/global-state-of-security-report-reveals-critical-need-for-connected-security-operations.html
+- **[OP51]** Cisco/Splunk. "Splunk Report: Agentic AI Takes Center Stage in CISOs' Path to Digital Resilience" (The CISO Report). Feb 24, 2026. https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m02/splunk-report-agentic-ai-takes-center-stage-in-cisos-path-to-digital-resilience.html
+- **[OP52]** Splunk. "The State of Observability 2026." Landing page; release reported as Oct 20, 2026. https://www.splunk.com/state-of-observability
+- **[OP53]** NETSCOUT. "Key Takeaways from the EMA Network Management Megatrends 2026." May 12, 2026. https://www.netscout.com/blog/key-takeaways-ema-network-management-megatrends-2026
+- **[OP54]** IT Brew. "Hospital IT pros are understaffed and overwhelmed: report." Aug 19, 2026 (Nile report; ISC2 2025 figures quoted). https://www.itbrew.com/stories/hospital-it-pros-are-understaffed-and-overwhelmed-report
+- **[OP55]** RCR Wireless (Sean Kinney). "Network automation: six levels, five blockers, four questions." Aug 18, 2025. https://rcrwireless.com/20250818/analyst-angle/network-automation-6-5-4
+- **[OP56]** Mohsin A, et al. "A Unified Framework for Human AI Collaboration in Security Operations Centers with Trusted Autonomy." arXiv:2505.23397, submitted May 29, 2025. https://arxiv.org/abs/2505.23397
+- **[OP57]** Palo Alto Networks. "2026 Identity Security Landscape." 2026. https://www.paloaltonetworks.com/idira/idira-identity-security-landscape
+- **[OP58]** Gartner. "Gartner Predicts Over 40% of Agentic AI Projects Will Be Canceled by End of 2027." June 25, 2025. https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027
+- **[OP59]** Webex Help Center (Cisco). "Bandwidth management for Board, Desk, and Room Series." Accessed Nov 2026. https://help.webex.com/article/51qu5cb
+- **[OP60]** GE HealthCare. "Command Center: Outcomes." Accessed Nov 2026. https://www.gehealthcare.com/en-us/products/software/command-center/outcomes
+- **[OP61]** Becker's Hospital Review. "Oracle Health's Clinical AI Agent excels in EHR integration: KLAS.". https://www.beckershospitalreview.com/healthcare-information-technology/innovation/oracle-ai-agent-excels-in-ehr-integration-klas
+- **[OP62]** AONL and Chartis Center for Burnout Solutions. "AONL Quick Hit: Virtual Care." February 2026 (PDF dated May 2026). https://www.aonl.org/system/files/media/file/2026/05/AONL-Quick-Hit-Results-Q1-2026.pdf
+- **[OP63]** The Register. Microsoft Azure outage report, Oct 29, 2025. https://theregister.com/2025/10/29/microsoft_azure_outage/
+- **[OP64]** Uptime Institute. "Annual Outage Analysis 2025." May 6, 2025. https://www.businesswire.com/news/home/20250506733553/en/Uptime-Announces-Annual-Outage-Analysis-Report-2025
+
