@@ -107,12 +107,12 @@ export default {
     zoneLabels: { floor: 'Perioperative floor', dc: 'Clinical systems', ext: 'Outside: the supplier' },
     pos: {
       or: [82, 134], lead: [192, 134], sec: [150, 250], hosts: [400, 160], acc: [612, 268], sup: [612, 136],
-      inv: [110, 418], cid: [280, 418], canvas: [450, 418], appr: [620, 418],
+      inv: [92, 418], cid: [212, 418], canvas: [335, 418], appr: [470, 418],
     },
   },
   narr: {
     subtitle: "MSK's public incident record is mostly about suppliers: a faulty vendor update suspended procedures needing anesthesia in July 2024, and three data incidents began at vendors.",
-    caveat: "All 'with Cisco' beats are hypotheses to validate. The July 2024 event was a faulty software update, not an attack, and nothing here would have prevented it. MSK has not published how long the pause lasted or how many procedures were affected. MSK's security vendors are not public. Outcomes are modeled, not measured.",
+    caveat: "All 'with Cisco' beats are hypotheses to validate. July 2024 was a faulty software update, not an attack, and nothing here would have prevented it. The length of the pause is not public. Outcomes are modeled.",
     nodes: [
       n('sup', 'cloud', 'A supplier', ['Software and remote access', 'Third party', 'Updates, VPN, file transfer']),
       n('acc', 'lock', 'Vendor access paths', ['What the supplier reaches', 'Several owning teams', 'Firewall, VPN, groups, keys']),
@@ -131,7 +131,7 @@ export default {
       { id: 'ext', label: 'Outside: the supplier', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
-    links: [k('sup', 'acc'), k('acc', 'hosts'), k('hosts', 'or', 0.1), k('lead', 'or'), k('sec', 'hosts', 0.1), k('sec', 'acc', 0.1), k('inv', 'hosts'), k('cid', 'acc'), k('inv', 'canvas', -0.3), k('cid', 'canvas'), k('canvas', 'lead', 0.1), k('canvas', 'appr'), k('appr', 'acc', 0.12)],
+    links: [k('sup', 'acc'), k('acc', 'hosts'), k('hosts', 'or', 0.1), k('lead', 'or'), k('sec', 'hosts', 0.1), k('sec', 'acc', 0.1), k('inv', 'hosts'), k('cid', 'acc'), k('inv', 'canvas', -0.42), k('cid', 'canvas'), k('canvas', 'lead', 0.1), k('canvas', 'appr'), k('appr', 'acc', 0.12)],
     steps: [
       {
         phase: 'today', title: 'The first hour is spent finding scope',
@@ -181,7 +181,7 @@ export default {
         callout: { node: 'sup', text: 'Modeled scope: one supplier, its accounts and the hosts it reaches.' },
       },
       {
-        phase: 'cisco', title: 'A person approves each containment step',
+        phase: 'cisco', title: 'A person approves containment',
         say: s(
           'Hypothesis: nothing that could interrupt care, such as cutting supplier access, would run without a named approver.',
           'Hypothesis: the workflow would list the clinical services that depend on the supplier before restricting its access.',
@@ -189,10 +189,10 @@ export default {
         ),
         show: ['appr'], n: { appr: 'pending' }, l: { 'canvas-appr': 'pending' },
         modal: {
-          title: "Restrict one supplier's access",
+          title: 'Restrict supplier access',
           lines: [
             "Suspend one supplier's remote access and data transfer until it confirms containment.",
-            'Approver: MSK security operations lead (to confirm)',
+            'Approver: MSK security lead (to confirm)',
             'Trust level: L3, execute after approve',
             'Executes in: Secure Access, ISE (hypothesis)',
           ],

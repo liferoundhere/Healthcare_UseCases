@@ -72,17 +72,17 @@ export default {
   pathNote: { legacy: 'Four billing models, two partial views [H]', tobe: 'Usage by application beside capacity' },
   outcomes: {
     legacy: [
-      [ '18%', 'of AI-scaling health systems and plans report mature financial attribution [Deloitte Healthcare CFO Survey 2026]', 'S' ],
-      [ '55%', 'of organizations cannot accurately control AI costs, cross-industry [Splunk State of Observability 2026, vendor-reported]', 'S' ],
-      [ '4%', 'of health-system IT leaders report scaled AI with measurable outcomes [Qventus CIO report 2026, vendor-reported]', 'S' ]
+      [ '18%', 'report mature financial attribution, 64 CFOs [Deloitte Healthcare CFO Survey 2026]', 'S' ],
+      [ '55%', 'cannot control AI costs, cross-industry [Splunk 2026, vendor-reported]', 'S' ],
+      [ '4%', 'report scaled AI with measurable outcomes [Qventus CIO report 2026, vendor-reported]', 'S' ]
     ],
     tobe: [
-      [ 'By application', 'token and GPU use attributed each month (modeled)', 'H' ],
+      [ 'Attributed', 'token and GPU use by application each month (modeled)', 'H' ],
       [ '1 view', 'usage beside the infrastructure it runs on (modeled)', 'H' ],
       [ '1 approval', 'before a cap or model change (modeled)', 'H' ]
     ]
   },
-  kpis: [ 'Token use per application per month', 'GPU utilization per node', 'Share of AI tools that expose usage data', 'Cost per completed task for one agent' ],
+  kpis: [ 'Token use per application per month', 'GPU utilization per node', 'Share of AI tools that expose usage data' ],
   ask: 'If your AI bill doubled next quarter, could you say which application, which agent and which department drove it?',
   tiles: [
     { l: 'Health systems and plans with mature financial attribution [Deloitte Healthcare CFO Survey 2026]', a: '18%', b: '18%', tag: 'S' },
@@ -194,7 +194,7 @@ export default {
         },
         l: { 'scribe-fin': 'ok', 'rcm-fin': 'ok', 'img-fin': 'ok', 'gpu-it': 'ok' },
         facts: [
-          { v: '$75', l: 'In tokens for one task at Jefferson Health: about two weeks of file analysis done in a day', s: "DistilINFO, citing Becker's, 2026" },
+          { v: '$75', l: 'In tokens for one task at one health system: about two weeks of file analysis done in a day', s: "DistilINFO, citing Becker's, 2026" },
           { v: '55%', l: 'Organizations that cannot accurately control AI costs (cross-industry)', s: 'Splunk State of Observability 2026, vendor-reported' }
         ]
       },
@@ -271,10 +271,9 @@ export default {
         modal: {
           title: "Cap an agent's daily token budget",
           lines: [
-            'Set a daily token limit on the revenue-cycle agent and route its summarization step to a lower-cost model.',
+            'Set a daily token limit on the revenue-cycle agent and use a lower-cost model.',
             'Approver: AI program owner with a finance partner',
-            'Trust level: L3, execute after approve',
-            'Executes in: The agent platform or model gateway'
+            'Executes in: the agent platform or gateway'
           ],
           button: 'Approve'
         }

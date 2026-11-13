@@ -16,7 +16,7 @@ export default {
   short: 'AI in production',
   name: 'Keeping 128 production AI models dependable',
   setting: 'An emergency department ambient note, the wireless and cloud path behind it, and the local GPU cluster',
-  situation: 'Ambient notes, evidence search inside the record and prediction models sit in clinical workflow, so a slow AI tool is a care-delivery problem.',
+  situation: 'More than 128 AI models sit in clinical workflow, so a slow AI tool is a care-delivery problem.',
   personas: ['Chief health informatics officer', 'CIO', 'AI governance lead', 'Network and cloud operations lead', 'Emergency department physician lead'],
   vision: 'Hypothesis to validate: one investigation shows the device, network, cloud path and AI service behind a slow clinical AI tool, and the informatics owner approves any change. Modeled, not measured.',
   legacy: {
@@ -91,9 +91,9 @@ export default {
   ],
   scene: {
     decor: 'ai',
-    zoneLabels: { hosp: 'Emergency department and data center', vend: 'Cloud AI and vendors' },
+    zoneLabels: { hosp: 'Emergency department and data center', vend: 'Cloud' },
     pos: {
-      note: [88, 132], wifi: [264, 132], gpu: [264, 290], ehr: [436, 216], inv: [88, 292],
+      note: [88, 132], wifi: [264, 206, { lab: 'r' }], gpu: [218, 266], ehr: [318, 318], inv: [456, 218],
       cloud: [626, 150],
       te: [110, 418], splunk: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
@@ -115,7 +115,7 @@ export default {
     ],
     zones: [
       { id: 'hosp', label: 'Emergency department and data center', hidden: false, cisco: false },
-      { id: 'vend', label: 'Cloud AI and vendors', hidden: false, cisco: false },
+      { id: 'vend', label: 'Cloud', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('note', 'wifi'), k('wifi', 'cloud'), k('cloud', 'ehr', 0.1), k('gpu', 'ehr'), k('inv', 'gpu', 0.1), k('inv', 'cloud', -0.1), k('te', 'cloud'), k('splunk', 'gpu'), k('te', 'canvas'), k('splunk', 'canvas', 0.1), k('canvas', 'wifi'), k('canvas', 'appr'), k('appr', 'wifi', 0.12)],

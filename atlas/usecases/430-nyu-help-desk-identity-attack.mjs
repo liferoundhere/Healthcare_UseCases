@@ -17,7 +17,7 @@ export default {
   short: 'Help desk attack',
   name: 'Stopping a help desk identity attack',
   setting: 'A phone call to the help desk, the identity and access systems behind it, and a clinician on shift',
-  situation: 'A caller posing as a clinician gets a credential reset and signs in. Three teams must join the evidence before clinical systems are reached. Illustrative scenario.',
+  situation: 'A caller posing as a clinician gets a credential reset and signs in. Illustrative scenario.',
   personas: ['Security operations lead', 'Identity and access lead', 'Service desk manager', 'Network operations lead', 'Clinical supervisor'],
   vision: 'Hypothesis to validate: the reset, the sign-in, the device and the network session of one suspect account sit on one timeline, and a named security lead approves containment. Modeled, not measured.',
   legacy: {
@@ -95,7 +95,7 @@ export default {
     zoneLabels: { floor: 'Clinical floor and help desk', dc: 'Data center and SOC', ext: 'Outside the hospital' },
     pos: {
       rn: [82, 132], desk: [160, 236], caller: [626, 190],
-      idp: [342, 132], nac: [470, 132], soc: [342, 292], sys: [470, 292],
+      idp: [336, 126], nac: [468, 172], soc: [342, 292], sys: [470, 292],
       cid: [110, 418], canvas: [365, 418], appr: [620, 418],
     },
   },

@@ -107,12 +107,12 @@ export default {
     zoneLabels: { floor: 'Regional infusion site', path: 'WAN and carriers', dc: 'Electronic health record' },
     pos: {
       chairs: [84, 130], pharm: [198, 130], call: [84, 296], wan: [312, 138], carrier: [364, 276], ehr: [570, 196],
-      te: [110, 418], dr: [280, 418], canvas: [450, 418], appr: [620, 418],
+      te: [92, 418], dr: [212, 418], canvas: [335, 418], appr: [470, 418],
     },
   },
   narr: {
     subtitle: 'Most MSK chemotherapy is given outside Manhattan, so a slow record, pharmacy or network path at one regional site delays infusion chairs that same day.',
-    caveat: "All 'with Cisco' beats are hypotheses to validate. No public source names MSK's WAN, wireless or monitoring vendors, or says where its Epic environment is hosted. The slow-record scenario is illustrative, not a reported MSK incident. Outcomes are modeled, not measured.",
+    caveat: "All 'with Cisco' beats are hypotheses to validate. No public source names MSK's WAN, wireless or monitoring vendors or its Epic hosting. The scenario is illustrative, not a reported MSK incident. Outcomes are modeled, not measured.",
     nodes: [
       n('chairs', 'pump', 'Infusion chair bay', ['Patients wait in chairs', 'Regional site nursing', 'Workstations on site Wi-Fi']),
       n('pharm', 'pill', 'Infusion pharmacy', ['Doses prepared to schedule', 'Pharmacy', 'Needs record and orders']),
@@ -131,7 +131,7 @@ export default {
       { id: 'dc', label: 'Electronic health record', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
-    links: [k('chairs', 'wan', -0.12), k('pharm', 'wan'), k('wan', 'carrier'), k('carrier', 'ehr'), k('call', 'wan', 0.1), k('call', 'ehr', 0.12), k('te', 'carrier'), k('te', 'canvas', -0.3), k('dr', 'canvas'), k('canvas', 'wan'), k('canvas', 'appr'), k('appr', 'wan', 0.12)],
+    links: [k('chairs', 'wan', -0.12), k('pharm', 'wan'), k('wan', 'carrier'), k('carrier', 'ehr'), k('call', 'wan', 0.1), k('call', 'ehr', 0.12), k('te', 'carrier'), k('te', 'canvas', -0.42), k('dr', 'canvas'), k('canvas', 'wan'), k('canvas', 'appr'), k('appr', 'wan', 0.12)],
     steps: [
       {
         phase: 'today', title: 'The chair is ready, the screen is not',

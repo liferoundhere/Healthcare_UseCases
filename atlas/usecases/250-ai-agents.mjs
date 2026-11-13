@@ -72,9 +72,9 @@ export default {
   pathNote: { legacy: 'The audit log shows a service account [H]', tobe: 'A named agent, a trace and an owner' },
   outcomes: {
     legacy: [
-      [ '94.4%', 'prompt-injection success in simulated medical-advice dialogues [JAMA Network Open 2025]', 'S' ],
-      [ '109:1', 'machine identities to human identities, cross-industry [Palo Alto Networks 2026, vendor-reported]', 'S' ],
-      [ '129', 'agent features listed as available in the Epic Agent Factory [Healthcare IT Today 2026]', 'S' ]
+      [ '94.4%', 'prompt-injection success in simulated medical dialogues [JAMA Network Open 2025]', 'S' ],
+      [ '109:1', 'machine to human identities, cross-industry [Palo Alto Networks 2026, vendor-reported]', 'S' ],
+      [ '129', 'agent features listed in the Epic Agent Factory [Healthcare IT Today 2026]', 'S' ]
     ],
     tobe: [
       [ '1 register', 'of agents, owners and reach (modeled)', 'H' ],
@@ -100,8 +100,8 @@ export default {
       ehr: [ 266, 134 ],
       diy: [ 88, 290 ],
       svc: [ 437, 215 ],
-      rcm: [ 596, 140 ],
-      inj: [ 650, 284 ],
+      rcm: [ 626, 140 ],
+      inj: [ 650, 290 ],
       sa: [ 110, 418 ],
       appr: [ 280, 418 ],
       cid: [ 450, 418 ],
@@ -266,10 +266,9 @@ export default {
         modal: {
           title: "Suspend an agent's access to records",
           lines: [
-            "Block the prior-authorization agent's API traffic and request removal of its write permission until its owner reviews the flagged actions.",
-            "Approver: Security lead with the agent's business owner",
-            'Trust level: L3, execute after approve',
-            'Executes in: Cisco Secure Access; EHR vendor console for EHR-side permissions'
+            "Block the prior-authorization agent's API traffic until its owner reviews it.",
+            "Approvers: security lead, the agent's business owner",
+            'Executes in: Cisco Secure Access'
           ],
           button: 'Approve'
         }

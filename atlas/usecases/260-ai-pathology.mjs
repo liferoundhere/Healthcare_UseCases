@@ -98,10 +98,10 @@ export default {
     pos: {
       scan: [ 130, 150 ],
       path: [ 112, 296 ],
-      wan: [ 320, 220 ],
-      ims: [ 462, 166 ],
-      ai: [ 570, 296 ],
-      arch: [ 660, 150 ],
+      wan: [ 320, 200, { lab: 't' } ],
+      ims: [ 455, 176 ],
+      ai: [ 570, 140 ],
+      arch: [ 675, 176 ],
       sdw: [ 110, 418 ],
       canvas: [ 280, 418 ],
       appr: [ 450, 418 ],
@@ -291,9 +291,8 @@ export default {
         modal: {
           title: 'Reroute slide traffic between sites',
           lines: [
-            'Move whole-slide transfers from the degraded circuit to the secondary path and reschedule the bulk archive job overnight.',
-            'Approver: Laboratory medical director with the network lead',
-            'Trust level: L3, execute after approve',
+            'Move slide transfers to the secondary path and run the archive job overnight.',
+            'Approvers: laboratory medical director, network lead',
             'Executes in: Catalyst SD-WAN Manager'
           ],
           button: 'Approve'

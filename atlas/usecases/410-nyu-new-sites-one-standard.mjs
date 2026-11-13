@@ -13,10 +13,10 @@ export default {
   editions: ['nyulh'],
   category: 'Account',
   pillars: ['Facilities', 'Security'],
-  short: 'New sites, one standard',
+  short: 'New sites',
   name: 'New hospitals and hubs, one operating standard',
   setting: 'A new ambulatory hub, a merged hospital and the system standard they must both reach',
-  situation: 'A merged hospital, a 45-acre future campus and three hubs opening within weeks of each other must reach one record, network and security baseline.',
+  situation: 'A merged hospital and three hubs opening within weeks must all reach one network and security baseline.',
   personas: ['CIO', 'Network change owner', 'CISO', 'Clinical operations lead for the site', 'Facilities and construction lead'],
   vision: 'Hypothesis to validate: each new or merged site is compared with the system standard in one view before the first patient arrives, and a named person approves every remediation. Modeled, not measured.',
   legacy: {

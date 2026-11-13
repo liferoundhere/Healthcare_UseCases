@@ -16,7 +16,7 @@ export default {
   short: 'Storm night',
   name: 'Storm night: one view of plant and network',
   setting: 'The East River campus on a storm night: the central plant, one network closet and one inpatient unit',
-  situation: 'A coastal storm threatens the East River campus. Facilities, network and clinical leaders need the same picture of power, connectivity and the systems patients depend on.',
+  situation: 'A coastal storm threatens the East River campus. Facilities, network and clinical leaders need one picture.',
   personas: ['Hospital incident commander', 'Facilities and engineering lead', 'Network operations lead', 'Emergency management director', 'Nursing leadership'],
   vision: 'Hypothesis to validate: facilities, IT and clinical leaders read one picture of power, network and care areas during a storm, and the incident commander approves each step. Modeled, not measured.',
   legacy: {
@@ -56,10 +56,10 @@ export default {
         ['After-action record', 'interviews and exports [H]', 'one decision timeline', 5, 'doc'],
       ],
     },
-    stays: 'Emergency management, the incident command system, the building management system, generators and switchgear, evacuation decisions and clinical downtime procedures stay with NYU Langone and its facilities vendors.',
+    stays: 'Emergency management, incident command, the building management system, generators and switchgear, evacuation decisions and downtime procedures stay with NYU Langone and its facilities vendors.',
     recap: [
       'Hypothesis to validate: one operating picture of plant and network. Incident command approves each step.',
-      'Modeled, not measured: the clinical consequence of an alarm is seen earlier. Building system integration is unverified.',
+      'Modeled, not measured. Building system integration is unverified.',
     ],
   },
   hops: {
@@ -71,12 +71,12 @@ export default {
     legacy: [
       ['About 300', 'patients evacuated in Hurricane Sandy [AP via CBS News 2012]', 'S'],
       ['59 days', 'until operating rooms and ICUs reopened [AP via NBC New York 2012]', 'S'],
-      ['2 rooms', 'watch plant and network on separate screens', 'H'],
+      ['2 rooms', 'watch plant and network', 'H'],
     ],
     tobe: [
-      ['1 picture', 'of power, network and care areas (modeled)', 'H'],
+      ['1 picture', 'of plant and network (modeled)', 'H'],
       ['1 approver', 'the incident commander (modeled)', 'H'],
-      ['1 record', 'of what was known, decided and done (modeled)', 'I'],
+      ['1 record', 'of each decision (modeled)', 'I'],
     ],
   },
   kpis: ['Time from a plant alarm to knowing which units are at risk', 'Units with a mapped closet, riser and power feed', 'Hours to assemble the after-action review'],
@@ -91,10 +91,10 @@ export default {
   ],
   scene: {
     decor: 'facilities',
-    zoneLabels: { tower: 'Inpatient tower', plant: 'Central plant', remote: 'Outside the campus' },
+    zoneLabels: { tower: 'Inpatient tower', plant: 'Central plant', remote: 'Off campus' },
     pos: {
-      unit: [74, 132], closet: [200, 128], noc: [232, 204],
-      fac: [540, 124], power: [664, 124], storm: [640, 296],
+      unit: [74, 122], closet: [200, 124], noc: [168, 206],
+      fac: [528, 108], power: [668, 132], storm: [640, 296],
       fabric: [110, 418], topo: [280, 418], canvas: [450, 418], appr: [620, 418],
     },
   },
@@ -117,7 +117,7 @@ export default {
       { id: 'tower', label: 'Inpatient tower', hidden: false, cisco: false },
       { id: 'imgz', label: '', hidden: false, cisco: false },
       { id: 'plant', label: 'Central plant', hidden: false, cisco: false },
-      { id: 'remote', label: 'Outside the campus', hidden: false, cisco: false },
+      { id: 'remote', label: 'Off campus', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
     links: [k('storm', 'power'), k('power', 'closet'), k('closet', 'unit'), k('fac', 'power'), k('noc', 'closet'), k('fac', 'noc', 0.1), k('fabric', 'power'), k('topo', 'closet'), k('fabric', 'canvas'), k('topo', 'canvas', 0.1), k('canvas', 'appr'), k('appr', 'closet', 0.12)],
@@ -153,7 +153,7 @@ export default {
           'Paging, voice, messaging and conferencing run on separate platforms with separate logs.',
         ),
         n: { unit: 'unknown' }, l: { 'fac-noc': 'unknown' },
-        label: { unit: 'At risk? Not yet known' },
+        label: { unit: 'Risk not yet known' },
         facts: [f('59 days', 'after the 2012 storm before operating rooms and ICUs reopened', 'AP via NBC New York 2012'), f('$1B', 'estimated damage from Hurricane Sandy, as reported at the reopening', 'AP via NBC New York 2012')],
       },
       {
@@ -172,7 +172,7 @@ export default {
       {
         phase: 'cisco', title: 'Incident command approves each step',
         say: s(
-          "A step that affects a care area, such as moving a unit's traffic to a backup path, waits for the incident commander.",
+          "A step that affects a care area, such as moving a unit's traffic, waits for the incident commander.",
           'Each recommendation carries its evidence and expected effect, and the approval is logged with a time and a name.',
           'The reroute or pre-staged failover is executed by the WAN or campus controller after approval, with the prior state saved for rollback.',
         ),

@@ -72,9 +72,9 @@ export default {
   pathNote: { legacy: 'A confirmation with no appointment behind it [H]', tobe: 'Agent steps joined to EHR write-backs' },
   outcomes: {
     legacy: [
-      [ '2.2M+', "calls handled by one health system's voice agent since 2024 [HIT Consultant 2026, vendor-reported]", 'S' ],
-      [ '40%', 'AI containment reported by one health network [Webex Blog 2026, vendor-reported]', 'S' ],
-      [ '>50%', 'of the time knowledge-based caller authentication is bypassed [Pindrop 2026, vendor-reported]', 'S' ]
+      [ '2.2M+', 'calls handled by one voice agent since 2024 [HIT Consultant 2026, vendor-reported]', 'S' ],
+      [ '40%', 'AI containment at one health network [Webex Blog 2026, vendor-reported]', 'S' ],
+      [ '>50%', 'caller authentication bypass rate [Pindrop 2026, vendor-reported]', 'S' ]
     ],
     tobe: [
       [ 'Same day', 'failed bookings caught before the visit (modeled)', 'H' ],
@@ -82,12 +82,7 @@ export default {
       [ '1 approval', 'before calls are rerouted to staff (modeled)', 'H' ]
     ]
   },
-  kpis: [
-    'Confirmed bookings with no EHR appointment',
-    'Time to detect a write-back failure',
-    'Calls transferred to staff with context',
-    'EHR scopes held by the agent service account'
-  ],
+  kpis: [ 'Confirmed bookings with no EHR appointment', 'Time to detect a write-back failure', 'Calls transferred to staff with context' ],
   ask: 'How would you find out that your phone agent confirmed appointments last night that never reached the schedule?',
   tiles: [
     { l: 'Calls handled by one voice agent since 2024 [HIT Consultant 2026, vendor-reported]', a: '2.2M+', b: '2.2M+', tag: 'S' },
@@ -103,9 +98,9 @@ export default {
     pos: {
       caller: [ 112, 150 ],
       ccx: [ 330, 150 ],
-      agent: [ 330, 296 ],
-      staff: [ 520, 150 ],
-      desk: [ 660, 150 ],
+      agent: [ 330, 296, { lab: 'r' } ],
+      staff: [ 505, 150 ],
+      desk: [ 665, 150 ],
       sched: [ 600, 296 ],
       obs: [ 110, 418 ],
       canvas: [ 280, 418 ],
@@ -221,8 +216,8 @@ export default {
         },
         l: { 'caller-ccx': 'ok', 'ccx-agent': 'ok', 'agent-sched': 'ok', 'sched-desk': 'ok' },
         facts: [
-          { v: '2.2M+', l: "Patient calls handled by MUSC Health's voice agent since its 2024 launch", s: 'HIT Consultant 2026, vendor-reported' },
-          { v: '160,000+', l: "Patient calls a month handled by WellSpan Health's voice agent", s: 'WellSpan Health 2026, vendor-reported' }
+          { v: '2.2M+', l: "Patient calls handled by one academic health system's voice agent since its 2024 launch", s: 'HIT Consultant 2026, vendor-reported' },
+          { v: '160,000+', l: "Patient calls a month handled by one regional health system's voice agent", s: 'Health system announcement 2026, vendor-reported' }
         ]
       },
       {
@@ -273,7 +268,7 @@ export default {
         },
         label: { caller: '' },
         callout: { node: 'obs', text: 'The agent said confirmed. The scheduling interface returned an error.' },
-        facts: [ { v: '40%', l: 'AI containment reported by Community Health Network on its contact center', s: 'Webex Blog 2026, vendor-reported' } ],
+        facts: [ { v: '40%', l: 'AI containment reported by one health network on its contact center', s: 'Webex Blog 2026, vendor-reported' } ],
         clock: { label: '', mode: 'hide' }
       },
       {
@@ -289,12 +284,7 @@ export default {
         l: { 'canvas-appr': 'pending' },
         modal: {
           title: 'Reroute calls from agent to staff',
-          lines: [
-            "Send scheduling calls to the staffed queue and suspend the agent's booking permission until write-back errors clear.",
-            'Approver: Patient access director',
-            'Trust level: L3, execute after approve',
-            'Executes in: Contact center platform routing (Webex Contact Center where deployed)'
-          ],
+          lines: [ "Send scheduling calls to staff and suspend the agent's booking permission.", 'Approver: patient access director', 'Executes in: contact center routing' ],
           button: 'Approve'
         }
       },

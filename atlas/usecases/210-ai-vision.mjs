@@ -97,7 +97,7 @@ export default {
     pos: {
       cam: [ 82, 134 ],
       bedn: [ 160, 240 ],
-      closet: [ 192, 322 ],
+      closet: [ 192, 322, { lab: 'l' } ],
       edge: [ 400, 160 ],
       relay: [ 620, 126 ],
       vn: [ 626, 270 ],
@@ -186,7 +186,7 @@ export default {
       {
         id: 'appr',
         icon: 'people',
-        title: 'Network and nursing approvers',
+        title: 'Network and nursing leads',
         sub: { exec: 'Two people decide', dir: 'Change manager, nursing informatics', eng: 'L3: execute after approve' },
         hidden: true,
         r: 30
@@ -224,7 +224,7 @@ export default {
         },
         l: { 'cam-closet': 'ok', 'closet-edge': 'ok', 'edge-relay': 'ok', 'relay-vn': 'ok' },
         facts: [
-          { v: '1,800+', l: 'Smart-room devices being installed systemwide at UChicago Medicine', s: 'AHA Market Scan 2026, vendor-reported' },
+          { v: '1,800+', l: 'Smart-room devices being installed across one academic health system', s: 'AHA Market Scan 2026, vendor-reported' },
           { v: '<150 ms', l: 'Target for the full video round trip in virtual care, to avoid service interruptions', s: 'American Telemedicine Association 2025' }
         ]
       },
@@ -295,7 +295,7 @@ export default {
         phase: 'cisco',
         title: 'Nursing informatics approves the change',
         say: {
-          exec: 'Before any switch or QoS change reaches patient rooms, named network and nursing approvers see the proposed change, the rooms affected and the rollback.',
+          exec: 'Before a switch or QoS change reaches patient rooms, named network and nursing approvers see the change, the rooms affected and the rollback.',
           dir: 'The Actions queue would hold the change until it is approved, and the Audit log would record who approved what and when.',
           eng: 'The approved change (PoE priority, QoS policy or port move) is pushed by Catalyst Center or the Meraki dashboard, not by the agent directly.'
         },
@@ -303,12 +303,11 @@ export default {
         n: { appr: 'pending' },
         l: { 'canvas-appr': 'pending' },
         modal: {
-          title: 'Change to patient-room switch ports',
+          title: 'Patient-room port change',
           lines: [
-            "Raise PoE priority and apply the video QoS policy on the closets serving one unit's smart rooms.",
-            'Approver: Network change manager with the nursing informatics lead',
-            'Trust level: L3, execute after approve',
-            'Executes in: Catalyst Center or the Meraki dashboard'
+            "Raise PoE priority and apply the video QoS policy on one unit's closets.",
+            'Approvers: network change manager, nursing informatics lead',
+            'Executes in: Catalyst Center or Meraki'
           ],
           button: 'Approve'
         }

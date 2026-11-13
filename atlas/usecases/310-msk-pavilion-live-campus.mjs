@@ -103,13 +103,13 @@ export default {
     decor: 'facilities', // tower (x 20 to 302), imgz (312 to 452), plant (462 to 720), remote (y 246 to 362)
     zoneLabels: { tower: 'Memorial Hospital, live care', imgz: 'Pavilion suites', plant: 'Pavilion building systems', remote: 'Over 67th Street' },
     pos: {
-      care: [78, 128], clin: [196, 128], suites: [382, 138], bms: [528, 126], trades: [656, 126], bridge: [340, 296],
-      topo: [110, 418], canvas: [280, 418], wf: [450, 418], appr: [620, 418],
+      care: [88, 118], clin: [216, 150], suites: [382, 138], bms: [524, 126], trades: [654, 142, { lab: 't' }], bridge: [340, 296],
+      topo: [92, 418], canvas: [212, 418], wf: [335, 418], appr: [470, 418],
     },
   },
   narr: {
     subtitle: "A new inpatient and surgical building must join Memorial Hospital's network, security and building systems while cancer care continues in the hospital next door.",
-    caveat: "All 'with Cisco' beats are hypotheses to validate. MSK has not said which network, security or building vendors the pavilion will use. Public sources conflict on operating suite count (28 in MSK's March 2025 page, 12 in June 2026 trade press); do not quote a count. Outcomes are modeled, not measured.",
+    caveat: "All 'with Cisco' beats are hypotheses to validate. MSK has not said which vendors the pavilion will use. Public sources conflict on the operating suite count (28 versus 12), so no count is quoted. Outcomes are modeled, not measured.",
     nodes: [
       n('suites', 'ct', 'New operating suites', ['Every room a device list', 'Perioperative and biomedical', 'Ports, VLANs, access policy']),
       n('bms', 'gear', 'Building controllers', ['Air, power, access', 'Facilities and contractors', 'Staged trade by trade']),

@@ -72,9 +72,9 @@ export default {
   pathNote: { legacy: 'Three teams, no view of input age [H]', tobe: 'Input timestamps next to each prediction' },
   outcomes: {
     legacy: [
-      [ '0.13-0.26', 'positive predictive value, updated Epic Sepsis Model, 4 US health systems [JAMA Network Open 2026]', 'S' ],
-      [ '0.82-0.92', 'encounter-level AUROC for the same model, by site [JAMA Network Open 2026]', 'S' ],
-      [ '18.7%', 'relative mortality reduction when a sepsis alert was confirmed within 3 hours [Nature Medicine 2022]', 'S' ]
+      [ '0.13-0.26', 'positive predictive value, updated Epic Sepsis Model [JAMA Network Open 2026]', 'S' ],
+      [ '0.82-0.92', 'AUROC for the same model, by site [JAMA Network Open 2026]', 'S' ],
+      [ '18.7%', 'relative mortality reduction, alert confirmed within 3 hours [Nature Medicine 2022]', 'S' ]
     ],
     tobe: [
       [ 'Flagged', 'a lagging feed, before scores go stale (modeled)', 'H' ],
@@ -98,7 +98,7 @@ export default {
     pos: {
       mon: [ 84, 134 ],
       rn: [ 205, 134 ],
-      edd: [ 130, 300 ],
+      edd: [ 84, 300 ],
       gw: [ 337, 300 ],
       ie: [ 480, 290 ],
       lab: [ 640, 290 ],
@@ -280,10 +280,9 @@ export default {
         modal: {
           title: 'Restart the vitals interface feed',
           lines: [
-            'Restart the monitor-to-EHR interface channel and replay queued vitals for two units in a window agreed with charge nurses.',
-            'Approver: Clinical informatics lead',
-            'Trust level: L3, execute after approve',
-            'Executes in: Hospital interface engine, through the change system'
+            'Restart the monitor-to-EHR channel and replay queued vitals for two units.',
+            'Approver: clinical informatics lead',
+            'Executes in: the hospital interface engine'
           ],
           button: 'Approve'
         }

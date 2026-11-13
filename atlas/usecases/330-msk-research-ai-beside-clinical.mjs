@@ -108,12 +108,12 @@ export default {
     zoneLabels: { hosp: 'Clinical and research computing', vend: 'Public cloud' },
     pos: {
       view: [90, 290], path: [265, 128], rev: [437, 214], fab: [437, 320], gpu: [265, 292], cloud: [626, 150],
-      topo: [110, 418], fed: [280, 418], canvas: [450, 418], appr: [620, 418],
+      topo: [92, 418], fed: [212, 418], canvas: [335, 418], appr: [470, 418],
     },
   },
   narr: {
     subtitle: 'Pathology slides, scans and genomic data feed both patient care and research AI, on premises and in public cloud, across infrastructure the two worlds share.',
-    caveat: "All 'with Cisco' beats are hypotheses to validate. Public sources name Dell and WEKA for research computing and AWS for cloud; none names MSK's data center network or security vendors. Dell's figures are vendor-reported. Whether clinical and research traffic share paths at MSK is not public. Outcomes are modeled, not measured.",
+    caveat: "All 'with Cisco' beats are hypotheses to validate. Dell's figures are vendor-reported. Whether clinical and research traffic share paths at MSK is not public. Outcomes are modeled, not measured.",
     nodes: [
       n('view', 'scan', 'Clinical image viewing', ['Scans read for care', 'Imaging informatics', 'Large studies, low delay']),
       n('path', 'flask', 'Digital pathology slides', ['Feed care and research', 'Pathology informatics', 'Very large slide transfers']),
@@ -131,7 +131,7 @@ export default {
       { id: 'vend', label: 'Public cloud', hidden: false, cisco: false },
       { id: 'cc', label: 'Cisco Cloud Control (modeled)', hidden: true, cisco: true },
     ],
-    links: [k('view', 'fab', 0.1), k('path', 'fab', 0.1), k('fab', 'gpu'), k('fab', 'cloud'), k('rev', 'gpu', 0.1), k('rev', 'cloud', -0.1), k('topo', 'fab'), k('fed', 'cloud'), k('topo', 'canvas', -0.3), k('fed', 'canvas'), k('canvas', 'appr'), k('appr', 'fab', 0.12)],
+    links: [k('view', 'fab', 0.1), k('path', 'fab', 0.1), k('fab', 'gpu'), k('fab', 'cloud'), k('rev', 'gpu', 0.1), k('rev', 'cloud', -0.1), k('topo', 'fab'), k('fed', 'cloud'), k('topo', 'canvas', -0.42), k('fed', 'canvas'), k('canvas', 'appr'), k('appr', 'fab', 0.12)],
     steps: [
       {
         phase: 'today', title: 'Two worlds on shared ground',

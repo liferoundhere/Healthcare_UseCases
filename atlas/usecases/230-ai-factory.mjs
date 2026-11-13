@@ -72,9 +72,9 @@ export default {
   pathNote: { legacy: 'Three teams, each blames another layer [H]', tobe: 'GPU, fabric, storage and app in one view' },
   outcomes: {
     legacy: [
-      [ '120-132 kW', 'per rack for a current GPU design, average near 9 kW [NVIDIA; Uptime Institute 2025]', 'S' ],
-      [ '26%', 'of organizations report robust GPU capacity, cross-industry [Cisco AI Readiness Index 2025, vendor-reported]', 'S' ],
-      [ '322', 'registered users of an on-premises language model at one university hospital [JMIR AI 2026]', 'S' ]
+      [ '120-132 kW', 'per current GPU rack, average near 9 kW [NVIDIA; Uptime Institute 2025]', 'S' ],
+      [ '26%', 'report robust GPU capacity [Cisco AI Readiness Index 2025, vendor-reported]', 'S' ],
+      [ '322', 'users of an on-premises language model, one hospital [JMIR AI 2026]', 'S' ]
     ],
     tobe: [
       [ '1 investigation', 'from GPU node to clinical app (modeled)', 'H' ],
@@ -82,7 +82,7 @@ export default {
       [ '2 approvers', 'before a clinical workload moves (modeled)', 'H' ]
     ]
   },
-  kpis: [ 'Time to name the layer behind a slow model', 'GPU utilization per node', 'Inference latency per clinical app', 'Power and cooling headroom per rack' ],
+  kpis: [ 'Time to name the layer behind a slow model', 'GPU utilization per node', 'Inference latency per clinical app' ],
   ask: 'Who is on call at 2 a.m. for the GPU cluster your clinicians now depend on, and what would they look at first?',
   tiles: [
     { l: 'Power per current GPU rack [NVIDIA; Uptime Institute 2025]', a: '120-132 kW', b: '120-132 kW', tag: 'S' },
@@ -166,7 +166,7 @@ export default {
       {
         id: 'appr',
         icon: 'people',
-        title: 'Infrastructure and clinical owners',
+        title: 'Infrastructure, AI owners',
         sub: { exec: 'Two people decide', dir: 'Infrastructure lead, AI owner', eng: 'L3: execute after approve' },
         hidden: true,
         r: 30
@@ -202,7 +202,7 @@ export default {
         },
         l: { 'gpu-fab': 'ok', 'fab-store': 'ok', 'serve-gpu': 'ok', 'app-serve': 'ok', 'cool-gpu': 'ok' },
         facts: [
-          { v: '4 wk to 1', l: "Pathology model work on Mayo Clinic's NVIDIA DGX SuperPOD, as stated by Mayo Clinic", s: 'AHA Market Scan 2025, vendor-reported' },
+          { v: '4 wk to 1', l: "Pathology model work on one academic medical center's GPU system, by its own account", s: 'AHA Market Scan 2025, vendor-reported' },
           { v: '322', l: 'Registered users of an on-premises language model at one German university hospital', s: 'JMIR AI 2026' }
         ]
       },
@@ -273,9 +273,8 @@ export default {
         modal: {
           title: 'Drain a GPU node serving clinical models',
           lines: [
-            'Drain one node for a firmware fix and shift imaging inference to the remaining nodes during the overnight window.',
-            'Approver: Infrastructure lead with the clinical AI owner',
-            'Trust level: L3, execute after approve',
+            'Drain one node for a firmware fix and move imaging inference overnight.',
+            'Approvers: infrastructure lead, clinical AI owner',
             'Executes in: Cisco Intersight'
           ],
           button: 'Approve'
