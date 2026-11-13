@@ -82,7 +82,7 @@ DECOR.vnurse = (S) => {
     D.box(358, 142, 164, 32, { fill: KP().raised, r: 4 }); K.rackRow(368, 148, 3); AIK.lcRacks(414, 148, 2, -6); K.rackRow(446, 148, 4); K.ups(504, 146);
   });
   Z(S, 'hub', 350, 190, 180, 172, ['vn'], () => {
-    AIK.videoWall(366, 216, 8, 2);
+    AIK.videoWall(366, 216, 8, 1, 17, 14);
     [376, 504].forEach((x) => AIK.agentDesk(x, 334, 'nurse', 34));
   });
   Z(S, 'ext', 540, 56, 180, 306, ['relay'], () => {
@@ -138,12 +138,12 @@ DECOR.bedside = (S) => {
     [56, 104, 152].forEach((x, k) => { K.bed(x, 322, {}); track(x + 24, 298, 50); if (k === 0) K.ecg(x - 9, 290, 18, 8); });
     K.crashCart(282, 330); walker(S, [[44, 268], [200, 268]], { speed: 12, kind: 'nurse', loop: false });
   });
-  Z(S, 'path', 320, 56, 120, 306, ['gw'], () => {
-    room(328, 78, 104, 274, 'IDF closet'); K.rackRow(338, 104, 4, { vertical: true }); K.switchStack(338, 300, 3, 84); K.cableTray(344, 168, 104, true);
+  Z(S, 'path', 320, 56, 130, 306, ['gw'], () => {
+    room(328, 78, 114, 274, 'IDF closet'); K.rackRow(338, 104, 4, { vertical: true }); K.switchStack(338, 300, 3, 94); K.cableTray(344, 168, 104, true);
   });
-  Z(S, 'dc', 450, 56, 270, 306, ['ie', 'lab', 'model'], () => {
-    room(458, 78, 254, 120, 'Model host'); K.rackRow(472, 172, 15, { led: COL.cisco });
-    room(458, 208, 140, 144, 'Integration'); K.rackRow(470, 324, 8);
+  Z(S, 'dc', 460, 56, 260, 306, ['ie', 'lab', 'model'], () => {
+    room(468, 78, 244, 120, 'Model host'); K.rackRow(480, 172, 15, { led: COL.cisco });
+    room(468, 208, 130, 144, 'Integration'); K.rackRow(478, 324, 7);
     room(606, 208, 106, 144, 'Lab system'); K.rackRow(618, 324, 6);
   });
 };

@@ -101,9 +101,9 @@ export default {
     { l: 'Floor plan, based on public descriptions of Memorial Hospital, the bridge and the pavilion site', a: 'Illustrative', b: 'Illustrative', tag: 'I' },
   ],
   scene: {
-    decor: 'msk_pavilion', // hosp (x 20 to 256), street (266 to 380), pav (390 to 720, y 56 to 246), plant (390 to 720, y 256 to 362)
+    decor: 'msk_pavilion', // hosp (x 20 to 236), street (246 to 390), pav (400 to 720, y 56 to 246), plant (400 to 720, y 256 to 362)
     pos: {
-      care: [196, 150], clin: [138, 320], bridge: [322, 150], suites: [604, 200], bms: [516, 318], trades: [648, 316],
+      care: [180, 150], clin: [128, 320], bridge: [318, 150], suites: [608, 200], bms: [520, 318], trades: [652, 316],
       topo: [110, 418], canvas: [280, 418], wf: [450, 418], appr: [620, 418],
     },
   },

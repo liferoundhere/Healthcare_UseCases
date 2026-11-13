@@ -95,14 +95,14 @@ export default {
     decor: 'vnurse',
     pos: {
       cam: [ 118, 140 ],
-      bedn: [ 290, 300 ],
-      closet: [ 100, 300 ],
+      bedn: [ 290, 312 ],
+      closet: [ 100, 312 ],
       edge: [ 440, 106 ],
-      vn: [ 440, 266 ],
+      vn: [ 440, 256 ],
       relay: [ 640, 152 ],
-      topo: [ 110, 418 ],
-      canvas: [ 280, 418 ],
-      appr: [ 450, 418 ],
+      canvas: [ 110, 418 ],
+      appr: [ 280, 418 ],
+      topo: [ 450, 418 ],
       te: [ 620, 418 ]
     }
   },

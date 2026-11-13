@@ -343,9 +343,9 @@ function layoutFor(S) {
       let cost = k * 3 + (Math.abs(r.x - sp[0]) + Math.abs(r.y - sp[1])) * 0.5;
       // a bubble that hides another device, or cuts a zone name in half, reads as an error: both cost more than a long leader line
       circ.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 40); });
-      placed.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 6); });
+      placed.forEach((q) => { cost += rOverlap(r, q, 4) * (q.id === co.node ? 20 : 40); });
       zones.forEach((q) => { cost += rOverlap(r, q, 3) * 40; });
-      if (S.mode === 'legacy' && !S.c.scene.noLegacyBand) cost += rOverlap(r, { x: CC_BAND[0], y: CC_BAND[1], w: CC_BAND[2], h: CC_BAND[3] }) * 20; // keep off the "one tool per team" band
+      if (S.mode === 'legacy' && !S.c.scene.noLegacyBand) cost += rOverlap(r, { x: CC_BAND[0], y: CC_BAND[1], w: CC_BAND[2], h: CC_BAND[3] }) * 2; // keep off the "one tool per team" band
       if (!callout || cost < callout.cost) callout = { x: r.x, y: r.y, w, h, lh, size, cost, U };
     });
   }

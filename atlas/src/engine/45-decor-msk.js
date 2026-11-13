@@ -82,36 +82,36 @@ const mskOutside = () => ({ fill: THEME === 'dark' ? '#0a1626' : '#f0f3f6' });
 /* M1: Memorial Hospital, the bridge over 67th Street and the Griffin Pavilion under commissioning. The pavilion
    is drawn south of the hospital (right of the street) as MSK describes it; rooms and equipment are illustrative. */
 DECOR.msk_pavilion = (S) => {
-  Z(S, 'hosp', 20, 56, 236, 306, ['care', 'clin'], () => {
-    room(30, 78, 216, 122, 'Inpatient unit'); K.window(54, 78, 120);
-    [[58, 150], [122, 150]].forEach((q) => { K.ecg(q[0] - 9, q[1] - 36, 18, 8); K.bed(q[0], q[1]); K.ivPole(q[0] + 19, q[1] - 4); });
-    curtainV(90, 112, 70); curtainV(154, 112, 70); F.door(246, 132, 36, true);
-    walker(S, [[176, 188], [60, 188]], { speed: 12, kind: 'nurse', loop: false });
-    room(30, 214, 216, 138, 'Server room'); K.rackRow(40, 236, 13); K.rackRow(40, 258, 13); K.aisle(40, 281, 193, 8, 'hot');
-    K.crac(40, 318, 0.7); K.ups(222, 320);
+  Z(S, 'hosp', 20, 56, 216, 306, ['care', 'clin'], () => {
+    room(30, 78, 196, 122, 'Inpatient unit'); K.window(50, 78, 110);
+    [[56, 150], [116, 150]].forEach((q) => { K.ecg(q[0] - 9, q[1] - 36, 18, 8); K.bed(q[0], q[1]); K.ivPole(q[0] + 19, q[1] - 4); });
+    curtainV(86, 112, 70); curtainV(146, 112, 70); F.door(226, 132, 36, true);
+    opt('nurse', () => person(62, 186, -Math.PI / 2, 'nurse', { s: 0.85 }));
+    room(30, 214, 196, 138, 'Server room'); K.rackRow(40, 236, 12); K.rackRow(40, 258, 12); K.aisle(40, 281, 178, 8, 'hot');
+    K.crac(40, 318, 0.7); K.ups(202, 320);
   });
-  Z(S, 'street', 266, 56, 114, 306, ['bridge'], () => {
-    K.road(294, 60, 58, 298); K.tree(280, 92, 8); K.tree(366, 230, 8); K.tree(280, 300, 9); K.tree(366, 336, 8);
-    opt('traffic', () => { mskCar(309, 70 + mod(S.t * 26, 280), Math.PI / 2, THEME === 'dark' ? '#3b5576' : '#ffffff'); mskCar(337, 350 - mod(S.t * 20 + 140, 280), -Math.PI / 2, THEME === 'dark' ? '#4d5f73' : '#e2e8ee'); });
+  Z(S, 'street', 246, 56, 144, 306, ['bridge'], () => {
+    K.road(290, 60, 56, 298); K.tree(262, 96, 8); K.tree(374, 230, 8); K.tree(262, 300, 9); K.tree(374, 336, 8);
+    opt('traffic', () => { mskCar(304, 70 + mod(S.t * 26, 280), Math.PI / 2, THEME === 'dark' ? '#3b5576' : '#ffffff'); mskCar(332, 350 - mod(S.t * 20 + 140, 280), -Math.PI / 2, THEME === 'dark' ? '#4d5f73' : '#e2e8ee'); });
   }, mskOutside());
-  Z(S, 'pav', 390, 56, 330, 190, ['suites'], () => {
-    room(398, 76, 92, 160, 'Inpatient'); D.line([[440, 156], [490, 156]], { lw: 1.8, color: T.wall });
-    [[466, 116], [466, 200]].forEach((q) => { K.bed(q[0], q[1], { patient: false }); K.chair(q[0] - 18, q[1] + 12, 0.4, tint(COL.people, 0.45)); });
-    D.line([[440, 92], [440, 236]], { lw: 1.4, color: tint(T.wall, 0.6) });
-    room(496, 76, 106, 160, 'OR suite'); room(608, 76, 104, 160, 'OR suite');
-    mskOrTable(549, 140); mskOrTable(660, 140);
-    opt('robot', () => { mskRobot(522, 162, 549, 140); K.desk(524, 214, 34, 12, { screens: 2, person: 'doc', chair: false }); });
-    opt('or-team', () => { person(574, 120, Math.PI, 'doc', { s: 0.85 }); person(684, 120, Math.PI, 'nurse', { s: 0.85 }); });
+  Z(S, 'pav', 400, 56, 320, 190, ['suites'], () => {
+    room(408, 76, 88, 160, 'Inpatient'); D.line([[448, 156], [496, 156]], { lw: 1.8, color: T.wall });
+    [[472, 116], [472, 200]].forEach((q) => { K.bed(q[0], q[1], { patient: false }); K.chair(q[0] - 18, q[1] + 12, 0.4, tint(COL.people, 0.45)); });
+    D.line([[448, 92], [448, 236]], { lw: 1.4, color: tint(T.wall, 0.6) });
+    room(502, 76, 104, 160, 'OR suite'); room(612, 76, 100, 160, 'OR suite');
+    mskOrTable(554, 140); mskOrTable(662, 140);
+    opt('robot', () => { mskRobot(528, 162, 554, 140); K.desk(528, 214, 34, 12, { screens: 2, person: 'doc', chair: false }); });
+    opt('or-team', () => { person(579, 120, Math.PI, 'doc', { s: 0.85 }); person(686, 120, Math.PI, 'nurse', { s: 0.85 }); });
   });
-  Z(S, 'plant', 390, 256, 330, 106, ['bms', 'trades'], () => {
-    room(398, 276, 162, 78, 'Mechanical room'); opt('air-handling', () => K.hvac(406, 302, 84, 40)); K.cableTray(406, 292, 146);
-    room(568, 276, 144, 78, 'Site office', 'carpet'); K.table(587, 330, 22, 18);
-    opt('contractors', () => { person(568, 330, 0, 'vendor', { s: 0.85 }); person(606, 330, Math.PI, 'it', { s: 0.85 }); });
+  Z(S, 'plant', 400, 256, 320, 106, ['bms', 'trades'], () => {
+    room(408, 276, 156, 78, 'Mechanical room'); opt('air-handling', () => K.hvac(416, 302, 84, 40)); K.cableTray(416, 292, 140);
+    room(572, 276, 140, 78, 'Site office', 'carpet'); K.table(598, 330, 22, 18);
+    opt('contractors', () => { person(580, 330, 0, 'vendor', { s: 0.85 }); person(616, 330, Math.PI, 'it', { s: 0.85 }); });
   });
   // the enclosed two-story patient bridge over 67th Street, drawn last so it spans the street
-  mskBridge(244, 132, 156, 36); F.door(398, 133, 34, true);
-  opt('bridge-traffic', () => { const bx = 262 + mod(S.t * 16, 120); K.bed(bx, 150, { rot: Math.PI / 2, s: 0.75 }); D.person(bx - 20, 150, 0, null, { kind: 'nurse', s: 0.75 }); });
-  tag('Patient bridge', 322, 182);
+  mskBridge(224, 132, 186, 36); F.door(408, 133, 34, true);
+  opt('bridge-traffic', () => { const bx = 244 + mod(S.t * 16, 146); K.bed(bx, 150, { rot: Math.PI / 2, s: 0.75 }); D.person(bx - 20, 150, 0, null, { kind: 'nurse', s: 0.75 }); });
+  tag('Patient bridge', 318, 182);
 };
 
 /* M2: a regional outpatient building with an infusion suite and pharmacy, the carrier circuits, and the data
@@ -121,7 +121,7 @@ DECOR.msk_infusion = (S) => {
     room(30, 78, 190, 166, 'Infusion suite'); K.window(60, 78, 130);
     [52, 96, 140, 184].forEach((x, k) => { mskRecliner(x, 124, 0, k !== 2); mskPump(x + 15, 118); if (k) curtainV(x - 22, 102, 42); });
     [[54, 222], [196, 222]].forEach((q) => { mskRecliner(q[0], q[1], Math.PI, true); mskPump(q[0] + 15, q[1] + 6); });
-    walker(S, [[70, 168], [190, 168]], { speed: 10, kind: 'nurse', loop: false });
+    opt('nurse', () => person(204, 166, Math.PI, 'nurse', { s: 0.85 }));
     room(228, 78, 92, 166, 'Pharmacy'); K.shelves(236, 100, 76, 22); mskHood(236, 196, 52, 36);
     opt('pharmacist', () => person(304, 214, Math.PI, 'nurse', { s: 0.85 })); K.cart(304, 138);
     room(30, 252, 190, 100, 'Waiting room', 'carpet'); K.sofa(40, 318, 64, 18); K.sofa(112, 318, 64, 18);
