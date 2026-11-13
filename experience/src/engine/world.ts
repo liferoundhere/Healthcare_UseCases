@@ -1,5 +1,5 @@
 import { C, K, SHOT, Stage, Pen, clamp, damp, rgba, type V3 } from "./iso";
-import { Campus, RS } from "./rooms";
+import { Campus, G, RS } from "./rooms";
 import { Platform, DECK, DECK_R, type PlatformView } from "./platform";
 import { badge, drawTile, type TileStyle } from "./pin";
 import type { Aud, LinkDef, NodeDef, SceneDef, St } from "../story/types";
@@ -10,6 +10,8 @@ export interface View {
   platform: Partial<PlatformView>; cam: "wide" | "campus" | "platform" | "stack" | "auto" | "hero"; zones: string[]; seed: number; withPlatform?: boolean;
   /** No story on stage: rooms stay fully lit. */
   ambient?: boolean;
+  /** Hide the outside-world island (home page, where the headline sits there). */
+  hideSky?: boolean;
 }
 
 interface NodeRT { def: NodeDef; zone: string; pos: V3; el: HTMLElement; state: St; vis: number; tVis: number; foc: number; tFoc: number; bump: number; override: string; callout: string; sx: number; sy: number; tx: number; ty: number; size: number; hover: number }
@@ -74,7 +76,7 @@ export class World {
       const s = v.ls.get(l.def.id) ?? "idle", A = this.nodes.get(l.def.a)!, B = this.nodes.get(l.def.b)!;
       l.state = s; l.tA = s !== "off" && A.tVis > 0 && B.tVis > 0 ? 1 : 0; l.tFoc = A.tFoc > 0 || B.tFoc > 0 ? 1 : 0.22;
     }
-    this.campus.tMood = v.phase === "cisco" ? 1 : 0;
+    this.campus.tMood = v.phase === "cisco" ? 1 : 0; this.campus.tSky = v.hideSky ? 0 : 1;
     this.platform.set(v.platform);
     const zones = new Set<string>(v.zones);
     for (const n of this.nodes.values()) if (n.tVis > 0 && n.tFoc > 0 && n.zone !== "deck") zones.add(n.zone);
@@ -88,9 +90,9 @@ export class World {
     const all = () => { for (const id of C2.zones.keys()) pts.push(...C2.corners(id)); };
     const main = ["plant", "dc", "imaging", "pharmlab", "net", "ward", "office", "ed"];
     let pad: [number, number, number, number] = [40, 50, 30, 50], maxS = 30;
-    if (v.cam === "hero") { for (const id of [...main, "clinic", "home"]) pts.push(...C2.corners(id)); pts.push([29, 0, 29], ...P.points(true)); pad = [70, 40, 10, 40]; }
-    else if (v.cam === "wide") { all(); pts.push([29, 0, 29]); if (P.view.mode === "ring") pts.push(...P.points(P.view.fabric)); else if (P.view.mode === "scattered") pts.push(...P.scatterPoints()); pad = [70, 70, 20, 70]; }
-    else if (v.cam === "campus") { for (const id of main) pts.push(...C2.corners(id)); pts.push([29, 0, 29]); }
+    if (v.cam === "hero") { for (const id of [...main, "clinic", "home"]) pts.push(...C2.corners(id)); pts.push([2 * G + RS, 0, 2 * G + RS], ...P.points(true)); pad = [70, 40, 10, 40]; }
+    else if (v.cam === "wide") { all(); pts.push([2 * G + RS, 0, 2 * G + RS]); if (P.view.mode === "ring") pts.push(...P.points(P.view.fabric)); else if (P.view.mode === "scattered") pts.push(...P.scatterPoints()); pad = [70, 70, 20, 70]; }
+    else if (v.cam === "campus") { for (const id of main) pts.push(...C2.corners(id)); pts.push([2 * G + RS, 0, 2 * G + RS]); }
     else if (v.cam === "platform") { pts.push(...P.points(P.view.fabric)); if (P.view.ghosts) pts.push([DECK[0], DECK[1] + 6.5, DECK[2]]); pad = [90, 250, 36, 240]; maxS = 36; }
     else if (v.cam === "stack") { pts.push(...P.points(true)); for (const id of ["plant", "dc", "imaging", "net", "pharmlab"]) pts.push(...C2.corners(id)); pad = [60, 130, 20, 130]; }
     else {
@@ -144,7 +146,7 @@ export class World {
   private bg(pen: Pen) {
     const c = pen.c, st = this.stage, w = st.w, h = st.h, m = this.campus.mood;
     c.fillStyle = "#050810"; c.fillRect(0, 0, w, h);
-    const [cx, cy] = pen.P(14.5, 4, 14.5);
+    const [cx, cy] = pen.P(G + 4.5, 4, G + 4.5);
     const g = c.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.78);
     g.addColorStop(0, `rgb(${Math.round(20 - m * 6)},${Math.round(36 + m * 12)},${Math.round(74 + m * 22)})`); g.addColorStop(0.45, "#0a1226"); g.addColorStop(1, "#04070e");
     c.fillStyle = g; c.fillRect(0, 0, w, h);
@@ -152,7 +154,7 @@ export class World {
     const step = 5; c.fillStyle = "#8fb0ea";
     for (let i = -14; i <= 22; i++) for (let j = -14; j <= 22; j++) {
       const [x, y] = pen.P(i * step, -1.45, j * step); if (x < -4 || y < -4 || x > w + 4 || y > h + 4) continue;
-      const d = Math.hypot(i * step - 14, j * step - 14); const a = clamp(0.5 - d / 150, 0, 0.5); if (a <= 0.01) continue;
+      const d = Math.hypot(i * step - 16, j * step - 16); const a = clamp(0.5 - d / 150, 0, 0.5); if (a <= 0.01) continue;
       c.globalAlpha = a; c.beginPath(); c.arc(x, y, Math.max(0.8, pen.s * 0.045), 0, 7); c.fill();
     }
     c.globalAlpha = 1;

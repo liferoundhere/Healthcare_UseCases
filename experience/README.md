@@ -39,6 +39,7 @@ Every story runs the same way: amber **Today** beats, then blue **With Cisco Clo
 | S | Sources |
 | P / C | Platform explorer / Combination builder |
 | H | Hide the interface (clean stage for a screenshot or a pause) |
+| ? | Controls and how to read the picture |
 | F | Full screen |
 | Esc | Close a panel, or go home |
 
@@ -68,7 +69,7 @@ npm run build
 npm run check
 ```
 
-`npm run check` opens the build in headless Chromium and walks all 110 story beats at three screen sizes. It fails on a console error, a node without a place, a catalog id that does not exist, a caption that overlaps the rail or the side column, a label off screen, overlapping labels, or an approval that does not advance.
+`npm run check` opens the build in headless Chromium and walks all 110 story beats at three screen sizes. It fails on a console error, a node without a place, a catalog id that does not exist, a caption that overlaps the rail or the side column, a label off screen, overlapping labels, or an approval that does not advance. It also hovers a dimmed pin, clicks a pin, a platform block and a room, and zooms with the wheel.
 
 ```bash
 node tools/shoot.cjs "#/s/security/6" "#/platform/fabric"

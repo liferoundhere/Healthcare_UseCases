@@ -5,19 +5,22 @@ import { C, Pen, rgba, tone, mul, type V3 } from "./iso";
  * a clinic and a home off campus, and the outside world. Every room is 9 x 9 units with two back walls.
  */
 export interface ZoneSpec { id: string; label: string; x: number; z: number; y?: number; kind: "campus" | "remote" | "sky" }
-export const RS = 9, WALL = 2.3;
+export const RS = 9, WALL = 2.15;
+/** Distance between room origins: a 9-unit room plus a lane wide enough that a front room never hides the one behind. */
+export const G = 11.6;
+const E = 2 * G + RS; // far edge of the campus
 export const ZONES: ZoneSpec[] = [
   { id: "plant", label: "Central plant", x: 0, z: 0, kind: "campus" },
-  { id: "dc", label: "Data center", x: 10, z: 0, kind: "campus" },
-  { id: "imaging", label: "Imaging", x: 0, z: 10, kind: "campus" },
-  { id: "pharmlab", label: "Pharmacy & lab", x: 20, z: 0, kind: "campus" },
-  { id: "net", label: "Network core", x: 10, z: 10, kind: "campus" },
-  { id: "ward", label: "Patient floor · 4 West", x: 0, z: 20, kind: "campus" },
-  { id: "office", label: "IT, security & admin", x: 20, z: 10, kind: "campus" },
-  { id: "ed", label: "Emergency department", x: 10, z: 20, kind: "campus" },
-  { id: "clinic", label: "Clinic · 40 miles out", x: 33, z: -17, kind: "remote" },
-  { id: "home", label: "Patient's home", x: 33, z: -6, kind: "remote" },
-  { id: "outside", label: "Internet & vendors", x: -17, z: 33, y: 2.6, kind: "sky" },
+  { id: "dc", label: "Data center", x: G, z: 0, kind: "campus" },
+  { id: "imaging", label: "Imaging", x: 0, z: G, kind: "campus" },
+  { id: "pharmlab", label: "Pharmacy & lab", x: 2 * G, z: 0, kind: "campus" },
+  { id: "net", label: "Network core", x: G, z: G, kind: "campus" },
+  { id: "ward", label: "Patient floor · 4 West", x: 0, z: 2 * G, kind: "campus" },
+  { id: "office", label: "IT, security & admin", x: 2 * G, z: G, kind: "campus" },
+  { id: "ed", label: "Emergency department", x: G, z: 2 * G, kind: "campus" },
+  { id: "clinic", label: "Clinic · 40 miles out", x: E + 4.6, z: -18, kind: "remote" },
+  { id: "home", label: "Patient's home", x: E + 4.6, z: -6.4, kind: "remote" },
+  { id: "outside", label: "Internet & vendors", x: -17, z: E + 4, y: 2.6, kind: "sky" },
 ];
 
 type Q = (key: number, fn: () => void) => void;
@@ -350,7 +353,7 @@ export interface Zone extends ZoneSpec { y: number; act: number; tAct: number; h
 
 export class Campus {
   zones = new Map<string, Zone>();
-  mood = 0; tMood = 0; quiet = 0;
+  mood = 0; tMood = 0; quiet = 0; sky = 1; tSky = 1;
   hoverId = "";
   constructor() {
     for (const z of ZONES) this.zones.set(z.id, { ...z, y: z.y ?? 0, act: 0, tAct: 0, hover: 0, bakeS: 0, order: z.x + z.z });
@@ -384,13 +387,12 @@ export class Campus {
       pen.poly([[x, -0.42, z], [x + w, -0.42, z], [x + w, -0.42, z + d], [x, -0.42, z + d]], null, "rgba(120,160,235,0.3)", Math.max(1, pen.s * 0.03));
     };
     const glow = `rgba(${Math.round(20 + this.mood * -10)},${Math.round(70 + this.mood * 60)},${Math.round(150 + this.mood * 60)},${0.3 + this.mood * 0.12})`;
-    slab(-1.2, -1.2, 31.4, 31.4, glow);
-    slab(31.8, -18.2, 11.4, 22.4, glow);
+    slab(-1.3, -1.3, E + 2.6, E + 2.6, glow);
+    slab(E + 3.3, -19.3, 11.6, 23.4, glow);
     // lanes: fibre from the network core to every room, lit when Cloud Control is on
-    const core: V3 = [14.5, -0.4, 14.5];
-    const lanes: V3[][] = [[[14.5, -0.4, 9.5], [14.5, -0.4, 4.5]], [[9.5, -0.4, 14.5], [4.5, -0.4, 14.5]], [[19.5, -0.4, 14.5], [24.5, -0.4, 14.5]], [[14.5, -0.4, 19.5], [14.5, -0.4, 24.5]],
-      [[9.5, -0.4, 9.5], [4.5, -0.4, 4.5]], [[19.5, -0.4, 9.5], [24.5, -0.4, 4.5]], [[9.5, -0.4, 19.5], [4.5, -0.4, 24.5]], [[19.5, -0.4, 19.5], [24.5, -0.4, 24.5]]];
-    void core;
+    const m = G + RS / 2, n0 = RS / 2, n2 = 2 * G + RS / 2, e0 = G - 0.4, e1 = G + RS + 0.4;
+    const lanes: V3[][] = [[[m, -0.4, e0], [m, -0.4, n0 + 4.5]], [[e0, -0.4, m], [n0 + 4.5, -0.4, m]], [[e1, -0.4, m], [n2 - 4.5, -0.4, m]], [[m, -0.4, e1], [m, -0.4, n2 - 4.5]],
+      [[e0, -0.4, e0], [RS + 0.2, -0.4, RS + 0.2]], [[e1, -0.4, e0], [2 * G - 0.2, -0.4, RS + 0.2]], [[e0, -0.4, e1], [RS + 0.2, -0.4, 2 * G - 0.2]], [[e1, -0.4, e1], [2 * G - 0.2, -0.4, 2 * G - 0.2]]];
     for (const [i, l] of lanes.entries()) {
       pen.line(l, `rgba(${this.mood > 0.5 ? "0,188,235" : "120,150,210"},${0.16 + this.mood * 0.3})`, Math.max(1, pen.s * 0.05));
       const f = (t * 0.35 + i * 0.13) % 1, a = l[0], b = l[1];
@@ -398,8 +400,8 @@ export class Campus {
       c.beginPath(); c.arc(x, y, Math.max(1.2, pen.s * 0.07), 0, 7); c.fillStyle = `rgba(${this.mood > 0.5 ? "140,230,255" : "190,205,240"},${0.5 + this.mood * 0.4})`; c.fill();
     }
     // the road to remote care
-    pen.line([[30.2, -1.2, 9], [31.8, -1.2, 5]], "rgba(120,150,210,0.4)", Math.max(1, pen.s * 0.05), [pen.s * 0.3, pen.s * 0.3]);
-    this.plaza(pen.at(20, 20, -0.42), t);
+    pen.line([[E + 1.3, -1.2, 8], [E + 3.3, -1.2, 3]], "rgba(120,150,210,0.4)", Math.max(1, pen.s * 0.05), [pen.s * 0.3, pen.s * 0.3]);
+    this.plaza(pen.at(2 * G, 2 * G, -0.42), t);
   }
 
   private plaza(r: Pen, t: number) {
@@ -431,7 +433,7 @@ export class Campus {
     for (const z of this.list()) {
       const live = z.kind === "sky";
       const [ox, oy] = pen.P(z.x, z.y, z.z);
-      if (live) { outside(pen.at(z.x, z.z, z.y), t); }
+      if (live) { if (this.sky < 0.02) continue; c.globalAlpha = this.sky; outside(pen.at(z.x, z.z, z.y), t); c.globalAlpha = 1; }
       else {
         const want = pen.s * dpr;
         if (!z.bake || (settled && !baked && Math.abs(Math.log(want / z.bakeS)) > 0.04)) { this.bake(z, want); baked = true; }
@@ -454,8 +456,8 @@ export class Campus {
       }
       // floor label, painted along the front edge
       const la = z.kind === "sky" ? 0.5 + z.act * 0.5 : 0.42 + Math.max(z.act, z.hover) * 0.58;
-      if (z.kind === "sky") pen.gtext(z.label.toUpperCase(), z.x + 1.0, z.z + 10.4, 0.52, `rgba(190,225,255,${la})`, { y: z.y, weight: 700 });
-      else pen.gtext(z.label.toUpperCase(), z.x + 0.1, z.z + RS + 0.5, 0.44, `rgba(${z.act > 0.5 ? (this.mood > 0.5 ? "150,230,255" : "255,214,160") : "150,170,210"},${la})`, { y: z.y - 0.42, weight: 700 });
+      if (z.kind === "sky") { if (this.sky > 0.5) pen.gtext(z.label.toUpperCase(), z.x + 1.0, z.z + 10.4, 0.52, `rgba(190,225,255,${la})`, { y: z.y, weight: 700 }); }
+      else pen.gtext(z.label.toUpperCase(), z.x + 0.15, z.z + RS + 0.95, 0.5, `rgba(${z.act > 0.5 ? (this.mood > 0.5 ? "150,230,255" : "255,214,160") : "150,170,210"},${la})`, { y: z.y - 0.42, weight: 700 });
     }
   }
 
@@ -488,7 +490,7 @@ export class Campus {
   }
 
   update(dt: number, k: number) {
-    this.mood += (this.tMood - this.mood) * (1 - Math.exp(-2.4 * k * dt));
+    this.mood += (this.tMood - this.mood) * (1 - Math.exp(-2.4 * k * dt)); this.sky += (this.tSky - this.sky) * (1 - Math.exp(-5 * k * dt));
     for (const z of this.zones.values()) { z.act += (z.tAct - z.act) * (1 - Math.exp(-5 * k * dt)); z.hover += ((this.hoverId === z.id ? 1 : 0) - z.hover) * (1 - Math.exp(-10 * k * dt)); }
   }
 }

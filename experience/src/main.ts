@@ -23,6 +23,7 @@ app.innerHTML = `
     <div class="seg" id="aud"></div>
     <button class="btn" id="notesBtn">Presenter notes <kbd>N</kbd></button>
     <button class="btn" id="srcBtn">Sources <kbd>S</kbd></button>
+    <button class="btn" id="helpBtn" title="Controls (?)">?</button>
     <button class="btn" id="fsBtn" title="Full screen (F)">&#x26F6;</button>
   </header>
   <div class="phase ui hidden" id="phase"></div>
@@ -35,6 +36,7 @@ app.innerHTML = `
   <section class="detail ui hidden" id="detail"></section>
   <section class="panel right ui hidden" id="panelR"></section>
   <aside class="sheet" id="sheet"></aside>
+  <div class="sweep" id="sweep"></div>
   <div class="toast" id="toast"></div>`;
 
 const stage = new Stage($("#stage"));
@@ -52,7 +54,8 @@ const S = {
   sub: "ring" as "today" | "ring" | "fabric" | "future",
   sel: "" as string,
   pick: new Set<string>(["ehr"]),
-  sheet: "" as "" | "notes" | "sources",
+  sheet: "" as "" | "notes" | "sources" | "help",
+  lastPhase: "" as string,
 };
 
 // ---------------------------------------------------------------- helpers
@@ -83,7 +86,7 @@ function setMode(m: Mode) {
 // ---------------------------------------------------------------- home
 function goHome() {
   setMode("home"); S.scene = undefined; world.clear();
-  world.apply(blank({ mode: "ring", fabric: true, cards: true, partners: true, ghosts: false, labels: "none", lit: new Set() }, "hero"), true);
+  world.apply({ ...blank({ mode: "ring", fabric: true, cards: true, partners: true, ghosts: false, labels: "none", lit: new Set() }, "hero"), hideSky: true }, SHOT);
   $("#crumb").innerHTML = "";
   const grp = (g: string) => ALL.filter((s) => s.group === g);
   const card = (s: SceneDef) => `<button class="sc" data-s="${s.id}"><small>${code(s)}</small><b>${esc(STAGING[s.id].short)}</b></button>`;
@@ -120,13 +123,16 @@ function openStory(id: string, step = 0) {
   setMode("story"); S.scene = sc; S.step = Math.max(0, Math.min(sc.steps.length - 1, step)); S.approved.clear();
   world.load(sc, STAGING[sc.id].place); world.setAud(S.aud);
   $("#crumb").innerHTML = `${code(sc)} &nbsp;&middot;&nbsp; <b>${esc(STAGING[sc.id].short)}</b>`;
-  paintStory(true);
+  S.lastPhase = sc.steps[S.step].phase;
+  paintStory(SHOT);
 }
 
 function paintStory(snap: boolean) {
   const sc = S.scene!; const st = sc.steps[S.step]; const sg = STAGING[sc.id];
   world.apply(computeView(sc, sg, S.step), snap || SHOT);
   const n = sc.steps.length;
+  // The moment the story turns: a sweep of light when Cloud Control comes on.
+  if (st.phase !== S.lastPhase) { const sw = $("#sweep"); sw.className = "sweep"; void sw.offsetWidth; sw.className = `sweep go ${st.phase}`; S.lastPhase = st.phase; }
   const ph = $("#phase"); ph.className = `phase ui ${st.phase}`;
   ph.innerHTML = st.phase === "today" ? `<i></i>Today <small>any infrastructure</small>` : `<i></i>With Cisco Cloud Control <small>modeled</small>`;
   $("#lower").innerHTML = `<div class="swap"><div class="eyebrow"><span class="num">${String(S.step + 1).padStart(2, "0")} / ${String(n).padStart(2, "0")}</span><span>${esc(sc.title)}</span></div><h2>${esc(st.title)}</h2><p>${esc(st.say[S.aud])}</p></div>`;
@@ -142,6 +148,7 @@ function paintStory(snap: boolean) {
   $("#side").innerHTML = side;
   // rail
   const segs = sc.steps.map((x, i) => `${i > 0 && x.phase !== sc.steps[i - 1].phase ? '<span class="gap">&rsaquo;</span>' : ""}<button class="s ${x.phase} ${i < S.step ? "done" : i === S.step ? "cur" : ""}" data-i="${i}" title="${esc(x.title)}"></button>`).join("");
+  $("#rail").classList.toggle("playing", S.playing);
   $("#rail").innerHTML = `<button class="navb" data-nav="-1" title="Previous (left arrow)">&lsaquo;</button><button class="navb play ${S.playing ? "on" : ""}" data-nav="play" title="Autoplay (Space)">${S.playing ? "&#10073;&#10073;" : "&#9654;"}</button><div class="segs">${segs}</div><span class="hint">${last ? `Next: ${esc(STAGING[nextScene().id].short)}` : esc(sc.steps[S.step + 1].title)}</span><button class="navb" data-nav="1" title="Next (right arrow)">&rsaquo;</button>`;
   paintModal(st); paintClock(st);
   if (S.sheet) paintSheet();
@@ -306,7 +313,10 @@ function openSheet(k: typeof S.sheet) { S.sheet = S.sheet === k ? "" : k; paintS
 function paintSheet() {
   const el = $("#sheet"); el.classList.toggle("show", !!S.sheet); if (!S.sheet) return;
   const x = `<button class="btn x" id="xBtn">Close <kbd>Esc</kbd></button>`;
-  if (S.sheet === "sources") {
+  if (S.sheet === "help") {
+    const rows: [string, string][] = [["Right / Left", "Next or previous beat. Right also approves a waiting approval."], ["Down / Up", "Next or previous story."], ["1 2 3", "Audience: Executive, IT director, Engineering."], ["Space", "Autoplay. Pauses at approvals."], ["N", "Presenter notes for the current beat."], ["S", "Sources."], ["P / C", "Platform explorer / Combination builder."], ["H", "Hide the interface."], ["F", "Full screen."], ["Esc", "Close a panel, or go home."], ["Mouse", "Drag to pan, wheel to zoom, double-click to reset. Click a room to zoom in. Click a pin or a platform block for detail."]];
+    el.innerHTML = `${x}<h3>Controls</h3><dl class="aud">${rows.map(([k, v]) => `<dt><code>${k}</code></dt><dd>${v}</dd>`).join("")}</dl><h5>Reading the picture</h5><ul><li><b>Amber</b> beats are today, on any infrastructure. <b>Blue</b> beats are with Cisco Cloud Control, and are modeled.</li><li>White tiles are hospital systems. Blue glass tiles are Cisco Cloud Control capabilities.</li><li>Green is healthy, amber needs attention, red is down, grey with a question mark is unknown, pulsing blue is waiting for a person.</li><li>Lit rooms are in the story. The others recede.</li></ul>`;
+  } else if (S.sheet === "sources") {
     el.innerHTML = `${x}<h3>Sources</h3><p>Every number on screen carries a short source tag. The full numbered bibliography is in <code>sources.md</code>; nine research briefs with status tags and gap lists are in <code>research/</code>. ${SOURCES.length} platform and evidence sources are listed here.</p><p>A press report (Network World, 10 Nov 2026) says Australia, the EU and the UK are scheduled for February 2027. Cisco documentation still says United States only, so this explainer does too.</p>
       ${[...new Set(SOURCES.map((x) => x.group))].map((g) => `<h5>${esc(g)}</h5><ul class="src">${SOURCES.filter((x) => x.group === g).map((x) => `<li><b>[${x.id}]</b> ${esc(x.title)}${x.url ? ` <a href="${x.url}" target="_blank" rel="noopener">link</a>` : ""}</li>`).join("")}</ul>`).join("")}
       <h5>Healthcare customer evidence (vendor-reported)</h5><ul>${PROOF.map((p) => `<li><b>${esc(p.customer)}</b>: ${esc(p.outcome)} <a href="${p.url}" target="_blank" rel="noopener">link</a></li>`).join("")}</ul>
@@ -329,6 +339,7 @@ function paintSheet() {
 }
 $("#notesBtn").onclick = () => openSheet("notes");
 $("#srcBtn").onclick = () => openSheet("sources");
+$("#helpBtn").onclick = () => openSheet("help");
 $("#fsBtn").onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.());
 
 // ---------------------------------------------------------------- keys and routing
@@ -346,6 +357,7 @@ addEventListener("keydown", (e) => {
   else if (k === "n" || k === "N") { if (S.mode === "story") openSheet("notes"); }
   else if (k === "s" || k === "S") openSheet("sources");
   else if (k === "h" || k === "H") document.body.classList.toggle("clean");
+  else if (k === "?" || k === "/") openSheet("help");
   else if (k === "f" || k === "F") $("#fsBtn").click();
   else if (k === "p" || k === "P") openPlatform();
   else if (k === "c" || k === "C") openCompose();

@@ -14,7 +14,7 @@ const fs = require("fs");
   p.on("pageerror", (e) => console.log("[pageerror]", e.message));
   for (const r of routes) {
     const [hash, extra = ""] = r.split("?");
-    await p.goto(`${file}?shot=1${extra ? "&" + extra : ""}${hash}`);
+    await p.goto(`${file}?${process.env.LIVE ? "live=1" : "shot=1"}${extra ? "&" + extra : ""}${hash}`);
     await p.waitForTimeout(+(process.env.WAIT || 1800));
     const name = (hash.replace(/[#/]+/g, "_").replace(/^_/, "") || "home") + (extra ? "_" + extra.replace(/\W+/g, "") : "");
     await p.screenshot({ path: path.join(out, name + ".png") });

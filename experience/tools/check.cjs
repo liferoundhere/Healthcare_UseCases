@@ -55,8 +55,29 @@ const path = require("path"), fs = require("fs");
     await p.evaluate(() => window.__app.openStory("security", 5)); await p.waitForTimeout(150);
     await p.keyboard.press("ArrowRight"); await p.waitForTimeout(1500);
     const stepAfter = await p.evaluate(() => window.__app.S.step); if (stepAfter !== 6) problems.push(`[${w}x${h}] approval did not advance (step ${stepAfter})`);
+    // interactions: hover a dimmed pin, click a pin, click a platform block, click a room
+    if (w === 1600) {
+      await p.evaluate(() => window.__app.openStory("security", 2)); await p.waitForTimeout(250);
+      const pin = await p.evaluate(() => { const n = [...window.__app.world.nodes.values()].find((x) => x.def.id === "lib"); return { x: n.tx, y: n.ty, shown: n.el.classList.contains("show") }; });
+      if (pin.shown) problems.push("interaction: expected the drug library pin to start dimmed");
+      await p.mouse.move(pin.x, pin.y); await p.waitForTimeout(250);
+      if (!(await p.evaluate(() => [...window.__app.world.nodes.values()].find((x) => x.def.id === "lib").el.classList.contains("show")))) problems.push("interaction: hovering a dimmed pin did not reveal its label");
+      await p.mouse.click(pin.x, pin.y); await p.waitForTimeout(200);
+      if (await p.evaluate(() => document.querySelector("#detail").classList.contains("hidden"))) problems.push("interaction: clicking a pin did not open its detail card");
+      await p.evaluate(() => window.__app.openPlatform("ring")); await p.waitForTimeout(300);
+      const chip = await p.evaluate(() => { const r = window.__app.world.platform.items.get("te"); return { x: r.sx, y: r.sy }; });
+      await p.mouse.click(chip.x, chip.y); await p.waitForTimeout(250);
+      if ((await p.evaluate(() => window.__app.S.sel)) !== "te") problems.push("interaction: clicking the ThousandEyes tile did not select it");
+      if (await p.evaluate(() => document.querySelector("#detail").classList.contains("hidden"))) problems.push("interaction: platform detail card did not open");
+      await p.evaluate(() => window.__app.openStory("opening", 0)); await p.waitForTimeout(250);
+      const s0 = await p.evaluate(() => window.__app.stage.tcam.s);
+      const room = await p.evaluate(() => window.__app.stage.toScreen(5, 0, 28)); await p.mouse.click(room[0], room[1]); await p.waitForTimeout(250);
+      const s1 = await p.evaluate(() => window.__app.stage.tcam.s); if (!(s1 > s0 * 1.3)) problems.push(`interaction: clicking a room did not zoom in (${s0.toFixed(1)} -> ${s1.toFixed(1)})`);
+      await p.mouse.move(800, 300); await p.mouse.wheel(0, -400); await p.waitForTimeout(100);
+      if (!((await p.evaluate(() => window.__app.stage.user.zoom)) > 1.2)) problems.push("interaction: wheel did not zoom");
+    }
     for (const fn of ["openPlatform", "openCompose", "goHome"]) { await p.evaluate((f) => window.__app[f](), fn); await p.waitForTimeout(200); }
-    for (const k of ["s", "Escape", "c", "p", "Escape"]) { await p.keyboard.press(k); await p.waitForTimeout(120); }
+    for (const k of ["s", "Escape", "?", "Escape", "c", "p", "Escape"]) { await p.keyboard.press(k); await p.waitForTimeout(120); }
     await p.close();
   }
   await b.close();
